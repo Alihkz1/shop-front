@@ -1,4 +1,10 @@
 @import url('../src/app/shared/color/colors.scss');
+@import url('../src/app/shared/fonts/fontiran.css');
+
+* {
+    font-family: "IRANSans", "arial", sans-serif;
+}
+
 
 ::-webkit-scrollbar {
     width: 5px;
