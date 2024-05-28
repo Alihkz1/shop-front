@@ -1,0 +1,14 @@
+.wrapper {
+    height: 100%;
+    overflow: hidden auto;
+    padding: 0 5px;
+}
+
+.cmt {
+    @media (max-width: 767px) {
+        margin-top: 12px;
+    }
+    @media (min-width: 767px) {
+        margin-top: 24px;
+    }
+}
