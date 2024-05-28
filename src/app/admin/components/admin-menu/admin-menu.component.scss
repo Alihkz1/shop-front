@@ -1,0 +1,14 @@
+.box {
+    height: calc(100vh - 140px);
+}
+
+.menu {
+    height: 100%;
+
+    &-item {
+        font-size: 12px;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}

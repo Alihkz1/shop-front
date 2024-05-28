@@ -5,7 +5,12 @@ import { AdminRoutingModule } from './admin.routing.module';
 import { AdminMenuComponent } from './components/admin-menu/admin-menu.component';
 import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
 import { HeaderComponent } from '../shared/component/header/header.component';
+import { TranslateModule } from "@ngx-translate/core";
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
+const NZ = [
+  NzButtonModule
+]
 
 
 @NgModule({
@@ -13,7 +18,9 @@ import { HeaderComponent } from '../shared/component/header/header.component';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    HeaderComponent
+    HeaderComponent,
+    TranslateModule,
+    ...NZ
   ]
 })
 export class AdminModule { }

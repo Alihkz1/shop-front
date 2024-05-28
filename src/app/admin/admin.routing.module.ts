@@ -3,6 +3,8 @@ import { AdminRoutingComponent } from "./components/admin-routing/admin-routing.
 import { NgModule } from "@angular/core";
 import { AdminMenuComponent } from "./components/admin-menu/admin-menu.component";
 import { AdminProfileComponent } from "./components/admin-profile/admin-profile.component";
+import { AddProductComponent } from "./components/admin-menu/add-product/add-product.component";
+import { UsersListComponent } from "./components/admin-menu/users-list/users-list.component";
 
 export const routes: Routes = [
     {
@@ -11,7 +13,17 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                component: AdminMenuComponent
+                component: AdminMenuComponent,
+                children: [
+                    {
+                        path: 'add-product',
+                        component: AddProductComponent
+                    },
+                    {
+                        path: 'users-list',
+                        component: UsersListComponent
+                    }
+                ]
             },
             {
                 path: 'profile',

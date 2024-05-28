@@ -13,5 +13,7 @@
   "alreadyHaveAccount": "Already Have Acoount?",
   "email": "Email",
   "enterName": "Enter Your FullName",
-  "phone": "Phone Number"
+  "phone": "Phone Number",
+  "addProduct": "Add New Product",
+  "usersList": "Users List"
 }
