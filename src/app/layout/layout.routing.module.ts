@@ -8,6 +8,11 @@ export const routes: Routes = [
         component: LayoutComponent,
         children: [
             {
+                path: 'menu',
+                loadChildren: () =>
+                    import('../menu/menu.module').then((m) => m.MenuModule)
+            },
+            {
                 path: 'auth',
                 loadChildren: () =>
                     import('../auth/auth.module').then((m) => m.AuthModule)
