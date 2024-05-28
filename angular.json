@@ -31,8 +31,17 @@
             ],
             "styles": [
               "src/styles.scss",
-              "./node_modules/ngx-toastr/toastr.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              {
+                "input": "src/assets/directionBased/bootstrap-ltr-loader.scss",
+                "bundleName": "bootstrap-ltr-loader",
+                "inject": false
+              },
+              {
+                "input": "src/assets/directionBased/bootstrap-rtl-loader.scss",
+                "bundleName": "bootstrap-rtl-loader",
+                "inject": false
+              }
             ],
             "scripts": []
           },
