@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { DirectionService } from './shared/service/direction.service';
+import { DIRECTION } from './shared/enum/direction.enum';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +10,8 @@ import { RouterModule } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent { }
+export class AppComponent {
+  constructor(direction: DirectionService) {
+    direction.setDirection(DIRECTION.RTL);
+  }
+}
