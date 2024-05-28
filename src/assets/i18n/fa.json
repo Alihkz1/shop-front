@@ -9,5 +9,9 @@
   "register": "ثبت نام",
   "username": "نام کاربری",
   "password": "رمز عبور",
-  "getIn": "ورود"
+  "getIn": "ورود",
+  "alreadyHaveAccount": "آیا حساب کاربری دارید؟",
+  "email": "پست الکترونیک",
+  "enterName": "نام خود را وارد کنید",
+  "phone": "تلفن همراه"
 }

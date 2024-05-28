@@ -9,5 +9,9 @@
   "register": "Register",
   "username": "Username",
   "password": "Password",
-  "getIn": "ُLogin"
+  "getIn": "ُLogin",
+  "alreadyHaveAccount": "Already Have Acoount?",
+  "email": "Email",
+  "enterName": "Enter Your FullName",
+  "phone": "Phone Number"
 }
