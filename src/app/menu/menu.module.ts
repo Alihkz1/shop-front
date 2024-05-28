@@ -7,7 +7,14 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { ProductsComponent } from './components/products/products.component';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { TranslateModule } from "@ngx-translate/core";
 
+const NZ = [
+  NzInputModule,
+  NzButtonModule
+]
 
 
 @NgModule({
@@ -21,7 +28,9 @@ import { ProductsComponent } from './components/products/products.component';
   imports: [
     CommonModule,
     HeaderComponent,
-    MenuRoutingModule
+    MenuRoutingModule,
+    TranslateModule,
+    ...NZ
   ]
 })
 export class MenuModule { }

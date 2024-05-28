@@ -1,5 +1,7 @@
 {
   "dir": "rtl",
   "loginButton": "ثبت نام | ورود",
-  "aboutUs": "درباره ما"
+  "aboutUs": "درباره ما",
+  "submit": "ثبت",
+  "yourMessage": "پیام خود را برای ما بنویسید"
 }

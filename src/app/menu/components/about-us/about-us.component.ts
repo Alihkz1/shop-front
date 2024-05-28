@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './about-us.component.scss'
 })
 export class AboutUsComponent {
-
+  submitLoading = false;
 }

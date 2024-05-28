@@ -1,5 +1,7 @@
 {
   "dir": "ltr",
   "loginButton": "Login | Register",
-  "aboutUs": "About Us"
+  "aboutUs": "About Us",
+  "submit": "Submit",
+  "yourMessage": "Enter Your Message For Us"
 }
