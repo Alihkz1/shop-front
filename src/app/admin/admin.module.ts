@@ -7,19 +7,26 @@ import { AdminProfileComponent } from './components/admin-profile/admin-profile.
 import { HeaderComponent } from '../shared/component/header/header.component';
 import { TranslateModule } from "@ngx-translate/core";
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AddProductComponent } from './components/admin-menu/add-product/add-product.component';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 const NZ = [
-  NzButtonModule
+  NzButtonModule,
+  NzSelectModule,
+  NzInputModule,
 ]
 
 
 @NgModule({
-  declarations: [AdminRoutingComponent, AdminMenuComponent, AdminProfileComponent],
+  declarations: [AdminRoutingComponent, AdminMenuComponent, AdminProfileComponent, AddProductComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
     HeaderComponent,
     TranslateModule,
+    ReactiveFormsModule,
     ...NZ
   ]
 })

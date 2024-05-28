@@ -15,5 +15,7 @@
   "enterName": "نام خود را وارد کنید",
   "phone": "تلفن همراه",
   "addProduct": "ثبت محصول جدید",
-  "usersList": "لیست کاربران"
+  "usersList": "لیست کاربران",
+  "category": "دسته بندی",
+  "productTitle": "نام محصول"
 }

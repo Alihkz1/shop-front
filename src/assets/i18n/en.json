@@ -15,5 +15,7 @@
   "enterName": "Enter Your FullName",
   "phone": "Phone Number",
   "addProduct": "Add New Product",
-  "usersList": "Users List"
+  "usersList": "Users List",
+  "category": "Category",
+  "productTitle": "Product Title"
 }

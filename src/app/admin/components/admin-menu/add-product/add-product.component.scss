@@ -1,0 +1,18 @@
+.box {
+    height: calc(100vh - 120px);
+}
+
+.form {
+    width: 400px;
+}
+
+.fielder {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+
+    &-title {
+        margin: 0 4px 6px 0;
+        font-size: 14px;
+    }
+}
