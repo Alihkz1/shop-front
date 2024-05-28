@@ -1,1 +1,27 @@
-login
+<div class="login">
+    <div class="login-title">
+        {{ "welcome" | translate }}
+    </div>
+
+    <div class="flex-grow">
+        <form class="login-form">
+            <input nz-input [placeholder]="'username' | translate" [formControl]="usernameControl" />
+            <input class="mt-2" nz-input [placeholder]="'password' | translate" [formControl]="passwordControl" />
+        </form>
+        <div class="login-submit">
+            <button nz-button nzType="primary" [nzLoading]="loginLoading" (click)="login_onClick()">
+                {{ "getIn" | translate }}
+            </button>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center w-100">
+        <button class="option" (click)="forgetPassword_onClick()">
+            {{ "forgetPassword" | translate }}
+        </button> |
+        <button class="option" (click)="register_onClick()">
+            {{ "register" | translate }}
+        </button>
+    </div>
+
+</div>

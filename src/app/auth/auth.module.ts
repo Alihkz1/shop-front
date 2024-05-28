@@ -4,8 +4,15 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { AuthRoutingComponent } from './auth.routing.component';
 import { AuthRoutingModule } from './auth.routing.module';
+import { TranslateModule } from "@ngx-translate/core";
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
-
+const NZ = [
+  NzInputModule,
+  NzButtonModule
+]
 
 @NgModule({
   declarations: [
@@ -16,6 +23,9 @@ import { AuthRoutingModule } from './auth.routing.module';
   imports: [
     CommonModule,
     AuthRoutingModule,
+    TranslateModule,
+    ...NZ,
+    ReactiveFormsModule
   ],
 })
 export class AuthModule { }

@@ -3,5 +3,11 @@
   "loginButton": "ثبت نام | ورود",
   "aboutUs": "درباره ما",
   "submit": "ثبت",
-  "yourMessage": "پیام خود را برای ما بنویسید"
+  "yourMessage": "پیام خود را برای ما بنویسید",
+  "welcome": "خوش آمدید",
+  "forgetPassword": "فراموشی رمز عبور",
+  "register": "ثبت نام",
+  "username": "نام کاربری",
+  "password": "رمز عبور",
+  "getIn": "ورود"
 }
