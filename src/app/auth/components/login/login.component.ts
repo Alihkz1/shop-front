@@ -22,6 +22,8 @@ export class LoginComponent {
     this.router.navigate(['/auth/signup'])
   }
 
-  login_onClick() { }
+  login_onClick() {
+    /* email - password */
+  }
 
 }

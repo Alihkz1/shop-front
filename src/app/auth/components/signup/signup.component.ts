@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, UntypedFormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-signup',
@@ -18,7 +18,9 @@ export class SignupComponent {
   constructor(private router: Router) { }
 
 
-  signup_onClick() { }
+  signup_onClick() {
+    /* email - password - phone - name */
+  }
 
   login_onClick() {
     this.router.navigate(['/auth/login'])
