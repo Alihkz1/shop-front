@@ -17,5 +17,9 @@
   "addProduct": "Add New Product",
   "usersList": "Users List",
   "category": "Category",
-  "productTitle": "Product Title"
+  "productTitle": "Product Title",
+  "loginSuccess": "Welcome Back!",
+  "loginFailed": "Faild to Login!",
+  "signUpSuccess": "Register Completed!",
+  "signUpFailed": "Register Failed! Please Try Again"
 }

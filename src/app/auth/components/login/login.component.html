@@ -5,11 +5,13 @@
 
     <div class="flex-grow">
         <form class="login-form">
-            <input nz-input [placeholder]="'email' | translate" [formControl]="usernameControl" />
+            <input nz-input [placeholder]="'email' | translate" [formControl]="emailControl" />
             <input class="mt-2" nz-input [placeholder]="'password' | translate" [formControl]="passwordControl" />
+            <button class="d-none" type="submit" (click)="login_onClick()"></button>
         </form>
         <div class="login-submit">
-            <button nz-button nzType="primary" [nzLoading]="loginLoading" (click)="login_onClick()">
+            <button nz-button nzType="primary" [disabled]="emailControl.invalid || passwordControl.invalid"
+                [nzLoading]="loginLoading" (click)="login_onClick()">
                 {{ "getIn" | translate }}
             </button>
         </div>

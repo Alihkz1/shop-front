@@ -13,13 +13,16 @@ export class HeaderComponent {
 
   constructor(public client: ClientService, private router: Router) { }
 
-  logout_onClick() { }
+  logout_onClick() {
+    this.client.setUser = null;
+    this.router.navigate(['auth/login'])
+  }
 
   profile_onClick() { }
 
   aboutUs_onClick() {
     this.router.navigate(['menu/about-us'])
-   }
+  }
 
   login_onClick() {
     this.router.navigate(['auth/login'])

@@ -2,8 +2,13 @@
     <div class="header" dir="ltr">
         @if (client.isLogin) {
         <!-- todo: products -->
-        <img class="profile" src="assets/svg/profile.svg" alt="" (click)="profile_onClick()">
         <img class="power" src="assets/svg/power.svg" alt="" (click)="logout_onClick()">
+        <div class="d-flex align-items-center">
+            <div class="client-name pe-2">
+                {{client.getUser.name}}
+            </div>
+            <img class="profile" src="assets/svg/profile.svg" alt="" (click)="profile_onClick()">
+        </div>
         }
         @else {
         <!-- todo: products -->
