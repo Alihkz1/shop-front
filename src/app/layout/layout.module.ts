@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { NZ_CONFIG, NzConfig, NzConfigService } from 'ng-zorro-antd/core/config';
 import { en_US, provideNzI18n } from "ng-zorro-antd/i18n";
-import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -29,7 +29,7 @@ const ngZorroConfig: NzConfig = {
   imports: [
     CommonModule,
     LayoutRoutingModule,
-    NzNotificationModule,
+    NzMessageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

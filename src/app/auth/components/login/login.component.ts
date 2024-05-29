@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../shared/auth.service';
 import { finalize } from 'rxjs';
 import { ClientService } from '../../../shared/service/client.service';
-import { NotificationService } from '../../../shared/service/notification.service';
 import { TranslateService } from "@ngx-translate/core";
 import { ROLE } from '../../../shared/enum/role.enum';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,7 @@ export class LoginComponent {
     private authService: AuthService,
     private clientService: ClientService,
     private translate: TranslateService,
-    private notification: NotificationService,
+    private message: NzMessageService
   ) { }
 
   forgetPassword_onClick() {
@@ -51,15 +51,15 @@ export class LoginComponent {
           } else {
             this.router.navigate(['/menu/categories']);
           }
-          this.notification.notify({
-            type: 'success',
-            message: this.translate.instant('loginSuccess')
-          });
+          this.message.create(
+            'success',
+            this.translate.instant('loginSuccess')
+          );
         } else {
-          this.notification.notify({
-            type: 'error',
-            message: this.translate.instant('loginFailed')
-          });
+          this.message.create(
+            'error',
+            this.translate.instant('loginFailed')
+          );
         }
       })
   }

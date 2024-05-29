@@ -21,5 +21,6 @@
   "loginSuccess": "Welcome Back!",
   "loginFailed": "Faild to Login!",
   "signUpSuccess": "Register Completed!",
-  "signUpFailed": "Register Failed! Please Try Again"
+  "signUpFailed": "Register Failed! Please Try Again",
+  "logoutSuccess": "See you next time!"
 }
