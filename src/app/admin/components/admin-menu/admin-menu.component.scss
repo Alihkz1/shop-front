@@ -3,9 +3,9 @@
 }
 
 .menu {
-    height: 100%;
-
+    padding: 10px 5px;
     &-item {
+        background: #d7cbff;
         font-size: 12px;
         cursor: pointer;
         width: 100%;
@@ -16,4 +16,9 @@
 .active {
     border: 1px solid #66aaff;
     background: aliceblue;
+}
+
+.right {
+    background: #fff;
+    border-radius: 4px;
 }
