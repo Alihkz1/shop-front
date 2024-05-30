@@ -18,10 +18,10 @@ export class AddProductComponent implements OnInit {
   addModalVisible = false;
 
   form = new FormGroup({
-    categoryId: new FormControl(null,Validators.required),
-    title: new FormControl(null,Validators.required),
-    price: new FormControl(null,Validators.required),
-    amount: new FormControl(null,Validators.required)
+    categoryId: new FormControl(null, Validators.required),
+    title: new FormControl(null, Validators.required),
+    price: new FormControl(null, Validators.required),
+    amount: new FormControl(null, Validators.required)
   });
   newCategoryNameControl = new FormControl()
   addCategoryControl = new FormControl()
@@ -63,7 +63,8 @@ export class AddProductComponent implements OnInit {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
         this.getCategories()
-      }
+      } else this.message.create('error', this.translate.instant('error'))
+
     })
   }
 
