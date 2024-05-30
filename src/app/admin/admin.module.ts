@@ -11,11 +11,19 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddProductComponent } from './components/admin-menu/add-product/add-product.component';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 const NZ = [
   NzButtonModule,
   NzSelectModule,
   NzInputModule,
+  NzUploadModule,
+  NzIconModule,
+  NzPopconfirmModule,
+  NzModalModule
 ]
 
 

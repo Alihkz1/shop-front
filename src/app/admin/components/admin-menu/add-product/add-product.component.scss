@@ -1,9 +1,9 @@
-.box {
+.row {
     height: calc(100vh - 120px);
-}
 
-.form {
-    width: 400px;
+    @media (max-width: 767px) {
+        height: calc(100vh - 150px);
+    }
 }
 
 .fielder {
@@ -15,4 +15,46 @@
         margin: 0 4px 6px 0;
         font-size: 14px;
     }
+}
+
+.category-list {
+    height: fit-content;
+
+    &-name {
+        margin: 0 4px 6px 0;
+        font-size: 14px;
+    }
+
+    &-item {
+        padding: 0 5px 0 0;
+        height: 30px;
+        border: 1px solid black;
+        height: 30px;
+        border: 1px solid #cecece;
+        border-radius: 2px;
+        background: #fff;
+        margin-bottom: 1px;
+        display: flex;
+        justify-content: space-between;
+        direction: ltr;
+    }
+
+    &-title {
+        font-size: 13px;
+        margin: 0 5px;
+    }
+
+    &-icon {
+        cursor: pointer;
+        margin: 0 4px;
+    }
+
+    &-add {
+        height: 26px;
+    }
+}
+
+.w-c {
+    width: 100%;
+    max-width: 400px;
 }

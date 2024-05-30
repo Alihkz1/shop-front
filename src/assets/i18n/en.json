@@ -22,5 +22,12 @@
   "loginFailed": "Faild to Login!",
   "signUpSuccess": "Register Completed!",
   "signUpFailed": "Register Failed! Please Try Again",
-  "logoutSuccess": "See you next time!"
+  "logoutSuccess": "See you next time!",
+  "price": "Price",
+  "amount": "Amount",
+  "uploadImage": "Image Uploader",
+  "productAdded": "Product Added",
+  "error": "Error!",
+  "actionDone": "Done!",
+  "categories": "Categories"
 }
