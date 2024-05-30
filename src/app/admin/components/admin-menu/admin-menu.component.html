@@ -1,14 +1,15 @@
 <div class="row box">
-    <!-- todo: responsive -->
     <div class="col-xl-2 col-lg-4 col-md-4 right">
         <div class="h-100">
             <div class="menu">
-                <!-- todo: active -->
-                <button class="menu-item" nz-button nzType="default" (click)="addProduct_onClick()">
+                <button class="menu-item" nz-button nzType="default" routerLink="/admin/add-product" routerLinkActive="active">
                     {{ 'addProduct' | translate }}
                 </button>
-                <button class="menu-item" nz-button nzType="default" (click)="usersList_onClick()">
+                <button class="menu-item" nz-button nzType="default" routerLink="/admin/users-list" routerLinkActive="active">
                     {{ 'usersList' | translate }}
+                </button>
+                <button class="menu-item" nz-button nzType="default" routerLink="/admin/all-comments" routerLinkActive="active">
+                    {{ 'comments' | translate }}
                 </button>
             </div>
         </div>

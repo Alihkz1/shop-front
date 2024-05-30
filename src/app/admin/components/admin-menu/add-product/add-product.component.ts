@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from '../../../shared/admin.service';
 import { environment } from '../../../../../env/environment';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -12,21 +12,20 @@ import { Subscription } from 'rxjs';
   styleUrl: './add-product.component.scss'
 })
 export class AddProductComponent implements OnInit {
-  /* todo: imp category and product model */
   uploadUrl = environment.UPLOAD_URL;
   addLoading: Subscription;
   modalVisible = false;
   addModalVisible = false;
 
   form = new FormGroup({
-    categoryId: new FormControl(),
-    title: new FormControl(),
-    price: new FormControl(),
-    amount: new FormControl()
+    categoryId: new FormControl(null,Validators.required),
+    title: new FormControl(null,Validators.required),
+    price: new FormControl(null,Validators.required),
+    amount: new FormControl(null,Validators.required)
   });
   newCategoryNameControl = new FormControl()
   addCategoryControl = new FormControl()
-  editCategoryId: number;
+  editCategoryId: number = 0;
   categories: { categoryId: any; categoryName: string }[] = []
 
   constructor(
@@ -55,13 +54,13 @@ export class AddProductComponent implements OnInit {
         this.message.create('success', this.translate.instant("productAdded"))
         this.form.reset()
       }
-      else this.message.create('success', this.translate.instant("error"))
+      else this.message.create('error', this.translate.instant("error"))
     });
   }
 
   deleteCategory_onConfirm(category: any) {
     this.adminService.deleteCategory(category.categoryId).subscribe(({ success }: any) => {
-      if (success){
+      if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
         this.getCategories()
       }
