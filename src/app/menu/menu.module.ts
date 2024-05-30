@@ -10,6 +10,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { TranslateModule } from "@ngx-translate/core";
+import { ReactiveFormsModule } from '@angular/forms';
 
 const NZ = [
   NzInputModule,
@@ -30,6 +31,7 @@ const NZ = [
     HeaderComponent,
     MenuRoutingModule,
     TranslateModule,
+    ReactiveFormsModule,
     ...NZ
   ]
 })

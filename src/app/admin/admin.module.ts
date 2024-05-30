@@ -15,6 +15,7 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { AllCommentsComponent } from './components/admin-menu/all-comments/all-comments.component';
 
 const NZ = [
   NzButtonModule,
@@ -28,7 +29,7 @@ const NZ = [
 
 
 @NgModule({
-  declarations: [AdminRoutingComponent, AdminMenuComponent, AdminProfileComponent, AddProductComponent],
+  declarations: [AdminRoutingComponent, AdminMenuComponent, AdminProfileComponent, AddProductComponent, AllCommentsComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

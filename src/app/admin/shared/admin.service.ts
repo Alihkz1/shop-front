@@ -9,6 +9,10 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
+  public getComments() {
+    return this.http.get(environment.API_BASE + "comment/list");
+  }
+
   public getCategories() {
     return this.http.get(environment.API_BASE + "category/list");
   }
