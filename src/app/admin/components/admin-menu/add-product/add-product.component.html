@@ -5,7 +5,7 @@
                 <div class="category-list-name">
                     {{ "categories" | translate }}
                 </div>
-                <div class="category-list-add" (click)="addCategory_onClick()">
+                <div class="category-list-add" (click)="addCategoryModalVisible = true">
                     <button nz-button nzType="default"><span nz-icon nzType="plus" nzTheme="outline"></span>
                     </button>
                 </div>
@@ -26,7 +26,7 @@
                             <span class="category-list-icon blue" nz-icon nzType="edit" nzTheme="outline"
                                 (click)="editProduct_onClick(product)"></span>
                         </div>
-                        
+
                         <div class="d-flex align-items-center category-list-title">
                             <div class="mt-1">{{ product.title }}</div>
                         </div>
@@ -69,9 +69,9 @@
                 </ng-container>
             </nz-modal>
 
-            <nz-modal [(nzVisible)]="addModalVisible" [nzTitle]="newCategoryName" [nzOkText]="submitTranslate"
+            <nz-modal [(nzVisible)]="addCategoryModalVisible" [nzTitle]="newCategoryName" [nzOkText]="submitTranslate"
                 [nzCancelText]="backTranslate" (nzOnOk)="addCategory_onConfirm()"
-                (nzOnCancel)="addModalVisible = false">
+                (nzOnCancel)="addCategoryModalVisible = false">
                 <ng-container *nzModalContent>
                     <form>
                         <input nz-input [formControl]="addCategoryControl" />

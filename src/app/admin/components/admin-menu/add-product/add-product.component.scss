@@ -26,12 +26,12 @@
 .category-list {
     height: fit-content;
     width: 100%;
-
+    
     &-name {
         margin: 0 4px 6px 0;
         font-size: 14px;
     }
-
+    
     &-item {
         margin-top: -4px;
         padding: 0 5px 0 0;
@@ -74,12 +74,11 @@ nz-collapse {
     }
 
     nz-collapse {
-        height: fit-content;
         max-height: calc(100vh - 350px);
     }
 }
 
 .border-bottom {
     border-bottom: 1px solid rgb(208, 208, 208);
-    margin-bottom: 2px;
+    margin-bottom: 5px;
 }

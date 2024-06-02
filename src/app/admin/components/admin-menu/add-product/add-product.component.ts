@@ -19,7 +19,7 @@ export class AddProductComponent implements OnInit {
   uploadUrl = environment.UPLOAD_URL;
   addLoading: Subscription;
   editCategoryModalVisible = false;
-  addModalVisible = false;
+  addCategoryModalVisible = false;
   productModalVisible = false;
 
   backTranslate: string;
@@ -110,7 +110,7 @@ export class AddProductComponent implements OnInit {
   editCategory_onClick(category: any) {
     this.editCategoryId = category.categoryId;
     this.newCategoryNameControl.setValue(category.categoryName);
-    this.editCategoryModalVisible = !this.editCategoryModalVisible;
+    this.editCategoryModalVisible = true;
   }
 
   editCategory_onConfirm() {
@@ -128,10 +128,6 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  addCategory_onClick() {
-    this.addModalVisible = !this.addModalVisible;
-  }
-
   addCategory_onConfirm() {
     const model = {
       imageUrl: '',
@@ -140,7 +136,7 @@ export class AddProductComponent implements OnInit {
     this.adminService.addCategory(model).subscribe(({ success }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
-        this.addModalVisible = false
+        this.addCategoryModalVisible = false
         this.addCategoryControl.reset()
         this.getCategories()
       } else this.message.create('error', this.translate.instant('error'))
