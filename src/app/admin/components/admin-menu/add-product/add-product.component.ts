@@ -5,6 +5,7 @@ import { environment } from '../../../../../env/environment';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { Subscription } from 'rxjs';
+import { Category } from '../../../../shared/model/category.model';
 
 @Component({
   selector: 'app-add-product',
@@ -26,7 +27,7 @@ export class AddProductComponent implements OnInit {
   newCategoryNameControl = new FormControl()
   addCategoryControl = new FormControl()
   editCategoryId: number = 0;
-  categories: { categoryId: any; categoryName: string }[] = []
+  categories: Category[] = []
 
   constructor(
     private adminService: AdminService,

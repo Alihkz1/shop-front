@@ -1,33 +1,45 @@
 <div class="row">
     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-            <div class="category-list w-c">
-                <div class="d-flex">
-                    <div class="category-list-name">
-                        {{ "categories" | translate }}
-                    </div>
-                    <div class="category-list-add" (click)="addCategory_onClick()">
-                        <button nz-button nzType="default"><span nz-icon nzType="plus" nzTheme="outline"></span>
-                        </button>
-                    </div>
+        <div class="category-list w-c">
+            <div class="d-flex">
+                <div class="category-list-name">
+                    {{ "categories" | translate }}
                 </div>
-                <div class="sm-h">
-                    @for (item of categories; track $index) {
-                    <div class="category-list-item">
-                        <div class="d-flex align-items-center category-list-title">
-                            <span class="category-list-icon" nz-icon nzType="holder" nzTheme="outline"></span>
-                            <div class="mt-1">{{ item.categoryName }}</div>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <span class="category-list-icon blue" nz-icon nzType="edit" nzTheme="outline"
-                                (click)="editCategory_onClick(item)"></span>
-                            <!-- todo: translate -->
-                            <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف دسته بندی؟"
-                                class="category-list-icon red me-1" nzOkText="بله" nzCancelText="خیر" nz-icon
-                                nzType="delete" nzTheme="outline" (nzOnConfirm)="deleteCategory_onConfirm(item)"></span>
+                <div class="category-list-add" (click)="addCategory_onClick()">
+                    <button nz-button nzType="default"><span nz-icon nzType="plus" nzTheme="outline"></span>
+                    </button>
+                </div>
+            </div>
+            <nz-collapse>
+                @for (category of categories; track $index) {
+                <nz-collapse-panel [nzHeader]="categoryHeader">
+                    <p style="margin:0;">
+                        @for (product of category.products; track $index) {
+                            
+                        }
+                    </p>
+                </nz-collapse-panel>
+                <ng-template #categoryHeader>
+                    <div class="sm-h">
+                        <div class="category-list-item">
+                            <div class="d-flex align-items-center">
+                                <!-- todo: translate -->
+                                <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف دسته بندی؟"
+                                    class="category-list-icon red me-1" nzOkText="بله" nzCancelText="خیر" nz-icon
+                                    nzType="delete" nzTheme="outline"
+                                    (nzOnConfirm)="deleteCategory_onConfirm(category)"></span>
+                                <span class="category-list-icon blue" nz-icon nzType="edit" nzTheme="outline"
+                                    (click)="editCategory_onClick(category)"></span>
+                            </div>
+                            <div class="d-flex align-items-center category-list-title">
+                                <div class="mt-1">{{ category.categoryName }}</div>
+                            </div>
                         </div>
                     </div>
-                    }
-                </div>
+                </ng-template>
+                }
+            </nz-collapse>
+
             <!-- todo: translate -->
             <nz-modal [(nzVisible)]="modalVisible" nzTitle="تغییر نام دسته بندی" nzOkText="ذخیره" nzCancelText="بازگشت"
                 (nzOnOk)="editCategory_onConfirm()" (nzOnCancel)="modalVisible = false">
@@ -54,7 +66,7 @@
                     <div class="fielder-title">{{ "category" | translate }}</div>
                     <nz-select class="w-100" formControlName="categoryId">
                         @for (item of categories; track $index) {
-                        <nz-option [nzValue]="item.categoryId" [nzLabel]="item.categoryName"></nz-option>
+                        <nz-option [nzValue]="item.categoryId" [nzLabel]="item.categoryName ?? ''"></nz-option>
                         }
                     </nz-select>
                 </div>
