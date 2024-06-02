@@ -17,6 +17,8 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { AllCommentsComponent } from './components/admin-menu/all-comments/all-comments.component';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 const NZ = [
   NzButtonModule,
@@ -26,7 +28,9 @@ const NZ = [
   NzIconModule,
   NzPopconfirmModule,
   NzModalModule,
-  NzCollapseModule
+  NzCollapseModule,
+  NzCheckboxModule,
+  NzToolTipModule
 ]
 
 

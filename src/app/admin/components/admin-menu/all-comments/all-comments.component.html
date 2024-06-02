@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 px-0">
+        <div class="box">
+            @for (item of comments; track $index) {
+            <div class="comment">
+                <div class="comment-title">
+                    {{item.user.email + '@'}} :
+                </div>
+                <div class="comment-body">
+                    <textarea [class.read]="item.comment.read" nz-input [value]="item.comment.message" nzAutosize>
+                    </textarea>
+                    <div class="actions">
+                        <label nzTooltipTitle="خوانده شد" nzTooltipPlacement="top" nz-tooltip class="comment-read"
+                            nz-checkbox [nzChecked]="item.comment.read"
+                            (nzCheckedChange)="read_onChange($event,item.comment)"></label>
+
+                        <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف نظر؟"
+                            class="red cursor-pointer" nzOkText="بله" nzCancelText="خیر" nz-icon nzType="delete"
+                            nzTheme="outline" (nzOnConfirm)="deleteComment(item.comment.commentId)"></span>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>

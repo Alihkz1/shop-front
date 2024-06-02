@@ -15,7 +15,7 @@ import { Category } from '../../../../shared/model/category.model';
 export class AddProductComponent implements OnInit {
   uploadUrl = environment.UPLOAD_URL;
   addLoading: Subscription;
-  modalVisible = false;
+  editCategoryModalVisible = false;
   addModalVisible = false;
 
   form = new FormGroup({
@@ -54,6 +54,7 @@ export class AddProductComponent implements OnInit {
       if (success) {
         this.message.create('success', this.translate.instant("productAdded"))
         this.form.reset()
+        this.getCategories()
       }
       else this.message.create('error', this.translate.instant("error"))
     });
@@ -72,7 +73,7 @@ export class AddProductComponent implements OnInit {
   editCategory_onClick(category: any) {
     this.editCategoryId = category.categoryId;
     this.newCategoryNameControl.setValue(category.categoryName);
-    this.modalVisible = !this.modalVisible;
+    this.editCategoryModalVisible = !this.editCategoryModalVisible;
   }
 
   editCategory_onConfirm() {
@@ -82,7 +83,7 @@ export class AddProductComponent implements OnInit {
     }
     this.adminService.editCategory(model).subscribe(({ success }: any) => {
       if (success) {
-        this.modalVisible = false;
+        this.editCategoryModalVisible = false;
         this.newCategoryNameControl.reset();
         this.getCategories();
         this.message.create('success', this.translate.instant('actionDone'))
@@ -108,4 +109,15 @@ export class AddProductComponent implements OnInit {
       } else this.message.create('error', this.translate.instant('error'))
     })
   }
+
+  deleteProduct_onConfirm(product: any) {
+    this.adminService.deleteProduct(product.productId).subscribe(({ success }: any) => {
+      if (success) {
+        this.message.create('success', this.translate.instant('actionDone'))
+        this.getCategories();
+      } else this.message.create('error', this.translate.instant('error'))
+    })
+  }
+
+  editProduct_onClick(product: any) { }
 }

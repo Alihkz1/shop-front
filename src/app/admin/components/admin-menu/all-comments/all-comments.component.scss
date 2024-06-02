@@ -1,0 +1,51 @@
+.box {
+    min-height: 400px;
+    height: fit-content;
+    overflow-y: auto;
+    max-height: calc(100vh - 140px);
+
+    @media (max-width: 767px) {
+        margin-top: 10px;
+        max-height: calc(100vh - 275px);
+    }
+}
+
+
+
+.comment {
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+
+    &-title {
+        font-size: 14px;
+        padding: 0 5px;
+        width: 100px;
+        background: linear-gradient(90deg, rgb(237, 237, 237) 0%, rgb(206 202 255) 100%);
+
+    }
+
+    &-body {
+        display: flex;
+
+        textarea {
+            min-height: 45px;
+            margin-bottom: 10px;
+            overflow-y: hidden;
+            max-height: fit-content;
+            padding: 5px;
+            width: 100%;
+            border: 1px solid rgb(232, 232, 232);
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            padding: 0 10px;
+        }
+    }
+}
+
+.read {
+    background: #eaeaea !important;
+}

@@ -13,6 +13,11 @@ export class AdminService {
     return this.http.get(environment.API_BASE + "comment/list");
   }
 
+
+  public editComment(model: any) {
+    return this.http.put(environment.API_BASE + "comment/edit", model)
+  }
+
   public getCategories() {
     return this.http.get(environment.API_BASE + "category/list");
   }
@@ -31,5 +36,13 @@ export class AdminService {
 
   public addProduct(model: any) {
     return this.http.post(environment.API_BASE + "product/add", model)
+  }
+
+  public deleteProduct(productId: number) {
+    return this.http.delete(environment.API_BASE + "product/delete/" + productId)
+  }
+
+  public deleteComment(commentId: number) {
+    return this.http.delete(environment.API_BASE + "comment/delete/" + commentId)
   }
 }

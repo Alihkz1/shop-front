@@ -13,11 +13,22 @@
             <nz-collapse>
                 @for (category of categories; track $index) {
                 <nz-collapse-panel [nzHeader]="categoryHeader">
-                    <p style="margin:0;">
                         @for (product of category.products; track $index) {
-                            
+                            <div class="category-list-item border-bottom">
+                                <div class="d-flex align-items-center">
+                                    <!-- todo: translate -->
+                                    <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف محصول؟"
+                                        class="category-list-icon red me-1" nzOkText="بله" nzCancelText="خیر" nz-icon
+                                        nzType="delete" nzTheme="outline"
+                                        (nzOnConfirm)="deleteProduct_onConfirm(product)"></span>
+                                    <span class="category-list-icon blue" nz-icon nzType="edit" nzTheme="outline"
+                                        (click)="editProduct_onClick(category)"></span>
+                                </div>
+                                <div class="d-flex align-items-center category-list-title">
+                                    <div class="mt-1">{{ product.title }}</div>
+                                </div>
+                            </div>
                         }
-                    </p>
                 </nz-collapse-panel>
                 <ng-template #categoryHeader>
                     <div class="sm-h">
@@ -41,8 +52,8 @@
             </nz-collapse>
 
             <!-- todo: translate -->
-            <nz-modal [(nzVisible)]="modalVisible" nzTitle="تغییر نام دسته بندی" nzOkText="ذخیره" nzCancelText="بازگشت"
-                (nzOnOk)="editCategory_onConfirm()" (nzOnCancel)="modalVisible = false">
+            <nz-modal [(nzVisible)]="editCategoryModalVisible" nzTitle="تغییر نام دسته بندی" nzOkText="ذخیره" nzCancelText="بازگشت"
+                (nzOnOk)="editCategory_onConfirm()" (nzOnCancel)="editCategoryModalVisible = false">
                 <ng-container *nzModalContent>
                     <form>
                         <input nz-input placeholder="نام جدید را وارد کنید" [formControl]="newCategoryNameControl" />
