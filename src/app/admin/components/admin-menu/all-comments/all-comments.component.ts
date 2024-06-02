@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { Comment } from '../../../../shared/model/comment.model';
+import { COMMENT_MOCK } from '../../../../shared/mock-data/comments.mock';
 @Component({
   selector: 'app-all-comments',
   templateUrl: './all-comments.component.html',
@@ -24,9 +25,10 @@ export class AllCommentsComponent implements OnInit {
   }
 
   getComments() {
-    this.adminService.getComments().subscribe(({ data }: any) => {
-      this._comments$.next(data.comments);
-    })
+    // this.adminService.getComments().subscribe(({ data }: any) => {
+    //   this._comments$.next(data.comments);
+    // })
+    this._comments$.next(COMMENT_MOCK);
   }
 
   deleteComment(commentId: number) {
