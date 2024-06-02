@@ -30,5 +30,10 @@
   "error": "Error!",
   "actionDone": "Done!",
   "categories": "Categories",
-  "comments": "User's Comments"
+  "comments": "User's Comments",
+  "newCategoryName": "New Category Name",
+  "editCategoryName": "Edit Category Name",
+  "enterNewName": "Enter New Name",
+  "productDetails": "Product Details",
+  "back": "Back"
 }

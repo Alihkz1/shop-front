@@ -1,6 +1,6 @@
 <div class="row">
-    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-        <div class="category-list w-c">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="category-list">
             <div class="d-flex">
                 <div class="category-list-name">
                     {{ "categories" | translate }}
@@ -10,100 +10,128 @@
                     </button>
                 </div>
             </div>
-            <nz-collapse>
+            <nz-collapse class="overflow-auto">
                 @for (category of categories; track $index) {
                 <nz-collapse-panel [nzHeader]="categoryHeader">
-                        @for (product of category.products; track $index) {
-                            <div class="category-list-item border-bottom">
-                                <div class="d-flex align-items-center">
-                                    <!-- todo: translate -->
-                                    <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف محصول؟"
-                                        class="category-list-icon red me-1" nzOkText="بله" nzCancelText="خیر" nz-icon
-                                        nzType="delete" nzTheme="outline"
-                                        (nzOnConfirm)="deleteProduct_onConfirm(product)"></span>
-                                    <span class="category-list-icon blue" nz-icon nzType="edit" nzTheme="outline"
-                                        (click)="editProduct_onClick(category)"></span>
-                                </div>
-                                <div class="d-flex align-items-center category-list-title">
-                                    <div class="mt-1">{{ product.title }}</div>
-                                </div>
-                            </div>
-                        }
+                    @for (product of category.products; track $index) {
+                    <div class="category-list-item border-bottom">
+                        <div class="d-flex align-items-center">
+
+                            <!-- todo: translate -->
+                            <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف محصول؟"
+                                class="category-list-icon red me-1" [nzOkText]="submitTranslate"
+                                [nzCancelText]="backTranslate" nz-icon nzType="delete" nzTheme="outline"
+                                (nzOnConfirm)="deleteProduct_onConfirm(product)"></span>
+                                
+                            <span class="category-list-icon blue" nz-icon nzType="edit" nzTheme="outline"
+                                (click)="editProduct_onClick(product)"></span>
+                        </div>
+                        
+                        <div class="d-flex align-items-center category-list-title">
+                            <div class="mt-1">{{ product.title }}</div>
+                        </div>
+                    </div>
+                    }
                 </nz-collapse-panel>
                 <ng-template #categoryHeader>
-                    <div class="sm-h">
-                        <div class="category-list-item">
-                            <div class="d-flex align-items-center">
-                                <!-- todo: translate -->
-                                <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف دسته بندی؟"
-                                    class="category-list-icon red me-1" nzOkText="بله" nzCancelText="خیر" nz-icon
-                                    nzType="delete" nzTheme="outline"
-                                    (nzOnConfirm)="deleteCategory_onConfirm(category)"></span>
-                                <span class="category-list-icon blue" nz-icon nzType="edit" nzTheme="outline"
-                                    (click)="editCategory_onClick(category)"></span>
-                            </div>
-                            <div class="d-flex align-items-center category-list-title">
-                                <div class="mt-1">{{ category.categoryName }}</div>
-                            </div>
+                    <div class="category-list-item">
+                        <div class="d-flex align-items-center" (click)="$event.stopPropagation()">
+
+                            <!-- todo: translate -->
+                            <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف دسته بندی؟"
+                                class="category-list-icon red me-1" nzOkText="بله" nzCancelText="خیر" nz-icon
+                                nzType="delete" nzTheme="outline"
+                                (nzOnConfirm)="deleteCategory_onConfirm(category)"></span>
+
+                            <span class="category-list-icon blue" nz-icon nzType="edit" nzTheme="outline"
+                                (click)="editCategory_onClick(category)"></span>
+
+                            <span class="category-list-icon blue" nz-icon nzType="plus" nzTheme="outline"
+                                (click)="addProduct_onClick(category)"></span>
+                        </div>
+
+                        <div class="d-flex align-items-center category-list-title">
+                            <div class="mt-1">{{ category.categoryName }}</div>
                         </div>
                     </div>
                 </ng-template>
                 }
             </nz-collapse>
 
-            <!-- todo: translate -->
-            <nz-modal [(nzVisible)]="editCategoryModalVisible" nzTitle="تغییر نام دسته بندی" nzOkText="ذخیره" nzCancelText="بازگشت"
-                (nzOnOk)="editCategory_onConfirm()" (nzOnCancel)="editCategoryModalVisible = false">
+            <nz-modal [(nzVisible)]="editCategoryModalVisible" [nzTitle]="editCategoryName" [nzOkText]="submitTranslate"
+                [nzCancelText]="backTranslate" (nzOnOk)="editCategory_onConfirm()"
+                (nzOnCancel)="editCategoryModalVisible = false">
                 <ng-container *nzModalContent>
                     <form>
-                        <input nz-input placeholder="نام جدید را وارد کنید" [formControl]="newCategoryNameControl" />
+                        <input nz-input [formControl]="newCategoryNameControl" />
+                        <!-- todo: upload category img -->
                     </form>
                 </ng-container>
             </nz-modal>
-            <nz-modal [(nzVisible)]="addModalVisible" nzTitle="نام دسته بندی جدید" nzOkText="ذخیره"
-                nzCancelText="بازگشت" (nzOnOk)="addCategory_onConfirm()" (nzOnCancel)="addModalVisible = false">
+
+            <nz-modal [(nzVisible)]="addModalVisible" [nzTitle]="newCategoryName" [nzOkText]="submitTranslate"
+                [nzCancelText]="backTranslate" (nzOnOk)="addCategory_onConfirm()"
+                (nzOnCancel)="addModalVisible = false">
                 <ng-container *nzModalContent>
                     <form>
-                        <input nz-input placeholder="نام دسته بندی" [formControl]="addCategoryControl" />
+                        <input nz-input [formControl]="addCategoryControl" />
+                        <!-- todo: upload category img -->
                     </form>
                 </ng-container>
             </nz-modal>
-        </div>
-    </div>
-    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-        <div class="h-100">
-            <form [formGroup]="form" class="w-c">
-                <div class="fielder">
-                    <div class="fielder-title">{{ "category" | translate }}</div>
-                    <nz-select class="w-100" formControlName="categoryId">
-                        @for (item of categories; track $index) {
-                        <nz-option [nzValue]="item.categoryId" [nzLabel]="item.categoryName ?? ''"></nz-option>
-                        }
-                    </nz-select>
-                </div>
-                <div class="fielder">
-                    <div class="fielder-title">{{ "productTitle" | translate }}</div>
-                    <input nz-input formControlName="title" />
-                </div>
-                <div class="fielder">
-                    <div class="fielder-title">{{ "price" | translate }}</div>
-                    <input nz-input formControlName="price" />
-                </div>
-                <div class="fielder">
-                    <div class="fielder-title">{{ "amount" | translate }}</div>
-                    <input nz-input formControlName="amount" />
-                </div>
-                <div class="fielder mt-4">
-                    <nz-upload [nzAction]="uploadUrl" (nzChange)="uploader_onChange($event)">
-                        <button nz-button [disabled]="true">
-                            <span nz-icon nzType="upload"></span>
-                            {{ "uploadImage" | translate }}
-                        </button>
-                    </nz-upload>
-                </div>
-                <button [disabled]="form.invalid" [nzLoading]="addLoading && !addLoading.closed" class="mt-4 w-150px"
-                    nz-button nzType="primary" (click)="addProduct_onClick()">{{ "submit" | translate }}</button>
-            </form>
+
+            <nz-modal [nzOkLoading]="addLoading && !addLoading.closed" [(nzVisible)]="productModalVisible"
+                [nzTitle]="productDetails" [nzOkText]="submitTranslate" [nzCancelText]="backTranslate"
+                (nzOnOk)="addProduct_onConfirm()" (nzOnCancel)="productModalVisible = false"
+                (nzAfterClose)="productModal_onClose()">
+                <ng-container *nzModalContent>
+                    <form [formGroup]="form" class="w-c">
+                        <div class="fielder">
+                            <div class="fielder-title">{{ "category" | translate }}</div>
+                            <nz-select class="w-100" formControlName="categoryId">
+                                @for (item of categories; track $index) {
+                                <nz-option [nzValue]="item.categoryId" [nzLabel]="item.categoryName ?? ''"></nz-option>
+                                }
+                            </nz-select>
+                        </div>
+                        <div class="fielder">
+                            <div class="fielder-title">{{ "productTitle" | translate }}</div>
+                            <input nz-input formControlName="title" />
+                        </div>
+                        <div class="fielder">
+                            <div class="fielder-title">{{ "price" | translate }}</div>
+                            <input nz-input formControlName="price" />
+                        </div>
+                        <div class="fielder">
+                            <div class="fielder-title">{{ "amount" | translate }}</div>
+                            <input nz-input formControlName="amount" />
+                        </div>
+                        <div class="fielder mt-4">
+                            <nz-upload [nzAction]="uploadUrl" (nzChange)="uploader_onChange($event)">
+                                <button nz-button [disabled]="true">
+                                    <span nz-icon nzType="upload"></span>
+                                    {{ "uploadImage" | translate }}
+                                </button>
+                            </nz-upload>
+                        </div>
+                    </form>
+                </ng-container>
+            </nz-modal>
+
         </div>
     </div>
 </div>
+
+
+<ng-template #newCategoryName>
+    {{ "newCategoryName" | translate }}
+</ng-template>
+<ng-template #editCategoryName>
+    {{ "editCategoryName" | translate }}
+</ng-template>
+<ng-template #submit>
+    {{ "submit" | translate }}
+</ng-template>
+<ng-template #productDetails>
+    {{ "productDetails" | translate }}
+</ng-template>

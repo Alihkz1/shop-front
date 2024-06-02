@@ -38,6 +38,10 @@ export class AdminService {
     return this.http.post(environment.API_BASE + "product/add", model)
   }
 
+  public editProduct(model: any) {
+    return this.http.put(environment.API_BASE + "product/edit", model)
+  }
+
   public deleteProduct(productId: number) {
     return this.http.delete(environment.API_BASE + "product/delete/" + productId)
   }

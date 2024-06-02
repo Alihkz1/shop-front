@@ -30,5 +30,10 @@
   "productAdded": "محصول ثبت شد",
   "actionDone": "عملیات با موفقیت انجام شد",
   "categories": "دسته بندی ها",
-  "comments": "نظرات کاربرات"
+  "comments": "نظرات کاربرات",
+  "newCategoryName": "نام دسته‌بندی جدید",
+  "editCategoryName": "ویرایش نام دسته بندی",
+  "enterNewName": "نام جدید را وارد کنید",
+  "productDetails": "اطلاعات محصول",
+  "back":"بازگشت"
 }

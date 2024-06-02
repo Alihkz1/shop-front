@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from '../../../shared/admin.service';
 import { environment } from '../../../../../env/environment';
@@ -6,6 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { Subscription } from 'rxjs';
 import { Category } from '../../../../shared/model/category.model';
+import { NzModalComponent } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-add-product',
@@ -13,16 +14,24 @@ import { Category } from '../../../../shared/model/category.model';
   styleUrl: './add-product.component.scss'
 })
 export class AddProductComponent implements OnInit {
+  @ViewChild('productModal') productModal: NzModalComponent;
+
   uploadUrl = environment.UPLOAD_URL;
   addLoading: Subscription;
   editCategoryModalVisible = false;
   addModalVisible = false;
+  productModalVisible = false;
+
+  backTranslate: string;
+  submitTranslate: string;
+
 
   form = new FormGroup({
-    categoryId: new FormControl(null, Validators.required),
+    categoryId: new FormControl({ value: null, disabled: true }, Validators.required),
     title: new FormControl(null, Validators.required),
     price: new FormControl(null, Validators.required),
-    amount: new FormControl(null, Validators.required)
+    amount: new FormControl(null, Validators.required),
+    productId: new FormControl(null, Validators.required),
   });
   newCategoryNameControl = new FormControl()
   addCategoryControl = new FormControl()
@@ -32,8 +41,13 @@ export class AddProductComponent implements OnInit {
   constructor(
     private adminService: AdminService,
     private message: NzMessageService,
-    private translate: TranslateService
-  ) { }
+    private translate: TranslateService,
+  ) { 
+    // this.backTranslate = this.translate.instant('back');
+    this.backTranslate = "بازگشت"
+    // this.submitTranslate = this.translate.instant('submit');
+    this.submitTranslate = "ثبت"
+  }
 
   ngOnInit(): void {
     this.getCategories()
@@ -49,15 +63,38 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  addProduct_onClick() {
-    this.addLoading = this.adminService.addProduct(this.form.value).subscribe(({ success }: any) => {
-      if (success) {
-        this.message.create('success', this.translate.instant("productAdded"))
-        this.form.reset()
-        this.getCategories()
-      }
-      else this.message.create('error', this.translate.instant("error"))
-    });
+  addProduct_onClick(category: any) {
+    this.productModalVisible = true;
+    this.form.get('categoryId')?.setValue(category.categoryId);
+  }
+
+  addProduct_onConfirm() {
+    if (!this.form.value.productId) {
+      this.addLoading = this.adminService.addProduct(
+        {
+          ...this.form.value,
+          categoryId: this.form.get('categoryId')?.value
+        }
+      ).subscribe(({ success }: any) => {
+        if (success) {
+          this.message.create('success', this.translate.instant("productAdded"))
+          this.form.reset()
+          this.getCategories()
+          this.productModalVisible = false;
+        }
+        else this.message.create('error', this.translate.instant("error"))
+      });
+    } else {
+      this.addLoading = this.adminService.editProduct(this.form.value).subscribe(({ success }: any) => {
+        if (success) {
+          this.message.create('success', this.translate.instant("productAdded"))
+          this.form.reset()
+          this.getCategories()
+          this.productModalVisible = false;
+        }
+        else this.message.create('error', this.translate.instant("error"))
+      });
+    }
   }
 
   deleteCategory_onConfirm(category: any) {
@@ -119,5 +156,12 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  editProduct_onClick(product: any) { }
+  editProduct_onClick(product: any) {
+    this.productModalVisible = true
+    this.form.patchValue(product);
+  }
+
+  productModal_onClose() {
+    this.form.reset()
+  }
 }
