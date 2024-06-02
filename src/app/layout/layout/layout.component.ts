@@ -8,6 +8,6 @@ import { Router } from '@angular/router';
 export class LayoutComponent {
   constructor(private router: Router) {
     if (this.router.url === '/')
-      this.router.navigate(['admin'])
+      this.router.navigate(['menu/categories'])
   }
 }
