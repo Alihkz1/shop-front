@@ -5,9 +5,7 @@ import { environment } from '../../../../../env/environment';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { Subscription } from 'rxjs';
-import { Category } from '../../../../shared/model/category.model';
 import { NzModalComponent } from 'ng-zorro-antd/modal';
-import { CATEGORY_MOCK } from '../../../../shared/mock-data/categories.mock';
 
 @Component({
   selector: 'app-add-product',
@@ -59,10 +57,9 @@ export class AddProductComponent implements OnInit {
   }
 
   getCategories() {
-    // this.adminService.getCategories().subscribe(({ data }: any) => {
-    //   this.categories = data.categories;
-    // })
-    this.categories = CATEGORY_MOCK;
+    this.adminService.getCategories().subscribe(({ data }: any) => {
+      this.categories = data.categories;
+    })
   }
 
   addProduct_onClick(category: any) {

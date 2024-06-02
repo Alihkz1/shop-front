@@ -33,10 +33,6 @@ export class HeaderComponent {
     this.router.navigate(['menu/about-us'])
   }
   
-  test() {
-    this.router.navigate(['admin'])
-  }
-
   login_onClick() {
     this.router.navigate(['auth/login'])
   }
