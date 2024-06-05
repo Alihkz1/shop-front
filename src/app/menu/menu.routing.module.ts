@@ -25,14 +25,6 @@ export const routes: Routes = [
                     },
                 ]
             },
-            // {
-            //     path: 'products',
-            //     component: ProductsComponent,
-            // },
-            // {
-            //     path: 'detail',
-            //     component: ProductDetailComponent
-            // },
             {
                 path: 'about-us',
                 component: AboutUsComponent

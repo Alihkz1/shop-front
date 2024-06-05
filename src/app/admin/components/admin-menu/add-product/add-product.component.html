@@ -26,7 +26,7 @@
                                     (nzOnConfirm)="deleteProduct_onConfirm(product)"></span>
                             </div>
                         </div>
-                        <img class="product-item-image" src="assets/svg/no-image.svg">
+                        <img class="product-item-image" [src]="product.imageUrl">
                     </div>
                     }
                 </nz-collapse-panel>
@@ -59,10 +59,8 @@
                 [nzCancelText]="backTranslate" (nzOnOk)="editCategory_onConfirm()"
                 (nzOnCancel)="editCategoryModalVisible = false">
                 <ng-container *nzModalContent>
-                    <form>
-                        <input nz-input [formControl]="newCategoryNameControl" />
-                        <!-- todo: upload category img -->
-                    </form>
+                    <input nz-input [formControl]="newCategoryNameControl" />
+                    <ng-container *ngTemplateOutlet="uploaderTemplate"></ng-container>
                 </ng-container>
             </nz-modal>
 
@@ -70,10 +68,8 @@
                 [nzCancelText]="backTranslate" (nzOnOk)="addCategory_onConfirm()"
                 (nzOnCancel)="addCategoryModalVisible = false">
                 <ng-container *nzModalContent>
-                    <form>
-                        <input nz-input [formControl]="addCategoryControl" />
-                        <!-- todo: upload category img -->
-                    </form>
+                    <input nz-input [formControl]="addCategoryControl" />
+                    <ng-container *ngTemplateOutlet="uploaderTemplate"></ng-container>
                 </ng-container>
             </nz-modal>
 
@@ -103,14 +99,7 @@
                             <div class="fielder-title">{{ "amount" | translate }}</div>
                             <input nz-input formControlName="amount" />
                         </div>
-                        <div class="fielder mt-4">
-                            <nz-upload [nzAction]="uploadUrl" (nzChange)="uploader_onChange($event)">
-                                <button nz-button [disabled]="true">
-                                    <span nz-icon nzType="upload"></span>
-                                    {{ "uploadImage" | translate }}
-                                </button>
-                            </nz-upload>
-                        </div>
+                        <ng-container *ngTemplateOutlet="uploaderTemplate"></ng-container>
                     </form>
                 </ng-container>
             </nz-modal>
@@ -118,6 +107,17 @@
         </div>
     </div>
 </div>
+
+<ng-template #uploaderTemplate>
+    <div class="fielder mt-4">
+        <nz-upload [nzCustomRequest]="uploadRequest" [nzShowUploadList]="false">
+            <button nz-button [nzLoading]="uploadLoading && !uploadLoading.closed">
+                <span nz-icon nzType="upload"></span>
+                {{ "uploadImage" | translate }}
+            </button>
+        </nz-upload>
+    </div>
+</ng-template>
 
 
 <ng-template #newCategoryName>

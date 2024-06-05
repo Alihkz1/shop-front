@@ -6,6 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { Subscription } from 'rxjs';
 import { NzModalComponent } from 'ng-zorro-antd/modal';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-product',
@@ -15,11 +16,23 @@ import { NzModalComponent } from 'ng-zorro-antd/modal';
 export class AddProductComponent implements OnInit {
   @ViewChild('productModal') productModal: NzModalComponent;
 
+  public uploadRequest = (item: any) => {
+    const formData = new FormData();
+    formData.append('file', item.file as any);
+    formData.append('upload_preset', 'online_shop_preset');
+    return this.uploadLoading = this.http.post(environment.UPLOAD_URL, formData)
+      .subscribe(({ url }: any) => {
+        this.uploadedImgUrl.setValue(url)
+      })
+  }
+
   uploadUrl = environment.UPLOAD_URL;
-  addLoading: Subscription;
   editCategoryModalVisible = false;
   addCategoryModalVisible = false;
   productModalVisible = false;
+
+  addLoading: Subscription;
+  uploadLoading: Subscription;
 
   backTranslate: string;
   submitTranslate: string;
@@ -32,28 +45,27 @@ export class AddProductComponent implements OnInit {
     amount: new FormControl(null, Validators.required),
     productId: new FormControl(null, Validators.required),
   });
+
   newCategoryNameControl = new FormControl()
   addCategoryControl = new FormControl()
+  uploadedImgUrl = new FormControl('')
   editCategoryId: number = 0;
   categories: any[] = []
 
   constructor(
     private adminService: AdminService,
+    private http: HttpClient,
     private message: NzMessageService,
     private translate: TranslateService,
-  ) { 
+  ) {
     // this.backTranslate = this.translate.instant('back');
-    this.backTranslate = "بازگشت"
     // this.submitTranslate = this.translate.instant('submit');
+    this.backTranslate = "بازگشت"
     this.submitTranslate = "ثبت"
   }
 
   ngOnInit(): void {
     this.getCategories()
-  }
-
-  uploader_onChange(event: any) {
-    console.log(event);
   }
 
   getCategories() {
@@ -72,27 +84,34 @@ export class AddProductComponent implements OnInit {
       this.addLoading = this.adminService.addProduct(
         {
           ...this.form.value,
+          imageUrl: this.uploadedImgUrl.value,
           categoryId: this.form.get('categoryId')?.value
         }
       ).subscribe(({ success }: any) => {
         if (success) {
           this.message.create('success', this.translate.instant("productAdded"))
           this.form.reset()
+          this.uploadedImgUrl.reset()
           this.getCategories()
           this.productModalVisible = false;
         }
         else this.message.create('error', this.translate.instant("error"))
       });
     } else {
-      this.addLoading = this.adminService.editProduct(this.form.value).subscribe(({ success }: any) => {
-        if (success) {
-          this.message.create('success', this.translate.instant("productAdded"))
-          this.form.reset()
-          this.getCategories()
-          this.productModalVisible = false;
-        }
-        else this.message.create('error', this.translate.instant("error"))
-      });
+      this.addLoading = this.adminService.editProduct(
+        {
+          ...this.form.value,
+          imageUrl: this.uploadedImgUrl.value,
+        }).subscribe(({ success }: any) => {
+          if (success) {
+            this.message.create('success', this.translate.instant("productAdded"))
+            this.form.reset()
+            this.uploadedImgUrl.reset()
+            this.getCategories()
+            this.productModalVisible = false;
+          }
+          else this.message.create('error', this.translate.instant("error"))
+        });
     }
   }
 
@@ -115,10 +134,13 @@ export class AddProductComponent implements OnInit {
   editCategory_onConfirm() {
     const model = {
       categoryId: this.editCategoryId,
-      categoryName: this.newCategoryNameControl.value
+      categoryName: this.newCategoryNameControl.value,
+      imageUrl: this.uploadedImgUrl.value
+
     }
     this.adminService.editCategory(model).subscribe(({ success }: any) => {
       if (success) {
+        this.uploadedImgUrl.reset()
         this.editCategoryModalVisible = false;
         this.newCategoryNameControl.reset();
         this.getCategories();
@@ -129,11 +151,12 @@ export class AddProductComponent implements OnInit {
 
   addCategory_onConfirm() {
     const model = {
-      imageUrl: '',
+      imageUrl: this.uploadedImgUrl.value,
       categoryName: this.addCategoryControl.value
     }
     this.adminService.addCategory(model).subscribe(({ success }: any) => {
       if (success) {
+        this.uploadedImgUrl.reset()
         this.message.create('success', this.translate.instant('actionDone'))
         this.addCategoryModalVisible = false
         this.addCategoryControl.reset()

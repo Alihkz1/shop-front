@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../shared/menu.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from '../../../shared/model/product.model';
 
@@ -15,7 +15,8 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private menuService: MenuService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -31,5 +32,8 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  board_onClick(product: Product) { }
+  board_onClick(product: Product) {
+    const { categoryId } = this.route.snapshot.params;
+    this.router.navigate(['menu/products/' + categoryId + '/' + product.productId])
+  }
 }
