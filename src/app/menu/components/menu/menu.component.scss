@@ -4,7 +4,7 @@
     background: var(--main-bg);
 
     &-wrapper {
-        height: calc(100vh - 100px);
+        height: calc(100vh - 90px);
 
         @media (min-width:1450px) {
             padding: 0px 150px !important;

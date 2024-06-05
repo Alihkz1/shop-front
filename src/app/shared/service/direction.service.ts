@@ -12,7 +12,7 @@ export class DirectionService {
     style.href = 'bootstrap-' + direction + '-loader.css';
     style.rel = 'stylesheet';
     document.head.appendChild(style);
-    this._iphonePadding();
+    // this._iphonePadding();
   }
 
   private _iphonePadding(): void {

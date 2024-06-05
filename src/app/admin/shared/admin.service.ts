@@ -49,4 +49,8 @@ export class AdminService {
   public deleteComment(commentId: number) {
     return this.http.delete(environment.API_BASE + "comment/delete/" + commentId)
   }
+
+  public getUsers() {
+    return this.http.get(environment.API_BASE + "user/list");
+  }
 }
