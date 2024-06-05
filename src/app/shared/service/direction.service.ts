@@ -18,8 +18,8 @@ export class DirectionService {
   private _iphonePadding(): void {
     const isIphone: boolean = /iPhone/i.test(navigator.userAgent);
     if (isIphone) {
-      const body = document.getElementsByTagName('body')[0];
-      body.style.setProperty('padding-bottom', '50px');
+      const html = document.getElementsByTagName('html')[0];
+      html.style.setProperty('padding-bottom', '25px');
     }
   }
 }
