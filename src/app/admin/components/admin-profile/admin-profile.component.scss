@@ -1,0 +1,12 @@
+.form {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    &-wrapper {
+        margin-top: 50px;
+        width: 80%;
+        max-width: 400px;
+    }
+}

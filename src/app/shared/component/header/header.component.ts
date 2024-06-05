@@ -25,7 +25,7 @@ export class HeaderComponent {
 
   logout_onClick() {
     this.client.setUser = null;
-    this.router.navigate(['auth/login'])
+    this.router.navigate(['menu/categories'])
     this.message.create('success', this.translate.instant('logoutSuccess'))
   }
 

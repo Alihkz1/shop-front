@@ -1,1 +1,19 @@
-<p>admin-profile works!</p>
+<form class="form" [formGroup]="form">
+    <div class="form-wrapper">
+        <div class="fielder">
+            <div class="fielder-title">{{ "email" | translate }}</div>
+            <input nz-input formControlName="email" />
+        </div>
+        <div class="fielder">
+            <div class="fielder-title">{{ "allName" | translate }}</div>
+            <input nz-input formControlName="name" />
+        </div>
+        <div class="fielder">
+            <div class="fielder-title">{{ "phone" | translate }}</div>
+            <input nz-input formControlName="phone" />
+        </div>
+        <button class="submit" [nzLoading]="loading && !loading.closed" nz-button nzType="primary" (click)="onSubmit()">
+            {{ "submit" | translate }}
+        </button>
+    </div>
+</form>

@@ -53,4 +53,13 @@ export class AdminService {
   public getUsers() {
     return this.http.get(environment.API_BASE + "user/list");
   }
+
+  public getUser(userId: number) {
+    return this.http.get(environment.API_BASE + "user/retrieve/" + userId);
+  }
+
+  public editUser(model: any) {
+    return this.http.put(environment.API_BASE + "user/edit", model)
+
+  }
 }

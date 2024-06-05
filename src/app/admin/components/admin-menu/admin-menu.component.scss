@@ -4,6 +4,7 @@
 
 .menu {
     padding: 10px 5px;
+
     &-item {
         font-size: 12px;
         cursor: pointer;
@@ -20,4 +21,8 @@
 .right {
     background: #fff;
     border-radius: 4px;
+
+    @media (max-width: 767px) {
+        height: fit-content;
+    }
 }
