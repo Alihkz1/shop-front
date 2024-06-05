@@ -16,7 +16,7 @@ export class ClientService {
   }
 
   get isLogin(): boolean {    
-    return localStorage.getItem('shopUser') !== null && localStorage.getItem('shopUser') !== 'null';
+    return true;
   }
 
 }

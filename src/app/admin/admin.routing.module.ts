@@ -21,6 +21,10 @@ export const routes: Routes = [
                         component: AddProductComponent
                     },
                     {
+                        path: 'profile',
+                        component: AdminProfileComponent
+                    },
+                    {
                         path: 'users-list',
                         component: UsersListComponent
                     },

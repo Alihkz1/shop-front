@@ -2,7 +2,7 @@
     min-height: 400px;
     height: fit-content;
     overflow-y: auto;
-    max-height: calc(100vh - 140px);
+    max-height: calc(100vh - 100px);
 
     @media (max-width: 767px) {
         margin-top: 10px;

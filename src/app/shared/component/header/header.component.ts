@@ -13,12 +13,14 @@ import { TranslateService } from "@ngx-translate/core";
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  /* todo: dynamic buttons for logged-in and signup */
+  /* todo: dynamic buttons for customer and admin*/
 
   constructor(
-    public client: ClientService,
     private router: Router,
+    public client: ClientService,
+    private message: NzMessageService,
     private translate: TranslateService,
-    private message: NzMessageService
   ) { }
 
   logout_onClick() {
@@ -27,12 +29,14 @@ export class HeaderComponent {
     this.message.create('success', this.translate.instant('logoutSuccess'))
   }
 
-  profile_onClick() { }
+  profile_onClick() {
+    this.router.navigate(['admin/profile'])
+  }
 
   aboutUs_onClick() {
     this.router.navigate(['admin'])
   }
-  
+
   login_onClick() {
     this.router.navigate(['auth/login'])
   }
