@@ -1,0 +1,35 @@
+.wrapper {
+    height: 100%;
+    overflow: hidden auto;
+    padding: 0 5px 15px 5px;
+}
+
+.cmt {
+    @media (max-width: 767px) {
+        margin-top: 12px;
+    }
+
+    @media (min-width: 767px) {
+        margin-top: 24px;
+    }
+}
+
+.board {
+    &-image {
+        height: 180px;
+        background-color: rgba(241, 241, 241, 0.379);
+
+        img {
+            height: 50%;
+            width: 50%;
+        }
+    }
+
+    &-data {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 120px;
+    }
+}

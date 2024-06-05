@@ -12,4 +12,12 @@ export class MenuService {
   addComment(model: { userId: number, message: string }) {
     return this.http.post(environment.API_BASE + 'comment/add', model);
   }
+
+  public getCategories() {
+    return this.http.get(environment.API_BASE + "category/list");
+  }
+
+  public getProducts(categoryId: number) {
+    return this.http.get(environment.API_BASE + "product/list/" + categoryId);
+  }
 }

@@ -15,24 +15,24 @@ export const routes: Routes = [
                 path: 'categories',
                 component: CategoriesComponent
             },
-            // {
-            //     path: 'products/:categoryId',
-            //     component: ProductsComponent,
-            //     children: [
-            //         {
-            //             path: ':productId',
-            //             component: ProductDetailComponent
-            //         },
-            //     ]
-            // },
             {
-                path: 'products',
+                path: 'products/:categoryId',
                 component: ProductsComponent,
+                children: [
+                    {
+                        path: ':productId',
+                        component: ProductDetailComponent
+                    },
+                ]
             },
-            {
-                path: 'detail',
-                component: ProductDetailComponent
-            },
+            // {
+            //     path: 'products',
+            //     component: ProductsComponent,
+            // },
+            // {
+            //     path: 'detail',
+            //     component: ProductDetailComponent
+            // },
             {
                 path: 'about-us',
                 component: AboutUsComponent
