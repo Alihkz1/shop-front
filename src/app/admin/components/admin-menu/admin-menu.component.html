@@ -1,20 +1,23 @@
 <div class="row box">
-    <div class="col-xl-2 col-lg-4 col-md-4 right">
+    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 right">
         <div class="h-100">
             <div class="menu">
-                <button class="menu-item" nz-button nzType="default" routerLink="/admin/add-product" routerLinkActive="active">
+                <button class="menu-item" nz-button nzType="default" routerLink="/admin/add-product"
+                    routerLinkActive="active">
                     {{ 'addProduct' | translate }}
                 </button>
-                <button class="menu-item" nz-button nzType="default" routerLink="/admin/users-list" routerLinkActive="active">
+                <button class="menu-item" nz-button nzType="default" routerLink="/admin/users-list"
+                    routerLinkActive="active">
                     {{ 'usersList' | translate }}
                 </button>
-                <button class="menu-item" nz-button nzType="default" routerLink="/admin/all-comments" routerLinkActive="active">
+                <button class="menu-item" nz-button nzType="default" routerLink="/admin/all-comments"
+                    routerLinkActive="active">
                     {{ 'comments' | translate }}
                 </button>
             </div>
         </div>
     </div>
-    <div class="col-xl-10 col-lg-8 col-md-8">
+    <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12">
         <div class="h-100">
             <router-outlet></router-outlet>
         </div>

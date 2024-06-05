@@ -19,6 +19,7 @@ import { AllCommentsComponent } from './components/admin-menu/all-comments/all-c
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NoImageDirective } from '../shared/no-image.directive';
 
 const NZ = [
   NzButtonModule,
@@ -42,6 +43,7 @@ const NZ = [
     HeaderComponent,
     TranslateModule,
     ReactiveFormsModule,
+    NoImageDirective,
     ...NZ
   ]
 })
