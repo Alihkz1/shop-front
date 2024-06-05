@@ -30,7 +30,7 @@ export class HeaderComponent {
   profile_onClick() { }
 
   aboutUs_onClick() {
-    this.router.navigate(['menu/about-us'])
+    this.router.navigate(['admin'])
   }
   
   login_onClick() {

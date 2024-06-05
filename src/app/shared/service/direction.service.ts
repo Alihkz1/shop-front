@@ -12,5 +12,14 @@ export class DirectionService {
     style.href = 'bootstrap-' + direction + '-loader.css';
     style.rel = 'stylesheet';
     document.head.appendChild(style);
+    this._iphonePadding();
+  }
+
+  private _iphonePadding(): void {
+    const isIphone: boolean = /iPhone/i.test(navigator.userAgent);
+    if (isIphone) {
+      const body = document.getElementsByTagName('body')[0];
+      body.style.setProperty('padding-bottom', '50px');
+    }
   }
 }
