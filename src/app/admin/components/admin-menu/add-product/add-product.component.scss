@@ -88,8 +88,8 @@ nz-collapse {
     }
 
     &-image {
-        height: 90%;
-        width: 100px;
+        height: fit-content;
+        max-height: 90px;
     }
 
     &-icon {

@@ -18,10 +18,12 @@
     &-image {
         height: 180px;
         background-color: rgba(241, 241, 241, 0.379);
+        display: flex;
+        justify-content: center;
 
         img {
-            height: 100%;
-            width: 100%;
+            height: fit-content;
+            max-height: 180px;
         }
     }
 
