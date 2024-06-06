@@ -4,6 +4,7 @@ import { AdminService } from '../../shared/admin.service';
 import { Subscription } from 'rxjs';
 import { TranslateService } from "@ngx-translate/core";
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { ClientService } from '../../../shared/service/client.service';
 
 @Component({
   selector: 'app-admin-profile',
@@ -24,6 +25,7 @@ export class AdminProfileComponent implements OnInit {
     private message: NzMessageService,
     private adminService: AdminService,
     private translate: TranslateService,
+    private client: ClientService,
   ) { }
 
   ngOnInit(): void {
@@ -31,8 +33,8 @@ export class AdminProfileComponent implements OnInit {
   }
 
   getData() {
-    /* todo: get by real userId */
-    this.adminService.getUser(1).subscribe(({ data }: any) => {
+    const { userId } = this.client.getUser.user;
+    this.adminService.getUser(userId).subscribe(({ data }: any) => {
       this.form.patchValue(data.user);
     })
   }
@@ -40,7 +42,7 @@ export class AdminProfileComponent implements OnInit {
   onSubmit() {
     this.loading = this.adminService.editUser({
       ...this.form.value,
-      userId: 1
+      userId: this.client.getUser.user.userId
     })
       .subscribe(({ success }: any) => {
         if (success) {

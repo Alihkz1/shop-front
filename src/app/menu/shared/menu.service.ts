@@ -9,7 +9,7 @@ export class MenuService {
 
   constructor(private http: HttpClient) { }
 
-  addComment(model: { userId: number, message: string }) {
+  addComment(model: { userId: number, message: string | null }) {
     return this.http.post(environment.API_BASE + 'comment/add', model);
   }
 

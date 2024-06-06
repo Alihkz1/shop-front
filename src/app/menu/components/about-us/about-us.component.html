@@ -6,8 +6,8 @@
         <p> {{"yourMessage" | translate}} </p>
         <textarea [formControl]="message" nz-input [nzAutosize]="{ minRows: 7, maxRows: 15 }"></textarea>
         <button class="submit" nz-button nzType="primary" [nzLoading]="submitLoading && !submitLoading.closed"
-            (click)="submit_onClick()">
-            {{ "submit" | translate}}
+            (click)="submit_onClick()" [disabled]="message.invalid">
+            {{ "submit" | translate }}
         </button>
     </div>
 </div>

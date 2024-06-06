@@ -97,7 +97,7 @@ nz-message .anticon {
 }
 
 .ant-select-disabled.ant-select:not(.ant-select-customize-input) .ant-select-selector,
-.ant-input[disabled] {
+.ant-input[disabled], .ant-btn[disabled]{
     color: #000;
 }
 
