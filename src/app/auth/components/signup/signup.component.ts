@@ -38,7 +38,7 @@ export class SignupComponent {
       .subscribe(({ success, data }: any) => {
         if (success) {
           this.clientService.setUser = data.user;
-          this.router.navigate(['/menu/categories']);
+          this.router.navigate(['/auth/login']);
           this.message.create(
             'success',
             this.translate.instant('signUpSuccess')

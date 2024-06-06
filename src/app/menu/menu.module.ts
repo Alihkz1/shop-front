@@ -11,6 +11,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { TranslateModule } from "@ngx-translate/core";
 import { ReactiveFormsModule } from '@angular/forms';
+import { MenuProfileComponent } from './components/menu-profile/menu-profile.component';
 
 const NZ = [
   NzInputModule,
@@ -24,7 +25,8 @@ const NZ = [
     AboutUsComponent,
     CategoriesComponent,
     ProductDetailComponent,
-    ProductsComponent
+    ProductsComponent,
+    MenuProfileComponent
   ],
   imports: [
     CommonModule,

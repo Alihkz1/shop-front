@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/auth.service';
 import { finalize } from 'rxjs';
@@ -7,6 +7,7 @@ import { ClientService } from '../../../shared/service/client.service';
 import { TranslateService } from "@ngx-translate/core";
 import { ROLE } from '../../../shared/enum/role.enum';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { ADMIN_BUTTONS, USER_BUTTONS } from '../../../shared/config/header-buttons.config';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +16,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class LoginComponent {
   loginLoading = false;
-  emailControl = new FormControl(null, Validators.required)
-  passwordControl = new FormControl(null, Validators.required)
+  form = new FormGroup({
+    email: new FormControl(null, Validators.required),
+    password: new FormControl(null, Validators.required)
+  })
 
   constructor(
     private router: Router,
@@ -36,19 +39,16 @@ export class LoginComponent {
 
   login_onClick() {
     this.loginLoading = true;
-    this.authService.login(
-      {
-        email: this.emailControl.value,
-        password: this.passwordControl.value
-      }
-    )
+    this.authService.login(this.form.value)
       .pipe(finalize(() => { this.loginLoading = false; }))
       .subscribe(({ success, data }: any) => {
         if (success) {
-          this.clientService.setUser = data.user;
+          this.clientService.setUser = data;
           if (data.user.role === ROLE.ADMIN) {
-            this.router.navigate(['/admin']);
+            this.clientService.setHeaderButtons = ADMIN_BUTTONS;
+            this.router.navigate(['/admin/add-product']);
           } else {
+            this.clientService.setHeaderButtons = USER_BUTTONS;
             this.router.navigate(['/menu/categories']);
           }
           this.message.create(

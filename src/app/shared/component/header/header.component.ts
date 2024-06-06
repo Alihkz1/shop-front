@@ -4,6 +4,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
+import { ROLE } from '../../enum/role.enum';
 
 @Component({
   selector: 'app-header',
@@ -13,8 +14,7 @@ import { TranslateService } from "@ngx-translate/core";
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  /* todo: dynamic buttons for logged-in and signup */
-  /* todo: dynamic buttons for customer and admin*/
+  afterLoginButtons = [];
 
   constructor(
     private router: Router,
@@ -24,21 +24,28 @@ export class HeaderComponent {
   ) { }
 
   logout_onClick() {
-    this.client.setUser = null;
+    this.client.logout();
     this.router.navigate(['menu/categories'])
     this.message.create('success', this.translate.instant('logoutSuccess'))
   }
 
   profile_onClick() {
-    this.router.navigate(['admin/profile'])
+    if (this.client.getUser.user.role === ROLE.ADMIN)
+      this.router.navigate(['admin/profile'])
+    else
+      this.router.navigate(['menu/profile'])
   }
 
   aboutUs_onClick() {
-    this.router.navigate(['admin'])
+    this.router.navigate(['menu/about-us'])
   }
 
   login_onClick() {
     this.router.navigate(['auth/login'])
+  }
+
+  navigate(route: string) {
+    this.router.navigate([route])
   }
 
 }

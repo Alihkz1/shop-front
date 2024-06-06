@@ -35,3 +35,14 @@
         height: 120px;
     }
 }
+
+.title {
+    margin-top: 10px;
+    font-size: 18px;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+}

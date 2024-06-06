@@ -1,13 +1,21 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../env/environment';
+import { ClientService } from '../../shared/service/client.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
 
-  constructor(private http: HttpClient) { }
+  private get headers(): HttpHeaders {
+    return new HttpHeaders().append("Authorization", "Bearer " + this.client.getUser.token)
+  }
+
+  constructor(
+    private http: HttpClient,
+    private client: ClientService
+  ) { }
 
   public getComments() {
     return this.http.get(environment.API_BASE + "comment/list");
@@ -51,7 +59,9 @@ export class AdminService {
   }
 
   public getUsers() {
-    return this.http.get(environment.API_BASE + "user/list");
+    return this.http.get(environment.API_BASE + "user/list", {
+      headers: this.headers
+    });
   }
 
   public getUser(userId: number) {
@@ -60,6 +70,5 @@ export class AdminService {
 
   public editUser(model: any) {
     return this.http.put(environment.API_BASE + "user/edit", model)
-
   }
 }

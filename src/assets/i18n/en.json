@@ -37,5 +37,7 @@
   "productDetails": "Product Details",
   "back": "Back",
   "allName": "Full Name",
-  "currency": "$"
+  "currency": "$",
+  "products": "Products",
+  "dashboard": "Dashboard"
 }

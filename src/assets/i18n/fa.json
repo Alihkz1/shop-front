@@ -37,5 +37,7 @@
   "productDetails": "اطلاعات محصول",
   "back": "بازگشت",
   "allName": "نام و نام خانوادگی",
-  "currency" : "تومان"
+  "currency" : "تومان",
+  "products": "محصولات",
+  "dashboard":"داشبورد مدیریتی"
 }

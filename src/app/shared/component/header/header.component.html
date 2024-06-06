@@ -2,11 +2,15 @@
     <div class="header" dir="ltr">
         @if (client.isLogin) {
         <!-- todo: products -->
-        <img class="power" src="assets/svg/power.svg" alt="" (click)="logout_onClick()">
+        <div>
+            <img class="power mx-2" src="assets/svg/power.svg" alt="" (click)="logout_onClick()">
+            @for (button of client.headerButtons; track $index) {
+            <button class="button mx-1" (click)="navigate(button.route)">{{ button.title | translate }}</button>
+            }
+        </div>
         <div class="d-flex align-items-center">
             <div class="client-name pe-2">
-                <!-- {{ client.getUser.name }} -->
-                علی حسین خانی
+                {{ client.getUser.user.name }}
             </div>
             <img class="profile" src="assets/svg/profile.svg" alt="" (click)="profile_onClick()">
         </div>

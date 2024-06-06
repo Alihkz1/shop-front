@@ -5,6 +5,7 @@ import { CategoriesComponent } from "./components/categories/categories.componen
 import { ProductsComponent } from "./components/products/products.component";
 import { ProductDetailComponent } from "./components/product-detail/product-detail.component";
 import { AboutUsComponent } from "./components/about-us/about-us.component";
+import { MenuProfileComponent } from "./components/menu-profile/menu-profile.component";
 
 export const routes: Routes = [
     {
@@ -14,6 +15,10 @@ export const routes: Routes = [
             {
                 path: 'categories',
                 component: CategoriesComponent
+            },
+            {
+                path: 'profile',
+                component: MenuProfileComponent
             },
             {
                 path: 'products/:categoryId',
