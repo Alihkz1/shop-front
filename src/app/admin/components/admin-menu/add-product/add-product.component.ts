@@ -6,7 +6,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { Subscription } from 'rxjs';
 import { NzModalComponent } from 'ng-zorro-antd/modal';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
+import { NzUploadXHRArgs } from 'ng-zorro-antd/upload';
 
 @Component({
   selector: 'app-add-product',
@@ -16,14 +17,22 @@ import { HttpClient } from '@angular/common/http';
 export class AddProductComponent implements OnInit {
   @ViewChild('productModal') productModal: NzModalComponent;
 
-  public uploadRequest = (item: any) => {
+  public uploadRequest = (item: NzUploadXHRArgs) => {
     const formData = new FormData();
     formData.append('file', item.file as any);
     formData.append('upload_preset', 'online_shop_preset');
-    return this.uploadLoading = this.http.post(environment.UPLOAD_URL, formData)
-      .subscribe(({ url }: any) => {
-        this.uploadedImgUrl.setValue(url)
-      })
+    const req = new HttpRequest('POST', environment.UPLOAD_URL, formData)
+    return this.http.request(req).subscribe((event: HttpEvent<any>) => {
+      item.onProgress!(event, item.file!);
+      if (event instanceof HttpResponse) {
+        this.uploadedImgUrl.setValue(event.body.url);
+        item.onSuccess!(event.body, item.file!, event);
+      }
+    },
+      (error) => {
+        item.onError!(error, item.file!);
+      }
+    )
   }
 
   uploadUrl = environment.UPLOAD_URL;
@@ -32,8 +41,6 @@ export class AddProductComponent implements OnInit {
   productModalVisible = false;
 
   addLoading: Subscription;
-  uploadLoading: Subscription;
-
   backTranslate: string;
   submitTranslate: string;
 

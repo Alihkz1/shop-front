@@ -79,12 +79,16 @@ nz-collapse {
         height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
     }
 
     &-title {
         font-size: 13px;
         margin: 0 5px;
+        font-weight: bold;
+
+        @media (max-width: 767px) {
+            font-size: 12px;
+        }
     }
 
     &-image {
@@ -97,5 +101,21 @@ nz-collapse {
         width: 30px;
         cursor: pointer;
         margin: 0 5px;
+    }
+
+    &-amount {
+        margin: 0 5px;
+
+        @media (max-width: 767px) {
+            font-size: 11px;
+        }
+    }
+
+    &-price {
+        margin: 0 5px;
+
+        @media (max-width: 767px) {
+            font-size: 11px;
+        }
     }
 }

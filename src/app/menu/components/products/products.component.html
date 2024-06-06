@@ -7,6 +7,9 @@
                     <img [src]="product.imageUrl" [alt]="product.title">
                 </div>
                 <div class="board-data">
+                    <p class="w-100 d-flex justify-content-center mb-1"><b>{{ product.title }}</b></p>
+                    <p> <span> <b>{{ "price" | translate }}:</b> </span> {{ product.price }} {{ "currency" | translate }} </p>
+                    <p> <span> <b>{{ "amount" | translate }}:</b> </span> {{ product.amount }} </p>
                 </div>
             </div>
         </div>

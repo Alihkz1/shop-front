@@ -5,4 +5,5 @@ export interface Product {
     long: number;
     title: string;
     imageUrl: string;
+    amount: number;
 }

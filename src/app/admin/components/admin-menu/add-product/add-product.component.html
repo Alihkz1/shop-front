@@ -17,13 +17,21 @@
                     <div class="product-item">
                         <div class="product-item-info">
                             <p class="product-item-title">{{ product.title }}</p>
+                            <p class="product-item-amount">
+                                <span>{{ "amount" | translate }}:</span> {{ product.amount }}
+                            </p>
+                            <p class="product-item-price">
+                                <span>{{ "price" | translate }}:</span> {{ product.price }} {{ "currency" | translate }}
+                            </p>
                             <div>
                                 <span class="product-item-icon blue" nz-icon nzType="edit" nzTheme="outline"
-                                    (click)="editProduct_onClick(product)"></span>
+                                    (click)="editProduct_onClick(product)">
+                                </span>
                                 <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف محصول؟"
                                     class="product-item-icon red" [nzOkText]="submitTranslate"
                                     [nzCancelText]="backTranslate" nz-icon nzType="delete" nzTheme="outline"
-                                    (nzOnConfirm)="deleteProduct_onConfirm(product)"></span>
+                                    (nzOnConfirm)="deleteProduct_onConfirm(product)">
+                                </span>
                             </div>
                         </div>
                         <img class="product-item-image" [src]="product.imageUrl">
@@ -110,8 +118,8 @@
 
 <ng-template #uploaderTemplate>
     <div class="fielder mt-4">
-        <nz-upload [nzCustomRequest]="uploadRequest" [nzShowUploadList]="false">
-            <button nz-button [nzLoading]="uploadLoading && !uploadLoading.closed">
+        <nz-upload [nzCustomRequest]="uploadRequest">
+            <button nz-button>
                 <span nz-icon nzType="upload"></span>
                 {{ "uploadImage" | translate }}
             </button>

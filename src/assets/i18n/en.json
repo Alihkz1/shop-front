@@ -36,5 +36,6 @@
   "enterNewName": "Enter New Name",
   "productDetails": "Product Details",
   "back": "Back",
-  "allName": "Full Name"
+  "allName": "Full Name",
+  "currency": "$"
 }

@@ -30,8 +30,11 @@
     &-data {
         width: 100%;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        flex-direction: column;
         height: 120px;
+        padding: 10px;
+        p {
+            margin-bottom: 5px;
+        }
     }
 }
