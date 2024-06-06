@@ -1,7 +1,6 @@
 <div class="w-100 d-flex justify-content-center pt-4 pb-2 px-2">
     <div class="header" dir="ltr">
         @if (client.isLogin) {
-        <!-- todo: products -->
         <div>
             <img class="power mx-2" src="assets/svg/power.svg" alt="" (click)="logout_onClick()">
             @for (button of client.headerButtons; track $index) {
@@ -16,8 +15,8 @@
         </div>
         }
         @else {
-        <!-- todo: products -->
         <button class="button" (click)="aboutUs_onClick()">{{ "aboutUs" | translate }}</button>
+        <button class="button" (click)="navigate('menu/categories')">{{ "products" | translate }}</button>
         <button class="button login" (click)="login_onClick()">{{ "loginButton" | translate }}</button>
         }
     </div>

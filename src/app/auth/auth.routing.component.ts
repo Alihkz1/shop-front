@@ -1,13 +1,16 @@
 import { Component } from "@angular/core";
 
 @Component({
-    selector: 'auth-routing',
-    template: `<div class="main">
-                  <div class="box">
+  selector: 'auth-routing',
+  template: `<div class="main">
+                 <app-header></app-header>
+                  <div class="d-flex justify-content-center align-items-center flex-grow">
+                    <div class="box">
                     <router-outlet></router-outlet>   
+                    </div>
                   </div>
                </div>
               `,
-    styleUrls: ['./auth.routing.component.scss']
+  styleUrls: ['./auth.routing.component.scss']
 })
 export class AuthRoutingComponent { }

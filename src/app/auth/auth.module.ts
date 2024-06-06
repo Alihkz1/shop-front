@@ -9,6 +9,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+import { HeaderComponent } from '../shared/component/header/header.component';
 
 const NZ = [
   NzInputModule,
@@ -27,6 +28,7 @@ const NZ = [
     AuthRoutingModule,
     TranslateModule,
     ...NZ,
+    HeaderComponent,
     ReactiveFormsModule
   ],
 })
