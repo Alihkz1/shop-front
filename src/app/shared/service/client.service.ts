@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../model/user.model';
 import { BehaviorSubject } from 'rxjs';
 import { IHeaderButton } from '../config/header-buttons.config';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,8 @@ export class ClientService {
   }
 
   isLogin = false;
+
+  constructor(public http: HttpClient) { }
 
   set setUser(user: { token: string, user: User }) {
     this.isLogin = true;

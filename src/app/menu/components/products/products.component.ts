@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuService } from '../../shared/menu.service';
+import { MenuApi } from '../../shared/menu.api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from '../../../shared/model/product.model';
@@ -14,7 +14,7 @@ export class ProductsComponent implements OnInit {
   public get products() { return this._products$.getValue() }
 
   constructor(
-    private menuService: MenuService,
+    private menuApi: MenuApi,
     private route: ActivatedRoute,
     private router: Router,
   ) { }
@@ -25,7 +25,7 @@ export class ProductsComponent implements OnInit {
 
   getData() {
     const { categoryId } = this.route.snapshot.params;
-    this.menuService.getProducts(categoryId).subscribe(({ success, data }: any) => {
+    this.menuApi.getProducts(categoryId).subscribe(({ success, data }: any) => {
       if (success) {
         this._products$.next(data.products);
       }

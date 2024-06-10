@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { AdminService } from '../../shared/admin.service';
+import { AdminApi } from '../../shared/admin.api';
 import { Subscription } from 'rxjs';
 import { TranslateService } from "@ngx-translate/core";
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -22,10 +22,10 @@ export class AdminProfileComponent implements OnInit {
   })
 
   constructor(
-    private message: NzMessageService,
-    private adminService: AdminService,
-    private translate: TranslateService,
+    private adminApi: AdminApi,
     private client: ClientService,
+    private message: NzMessageService,
+    private translate: TranslateService,
   ) { }
 
   ngOnInit(): void {
@@ -34,13 +34,13 @@ export class AdminProfileComponent implements OnInit {
 
   getData() {
     const { userId } = this.client.getUser.user;
-    this.adminService.getUser(userId).subscribe(({ data }: any) => {
+    this.adminApi.getUser(userId).subscribe(({ data }: any) => {
       this.form.patchValue(data.user);
     })
   }
 
   onSubmit() {
-    this.loading = this.adminService.editUser({
+    this.loading = this.adminApi.editUser({
       ...this.form.value,
       userId: this.client.getUser.user.userId
     })

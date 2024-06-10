@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AdminService } from '../../../shared/admin.service';
+import { AdminApi } from '../../../shared/admin.api';
 import { environment } from '../../../../../env/environment';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
@@ -60,8 +60,8 @@ export class AddProductComponent implements OnInit {
   categories: any[] = []
 
   constructor(
-    private adminService: AdminService,
     private http: HttpClient,
+    private adminApi: AdminApi,
     private message: NzMessageService,
     private translate: TranslateService,
   ) {
@@ -76,7 +76,7 @@ export class AddProductComponent implements OnInit {
   }
 
   getCategories() {
-    this.adminService.getCategories().subscribe(({ data }: any) => {
+    this.adminApi.getCategories().subscribe(({ data }: any) => {
       this.categories = data.categories;
     })
   }
@@ -88,7 +88,7 @@ export class AddProductComponent implements OnInit {
 
   addProduct_onConfirm() {
     if (!this.form.value.productId) {
-      this.addLoading = this.adminService.addProduct(
+      this.addLoading = this.adminApi.addProduct(
         {
           ...this.form.value,
           imageUrl: this.uploadedImgUrl.value,
@@ -105,7 +105,7 @@ export class AddProductComponent implements OnInit {
         else this.message.create('error', this.translate.instant("error"))
       });
     } else {
-      this.addLoading = this.adminService.editProduct(
+      this.addLoading = this.adminApi.editProduct(
         {
           ...this.form.value,
           imageUrl: this.uploadedImgUrl.value,
@@ -123,7 +123,7 @@ export class AddProductComponent implements OnInit {
   }
 
   deleteCategory_onConfirm(category: any) {
-    this.adminService.deleteCategory(category.categoryId).subscribe(({ success }: any) => {
+    this.adminApi.deleteCategory(category.categoryId).subscribe(({ success }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
         this.getCategories()
@@ -145,7 +145,7 @@ export class AddProductComponent implements OnInit {
       imageUrl: this.uploadedImgUrl.value
 
     }
-    this.adminService.editCategory(model).subscribe(({ success }: any) => {
+    this.adminApi.editCategory(model).subscribe(({ success }: any) => {
       if (success) {
         this.uploadedImgUrl.reset()
         this.editCategoryModalVisible = false;
@@ -161,7 +161,7 @@ export class AddProductComponent implements OnInit {
       imageUrl: this.uploadedImgUrl.value,
       categoryName: this.addCategoryControl.value
     }
-    this.adminService.addCategory(model).subscribe(({ success }: any) => {
+    this.adminApi.addCategory(model).subscribe(({ success }: any) => {
       if (success) {
         this.uploadedImgUrl.reset()
         this.message.create('success', this.translate.instant('actionDone'))
@@ -173,7 +173,7 @@ export class AddProductComponent implements OnInit {
   }
 
   deleteProduct_onConfirm(product: any) {
-    this.adminService.deleteProduct(product.productId).subscribe(({ success }: any) => {
+    this.adminApi.deleteProduct(product.productId).subscribe(({ success }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
         this.getCategories();

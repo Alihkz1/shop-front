@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutRoutingModule } from './layout.routing.module';
 import { LayoutComponent } from './layout/layout.component';
@@ -8,6 +8,7 @@ import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { NZ_CONFIG, NzConfig, NzConfigService } from 'ng-zorro-antd/core/config';
 import { en_US, provideNzI18n } from "ng-zorro-antd/i18n";
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { ServiceLocator } from '../shared/class/request-builder';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -48,4 +49,8 @@ const ngZorroConfig: NzConfig = {
     },
   ]
 })
-export class LayoutModule { }
+export class LayoutModule {
+  constructor(injector: Injector) {
+    ServiceLocator.injector = injector;
+  }
+}

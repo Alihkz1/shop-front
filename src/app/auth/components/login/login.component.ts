@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../shared/auth.service';
+import { AuthApi } from '../../shared/auth.api';
 import { finalize } from 'rxjs';
 import { ClientService } from '../../../shared/service/client.service';
 import { TranslateService } from "@ngx-translate/core";
@@ -23,7 +23,7 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
-    private authService: AuthService,
+    private authApi: AuthApi,
     private clientService: ClientService,
     private translate: TranslateService,
     private message: NzMessageService
@@ -39,7 +39,7 @@ export class LoginComponent {
 
   login_onClick() {
     this.loginLoading = true;
-    this.authService.login(this.form.value)
+    this.authApi.login(this.form.value)
       .pipe(finalize(() => { this.loginLoading = false; }))
       .subscribe(({ success, data }: any) => {
         if (success) {

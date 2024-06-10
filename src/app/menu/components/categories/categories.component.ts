@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuService } from '../../shared/menu.service';
+import { MenuApi } from '../../shared/menu.api';
 import { BehaviorSubject } from 'rxjs';
 import { Category } from '../../../shared/model/category.model';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ export class CategoriesComponent implements OnInit {
   public get categories() { return this._categories$.getValue() }
 
   constructor(
-    private menuService: MenuService,
+    private menuApi: MenuApi,
     private router: Router
   ) { }
 
@@ -23,7 +23,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   getData() {
-    this.menuService.getCategories().subscribe(({ success, data }: any) => {
+    this.menuApi.getCategories().subscribe(({ success, data }: any) => {
       if (success) {
         this._categories$.next(data.categories);
       }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuService } from '../../shared/menu.service';
+import { MenuApi } from '../../shared/menu.api';
 import { ClientService } from '../../../shared/service/client.service';
 import { FormControl, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -17,7 +17,7 @@ export class AboutUsComponent {
 
   constructor(
     private client: ClientService,
-    private menuService: MenuService,
+    private menuApi: MenuApi,
     private translate: TranslateService,
     private messageService: NzMessageService,
   ) { }
@@ -26,7 +26,7 @@ export class AboutUsComponent {
     let userId = null;
     if (this.client.isLogin)
       userId = this.client.getUser.user.userId;
-    this.submitLoading = this.menuService.addComment({ userId, message: this.message.value }).subscribe(({ success }: any) => {
+    this.submitLoading = this.menuApi.addComment({ userId, message: this.message.value }).subscribe(({ success }: any) => {
       if (success) {
         this.messageService.create('success', this.translate.instant('actionDone'))
         this.message.reset()

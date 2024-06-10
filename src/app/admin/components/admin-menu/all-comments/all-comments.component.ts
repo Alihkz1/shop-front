@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../../../shared/admin.service';
+import { AdminApi } from '../../../shared/admin.api';
 import { BehaviorSubject } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
@@ -14,8 +14,8 @@ export class AllCommentsComponent implements OnInit {
   public get comments() { return this._comments$.getValue() }
 
   constructor(
+    private adminApi: AdminApi,
     private message: NzMessageService,
-    private adminService: AdminService,
     private translate: TranslateService
   ) { }
 
@@ -24,13 +24,13 @@ export class AllCommentsComponent implements OnInit {
   }
 
   getComments() {
-    this.adminService.getComments().subscribe(({ data }: any) => {
+    this.adminApi.getComments().subscribe(({ data }: any) => {
       this._comments$.next(data.comments);
     })
   }
 
   deleteComment(commentId: number) {
-    this.adminService.deleteComment(commentId).subscribe(({ success }: any) => {
+    this.adminApi.deleteComment(commentId).subscribe(({ success }: any) => {
       if (success) {
         this.getComments()
         this.message.create('success', this.translate.instant('actionDone'))
@@ -39,7 +39,7 @@ export class AllCommentsComponent implements OnInit {
   }
 
   read_onChange(flag: boolean, comment: Comment) {
-    this.adminService.editComment(
+    this.adminApi.editComment(
       {
         commentId: comment.commentId,
         read: flag

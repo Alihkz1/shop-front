@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../shared/auth.service';
+import { AuthApi } from '../../shared/auth.api';
 import { finalize } from 'rxjs';
 import { TranslateService } from "@ngx-translate/core";
 import { ClientService } from '../../../shared/service/client.service';
@@ -24,7 +24,7 @@ export class SignupComponent {
 
   constructor(
     private router: Router,
-    private authService: AuthService,
+    private authApi: AuthApi,
     private message: NzMessageService,
     private translate: TranslateService,
     private clientService: ClientService,
@@ -33,7 +33,7 @@ export class SignupComponent {
 
   signup_onClick() {
     this.signupLoading = true;
-    this.authService.signup(this.form.value)
+    this.authApi.signup(this.form.value)
       .pipe(finalize(() => { this.signupLoading = false; }))
       .subscribe(({ success, data }: any) => {
         if (success) {

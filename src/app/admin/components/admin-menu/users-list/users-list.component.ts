@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../../../shared/admin.service';
+import { AdminApi } from '../../../shared/admin.api';
 
 @Component({
   selector: 'app-users-list',
@@ -8,9 +8,9 @@ import { AdminService } from '../../../shared/admin.service';
 })
 export class UsersListComponent implements OnInit {
 
-  constructor(private adminService:AdminService){}
+  constructor(private adminApi: AdminApi) { }
 
   ngOnInit(): void {
-      this.adminService.getUsers().subscribe()
+    this.adminApi.getUsers().subscribe()
   }
 }

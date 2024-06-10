@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { TranslateService } from "@ngx-translate/core";
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { MenuService } from '../../shared/menu.service';
+import { MenuApi } from '../../shared/menu.api';
 import { ClientService } from '../../../shared/service/client.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class MenuProfileComponent implements OnInit {
 
   constructor(
     private client: ClientService,
-    private menuService: MenuService,
+    private menuApi: MenuApi,
     private message: NzMessageService,
     private translate: TranslateService,
   ) { }
@@ -34,13 +34,13 @@ export class MenuProfileComponent implements OnInit {
 
   getData() {
     const { userId } = this.client.getUser.user;
-    this.menuService.getUser(userId).subscribe(({ data }: any) => {
+    this.menuApi.getUser(userId).subscribe(({ data }: any) => {
       this.form.patchValue(data.user);
     })
   }
 
   onSubmit() {
-    this.loading = this.menuService.editUser({
+    this.loading = this.menuApi.editUser({
       ...this.form.value,
       userId: this.client.getUser.user.userId
     })
