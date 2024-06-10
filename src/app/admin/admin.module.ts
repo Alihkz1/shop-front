@@ -20,6 +20,8 @@ import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NoImageDirective } from '../shared/no-image.directive';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { UsersListComponent } from './components/admin-menu/users-list/users-list.component';
 
 const NZ = [
   NzButtonModule,
@@ -31,12 +33,13 @@ const NZ = [
   NzModalModule,
   NzCollapseModule,
   NzCheckboxModule,
-  NzToolTipModule
+  NzToolTipModule,
+  NzTableModule
 ]
 
 
 @NgModule({
-  declarations: [AdminRoutingComponent, AdminMenuComponent, AdminProfileComponent, AddProductComponent, AllCommentsComponent],
+  declarations: [AdminRoutingComponent, AdminMenuComponent, AdminProfileComponent, AddProductComponent, AllCommentsComponent, UsersListComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

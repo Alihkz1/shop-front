@@ -12,7 +12,7 @@ export const ServiceLocator: { injector?: Injector } = {};
 export class RequestBuilder {
     clientService: ClientService | undefined;
     httpClient: HttpClient | undefined;
-    requestOptions: { headers: HttpHeaders, params: any };
+    requestOptions: { headers?: HttpHeaders, params: any };
 
     private request: IRequest = {
         method: "get",
@@ -24,11 +24,12 @@ export class RequestBuilder {
     };
 
     constructor() {
-        this.clientService = ServiceLocator.injector?.get(ClientService);
+        this.clientService = ServiceLocator.injector?.get(ClientService)
+        this.requestOptions = { params: this.request.body }
         if (this.clientService?.isLogin)
             this.requestOptions = {
+                ...this.requestOptions,
                 headers: new HttpHeaders().append("Authorization", "Bearer " + this.clientService.getUser.token),
-                params: this.request.body
             }
     }
 

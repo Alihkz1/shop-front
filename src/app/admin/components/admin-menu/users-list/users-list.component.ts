@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminApi } from '../../../shared/admin.api';
+import { BehaviorSubject } from 'rxjs';
+import { User } from '../../../../shared/model/user.model';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { TranslateService } from "@ngx-translate/core";
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-users-list',
@@ -7,10 +12,63 @@ import { AdminApi } from '../../../shared/admin.api';
   styleUrl: './users-list.component.scss'
 })
 export class UsersListComponent implements OnInit {
+  changePasswordTranslate = 'تغییر رمز عبور کاربر'
+  submitTranslate = 'ثبت'
+  backTranslate = 'بازگشت'
+  changePasswordControl = new FormControl()
 
-  constructor(private adminApi: AdminApi) { }
+  expandSet = new Set<number>();
+  showChangePasswordModal = false;
+  private _users$ = new BehaviorSubject<User[]>([]);
+  public get users(): User[] {
+    return this._users$.getValue();
+  }
+
+  constructor(
+    private adminApi: AdminApi,
+    private message: NzMessageService,
+    private translate: TranslateService,
+  ) { }
 
   ngOnInit(): void {
-    this.adminApi.getUsers().subscribe()
+    this.getData()
+  }
+
+  onExpandChange(userId: number, checked: boolean): void {
+    /* get orders */
+    /* get comments */
+    if (checked) {
+      this.expandSet.add(userId);
+    } else {
+      this.expandSet.delete(userId);
+    }
+  }
+
+  public getData() {
+    this.adminApi.getUsers().subscribe(({ data }: any) => {
+      this._users$.next(data.users)
+    })
+  }
+
+  public deleteUser(user: User) {
+    this.adminApi.deleteUser(user.userId).subscribe(({ success }: any) => {
+      if (success) {
+        this.message.create('success', this.translate.instant('actionDone'))
+        this.getData()
+      }
+    })
+  }
+
+  public changePassword(user: User) {
+    const model = {
+      userId: user.userId,
+      newPassword: this.changePasswordControl.value
+    }
+    this.adminApi.changePassword(model).subscribe(({ success }: any) => {
+      if (success) {
+        this.message.create('success', this.translate.instant('actionDone'))
+        this.showChangePasswordModal = false;
+      }
+    })
   }
 }

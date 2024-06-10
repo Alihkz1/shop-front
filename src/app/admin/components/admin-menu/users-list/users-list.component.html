@@ -1,0 +1,41 @@
+<nz-table #basicTable [nzData]="users" nzTableLayout="fixed">
+    <thead>
+        <tr>
+            <th>{{ 'email' | translate}}</th>
+            <th>{{ 'allName' | translate}}</th>
+            <th>{{ 'phone' | translate}}</th>
+            <th>{{ 'more' | translate}}</th>
+            <th>{{ 'delete' | translate}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let row of basicTable.data">
+            <tr>
+                <td>{{ row.email }}</td>
+                <td>{{ row.name }}</td>
+                <td>{{ row.phone }}</td>
+                <td [nzExpand]="expandSet.has(row.userId)" (nzExpandChange)="onExpandChange(row.userId, $event)">
+                </td>
+                <td>
+                    <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف کاربر؟"
+                        class="red cursor-pointer" nzOkText="بله" nzCancelText="خیر" nz-icon nzType="delete"
+                        nzTheme="outline" (nzOnConfirm)="deleteUser(row)">
+                    </span>
+                    <span class="blue cursor-pointer mx-2" nz-icon nzType="lock" nzTheme="outline"
+                        (click)="showChangePasswordModal = true">
+                    </span>
+                </td>
+            </tr>
+            <tr [nzExpand]="expandSet.has(row.userId)">
+                <span>orders - comments</span>
+            </tr>
+            <nz-modal [(nzVisible)]="showChangePasswordModal" [nzTitle]="changePasswordTranslate"
+                [nzOkText]="submitTranslate" [nzCancelText]="backTranslate" (nzOnOk)="changePassword(row)"
+                (nzOnCancel)="showChangePasswordModal = false">
+                <ng-container *nzModalContent>
+                    <input nz-input [formControl]="changePasswordControl" />
+                </ng-container>
+            </nz-modal>
+        </ng-container>
+    </tbody>
+</nz-table>

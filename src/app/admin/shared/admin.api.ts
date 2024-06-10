@@ -107,7 +107,7 @@ export class AdminApi {
     return Api()
       .get()
       .controller('user')
-      .action('list')
+      .action('retrieve')
       .pathVariable(String(userId))
       .call()
   }
@@ -117,6 +117,24 @@ export class AdminApi {
       .get()
       .controller('user')
       .action('edit')
+      .body(model)
+      .call()
+  }
+
+  public deleteUser(userId: any) {
+    return Api()
+      .delete()
+      .controller('user')
+      .action('delete')
+      .pathVariable(userId)
+      .call()
+  }
+
+  public changePassword(model: { userId: number; newPassword: string }) {
+    return Api()
+      .put()
+      .controller('user')
+      .action('change-password')
       .body(model)
       .call()
   }

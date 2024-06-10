@@ -39,5 +39,8 @@
   "allName": "Full Name",
   "currency": "$",
   "products": "Products",
-  "dashboard": "Dashboard"
+  "dashboard": "Dashboard",
+  "more": "More",
+  "actions": "Actions",
+  "delete": "Delete"
 }
