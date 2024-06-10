@@ -14,8 +14,8 @@ export class AllCommentsComponent implements OnInit {
   public get comments() { return this._comments$.getValue() }
 
   constructor(
-    private adminService: AdminService,
     private message: NzMessageService,
+    private adminService: AdminService,
     private translate: TranslateService
   ) { }
 
@@ -44,9 +44,6 @@ export class AllCommentsComponent implements OnInit {
         commentId: comment.commentId,
         read: flag
       }
-    ).subscribe(({ success }: any) => {
-      if (success)
-        this.getComments()
-    })
+    ).subscribe()
   }
 }

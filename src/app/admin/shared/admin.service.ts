@@ -8,8 +8,10 @@ import { ClientService } from '../../shared/service/client.service';
 })
 export class AdminService {
 
-  private get headers(): HttpHeaders {
-    return new HttpHeaders().append("Authorization", "Bearer " + this.client.getUser.token)
+  private get requestOptions(): { headers: HttpHeaders } {
+    return {
+      headers: new HttpHeaders().append("Authorization", "Bearer " + this.client.getUser.token)
+    }
   }
 
   constructor(
@@ -18,12 +20,12 @@ export class AdminService {
   ) { }
 
   public getComments() {
-    return this.http.get(environment.API_BASE + "comment/list");
-  }
+    return this.http.get(environment.API_BASE + "comment/list", this.requestOptions);
+  } 
 
 
   public editComment(model: any) {
-    return this.http.put(environment.API_BASE + "comment/edit", model)
+    return this.http.put(environment.API_BASE + "comment/edit", model, this.requestOptions)
   }
 
   public getCategories() {
@@ -31,37 +33,35 @@ export class AdminService {
   }
 
   public deleteCategory(categoryId: number) {
-    return this.http.delete(environment.API_BASE + "category/delete/" + categoryId)
+    return this.http.delete(environment.API_BASE + "category/delete/" + categoryId, this.requestOptions)
   }
 
   public editCategory(model: any) {
-    return this.http.put(environment.API_BASE + "category/edit", model)
+    return this.http.put(environment.API_BASE + "category/edit", model, this.requestOptions)
   }
 
   public addCategory(model: any) {
-    return this.http.post(environment.API_BASE + "category/add", model)
+    return this.http.post(environment.API_BASE + "category/add", model, this.requestOptions)
   }
 
   public addProduct(model: any) {
-    return this.http.post(environment.API_BASE + "product/add", model)
+    return this.http.post(environment.API_BASE + "product/add", model, this.requestOptions)
   }
 
   public editProduct(model: any) {
-    return this.http.put(environment.API_BASE + "product/edit", model)
+    return this.http.put(environment.API_BASE + "product/edit", model, this.requestOptions)
   }
 
   public deleteProduct(productId: number) {
-    return this.http.delete(environment.API_BASE + "product/delete/" + productId)
+    return this.http.delete(environment.API_BASE + "product/delete/" + productId, this.requestOptions)
   }
 
   public deleteComment(commentId: number) {
-    return this.http.delete(environment.API_BASE + "comment/delete/" + commentId)
+    return this.http.delete(environment.API_BASE + "comment/delete/" + commentId, this.requestOptions)
   }
 
   public getUsers() {
-    return this.http.get(environment.API_BASE + "user/list", {
-      headers: this.headers
-    });
+    return this.http.get(environment.API_BASE + "user/list", this.requestOptions);
   }
 
   public getUser(userId: number) {

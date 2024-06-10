@@ -4,7 +4,7 @@
             @for (item of comments; track $index) {
             <div class="comment">
                 <div class="comment-title">
-                    {{item.user.email + '@'}} :
+                    {{item.user?.email + '@'}} :
                 </div>
                 <div class="comment-body">
                     <textarea [class.read]="item.comment.read" nz-input [value]="item.comment.message" nzAutosize>
