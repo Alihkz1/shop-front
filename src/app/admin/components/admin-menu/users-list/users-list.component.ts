@@ -5,6 +5,7 @@ import { User } from '../../../../shared/model/user.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { FormControl } from '@angular/forms';
+import { Comment } from '../../../../shared/model/comment.model';
 
 @Component({
   selector: 'app-users-list',
@@ -12,7 +13,7 @@ import { FormControl } from '@angular/forms';
   styleUrl: './users-list.component.scss'
 })
 export class UsersListComponent implements OnInit {
-  changePasswordTranslate = 'تغییر رمز عبور کاربر'
+  changePasswordTranslate = 'رمز عبور جدید را وارد کنید'
   submitTranslate = 'ثبت'
   backTranslate = 'بازگشت'
   changePasswordControl = new FormControl()
@@ -22,6 +23,10 @@ export class UsersListComponent implements OnInit {
   private _users$ = new BehaviorSubject<User[]>([]);
   public get users(): User[] {
     return this._users$.getValue();
+  }
+  private _userComments$ = new BehaviorSubject<Comment[]>([]);
+  public get userComments(): Comment[] {
+    return this._userComments$.getValue();
   }
 
   constructor(
@@ -35,13 +40,19 @@ export class UsersListComponent implements OnInit {
   }
 
   onExpandChange(userId: number, checked: boolean): void {
-    /* get orders */
-    /* get comments */
     if (checked) {
+      this.getExpandData(userId);
       this.expandSet.add(userId);
     } else {
       this.expandSet.delete(userId);
     }
+  }
+
+  private getExpandData(userId: number) {
+    /* todo: get Orders */
+    this.adminApi.getUserComments(userId).subscribe(({ data }: any) => {
+      this._userComments$.next(data.userComments)
+    })
   }
 
   public getData() {
@@ -70,5 +81,9 @@ export class UsersListComponent implements OnInit {
         this.showChangePasswordModal = false;
       }
     })
+  }
+
+  public changePassModal_onClose() {
+    this.changePasswordControl.reset()
   }
 }

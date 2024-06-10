@@ -3,6 +3,9 @@ import { ClientService } from "../service/client.service";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../../env/environment";
 import { Observable, catchError, of } from "rxjs";
+import { Router, UrlSerializer } from "@angular/router";
+import { Serializer } from "@angular/compiler";
+import { ParamsHandler } from "./params-handler";
 
 export function Api(): RequestBuilder {
     return new RequestBuilder()
@@ -44,7 +47,8 @@ export class RequestBuilder {
     }
 
     public param(params: any): this {
-        this.request.params = params;
+        const urlParams = new ParamsHandler(params)
+        this.request.params = urlParams.urlParameters();
         return this
     }
 
@@ -77,7 +81,7 @@ export class RequestBuilder {
                     .pipe(catchError((error) => this.errorHandler(error)))
             case 'get':
                 return this.clientService?.http
-                    .get(url, this.requestOptions)
+                    .get(this.request.params ? url + '?' + this.request.params : url, this.requestOptions)
                     .pipe(catchError((error) => this.errorHandler(error)))
             case 'put':
                 return this.clientService?.http

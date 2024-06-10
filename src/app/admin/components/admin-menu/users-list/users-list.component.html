@@ -27,11 +27,13 @@
                 </td>
             </tr>
             <tr [nzExpand]="expandSet.has(row.userId)">
-                <span>orders - comments</span>
+                @for (comment of userComments; track $index) {
+                {{ comment.message }}
+                }
             </tr>
             <nz-modal [(nzVisible)]="showChangePasswordModal" [nzTitle]="changePasswordTranslate"
                 [nzOkText]="submitTranslate" [nzCancelText]="backTranslate" (nzOnOk)="changePassword(row)"
-                (nzOnCancel)="showChangePasswordModal = false">
+                (nzAfterClose)="changePassModal_onClose()" (nzOnCancel)="showChangePasswordModal = false">
                 <ng-container *nzModalContent>
                     <input nz-input [formControl]="changePasswordControl" />
                 </ng-container>

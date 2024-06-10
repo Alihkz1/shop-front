@@ -6,14 +6,23 @@ import { Api } from '../../shared/class/request-builder';
 })
 export class AdminApi {
 
-  public getComments() {
+  public getComments(model: any = {}) {
     return Api()
       .get()
       .controller('comment')
       .action('list')
+      .param(model)
       .call()
   }
 
+  public getUserComments(userId: number) {
+    return Api()
+      .get()
+      .controller('comment')
+      .action('user')
+      .pathVariable(String(userId))
+      .call()
+  }
 
   public editComment(model: any) {
     return Api()
