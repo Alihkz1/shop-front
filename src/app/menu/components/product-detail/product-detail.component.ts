@@ -32,13 +32,15 @@ export class ProductDetailComponent implements OnInit {
     this.getData()
     this.menuApi.getUserShopCard(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
       if (success && data) {
-        this._userShopCard$.next(JSON.parse(data.card.products))
+        const products: Product[] = JSON.parse(data.card.products);
+        this._userShopCard$.next(products)
+        this.client.shopCardLength = products.length;
       }
     })
   }
 
 
-  getData() {
+  private getData() {
     const { productId } = this.route.snapshot.params;
     this.menuApi.getProductRetrieve(productId).subscribe(({ success, data }: any) => {
       if (!success) return;
@@ -46,7 +48,7 @@ export class ProductDetailComponent implements OnInit {
     })
   }
 
-  addToCard() {
+  public addToCard() {
     let products: Product[] = this.userShopCard;
     if (products.map(p => p.productId).includes(this.product.productId)) {
       this.message.create('info', this.translate.instant('alreadyInCard'))
@@ -59,7 +61,6 @@ export class ProductDetailComponent implements OnInit {
     }
     this.menuApi.addToShopCard(model).subscribe(({ success }: any) => {
       if (success) this.message.create('success', this.translate.instant('addedToCard'))
-
     })
   }
 

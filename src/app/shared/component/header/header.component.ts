@@ -5,17 +5,16 @@ import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { ROLE } from '../../enum/role.enum';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, NzBadgeModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  afterLoginButtons = [];
-
   constructor(
     private router: Router,
     public client: ClientService,
@@ -46,6 +45,10 @@ export class HeaderComponent {
 
   navigate(route: string) {
     this.router.navigate([route])
+  }
+
+  navigateToShopCard() {
+    this.router.navigate([`menu/card/${this.client.getUser.user.userId}`])
   }
 
 }

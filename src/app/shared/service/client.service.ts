@@ -38,4 +38,6 @@ export class ClientService {
     return JSON.parse(localStorage.getItem('shopUser') || "null");
   }
 
+  shopCardLength: number;
+
 }
