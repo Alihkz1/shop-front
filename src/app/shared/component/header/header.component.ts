@@ -6,11 +6,12 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { ROLE } from '../../enum/role.enum';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [TranslateModule, NzBadgeModule],
+  imports: [TranslateModule, NzBadgeModule, NzIconModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

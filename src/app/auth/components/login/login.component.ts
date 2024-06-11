@@ -8,6 +8,8 @@ import { TranslateService } from "@ngx-translate/core";
 import { ROLE } from '../../../shared/enum/role.enum';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ADMIN_BUTTONS, USER_BUTTONS } from '../../../shared/config/header-buttons.config';
+import { MenuApi } from '../../../menu/shared/menu.api';
+import { Product } from '../../../shared/model/product.model';
 
 @Component({
   selector: 'app-login',
@@ -23,8 +25,9 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
+    private menuApi: MenuApi,
     private authApi: AuthApi,
-    private clientService: ClientService,
+    private client: ClientService,
     private translate: TranslateService,
     private message: NzMessageService
   ) { }
@@ -43,14 +46,15 @@ export class LoginComponent {
       .pipe(finalize(() => { this.loginLoading = false; }))
       .subscribe(({ success, data }: any) => {
         if (success) {
-          this.clientService.setUser = data;
+          this.client.setUser = data;
           if (data.user.role === ROLE.ADMIN) {
-            this.clientService.isAdmin = true;
-            this.clientService.setHeaderButtons = ADMIN_BUTTONS;
+            this.client.isAdmin = true;
+            this.client.setHeaderButtons = ADMIN_BUTTONS;
             this.router.navigate(['/admin/add-product']);
           } else {
-            this.clientService.isAdmin = false;
-            this.clientService.setHeaderButtons = USER_BUTTONS;
+            this.getShopCard();
+            this.client.isAdmin = false;
+            this.client.setHeaderButtons = USER_BUTTONS;
             this.router.navigate(['/menu/categories']);
           }
           this.message.create(
@@ -64,6 +68,15 @@ export class LoginComponent {
           );
         }
       })
+  }
+
+  private getShopCard() {
+    this.menuApi.getUserShopCard(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
+      if (success && data) {
+        const products: Product[] = JSON.parse(data.card.products);
+        this.client.shopCardLength = products.length;
+      }
+    })
   }
 
 }

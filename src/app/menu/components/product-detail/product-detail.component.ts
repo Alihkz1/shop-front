@@ -30,6 +30,10 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData()
+    this.getShopCard()
+  }
+
+  private getShopCard() {
     this.menuApi.getUserShopCard(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
       if (success && data) {
         const products: Product[] = JSON.parse(data.card.products);
@@ -38,7 +42,6 @@ export class ProductDetailComponent implements OnInit {
       }
     })
   }
-
 
   private getData() {
     const { productId } = this.route.snapshot.params;
@@ -60,7 +63,10 @@ export class ProductDetailComponent implements OnInit {
       products: JSON.stringify(products)
     }
     this.menuApi.addToShopCard(model).subscribe(({ success }: any) => {
-      if (success) this.message.create('success', this.translate.instant('addedToCard'))
+      if (success) {
+        this.message.create('success', this.translate.instant('addedToCard'))
+        this.client.shopCardLength += 1;
+      }
     })
   }
 

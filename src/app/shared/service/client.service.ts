@@ -18,7 +18,7 @@ export class ClientService {
   }
 
   public isLogin = false;
-
+  shopCardLength: number;
   public isAdmin = this.getUser?.user?.role === ROLE.ADMIN;
 
   constructor(public http: HttpClient) { }
@@ -37,7 +37,4 @@ export class ClientService {
   get getUser(): { user: any, token: string } {
     return JSON.parse(localStorage.getItem('shopUser') || "null");
   }
-
-  shopCardLength: number;
-
 }

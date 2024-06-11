@@ -6,11 +6,11 @@
             @for (button of client.headerButtons; track $index) {
             <button class="button dynamic" (click)="navigate(button.route)">{{ button.title | translate }}</button>
             }
-            @if (client.getUser.user.role === 'USER') {
-            <nz-badge [nzCount]="5">
-                <span nz-icon nzType="shopping" nzTheme="outline" (click)="navigateToShopCard()"></span>
-            </nz-badge>
-            }
+                @if (client.getUser.user.role === 'USER') {
+                <nz-badge class="cursor-pointer mx-3" [nzCount]="client.shopCardLength" (click)="navigateToShopCard()">
+                    <span nz-icon nzType="shopping" nzTheme="outline"></span>
+                </nz-badge>
+                }
         </div>
         <div class="d-flex align-items-center">
             <div class="client-name pe-2">
