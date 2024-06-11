@@ -23,12 +23,17 @@
             </div>
 
             <div class="shop">
-                <button nz-button nzType="default" (click)="addToCard()">
+                @if (client.isLogin) {
+                <button [disabled]="product.amount === 0" nz-button nzType="default" (click)="addToCard()">
                     {{ 'toShopCard' | translate }}
                     <span nz-icon nzType="shopping" nzTheme="outline"></span>
                 </button>
+                }@else {
+                <button [disabled]="product.amount === 0" nz-button nzType="default" (click)="navigateToLogin()">
+                    {{ 'getIn' | translate }}
+                </button>
+                }
             </div>
-
         </div>
     </div>
 </div>

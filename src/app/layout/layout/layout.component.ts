@@ -19,7 +19,7 @@ export class LayoutComponent implements OnInit {
   }
 
   private getShopCard() {
-    if (!this.client.isLogin) return;
+    if (!this.client.isLogin || this.client.isAdmin) return;
     this.menuApi.getUserShopCard(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
       if (success && data) {
         const products: Product[] = JSON.parse(data.card.products);

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuApi } from '../../shared/menu.api';
 import { Product } from '../../../shared/model/product.model';
 import { ClientService } from '../../../shared/service/client.service';
@@ -22,7 +22,8 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     private menuApi: MenuApi,
     private route: ActivatedRoute,
-    private client: ClientService,
+    public client: ClientService,
+    public router: Router,
     private message: NzMessageService,
     private translate: TranslateService,
   ) { }
@@ -34,6 +35,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   private getShopCard() {
+    if (!this.client.isLogin || this.client.isAdmin) return;
     this.menuApi.getUserShopCard(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
       if (success && data) {
         const products: Product[] = JSON.parse(data.card.products);
@@ -68,6 +70,10 @@ export class ProductDetailComponent implements OnInit {
         this.client.shopCardLength += 1;
       }
     })
+  }
+
+  public navigateToLogin() {
+    this.router.navigate(['/auth/login'])
   }
 
 }
