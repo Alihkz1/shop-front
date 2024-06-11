@@ -34,7 +34,7 @@ export class ClientService {
     localStorage.setItem('shopUser', "null");
   }
 
-  get getUser() {
+  get getUser(): { user: any, token: string } {
     return JSON.parse(localStorage.getItem('shopUser') || "null");
   }
 
