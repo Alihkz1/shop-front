@@ -44,5 +44,6 @@
   "actions": "Actions",
   "delete": "Delete",
   "userComments":"User Comments",
-   "noCommentsForUser": "No comments from this user."
+   "noCommentsForUser": "No comments from this user.",
+   "toShopCard":"Add To Shop Card"
 }

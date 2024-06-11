@@ -44,8 +44,8 @@ export class AdminApi {
   public deleteCategory(categoryId: number) {
     return Api()
       .delete()
-      .controller('comment')
-      .action('list')
+      .controller('category')
+      .action('delete')
       .pathVariable(String(categoryId))
       .call()
   }
@@ -123,7 +123,7 @@ export class AdminApi {
 
   public editUser(model: any) {
     return Api()
-      .get()
+      .put()
       .controller('user')
       .action('edit')
       .body(model)

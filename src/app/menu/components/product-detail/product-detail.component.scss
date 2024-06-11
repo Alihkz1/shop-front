@@ -3,3 +3,41 @@
     overflow: hidden auto;
     padding: 0 5px 15px 5px;
 }
+
+.fit {
+    width: fit-content;
+    height: fit-content;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.detail {
+    border-bottom: 1px solid #d6d6d6;
+
+    &-title {
+        font-size: 22px;
+        border-bottom: 1px solid #d6d6d6;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 17px;
+        font-weight: 700;
+    }
+
+    &-amount {
+        &-title {
+            font-size: 17px;
+        }
+    }
+
+    &-price {
+        &-title {
+            font-size: 17px;
+        }
+    }
+}
+
+.shop {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}

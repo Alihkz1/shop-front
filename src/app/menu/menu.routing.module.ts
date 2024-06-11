@@ -23,12 +23,10 @@ export const routes: Routes = [
             {
                 path: 'products/:categoryId',
                 component: ProductsComponent,
-                children: [
-                    {
-                        path: ':productId',
-                        component: ProductDetailComponent
-                    },
-                ]
+            },
+            {
+                path: 'products/:categoryId/:productId',
+                component: ProductDetailComponent,
             },
             {
                 path: 'about-us',

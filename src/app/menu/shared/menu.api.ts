@@ -32,6 +32,15 @@ export class MenuApi {
       .call();
   }
 
+  public getProductRetrieve(productId: number) {
+    return Api()
+      .get()
+      .controller('product')
+      .action('retrieve')
+      .pathVariable(String(productId))
+      .call();
+  }
+
   public getUser(userId: number) {
     return Api()
       .get()
