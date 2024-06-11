@@ -6,6 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { FormControl } from '@angular/forms';
 import { Comment } from '../../../../shared/model/comment.model';
+import { ClientService } from '../../../../shared/service/client.service';
 
 @Component({
   selector: 'app-users-list',
@@ -31,6 +32,7 @@ export class UsersListComponent implements OnInit {
 
   constructor(
     private adminApi: AdminApi,
+    public client: ClientService,
     private message: NzMessageService,
     private translate: TranslateService,
   ) { }

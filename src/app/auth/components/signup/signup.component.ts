@@ -35,9 +35,8 @@ export class SignupComponent {
     this.signupLoading = true;
     this.authApi.signup(this.form.value)
       .pipe(finalize(() => { this.signupLoading = false; }))
-      .subscribe(({ success, data }: any) => {
+      .subscribe(({ success }: any) => {
         if (success) {
-          this.clientService.setUser = data.user;
           this.router.navigate(['/auth/login']);
           this.message.create(
             'success',

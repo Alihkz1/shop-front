@@ -10,27 +10,43 @@
     </thead>
     <tbody>
         <ng-container *ngFor="let row of basicTable.data">
-            <tr>
+            <tr [class.green-bg]="row.role === 'ADMIN'">
                 <td>{{ row.email }}</td>
                 <td>{{ row.name }}</td>
                 <td>{{ row.phone }}</td>
                 <td [nzExpand]="expandSet.has(row.userId)" (nzExpandChange)="onExpandChange(row.userId, $event)">
                 </td>
                 <td>
+                    @if (client.getUser.user.userId !== row.userId) {
                     <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف کاربر؟"
                         class="red cursor-pointer" nzOkText="بله" nzCancelText="خیر" nz-icon nzType="delete"
                         nzTheme="outline" (nzOnConfirm)="deleteUser(row)">
                     </span>
+                    }
                     <span class="blue cursor-pointer mx-2" nz-icon nzType="lock" nzTheme="outline"
                         (click)="showChangePasswordModal = true">
                     </span>
                 </td>
             </tr>
+            @if (client.getUser.user.userId !== row.userId) {
             <tr [nzExpand]="expandSet.has(row.userId)">
-                @for (comment of userComments; track $index) {
-                {{ comment.message }}
-                }
+                <div class="w-100 comments">
+                    <div class="comments-title">{{ 'userComments' | translate }}</div>
+                    @if(userComments.length) {
+                    @for (comment of userComments; track $index) {
+                    <div class="comments-item">
+                        {{ comment.message }}
+                    </div>
+                    }
+                    }
+                    @else {
+                    <div class="comments-clear">
+                        {{ "noCommentsForUser" | translate }}
+                    </div>
+                    }
+                </div>
             </tr>
+            }
             <nz-modal [(nzVisible)]="showChangePasswordModal" [nzTitle]="changePasswordTranslate"
                 [nzOkText]="submitTranslate" [nzCancelText]="backTranslate" (nzOnOk)="changePassword(row)"
                 (nzAfterClose)="changePassModal_onClose()" (nzOnCancel)="showChangePasswordModal = false">

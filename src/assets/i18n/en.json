@@ -42,5 +42,7 @@
   "dashboard": "Dashboard",
   "more": "More",
   "actions": "Actions",
-  "delete": "Delete"
+  "delete": "Delete",
+  "userComments":"User Comments",
+   "noCommentsForUser": "No comments from this user."
 }

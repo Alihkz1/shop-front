@@ -30,7 +30,7 @@
   "productAdded": "محصول ثبت شد",
   "actionDone": "عملیات با موفقیت انجام شد",
   "categories": "دسته بندی ها",
-  "comments": "نظرات کاربرات",
+  "comments": "نظرات کاربران",
   "newCategoryName": "نام دسته‌بندی جدید",
   "editCategoryName": "ویرایش نام دسته بندی",
   "enterNewName": "نام جدید را وارد کنید",
@@ -42,5 +42,7 @@
   "dashboard": "داشبورد مدیریتی",
   "actions": "عملیات",
   "more": "نمایش بیشتر",
-  "delete": "حذف"
+  "delete": "حذف",
+  "userComments": "نظرات کاربر",
+  "noCommentsForUser": "کاربر نظری ثبت نکرده است"
 }

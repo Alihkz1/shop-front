@@ -1,0 +1,41 @@
+.comments {
+    &-title {
+        background: var(--main-color);
+        padding: 5px;
+        border-bottom: 1px solid #e7e7e7;
+        margin-bottom: 11px;
+    }
+
+    &-item {
+        padding: 5px;
+        border-bottom: 1px solid #e7e7e7;
+        margin-bottom: 11px;
+    }
+
+    &-clear {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+nz-table {
+
+    th {
+        background: var(--main-color);
+    }
+
+    @media (max-width: 767px) {
+        margin-top: 10px;
+        height: calc(100vh - 275px);
+        overflow: auto;
+    }
+}
+
+.green-bg {
+    background: #d4ffd4;
+}
+
+::ng-deep tr.ant-table-expanded-row > td, tr.ant-table-expanded-row > td {
+    background: #f1eaff !important;
+    padding: 0 0 10px 0;
+}
