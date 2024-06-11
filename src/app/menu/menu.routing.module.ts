@@ -6,6 +6,7 @@ import { ProductsComponent } from "./components/products/products.component";
 import { ProductDetailComponent } from "./components/product-detail/product-detail.component";
 import { AboutUsComponent } from "./components/about-us/about-us.component";
 import { MenuProfileComponent } from "./components/menu-profile/menu-profile.component";
+import { ShopCardComponent } from "./components/shop-card/shop-card.component";
 
 export const routes: Routes = [
     {
@@ -19,6 +20,10 @@ export const routes: Routes = [
             {
                 path: 'profile',
                 component: MenuProfileComponent
+            },
+            {
+                path: 'card/:userId',
+                component: ShopCardComponent
             },
             {
                 path: 'products/:categoryId',

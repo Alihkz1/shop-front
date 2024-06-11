@@ -59,4 +59,12 @@ export class MenuApi {
       .call();
   }
 
+  public getUserShopCard(userId: number) {
+    return Api()
+      .get()
+      .controller('card')
+      .pathVariable(String(userId))
+      .call()
+  }
+
 }

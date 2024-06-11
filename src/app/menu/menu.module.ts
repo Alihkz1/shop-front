@@ -13,6 +13,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { ReactiveFormsModule } from '@angular/forms';
 import { MenuProfileComponent } from './components/menu-profile/menu-profile.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { ShopCardComponent } from './components/shop-card/shop-card.component';
 
 const NZ = [
   NzInputModule,
@@ -28,6 +29,7 @@ const NZ = [
     CategoriesComponent,
     ProductDetailComponent,
     ProductsComponent,
+    ShopCardComponent,
     MenuProfileComponent
   ],
   imports: [

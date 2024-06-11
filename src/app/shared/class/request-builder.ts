@@ -3,8 +3,6 @@ import { ClientService } from "../service/client.service";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../../env/environment";
 import { Observable, catchError, of } from "rxjs";
-import { Router, UrlSerializer } from "@angular/router";
-import { Serializer } from "@angular/compiler";
 import { ParamsHandler } from "./params-handler";
 
 export function Api(): RequestBuilder {
@@ -20,6 +18,7 @@ export class RequestBuilder {
     private request: IRequest = {
         method: "get",
         action: '',
+        pathVariable: '',
         body: null,
         params: null,
         controller: '',
@@ -63,7 +62,7 @@ export class RequestBuilder {
     }
 
     public pathVariable(variable: string): this {
-        this.request.action += `/${variable}`
+        this.request.pathVariable = variable;
         return this
     }
 
@@ -73,7 +72,13 @@ export class RequestBuilder {
     }
 
     public call(): any {
-        const url = environment.API_BASE + this.request.version + '/' + this.request.controller + '/' + this.request.action;
+        let url = environment.API_BASE + this.request.version + '/' + this.request.controller;
+
+        if (this.request.action.length)
+            url += '/' + this.request.action;
+        if (this.request.pathVariable.length)
+            url += '/' + this.request.pathVariable;
+
         switch (this.request.method) {
             case 'post':
                 return this.clientService?.http
@@ -106,5 +111,6 @@ export interface IRequest {
     params?: any;
     controller: string;
     action: string;
+    pathVariable: string;
     version?: string;
 }
