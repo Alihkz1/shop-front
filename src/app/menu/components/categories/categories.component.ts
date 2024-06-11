@@ -3,6 +3,7 @@ import { MenuApi } from '../../shared/menu.api';
 import { BehaviorSubject } from 'rxjs';
 import { Category } from '../../../shared/model/category.model';
 import { Router } from '@angular/router';
+import { ClientService } from '../../../shared/service/client.service';
 
 @Component({
   selector: 'app-categories',
@@ -14,8 +15,9 @@ export class CategoriesComponent implements OnInit {
   public get categories() { return this._categories$.getValue() }
 
   constructor(
+    public client: ClientService,
     private menuApi: MenuApi,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -33,4 +35,8 @@ export class CategoriesComponent implements OnInit {
   board_onClick(category: Category) {
     this.router.navigate(['menu/products/' + category.categoryId])
   }
+
+  editCategory_onClick(category: Category) { }
+
+  deleteCategory_onClick(category: Category) { }
 }

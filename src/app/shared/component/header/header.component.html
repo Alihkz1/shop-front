@@ -2,7 +2,7 @@
     <div class="header" dir="ltr">
         @if (client.isLogin) {
         <div>
-            <img class="power mx-2" src="assets/svg/power.svg" alt="" (click)="logout_onClick()">
+            <img class="power me-2 mx-4" src="assets/svg/power.svg" alt="" (click)="logout_onClick()">
             @for (button of client.headerButtons; track $index) {
             <button class="button dynamic" (click)="navigate(button.route)">{{ button.title | translate }}</button>
             }

@@ -34,8 +34,17 @@
         flex-direction: column;
         height: 120px;
         padding: 10px;
+        position: relative;
         p {
             margin-bottom: 5px;
+        }
+
+        &-icons {
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            bottom: 1px;
+            left: 5px;
         }
     }
 }

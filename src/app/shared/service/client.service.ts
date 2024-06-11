@@ -3,6 +3,7 @@ import { User } from '../model/user.model';
 import { BehaviorSubject } from 'rxjs';
 import { IHeaderButton } from '../config/header-buttons.config';
 import { HttpClient } from '@angular/common/http';
+import { ROLE } from '../enum/role.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,9 @@ export class ClientService {
     return this._headerButtons$.getValue();
   }
 
-  isLogin = false;
+  public isLogin = false;
+
+  public isAdmin = this.getUser?.user?.role === ROLE.ADMIN;
 
   constructor(public http: HttpClient) { }
 
@@ -26,6 +29,7 @@ export class ClientService {
   }
 
   logout() {
+    this.isAdmin = false;
     this.isLogin = false;
     localStorage.setItem('shopUser', "null");
   }
@@ -33,4 +37,5 @@ export class ClientService {
   get getUser() {
     return JSON.parse(localStorage.getItem('shopUser') || "null");
   }
+
 }

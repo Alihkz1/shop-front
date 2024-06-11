@@ -45,9 +45,11 @@ export class LoginComponent {
         if (success) {
           this.clientService.setUser = data;
           if (data.user.role === ROLE.ADMIN) {
+            this.clientService.isAdmin = true;
             this.clientService.setHeaderButtons = ADMIN_BUTTONS;
             this.router.navigate(['/admin/add-product']);
           } else {
+            this.clientService.isAdmin = false;
             this.clientService.setHeaderButtons = USER_BUTTONS;
             this.router.navigate(['/menu/categories']);
           }

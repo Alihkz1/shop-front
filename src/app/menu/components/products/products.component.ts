@@ -3,6 +3,7 @@ import { MenuApi } from '../../shared/menu.api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from '../../../shared/model/product.model';
+import { ClientService } from '../../../shared/service/client.service';
 
 @Component({
   selector: 'app-products',
@@ -14,9 +15,10 @@ export class ProductsComponent implements OnInit {
   public get products() { return this._products$.getValue() }
 
   constructor(
-    private menuApi: MenuApi,
-    private route: ActivatedRoute,
     private router: Router,
+    private menuApi: MenuApi,
+    public client: ClientService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -36,4 +38,8 @@ export class ProductsComponent implements OnInit {
     const { categoryId } = this.route.snapshot.params;
     this.router.navigate(['menu/products/' + categoryId + '/' + product.productId])
   }
+
+  deleteProduct_onClick(product: Product) { }
+
+  editProduct_onClick(product: Product) { }
 }

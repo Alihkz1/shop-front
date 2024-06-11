@@ -10,7 +10,19 @@
                     <img [src]="cat.imageUrl" [alt]="cat.categoryName">
                 </div>
                 <div class="board-data">
-                    {{ cat.categoryName }}
+                    <div>
+                        {{ cat.categoryName }}
+                    </div>
+                    @if (client.isAdmin) {
+                    <div class="board-data-icons">
+                        <span class="m-2 blue" nz-icon nzType="edit" nzTheme="outline"
+                            (click)="editCategory_onClick(cat); $event.stopPropagation()">
+                        </span>
+                        <span class="m-2 red" nz-icon nzType="delete" nzTheme="outline"
+                            (click)="deleteCategory_onClick(cat); $event.stopPropagation()">
+                        </span>
+                    </div>
+                }
                 </div>
             </div>
         </div>

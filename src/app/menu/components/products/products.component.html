@@ -11,8 +11,19 @@
                 </div>
                 <div class="board-data">
                     <p class="w-100 d-flex justify-content-center mb-1"><b>{{ product.title }}</b></p>
-                    <p> <span> <b>{{ "price" | translate }}:</b> </span> {{ product.price }} {{ "currency" | translate }} </p>
+                    <p> <span> <b>{{ "price" | translate }}:</b> </span> {{ product.price }} {{ "currency" | translate
+                        }} </p>
                     <p> <span> <b>{{ "amount" | translate }}:</b> </span> {{ product.amount }} </p>
+                    @if (client.isAdmin) {
+                    <div class="board-data-icons">
+                        <span class="m-2 blue" nz-icon nzType="edit" nzTheme="outline"
+                            (click)="editProduct_onClick(product); $event.stopPropagation()">
+                        </span>
+                        <span class="m-2 red" nz-icon nzType="delete" nzTheme="outline"
+                            (click)="deleteProduct_onClick(product); $event.stopPropagation()">
+                        </span>
+                    </div>
+                    }
                 </div>
             </div>
         </div>
