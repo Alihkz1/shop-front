@@ -29,6 +29,7 @@ export class ClientService {
   }
 
   logout() {
+    this.shopCardLength = 0;
     this.isAdmin = false;
     this.isLogin = false;
     localStorage.setItem('shopUser', "null");
