@@ -47,5 +47,9 @@
   "noCommentsForUser": "No comments from this user.",
   "toShopCard": "Add To Shop Card",
   "alreadyInCard": "Already exists!",
-  "addedToCard": "Added to shop card!"
+  "addedToCard": "Added to shop card!",
+  "makeOrderFinal": "pay",
+  "totalPrice": "Total Price",
+  "pay": "Pay",
+  "shopCard": "Shopping Card"
 }

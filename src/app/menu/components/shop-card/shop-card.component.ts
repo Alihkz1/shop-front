@@ -11,6 +11,7 @@ import { ClientService } from '../../../shared/service/client.service';
   styleUrl: './shop-card.component.scss'
 })
 export class ShopCardComponent implements OnInit {
+  public totalPrice: number = 0;
   private _cards$ = new BehaviorSubject<ShopCard[]>([]);
   public get cards(): ShopCard[] { return this._cards$.getValue() }
 
@@ -28,13 +29,19 @@ export class ShopCardComponent implements OnInit {
   getData() {
     const { userId } = this.route.snapshot.params;
     this.menuApi.getUserShopCard(userId).subscribe(({ data, success }: any) => {
-      const cards = data.card.map((el: any) => {
-        return {
-          ...el,
-          inCardAmount: 1
-        }
-      })
-      if (success) this._cards$.next(cards);
+      if (success) {
+        const cards: ShopCard[] = data.card.map((el: any) => {
+          return {
+            ...el,
+            inCardAmount: 1
+          }
+        })
+        cards.forEach((card: ShopCard) => {
+          this.totalPrice += card.price;
+        })
+        console.log(this.totalPrice);
+        this._cards$.next(cards);
+      }
     })
   }
 
@@ -63,4 +70,6 @@ export class ShopCardComponent implements OnInit {
       }
     })
   }
+
+  onPay() { }
 }

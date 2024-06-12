@@ -1,7 +1,7 @@
 .wrapper {
     height: 100%;
     overflow: hidden;
-    padding: 20px 5px 15px 5px;
+    padding: 20px 0 15px 0;
 
     @media (max-width: 767px) {
         overflow-y: auto;
@@ -18,6 +18,7 @@
     padding: 0 20px;
     display: flex;
     justify-content: space-between;
+    border-radius: 5px;
 
     &-image {
         max-height: 200px;
@@ -60,4 +61,36 @@
     .page-h {
         height: calc(100vh - 115px) !important;
     }
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px 0;
+    height: 200px;
+    background: #f9c3ff69;
+}
+
+.total-price {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+}
+
+.finalize {
+    border-bottom: 1px solid rgb(235, 235, 235);
+    padding-bottom: 10px;
+}
+
+.title {
+    margin-top: 10px;
+    font-size: 18px;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    user-select: none;
+    display: flex;
+    justify-content: center;
 }

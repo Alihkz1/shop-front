@@ -47,5 +47,9 @@
   "noCommentsForUser": "کاربر نظری ثبت نکرده است",
   "toShopCard": " افزودن به سبد خرید",
   "alreadyInCard": "محصول در سبد خرید وجود دارد",
-  "addedToCard": "محصول به سبد خرید اضافی شد"
+  "addedToCard": "محصول به سبد خرید اضافی شد",
+  "makeOrderFinal": "نهایی کردن سبد خرید",
+  "totalPrice": "قیمت مجموع",
+  "pay": "پرداخت",
+  "shopCard":"سبد خرید"
 }
