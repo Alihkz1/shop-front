@@ -58,6 +58,12 @@ export class ProductDetailComponent implements OnInit {
       return;
     }
     products.push(this.product);
+    products = products.map((p) => {
+      return {
+        ...p,
+        inCardAmount: 1
+      }
+    })
     const model = {
       userId: this.client.getUser.user.userId,
       products

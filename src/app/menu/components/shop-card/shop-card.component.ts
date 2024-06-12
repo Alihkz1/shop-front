@@ -30,27 +30,27 @@ export class ShopCardComponent implements OnInit {
     const { userId } = this.route.snapshot.params;
     this.menuApi.getUserShopCard(userId).subscribe(({ data, success }: any) => {
       if (success) {
-        const cards: ShopCard[] = data.card.map((el: any) => {
-          return {
-            ...el,
-            inCardAmount: 1
-          }
-        })
+        const cards: ShopCard[] = data.card;
+        this.totalPrice = 0;
         cards.forEach((card: ShopCard) => {
-          this.totalPrice += card.price;
+          this.totalPrice += card.price * card.inCardAmount;
         })
-        console.log(this.totalPrice);
         this._cards$.next(cards);
       }
     })
   }
 
   minCount(card: ShopCard) {
+    /*todo: need to change in backend */
+    if (card.inCardAmount < 1) return;
     card.inCardAmount -= 1;
+    this.totalPrice -= card.price
   }
 
   addCount(card: ShopCard) {
+    /*todo: need to change in backend */
     card.inCardAmount += 1;
+    this.totalPrice += card.price
   }
 
   navigateToProduct(card: ShopCard) {
@@ -65,6 +65,7 @@ export class ShopCardComponent implements OnInit {
     }
     this.menuApi.modifyShopCard(model).subscribe(({ success }: any) => {
       if (success) {
+        this.totalPrice = this.totalPrice - card.price * card.inCardAmount;
         this.client.shopCardLength -= 1;
         this.getData()
       }

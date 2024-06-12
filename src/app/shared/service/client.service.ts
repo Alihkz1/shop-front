@@ -18,7 +18,7 @@ export class ClientService {
   }
 
   public isLogin = false;
-  shopCardLength: number;
+  shopCardLength: number = 0;
   public isAdmin = this.getUser?.user?.role === ROLE.ADMIN;
 
   constructor(public http: HttpClient) { }
