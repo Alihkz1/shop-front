@@ -9,7 +9,6 @@ import { ROLE } from '../../../shared/enum/role.enum';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ADMIN_BUTTONS, USER_BUTTONS } from '../../../shared/config/header-buttons.config';
 import { MenuApi } from '../../../menu/shared/menu.api';
-import { Product } from '../../../shared/model/product.model';
 
 @Component({
   selector: 'app-login',
@@ -52,7 +51,7 @@ export class LoginComponent {
             this.client.setHeaderButtons = ADMIN_BUTTONS;
             this.router.navigate(['/admin/add-product']);
           } else {
-            this.getShopCard();
+            this.getShopCardLength();
             this.client.isAdmin = false;
             this.client.setHeaderButtons = USER_BUTTONS;
             this.router.navigate(['/menu/categories']);
@@ -70,11 +69,10 @@ export class LoginComponent {
       })
   }
 
-  private getShopCard() {
+  private getShopCardLength() {
     this.menuApi.getUserShopCard(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
       if (success && data) {
-        const products: Product[] = JSON.parse(data.card.products);
-        this.client.shopCardLength = products.length;
+        this.client.shopCardLength = data;
       }
     })
   }

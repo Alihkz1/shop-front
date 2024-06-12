@@ -38,9 +38,7 @@ export class ProductDetailComponent implements OnInit {
     if (!this.client.isLogin || this.client.isAdmin) return;
     this.menuApi.getUserShopCard(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
       if (success && data) {
-        const products: Product[] = JSON.parse(data.card.products);
-        this._userShopCard$.next(products)
-        this.client.shopCardLength = products.length;
+        this._userShopCard$.next(data.card)
       }
     })
   }

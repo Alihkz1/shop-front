@@ -63,6 +63,16 @@ export class MenuApi {
     return Api()
       .get()
       .controller('card')
+      .action('user')
+      .pathVariable(String(userId))
+      .call()
+  }
+
+  public getUserShopCardLength(userId: number) {
+    return Api()
+      .get()
+      .controller('card')
+      .action('length')
       .pathVariable(String(userId))
       .call()
   }
