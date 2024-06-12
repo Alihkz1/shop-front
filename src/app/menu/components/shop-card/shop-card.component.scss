@@ -1,0 +1,60 @@
+.wrapper {
+    height: 100%;
+    overflow: hidden auto;
+    padding: 20px 5px 15px 5px;
+}
+
+.box {
+    height: 200px;
+    border: 1px solid rgb(234, 234, 234);
+    border-radius: 5px;
+    background: #fff;
+    margin: 5px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+
+    &-image {
+        max-height: 200px;
+    }
+
+    &-detail {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: space-between;
+        border-right: 1px solid rgb(235, 235, 235);
+        padding: 10px 25px 10px 0;
+        /* todo: styles for ltr */
+
+        &-title {
+            color: var(--link);
+            margin-top: 10px;
+            font-weight: 800;
+            font-size: 15px;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &-price {
+            margin-top: 20px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        flex-direction: column;
+        height: 300px;
+
+        &-image {
+            max-height: 100px;
+            max-width: 100px;
+        }
+
+        &-detail {
+            border-right: unset;
+            border-top: 1px solid rgb(235, 235, 235);
+        }
+    }
+}
