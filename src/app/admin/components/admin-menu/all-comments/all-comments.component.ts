@@ -44,6 +44,8 @@ export class AllCommentsComponent implements OnInit {
         commentId: comment.commentId,
         read: flag
       }
-    ).subscribe()
+    ).subscribe(() => {
+      this.getComments()
+    })
   }
 }
