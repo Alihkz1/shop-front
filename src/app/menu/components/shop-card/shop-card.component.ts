@@ -3,6 +3,7 @@ import { MenuApi } from '../../shared/menu.api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { ShopCard } from '../../../shared/model/shop-card.model';
+import { ClientService } from '../../../shared/service/client.service';
 
 @Component({
   selector: 'app-shop-card',
@@ -16,6 +17,7 @@ export class ShopCardComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private client: ClientService,
     private menuApi: MenuApi
   ) { }
 
@@ -46,5 +48,19 @@ export class ShopCardComponent implements OnInit {
 
   navigateToProduct(card: ShopCard) {
     this.router.navigate(['menu/products', card.categoryId, card.productId])
+  }
+
+  deleteFromShopCard(card: ShopCard) {
+    const otherCards = this.cards.filter(c => c.productId != card.productId);
+    const model = {
+      userId: this.client.getUser.user.userId,
+      products: otherCards
+    }
+    this.menuApi.modifyShopCard(model).subscribe(({ success }: any) => {
+      if (success) {
+        this.client.shopCardLength -= 1;
+        this.getData()
+      }
+    })
   }
 }

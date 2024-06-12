@@ -77,7 +77,7 @@ export class MenuApi {
       .call()
   }
 
-  public addToShopCard(model: any) {
+  public modifyShopCard(model: any) {
     return Api()
       .post()
       .controller('card')

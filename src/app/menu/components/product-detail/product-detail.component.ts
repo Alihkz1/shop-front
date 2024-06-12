@@ -60,9 +60,9 @@ export class ProductDetailComponent implements OnInit {
     products.push(this.product);
     const model = {
       userId: this.client.getUser.user.userId,
-      products: JSON.stringify(products)
+      products
     }
-    this.menuApi.addToShopCard(model).subscribe(({ success }: any) => {
+    this.menuApi.modifyShopCard(model).subscribe(({ success }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('addedToCard'))
         this.client.shopCardLength += 1;

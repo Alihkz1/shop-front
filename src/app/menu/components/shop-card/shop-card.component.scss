@@ -1,7 +1,12 @@
 .wrapper {
     height: 100%;
-    overflow: hidden auto;
+    overflow: hidden;
     padding: 20px 5px 15px 5px;
+
+    @media (max-width: 767px) {
+        overflow-y: auto;
+    }
+
 }
 
 .box {
@@ -43,18 +48,16 @@
         }
     }
 
-    @media (max-width: 600px) {
-        flex-direction: column;
-        height: 300px;
-
-        &-image {
-            max-height: 100px;
-            max-width: 100px;
-        }
-
+    @media (max-width: 767px) {
         &-detail {
             border-right: unset;
             border-top: 1px solid rgb(235, 235, 235);
         }
+    }
+}
+
+@media (min-width:767px) {
+    .page-h {
+        height: calc(100vh - 115px) !important;
     }
 }
