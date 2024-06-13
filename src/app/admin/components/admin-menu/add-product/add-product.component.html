@@ -25,7 +25,7 @@
                             </p>
                             <div>
                                 <span class="product-item-icon blue" nz-icon nzType="edit" nzTheme="outline"
-                                    (click)="editProduct_onClick(product)">
+                                    (click)="openProductModal(product,null)">
                                 </span>
                                 <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف محصول؟"
                                     class="product-item-icon red" [nzOkText]="submitTranslate"
@@ -42,17 +42,16 @@
                     <div class="category-list-item">
                         <div class="d-flex align-items-center" (click)="$event.stopPropagation()">
                             <!-- todo: translate -->
-                            <span nzPopconfirmPlacement="right" nz-  nzPopconfirmTitle="حذف دسته بندی؟"
+                            <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف دسته بندی؟"
                                 class="category-list-icon red me-1" nzOkText="بله" nzCancelText="خیر" nz-icon
                                 nzType="delete" nzTheme="outline" (nzOnConfirm)="deleteCategory_onConfirm(category)">
                             </span>
-
                             <span class="category-list-icon blue" nz-icon nzType="edit" nzTheme="outline"
                                 (click)="openCategoryModal(category)">
                             </span>
 
                             <span class="category-list-icon blue" nz-icon nzType="plus" nzTheme="outline"
-                                (click)="addProduct_onClick(category)">
+                                (click)="openProductModal(null, category)">
                             </span>
                         </div>
 
@@ -63,50 +62,6 @@
                 </ng-template>
                 }
             </nz-collapse>
-
-            <nz-modal [nzOkLoading]="addLoading && !addLoading.closed" [(nzVisible)]="productModalVisible"
-                [nzTitle]="productDetails" [nzOkText]="submitTranslate" [nzCancelText]="backTranslate"
-                (nzOnOk)="addProduct_onConfirm()" (nzOnCancel)="productModalVisible = false"
-                (nzAfterClose)="productModal_onClose()">
-                <ng-container *nzModalContent>
-                    <form [formGroup]="form" class="w-c">
-                        <div class="fielder">
-                            <div class="fielder-title">{{ "category" | translate }}</div>
-                            <nz-select class="w-100" formControlName="categoryId">
-                                @for (item of categories; track $index) {
-                                <nz-option [nzValue]="item.categoryId" [nzLabel]="item.categoryName ?? ''"></nz-option>
-                                }
-                            </nz-select>
-                        </div>
-                        <div class="fielder">
-                            <div class="fielder-title">{{ "productTitle" | translate }}</div>
-                            <input nz-input formControlName="title" />
-                        </div>
-                        <div class="fielder">
-                            <div class="fielder-title">{{ "price" | translate }}</div>
-                            <input nz-input formControlName="price" />
-                        </div>
-                        <div class="fielder">
-                            <div class="fielder-title">{{ "amount" | translate }}</div>
-                            <input nz-input formControlName="amount" />
-                        </div>
-                    </form>
-                </ng-container>
-            </nz-modal>
-
         </div>
     </div>
 </div>
-
-<ng-template #newCategoryName>
-    {{ "newCategoryName" | translate }}
-</ng-template>
-<ng-template #editCategoryName>
-    {{ "editCategoryName" | translate }}
-</ng-template>
-<ng-template #submit>
-    {{ "submit" | translate }}
-</ng-template>
-<ng-template #productDetails>
-    {{ "productDetails" | translate }}
-</ng-template>

@@ -1,0 +1,47 @@
+<div class="wrapper">
+    <div class="w-100 d-flex flex-column align-items-end">
+        <div class="title">
+            @if (modalData) {
+            {{ "editProduct" | translate }}
+            }
+            @else {
+            {{ "newProduct" | translate }}
+            }
+        </div>
+        <form [formGroup]="form" class="w-100 d-flex flex-column align-items-end">
+            <div class="fielder d-flex flex-column align-items-end w-100">
+                <div class="fielder-title">{{ "category" | translate }}</div>
+                <nz-select class="w-100" formControlName="categoryId" dir="rtl">
+                    @for (item of categories; track $index) {
+                    <nz-option [nzValue]="item.categoryId" [nzLabel]="item.categoryName ?? ''"></nz-option>
+                    }
+                </nz-select>
+            </div>
+            <div class="fielder d-flex flex-column align-items-end w-100">
+                <div class="fielder-title">{{ "productTitle" | translate }}</div>
+                <input nz-input formControlName="title" dir="rtl" />
+            </div>
+            <div class="fielder d-flex flex-column align-items-end w-100">
+                <div class="fielder-title">{{ "price" | translate }}</div>
+                <input nz-input formControlName="price" dir="rtl" />
+            </div>
+            <div class="fielder d-flex flex-column align-items-end w-100">
+                <div class="fielder-title">{{ "amount" | translate }}</div>
+                <input nz-input formControlName="amount" dir="rtl" />
+            </div>
+            <div class="fielder my-4 d-flex flex-column align-items-end w-100">
+                <nz-upload [nzCustomRequest]="uploadRequest" dir="rtl">
+                    <button nz-button>
+                        <span nz-icon nzType="upload"></span>
+                        {{ "uploadImage" | translate }}
+                    </button>
+                </nz-upload>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <button nz-button nzType="default" class="mx-1" (click)="onBack()">{{ "back" | translate }}</button>
+        <button nz-button nzType="primary" class="mx-1" (click)="onSubmit()">{{ "submit" | translate }}</button>
+    </div>
+</div>

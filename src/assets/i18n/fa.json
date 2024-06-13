@@ -52,5 +52,7 @@
   "totalPrice": "قیمت مجموع",
   "pay": "پرداخت",
   "shopCard": "سبد خرید",
-  "loginNeeded": "لطفا لاگین کنید"
+  "loginNeeded": "لطفا لاگین کنید",
+  "editProduct":"ویرایش محصول",
+  "addProduct":"ثبت محصول جدید"
 }

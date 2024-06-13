@@ -8,6 +8,8 @@ import { Subscription } from 'rxjs';
 import { NzModalComponent, NzModalService } from 'ng-zorro-antd/modal';
 import { CategoryModalComponent } from '../../../../shared/component/category-modal/category-modal.component';
 import { Category } from '../../../../shared/model/category.model';
+import { Product } from '../../../../shared/model/product.model';
+import { ProductModalComponent } from '../../../../shared/component/product-modal/product-modal.component';
 
 @Component({
   selector: 'app-add-product',
@@ -18,7 +20,6 @@ export class AddProductComponent implements OnInit {
   @ViewChild('productModal') productModal: NzModalComponent;
 
   uploadUrl = environment.UPLOAD_URL;
-  productModalVisible = false;
 
   addLoading: Subscription;
   backTranslate: string;
@@ -57,45 +58,6 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  addProduct_onClick(category: any) {
-    this.productModalVisible = true;
-    this.form.get('categoryId')?.setValue(category.categoryId);
-  }
-
-  addProduct_onConfirm() {
-    if (!this.form.value.productId) {
-      this.addLoading = this.adminApi.addProduct(
-        {
-          ...this.form.value,
-          imageUrl: this.uploadedImgUrl.value,
-          categoryId: this.form.get('categoryId')?.value
-        }
-      ).subscribe(({ success }: any) => {
-        if (success) {
-          this.message.create('success', this.translate.instant("productAdded"))
-          this.form.reset()
-          this.uploadedImgUrl.reset()
-          this.getCategories()
-          this.productModalVisible = false;
-        }
-      });
-    } else {
-      this.addLoading = this.adminApi.editProduct(
-        {
-          ...this.form.value,
-          imageUrl: this.uploadedImgUrl.value,
-        }).subscribe(({ success }: any) => {
-          if (success) {
-            this.message.create('success', this.translate.instant("productAdded"))
-            this.form.reset()
-            this.uploadedImgUrl.reset()
-            this.getCategories()
-            this.productModalVisible = false;
-          }
-        });
-    }
-  }
-
   deleteCategory_onConfirm(category: any) {
     this.adminApi.deleteCategory(category.categoryId).subscribe(({ success }: any) => {
       if (success) {
@@ -113,16 +75,7 @@ export class AddProductComponent implements OnInit {
       }
     })
   }
-
-  editProduct_onClick(product: any) {
-    this.productModalVisible = true
-    this.form.patchValue(product);
-  }
-
-  productModal_onClose() {
-    this.form.reset()
-  }
-
+  
   openCategoryModal(category?: Category) {
     this.modalService.create({
       nzFooter: null,
@@ -134,6 +87,28 @@ export class AddProductComponent implements OnInit {
       },
       nzContent: CategoryModalComponent,
       nzData: category,
+      nzOnOk: () => {
+      },
+    }).afterClose.subscribe((result: boolean) => {
+      if (result) this.getCategories()
+    })
+  }
+
+  openProductModal(product: Product | null, category: Category | null) {
+    const nzData = {
+      product,
+      category
+    }
+    this.modalService.create({
+      nzFooter: null,
+      nzCentered: true,
+      nzClosable: false,
+      nzStyle: {
+        width: "400px",
+        borderRadius: "6px",
+      },
+      nzContent: ProductModalComponent,
+      nzData,
       nzOnOk: () => {
       },
     }).afterClose.subscribe((result: boolean) => {

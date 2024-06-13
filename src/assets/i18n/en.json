@@ -14,7 +14,6 @@
   "email": "Email",
   "enterName": "Enter Your FullName",
   "phone": "Phone Number",
-  "addProduct": "Add New Product",
   "usersList": "Users List",
   "category": "Category",
   "productTitle": "Product Title",
@@ -52,5 +51,7 @@
   "totalPrice": "Total Price",
   "pay": "Pay",
   "shopCard": "Shopping Card",
-  "loginNeeded": "Please login!"
+  "loginNeeded": "Please login!",
+  "editProduct": "Edit Product",
+  "addProduct": "Add New Product"
 }
