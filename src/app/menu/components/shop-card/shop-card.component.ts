@@ -41,16 +41,42 @@ export class ShopCardComponent implements OnInit {
   }
 
   minCount(card: ShopCard) {
-    /*todo: need to change in backend */
     if (card.inCardAmount < 1) return;
-    card.inCardAmount -= 1;
+    card.inCardAmount --;
+    const products = this.cards.map((c: ShopCard) => {
+      if (c.productId === card.productId) {
+        return {
+          ...c,
+          inCardAmount: c.inCardAmount++
+        }
+      } else return c;
+    })
+    this._cards$.next(products);
+    this.updateCards();
     this.totalPrice -= card.price
   }
 
   addCount(card: ShopCard) {
-    /*todo: need to change in backend */
-    card.inCardAmount += 1;
-    this.totalPrice += card.price
+    card.inCardAmount ++;
+    const products = this.cards.map((c: ShopCard) => {
+      if (c.productId === card.productId) {
+        return {
+          ...c,
+          inCardAmount: c.inCardAmount++
+        }
+      } else return c;
+    })
+    this._cards$.next(products);
+    this.updateCards();
+    this.totalPrice += card.price;
+  }
+
+  private updateCards() {
+    const model = {
+      userId: this.client.getUser.user.userId,
+      products: this.cards
+    }
+    this.menuApi.modifyShopCard(model).subscribe();
   }
 
   navigateToProduct(card: ShopCard) {
