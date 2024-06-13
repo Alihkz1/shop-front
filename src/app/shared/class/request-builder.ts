@@ -100,6 +100,12 @@ export class RequestBuilder {
     }
 
     private errorHandler(error: HttpErrorResponse): Observable<any> {
+        const { status } = error;
+        if (status === 403) {
+            this.clientService?.router.navigate(['auth/login'])
+            this.clientService?.message.create('error', "لطفا وارد حساب کاربری خود شوید")
+            this.clientService?.logout()
+        }
         return of(error.error);
     }
 }

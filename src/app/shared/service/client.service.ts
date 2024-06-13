@@ -4,6 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 import { IHeaderButton } from '../config/header-buttons.config';
 import { HttpClient } from '@angular/common/http';
 import { ROLE } from '../enum/role.enum';
+import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +23,11 @@ export class ClientService {
   shopCardLength: number = 0;
   public isAdmin = this.getUser?.user?.role === ROLE.ADMIN;
 
-  constructor(public http: HttpClient) { }
+  constructor(
+    public router: Router,
+    public http: HttpClient,
+    public message: NzMessageService
+  ) { }
 
   set setUser(user: { token: string, user: User }) {
     this.isLogin = true;
@@ -32,10 +38,10 @@ export class ClientService {
     this.shopCardLength = 0;
     this.isAdmin = false;
     this.isLogin = false;
-    localStorage.setItem('shopUser', "null");
+    localStorage.removeItem('shopUser');
   }
 
   get getUser(): { user: any, token: string } {
-    return JSON.parse(localStorage.getItem('shopUser') || "null");
+    return JSON.parse(localStorage.getItem('shopUser') || 'null');
   }
 }

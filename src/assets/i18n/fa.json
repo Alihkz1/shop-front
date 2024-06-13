@@ -51,5 +51,6 @@
   "makeOrderFinal": "نهایی کردن سبد خرید",
   "totalPrice": "قیمت مجموع",
   "pay": "پرداخت",
-  "shopCard":"سبد خرید"
+  "shopCard": "سبد خرید",
+  "loginNeeded": "لطفا لاگین کنید"
 }

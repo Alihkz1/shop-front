@@ -51,5 +51,6 @@
   "makeOrderFinal": "pay",
   "totalPrice": "Total Price",
   "pay": "Pay",
-  "shopCard": "Shopping Card"
+  "shopCard": "Shopping Card",
+  "loginNeeded": "Please login!"
 }
