@@ -2,7 +2,7 @@ import { Injector } from "@angular/core";
 import { ClientService } from "../service/client.service";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../../env/environment";
-import { Observable, catchError, of } from "rxjs";
+import { Observable, catchError, of, tap } from "rxjs";
 import { ParamsHandler } from "./params-handler";
 
 export function Api(): RequestBuilder {
@@ -83,19 +83,31 @@ export class RequestBuilder {
             case 'post':
                 return this.clientService?.http
                     .post(url, this.request.body, this.requestOptions)
-                    .pipe(catchError((error) => this.errorHandler(error)))
+                    .pipe(
+                        catchError((error) => this.errorHandler(error)),
+                        tap(({ success }) => { if (!success) this.toastUnsuccess() })
+                    )
             case 'get':
                 return this.clientService?.http
                     .get(this.request.params ? url + '?' + this.request.params : url, this.requestOptions)
-                    .pipe(catchError((error) => this.errorHandler(error)))
+                    .pipe(
+                        catchError((error) => this.errorHandler(error)),
+                        tap(({ success }) => { if (!success) this.toastUnsuccess() })
+                    )
             case 'put':
                 return this.clientService?.http
                     .put(url, this.request.body, this.requestOptions)
-                    .pipe(catchError((error) => this.errorHandler(error)))
+                    .pipe(
+                        catchError((error) => this.errorHandler(error)),
+                        tap(({ success }) => { if (!success) this.toastUnsuccess() })
+                    )
             case 'delete':
                 return this.clientService?.http
                     .delete(url, this.requestOptions)
-                    .pipe(catchError((error) => this.errorHandler(error)))
+                    .pipe(
+                        catchError((error) => this.errorHandler(error)),
+                        tap(({ success }) => { if (!success) this.toastUnsuccess() })
+                    )
         }
     }
 
@@ -108,6 +120,11 @@ export class RequestBuilder {
         }
         return of(error.error);
     }
+
+    private toastUnsuccess(): void {
+        this.clientService?.message.create('error', 'خطایی رخ داد')
+    }
+
 }
 
 export type requestType = 'get' | 'post' | 'put' | 'delete';

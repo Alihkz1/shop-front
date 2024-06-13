@@ -60,11 +60,6 @@ export class LoginComponent {
             'success',
             this.translate.instant('loginSuccess')
           );
-        } else {
-          this.message.create(
-            'error',
-            this.translate.instant('loginFailed')
-          );
         }
       })
   }

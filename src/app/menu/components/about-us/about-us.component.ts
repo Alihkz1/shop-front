@@ -31,7 +31,6 @@ export class AboutUsComponent {
         this.messageService.create('success', this.translate.instant('actionDone'))
         this.message.reset()
       }
-      else this.messageService.create('error', this.translate.instant('error'))
     })
   }
 }

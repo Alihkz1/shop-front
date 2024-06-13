@@ -42,11 +42,6 @@ export class SignupComponent {
             'success',
             this.translate.instant('signUpSuccess')
           );
-        } else {
-          this.message.create(
-            'error',
-            this.translate.instant('signUpFailed')
-          );
         }
       })
   }

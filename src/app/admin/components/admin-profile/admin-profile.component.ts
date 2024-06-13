@@ -49,7 +49,6 @@ export class AdminProfileComponent implements OnInit {
           this.message.create('success', this.translate.instant('actionDone'));
           this.getData()
         }
-
       })
   }
 

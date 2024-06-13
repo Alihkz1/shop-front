@@ -34,7 +34,7 @@ export class AllCommentsComponent implements OnInit {
       if (success) {
         this.getComments()
         this.message.create('success', this.translate.instant('actionDone'))
-      } else this.message.create('error', this.translate.instant('error'))
+      }
     })
   }
 
@@ -44,8 +44,10 @@ export class AllCommentsComponent implements OnInit {
         commentId: comment.commentId,
         read: flag
       }
-    ).subscribe(() => {
-      this.getComments()
+    ).subscribe(({ success }: any) => {
+      if (success) {
+        this.getComments()
+      }
     })
   }
 }

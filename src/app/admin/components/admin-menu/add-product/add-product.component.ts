@@ -102,7 +102,6 @@ export class AddProductComponent implements OnInit {
           this.getCategories()
           this.productModalVisible = false;
         }
-        else this.message.create('error', this.translate.instant("error"))
       });
     } else {
       this.addLoading = this.adminApi.editProduct(
@@ -117,7 +116,6 @@ export class AddProductComponent implements OnInit {
             this.getCategories()
             this.productModalVisible = false;
           }
-          else this.message.create('error', this.translate.instant("error"))
         });
     }
   }
@@ -127,8 +125,7 @@ export class AddProductComponent implements OnInit {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
         this.getCategories()
-      } else this.message.create('error', this.translate.instant('error'))
-
+      }
     })
   }
 
@@ -152,7 +149,7 @@ export class AddProductComponent implements OnInit {
         this.newCategoryNameControl.reset();
         this.getCategories();
         this.message.create('success', this.translate.instant('actionDone'))
-      } else this.message.create('error', this.translate.instant('error'))
+      }
     })
   }
 
@@ -168,7 +165,7 @@ export class AddProductComponent implements OnInit {
         this.addCategoryModalVisible = false
         this.addCategoryControl.reset()
         this.getCategories()
-      } else this.message.create('error', this.translate.instant('error'))
+      }
     })
   }
 
@@ -177,7 +174,7 @@ export class AddProductComponent implements OnInit {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
         this.getCategories();
-      } else this.message.create('error', this.translate.instant('error'))
+      }
     })
   }
 
