@@ -5,7 +5,7 @@
                 <div class="category-list-name">
                     {{ "categories" | translate }}
                 </div>
-                <div class="category-list-add" (click)="addCategoryModalVisible = true">
+                <div class="category-list-add" (click)="openCategoryModal()">
                     <button nz-button nzType="default"><span nz-icon nzType="plus" nzTheme="outline"></span>
                     </button>
                 </div>
@@ -42,13 +42,13 @@
                     <div class="category-list-item">
                         <div class="d-flex align-items-center" (click)="$event.stopPropagation()">
                             <!-- todo: translate -->
-                            <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف دسته بندی؟"
+                            <span nzPopconfirmPlacement="right" nz-  nzPopconfirmTitle="حذف دسته بندی؟"
                                 class="category-list-icon red me-1" nzOkText="بله" nzCancelText="خیر" nz-icon
                                 nzType="delete" nzTheme="outline" (nzOnConfirm)="deleteCategory_onConfirm(category)">
                             </span>
 
                             <span class="category-list-icon blue" nz-icon nzType="edit" nzTheme="outline"
-                                (click)="editCategory_onClick(category)">
+                                (click)="openCategoryModal(category)">
                             </span>
 
                             <span class="category-list-icon blue" nz-icon nzType="plus" nzTheme="outline"
@@ -63,24 +63,6 @@
                 </ng-template>
                 }
             </nz-collapse>
-
-            <nz-modal [(nzVisible)]="editCategoryModalVisible" [nzTitle]="editCategoryName" [nzOkText]="submitTranslate"
-                [nzCancelText]="backTranslate" (nzOnOk)="editCategory_onConfirm()"
-                (nzOnCancel)="editCategoryModalVisible = false">
-                <ng-container *nzModalContent>
-                    <input nz-input [formControl]="newCategoryNameControl" />
-                    <ng-container *ngTemplateOutlet="uploaderTemplate"></ng-container>
-                </ng-container>
-            </nz-modal>
-
-            <nz-modal [(nzVisible)]="addCategoryModalVisible" [nzTitle]="newCategoryName" [nzOkText]="submitTranslate"
-                [nzCancelText]="backTranslate" (nzOnOk)="addCategory_onConfirm()"
-                (nzOnCancel)="addCategoryModalVisible = false">
-                <ng-container *nzModalContent>
-                    <input nz-input [formControl]="addCategoryControl" />
-                    <ng-container *ngTemplateOutlet="uploaderTemplate"></ng-container>
-                </ng-container>
-            </nz-modal>
 
             <nz-modal [nzOkLoading]="addLoading && !addLoading.closed" [(nzVisible)]="productModalVisible"
                 [nzTitle]="productDetails" [nzOkText]="submitTranslate" [nzCancelText]="backTranslate"
@@ -108,7 +90,6 @@
                             <div class="fielder-title">{{ "amount" | translate }}</div>
                             <input nz-input formControlName="amount" />
                         </div>
-                        <ng-container *ngTemplateOutlet="uploaderTemplate"></ng-container>
                     </form>
                 </ng-container>
             </nz-modal>
@@ -116,18 +97,6 @@
         </div>
     </div>
 </div>
-
-<ng-template #uploaderTemplate>
-    <div class="fielder mt-4">
-        <nz-upload [nzCustomRequest]="uploadRequest">
-            <button nz-button>
-                <span nz-icon nzType="upload"></span>
-                {{ "uploadImage" | translate }}
-            </button>
-        </nz-upload>
-    </div>
-</ng-template>
-
 
 <ng-template #newCategoryName>
     {{ "newCategoryName" | translate }}

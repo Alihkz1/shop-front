@@ -24,10 +24,22 @@
 
             <div class="shop">
                 @if (client.isLogin) {
+                @if (client.isAdmin) {
+                <div class="board-data-icons">
+                    <span class="m-2 blue cursor-pointer" nz-icon nzType="edit" nzTheme="outline"
+                        (click)="editProduct_onClick(product); $event.stopPropagation()">
+                    </span>
+                    <span class="m-2 red cursor-pointer" nz-icon nzType="delete" nzTheme="outline"
+                        (click)="deleteProduct_onClick(product); $event.stopPropagation()">
+                    </span>
+                </div>
+                }@else {
+
                 <button [disabled]="product?.amount === 0" nz-button nzType="default" (click)="addToCard()">
                     {{ 'toShopCard' | translate }}
                     <span nz-icon nzType="shopping" nzTheme="outline"></span>
                 </button>
+                }
                 }@else {
                 <button nz-button nzType="default" (click)="navigateToLogin()">
                     {{ 'getIn' | translate }}

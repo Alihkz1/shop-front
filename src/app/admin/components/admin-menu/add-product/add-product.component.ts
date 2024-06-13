@@ -5,9 +5,9 @@ import { environment } from '../../../../../env/environment';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { Subscription } from 'rxjs';
-import { NzModalComponent } from 'ng-zorro-antd/modal';
-import { HttpClient, HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
-import { NzUploadXHRArgs } from 'ng-zorro-antd/upload';
+import { NzModalComponent, NzModalService } from 'ng-zorro-antd/modal';
+import { CategoryModalComponent } from '../../../../shared/component/category-modal/category-modal.component';
+import { Category } from '../../../../shared/model/category.model';
 
 @Component({
   selector: 'app-add-product',
@@ -17,33 +17,12 @@ import { NzUploadXHRArgs } from 'ng-zorro-antd/upload';
 export class AddProductComponent implements OnInit {
   @ViewChild('productModal') productModal: NzModalComponent;
 
-  public uploadRequest = (item: NzUploadXHRArgs) => {
-    const formData = new FormData();
-    formData.append('file', item.file as any);
-    formData.append('upload_preset', 'online_shop_preset');
-    const req = new HttpRequest('POST', environment.UPLOAD_URL, formData)
-    return this.http.request(req).subscribe((event: HttpEvent<any>) => {
-      item.onProgress!(event, item.file!);
-      if (event instanceof HttpResponse) {
-        this.uploadedImgUrl.setValue(event.body.url);
-        item.onSuccess!(event.body, item.file!, event);
-      }
-    },
-      (error) => {
-        item.onError!(error, item.file!);
-      }
-    )
-  }
-
   uploadUrl = environment.UPLOAD_URL;
-  editCategoryModalVisible = false;
-  addCategoryModalVisible = false;
   productModalVisible = false;
 
   addLoading: Subscription;
   backTranslate: string;
   submitTranslate: string;
-
 
   form = new FormGroup({
     categoryId: new FormControl({ value: null, disabled: true }, Validators.required),
@@ -53,16 +32,13 @@ export class AddProductComponent implements OnInit {
     productId: new FormControl(null, Validators.required),
   });
 
-  newCategoryNameControl = new FormControl()
-  addCategoryControl = new FormControl()
   uploadedImgUrl = new FormControl('')
-  editCategoryId: number = 0;
   categories: any[] = []
 
   constructor(
-    private http: HttpClient,
     private adminApi: AdminApi,
     private message: NzMessageService,
+    private modalService: NzModalService,
     private translate: TranslateService,
   ) {
     // this.backTranslate = this.translate.instant('back');
@@ -129,46 +105,6 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  editCategory_onClick(category: any) {
-    this.editCategoryId = category.categoryId;
-    this.newCategoryNameControl.setValue(category.categoryName);
-    this.editCategoryModalVisible = true;
-  }
-
-  editCategory_onConfirm() {
-    const model = {
-      categoryId: this.editCategoryId,
-      categoryName: this.newCategoryNameControl.value,
-      imageUrl: this.uploadedImgUrl.value
-
-    }
-    this.adminApi.editCategory(model).subscribe(({ success }: any) => {
-      if (success) {
-        this.uploadedImgUrl.reset()
-        this.editCategoryModalVisible = false;
-        this.newCategoryNameControl.reset();
-        this.getCategories();
-        this.message.create('success', this.translate.instant('actionDone'))
-      }
-    })
-  }
-
-  addCategory_onConfirm() {
-    const model = {
-      imageUrl: this.uploadedImgUrl.value,
-      categoryName: this.addCategoryControl.value
-    }
-    this.adminApi.addCategory(model).subscribe(({ success }: any) => {
-      if (success) {
-        this.uploadedImgUrl.reset()
-        this.message.create('success', this.translate.instant('actionDone'))
-        this.addCategoryModalVisible = false
-        this.addCategoryControl.reset()
-        this.getCategories()
-      }
-    })
-  }
-
   deleteProduct_onConfirm(product: any) {
     this.adminApi.deleteProduct(product.productId).subscribe(({ success }: any) => {
       if (success) {
@@ -185,5 +121,23 @@ export class AddProductComponent implements OnInit {
 
   productModal_onClose() {
     this.form.reset()
+  }
+
+  openCategoryModal(category?: Category) {
+    this.modalService.create({
+      nzFooter: null,
+      nzCentered: true,
+      nzClosable: false,
+      nzStyle: {
+        width: "400px",
+        borderRadius: "6px",
+      },
+      nzContent: CategoryModalComponent,
+      nzData: category,
+      nzOnOk: () => {
+      },
+    }).afterClose.subscribe((result: boolean) => {
+      if (result) this.getCategories()
+    })
   }
 }

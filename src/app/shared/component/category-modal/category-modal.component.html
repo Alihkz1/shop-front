@@ -1,0 +1,26 @@
+<div class="wrapper">
+    <div class="w-100 d-flex flex-column align-items-end">
+        <div class="title">
+            @if (modalData) {
+            {{ "editCategory" | translate }}
+            }
+            @else {
+            {{ "newCategory" | translate }}
+            }
+        </div>
+        <input nz-input [formControl]="formControl" dir="rtl" />
+        <div class="fielder my-4">
+            <nz-upload [nzCustomRequest]="uploadRequest" dir="rtl">
+                <button nz-button>
+                    <span nz-icon nzType="upload"></span>
+                    {{ "uploadImage" | translate }}
+                </button>
+            </nz-upload>
+        </div>
+    </div>
+
+    <div>
+        <button nz-button nzType="default" class="mx-1" (click)="onBack()">{{ "back" | translate }}</button>
+        <button nz-button nzType="primary" class="mx-1" (click)="onSubmit()">{{ "submit" | translate }}</button>
+    </div>
+</div>

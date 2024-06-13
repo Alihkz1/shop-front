@@ -14,11 +14,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MenuProfileComponent } from './components/menu-profile/menu-profile.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { ShopCardComponent } from './components/shop-card/shop-card.component';
+import { CategoryModalComponent } from '../shared/component/category-modal/category-modal.component';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 const NZ = [
   NzInputModule,
   NzButtonModule,
-  NzIconModule
+  NzIconModule,
+  NzModalModule,
+  NzPopconfirmModule
 ]
 
 
@@ -30,10 +35,11 @@ const NZ = [
     ProductDetailComponent,
     ProductsComponent,
     ShopCardComponent,
-    MenuProfileComponent
+    MenuProfileComponent,
   ],
   imports: [
     CommonModule,
+    CategoryModalComponent,
     HeaderComponent,
     MenuRoutingModule,
     TranslateModule,

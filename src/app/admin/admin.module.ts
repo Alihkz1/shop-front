@@ -22,6 +22,8 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NoImageDirective } from '../shared/no-image.directive';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { UsersListComponent } from './components/admin-menu/users-list/users-list.component';
+import { CategoryModalComponent } from '../shared/component/category-modal/category-modal.component';
+import { ProductModalComponent } from '../shared/component/product-modal/product-modal.component';
 
 const NZ = [
   NzButtonModule,
@@ -47,6 +49,8 @@ const NZ = [
     TranslateModule,
     ReactiveFormsModule,
     NoImageDirective,
+    CategoryModalComponent,
+    ProductModalComponent,
     ...NZ
   ]
 })

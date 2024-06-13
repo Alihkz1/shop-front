@@ -80,4 +80,8 @@ export class ProductDetailComponent implements OnInit {
     this.router.navigate(['/auth/login'])
   }
 
+  deleteProduct_onClick(product: Product) { }
+
+  editProduct_onClick(product: Product) { }
+
 }

@@ -16,13 +16,14 @@
                     @if (client.isAdmin) {
                     <div class="board-data-icons">
                         <span class="m-2 blue" nz-icon nzType="edit" nzTheme="outline"
-                            (click)="editCategory_onClick(cat); $event.stopPropagation()">
+                            (click)="openCategoryModal(cat); $event.stopPropagation()">
                         </span>
-                        <span class="m-2 red" nz-icon nzType="delete" nzTheme="outline"
-                            (click)="deleteCategory_onClick(cat); $event.stopPropagation()">
+                        <span class="m-2 red" nz-icon nzType="delete" nzTheme="outline" nzPopconfirmPlacement="right"
+                            nz-popconfirm nzPopconfirmTitle="حذف دسته بندی؟" nzOkText="بله" nzCancelText="خیر"
+                            (click)="$event.stopPropagation()" (nzOnConfirm)="deleteCategory_onConfirm(cat)">
                         </span>
                     </div>
-                }
+                    }
                 </div>
             </div>
         </div>
