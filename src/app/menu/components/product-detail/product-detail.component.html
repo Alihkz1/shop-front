@@ -15,14 +15,14 @@
                     {{ product?.title }}
                 </div>
 
+                <div class="detail-price mb-2">
+                    <span class="detail-price-title"> {{ 'price' | translate }}: </span>
+                    <span class="mx-2"> {{ product?.price | currencyPipe }} {{ 'currency' | translate }} </span>
+                </div>
+
                 <div class="detail-amount my-2">
                     <span class="detail-amount-title"> {{ 'amount' | translate }}: </span>
                     <span class="mx-2"> {{ product?.amount }} </span>
-                </div>
-
-                <div class="detail-price mb-2">
-                    <span class="detail-price-title"> {{ 'price' | translate }}: </span>
-                    <span class="mx-2"> {{ product?.price }} {{ 'currency' | translate }} </span>
                 </div>
             </div>
 

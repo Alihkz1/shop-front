@@ -9,7 +9,7 @@
                     {{ "makeOrderFinal" | translate }}
                 </div>
                 <div class="total-price mt-2">
-                    {{ "totalPrice" | translate }}: {{ totalPrice }} {{ "currency" | translate }}
+                    {{ "totalPrice" | translate }}: {{ totalPrice | currencyPipe }} {{ "currency" | translate }}
                     <button class="mt-5 sender-button" nz-button nzType="default" (click)="onConfirmCard()">
                         {{ "senderDetails" | translate }}
                     </button>
@@ -26,7 +26,7 @@
                             <a (click)="navigateToProduct(card)">{{ card.title }}</a>
                         </div>
                         <div class="box-detail-price"> {{ "price" | translate }}:
-                            <span class="mx-1"> {{ card.price }} </span>
+                            <span class="mx-1"> {{ card.price | currencyPipe }} </span>
                             {{ "currency" | translate }}
                         </div>
                     </div>

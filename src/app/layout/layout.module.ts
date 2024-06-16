@@ -23,9 +23,9 @@ const ngZorroConfig: NzConfig = {
     nzAnimate: true,
     nzPauseOnHover: true,
   },
- empty:{
-  nzDefaultEmptyContent: NzEmptyComponent
- }
+  empty: {
+    nzDefaultEmptyContent: NzEmptyComponent
+  }
 };
 
 

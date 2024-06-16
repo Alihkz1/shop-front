@@ -17,6 +17,7 @@ import { ShopCardComponent } from './components/shop-card/shop-card.component';
 import { CategoryModalComponent } from '../shared/component/category-modal/category-modal.component';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { CurrencyPipe } from '../shared/pipe/currency.pipe';
 
 const NZ = [
   NzInputModule,
@@ -44,6 +45,7 @@ const NZ = [
     MenuRoutingModule,
     TranslateModule,
     ReactiveFormsModule,
+    CurrencyPipe,
     ...NZ
   ]
 })

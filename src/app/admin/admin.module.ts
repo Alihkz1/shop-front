@@ -24,6 +24,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { UsersListComponent } from './components/admin-menu/users-list/users-list.component';
 import { CategoryModalComponent } from '../shared/component/category-modal/category-modal.component';
 import { ProductModalComponent } from '../shared/component/product-modal/product-modal.component';
+import { CurrencyPipe } from '../shared/pipe/currency.pipe';
 
 const NZ = [
   NzButtonModule,
@@ -51,6 +52,7 @@ const NZ = [
     NoImageDirective,
     CategoryModalComponent,
     ProductModalComponent,
+    CurrencyPipe,
     ...NZ
   ]
 })

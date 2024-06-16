@@ -21,7 +21,7 @@
                                 <span>{{ "amount" | translate }}:</span> {{ product.amount }}
                             </p>
                             <p class="product-item-price">
-                                <span>{{ "price" | translate }}:</span> {{ product.price }} {{ "currency" | translate }}
+                                <span>{{ "price" | translate }}:</span> {{ product.price | currencyPipe }} {{ "currency" | translate }}
                             </p>
                             <div>
                                 <span class="product-item-icon blue" nz-icon nzType="edit" nzTheme="outline"
