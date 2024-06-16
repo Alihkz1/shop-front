@@ -126,7 +126,7 @@ export class ProductDetailComponent implements OnInit {
 
   minCount() {
     const card = this.userShopCard.filter(c => c.productId === this.product.productId)[0]
-    if (card.inCardAmount < 1) return;
+    if (card.inCardAmount < 2) return;
     card.inCardAmount--;
     this.inCardAmount -= 1;
     this.updateCards();

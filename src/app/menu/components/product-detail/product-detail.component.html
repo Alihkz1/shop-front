@@ -36,11 +36,20 @@
                     </span>
                 </div>
                 }@else {
-
+                @if (!productInShopCardFlag) {
                 <button [disabled]="product?.amount === 0" nz-button nzType="default" (click)="addToCard()">
                     {{ 'toShopCard' | translate }}
                     <span nz-icon nzType="shopping" nzTheme="outline"></span>
                 </button>
+                }@else {
+                <nz-button-group>
+                    <button nz-button (click)="minCount()"><span nz-icon nzType="minus"></span></button>
+                    <div class="mx-3 mt-1">
+                        {{ inCardAmount }}
+                    </div>
+                    <button nz-button (click)="addCount()"><span nz-icon nzType="plus"></span></button>
+                </nz-button-group>
+                }
                 }
                 }@else {
                 <button nz-button nzType="default" (click)="navigateToLogin()">

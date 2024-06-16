@@ -41,7 +41,7 @@ export class ShopCardComponent implements OnInit {
   }
 
   minCount(card: ShopCard) {
-    if (card.inCardAmount < 1) return;
+    if (card.inCardAmount < 2) return;
     card.inCardAmount --;
     const products = this.cards.map((c: ShopCard) => {
       if (c.productId === card.productId) {
