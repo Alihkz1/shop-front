@@ -39,3 +39,7 @@ nz-table {
     background: #f1eaff !important;
     padding: 0 0 10px 0;
 }
+
+::ng-deep .ant-table table {
+    text-align: center;
+}

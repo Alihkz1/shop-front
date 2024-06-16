@@ -1,12 +1,11 @@
 .box {
-    min-height: 400px;
     height: fit-content;
     overflow-y: auto;
     max-height: calc(100vh - 100px);
 
     @media (max-width: 767px) {
         margin-top: 10px;
-        max-height: calc(100vh - 275px);
+        height: calc(100vh - 275px);
     }
 }
 
