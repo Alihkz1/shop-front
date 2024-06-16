@@ -53,13 +53,21 @@
         &-detail {
             border-right: unset;
             border-top: 1px solid rgb(235, 235, 235);
+
+            &-title {
+                font-size: 12px;
+            }
+
+            &-price {
+                font-size: 11px;
+            }
         }
     }
 }
 
 @media (min-width:767px) {
     .page-h {
-        height: calc(100vh - 115px) !important;
+        height: calc(100vh - 145px) !important;
     }
 }
 
@@ -70,7 +78,8 @@
     align-items: center;
     padding: 20px 0;
     height: 200px;
-    background: rgb(195 206 255 / 41%);;
+    background: rgb(195 206 255 / 41%);
+    ;
 }
 
 .total-price {
