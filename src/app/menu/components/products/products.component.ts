@@ -4,6 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from '../../../shared/model/product.model';
 import { ClientService } from '../../../shared/service/client.service';
+import { AdminApi } from '../../../admin/shared/admin.api';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { TranslateService } from "@ngx-translate/core";
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { ProductModalComponent } from '../../../shared/component/product-modal/product-modal.component';
 
 @Component({
   selector: 'app-products',
@@ -17,8 +22,12 @@ export class ProductsComponent implements OnInit {
   constructor(
     private router: Router,
     private menuApi: MenuApi,
+    private adminApi: AdminApi,
     public client: ClientService,
     private route: ActivatedRoute,
+    private message: NzMessageService,
+    private translate: TranslateService,
+    private modalService: NzModalService,
   ) { }
 
   ngOnInit(): void {
@@ -39,7 +48,30 @@ export class ProductsComponent implements OnInit {
     this.router.navigate(['menu/products/' + categoryId + '/' + product.productId])
   }
 
-  deleteProduct_onClick(product: Product) { }
+  deleteProduct_onClick(product: Product) {
+    this.adminApi.deleteProduct(product.productId).subscribe(({ success }: any) => {
+      if (success) {
+        this.message.create('success', this.translate.instant('actionDone'))
+        this.getData();
+      }
+    })
+  }
 
-  editProduct_onClick(product: Product) { }
+  editProduct_onClick(product: Product) {
+    this.modalService.create({
+      nzFooter: null,
+      nzCentered: true,
+      nzClosable: false,
+      nzStyle: {
+        width: "400px",
+        borderRadius: "6px",
+      },
+      nzContent: ProductModalComponent,
+      nzData: { product },
+      nzOnOk: () => {
+      },
+    }).afterClose.subscribe((result: boolean) => {
+      if (result) this.getData()
+    })
+  }
 }

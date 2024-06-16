@@ -11,6 +11,9 @@ import { NzUploadModule, NzUploadXHRArgs } from 'ng-zorro-antd/upload';
 import { HttpClient, HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
 import { environment } from '../../../../env/environment';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { Subscription } from 'rxjs';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-product-modal',
@@ -23,6 +26,7 @@ export class ProductModalComponent implements OnInit {
   modalData = inject(NZ_MODAL_DATA);
   categories: Category[] = []
   uploadedImgUrl = new FormControl('')
+  addLoading: Subscription
 
   form = new FormGroup({
     categoryId: new FormControl({ value: null, disabled: true }, Validators.required),
@@ -50,7 +54,13 @@ export class ProductModalComponent implements OnInit {
     )
   }
 
-  constructor(private modalRef: NzModalRef, private adminApi: AdminApi, private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private adminApi: AdminApi,
+    private modalRef: NzModalRef,
+    private message: NzMessageService,
+    private translate: TranslateService,
+  ) { }
 
   ngOnInit(): void {
     if (this.modalData.product) {
@@ -72,12 +82,36 @@ export class ProductModalComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.modalData)
+    if (this.modalData.product)
       this.editProduct_onConfirm()
     else this.addProduct_onConfirm()
   }
 
-  editProduct_onConfirm() { }
+  editProduct_onConfirm() {
+    this.addLoading = this.adminApi.editProduct(
+      {
+        ...this.form.value,
+        imageUrl: this.uploadedImgUrl.value,
+      }).subscribe(({ success }: any) => {
+        if (success) {
+          this.message.create('success', this.translate.instant('actionDone'))
+        }
+        this.modalRef.close(success)
+      });
+  }
 
-  addProduct_onConfirm() { }
+  addProduct_onConfirm() {
+    this.addLoading = this.adminApi.addProduct(
+      {
+        ...this.form.value,
+        imageUrl: this.uploadedImgUrl.value,
+        categoryId: this.form.get('categoryId')?.value
+      }
+    ).subscribe(({ success }: any) => {
+      if (success) {
+        this.message.create('success', this.translate.instant('actionDone'))
+      }
+      this.modalRef.close(success)
+    });
+  }
 }

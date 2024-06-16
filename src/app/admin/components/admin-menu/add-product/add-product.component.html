@@ -28,8 +28,7 @@
                                     (click)="openProductModal(product,null)">
                                 </span>
                                 <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف محصول؟"
-                                    class="product-item-icon red" [nzOkText]="submitTranslate"
-                                    [nzCancelText]="backTranslate" nz-icon nzType="delete" nzTheme="outline"
+                                    class="product-item-icon red" nzOkText="بله" nzCancelText="خیر" nz-icon nzType="delete" nzTheme="outline"
                                     (nzOnConfirm)="deleteProduct_onConfirm(product)">
                                 </span>
                             </div>

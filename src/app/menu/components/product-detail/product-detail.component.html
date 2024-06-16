@@ -30,7 +30,9 @@
                         (click)="editProduct_onClick(product); $event.stopPropagation()">
                     </span>
                     <span class="m-2 red cursor-pointer" nz-icon nzType="delete" nzTheme="outline"
-                        (click)="deleteProduct_onClick(product); $event.stopPropagation()">
+                        zPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف محصول؟" nzOkText="بله"
+                        nzCancelText="خیر" (click)="$event.stopPropagation()"
+                        (nzOnConfirm)="deleteProduct_onClick(product)">
                     </span>
                 </div>
                 }@else {

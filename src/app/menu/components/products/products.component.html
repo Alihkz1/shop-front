@@ -19,8 +19,9 @@
                         <span class="m-2 blue" nz-icon nzType="edit" nzTheme="outline"
                             (click)="editProduct_onClick(product); $event.stopPropagation()">
                         </span>
-                        <span class="m-2 red" nz-icon nzType="delete" nzTheme="outline"
-                            (click)="deleteProduct_onClick(product); $event.stopPropagation()">
+                        <span class="m-2 red" nz-icon nzType="delete" nzTheme="outline" zPopconfirmPlacement="right"
+                            nz-popconfirm nzPopconfirmTitle="حذف محصول؟" nzOkText="بله" nzCancelText="خیر"
+                            (click)="$event.stopPropagation()" (nzOnConfirm)="deleteProduct_onClick(product)">
                         </span>
                     </div>
                     }

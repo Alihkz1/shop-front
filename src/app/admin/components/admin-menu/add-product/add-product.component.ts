@@ -4,7 +4,6 @@ import { AdminApi } from '../../../shared/admin.api';
 import { environment } from '../../../../../env/environment';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
-import { Subscription } from 'rxjs';
 import { NzModalComponent, NzModalService } from 'ng-zorro-antd/modal';
 import { CategoryModalComponent } from '../../../../shared/component/category-modal/category-modal.component';
 import { Category } from '../../../../shared/model/category.model';
@@ -20,10 +19,6 @@ export class AddProductComponent implements OnInit {
   @ViewChild('productModal') productModal: NzModalComponent;
 
   uploadUrl = environment.UPLOAD_URL;
-
-  addLoading: Subscription;
-  backTranslate: string;
-  submitTranslate: string;
 
   form = new FormGroup({
     categoryId: new FormControl({ value: null, disabled: true }, Validators.required),
@@ -41,12 +36,7 @@ export class AddProductComponent implements OnInit {
     private message: NzMessageService,
     private modalService: NzModalService,
     private translate: TranslateService,
-  ) {
-    // this.backTranslate = this.translate.instant('back');
-    // this.submitTranslate = this.translate.instant('submit');
-    this.backTranslate = "بازگشت"
-    this.submitTranslate = "ثبت"
-  }
+  ) { }
 
   ngOnInit(): void {
     this.getCategories()
@@ -75,7 +65,7 @@ export class AddProductComponent implements OnInit {
       }
     })
   }
-  
+
   openCategoryModal(category?: Category) {
     this.modalService.create({
       nzFooter: null,
