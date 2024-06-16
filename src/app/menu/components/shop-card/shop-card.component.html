@@ -10,8 +10,8 @@
                 </div>
                 <div class="total-price mt-2">
                     {{ "totalPrice" | translate }}: {{ totalPrice }} {{ "currency" | translate }}
-                    <button class="mt-5 pay-button" nz-button nzType="default" (click)="onPay()">
-                        {{ "pay" | translate }}
+                    <button class="mt-5 sender-button" nz-button nzType="default" (click)="onConfirmCard()">
+                        {{ "senderDetails" | translate }}
                     </button>
                 </div>
             </div>

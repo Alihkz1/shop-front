@@ -7,6 +7,7 @@ import { ProductDetailComponent } from "./components/product-detail/product-deta
 import { AboutUsComponent } from "./components/about-us/about-us.component";
 import { MenuProfileComponent } from "./components/menu-profile/menu-profile.component";
 import { ShopCardComponent } from "./components/shop-card/shop-card.component";
+import { ConfirmCardComponent } from "./components/confirm-card/confirm-card.component";
 
 export const routes: Routes = [
     {
@@ -32,6 +33,10 @@ export const routes: Routes = [
             {
                 path: 'products/:categoryId/:productId',
                 component: ProductDetailComponent,
+            },
+            {
+                path: 'confirm-card',
+                component: ConfirmCardComponent,
             },
             {
                 path: 'about-us',

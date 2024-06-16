@@ -98,5 +98,7 @@ export class ShopCardComponent implements OnInit {
     })
   }
 
-  onPay() { }
+  onConfirmCard() {
+    this.router.navigate(['menu/confirm-card'])
+   }
 }

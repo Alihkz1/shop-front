@@ -56,5 +56,6 @@
   "addProduct": "Add New Product",
   "comment": "Comment",
   "date": "Date",
-  "noData": "No Data!"
+  "noData": "No Data!",
+  "senderDetails": "Confirm Orders"
 }
