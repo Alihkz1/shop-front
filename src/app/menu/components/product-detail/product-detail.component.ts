@@ -82,6 +82,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   public navigateToLogin() {
+    localStorage.setItem('routeAfterLogin', this.router.url)
     this.router.navigate(['/auth/login'])
   }
 
@@ -90,7 +91,7 @@ export class ProductDetailComponent implements OnInit {
     this.adminApi.deleteProduct(product.productId).subscribe(({ success }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
-        this.router.navigate(['/menu/products',categoryId])
+        this.router.navigate(['/menu/products', categoryId])
       }
     })
   }

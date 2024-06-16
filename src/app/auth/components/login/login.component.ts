@@ -55,6 +55,10 @@ export class LoginComponent {
             this.client.isAdmin = false;
             this.client.setHeaderButtons = USER_BUTTONS;
             this.router.navigate(['/menu/categories']);
+            if (localStorage.getItem('routeAfterLogin')) {
+              this.router.navigate([localStorage.getItem('routeAfterLogin')])
+              localStorage.removeItem('routeAfterLogin')
+            }
           }
           this.message.create(
             'success',
