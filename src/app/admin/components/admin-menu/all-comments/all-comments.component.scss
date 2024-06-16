@@ -49,3 +49,7 @@
 .read {
     background: #eaeaea !important;
 }
+
+::ng-deep .ant-table table {
+    text-align: center;
+}

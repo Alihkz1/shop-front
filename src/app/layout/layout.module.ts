@@ -9,6 +9,7 @@ import { NZ_CONFIG, NzConfig, NzConfigService } from 'ng-zorro-antd/core/config'
 import { en_US, provideNzI18n } from "ng-zorro-antd/i18n";
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { ServiceLocator } from '../shared/class/request-builder';
+import { NzEmptyComponent } from '../shared/component/nz-empty/nz-empty.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -22,6 +23,9 @@ const ngZorroConfig: NzConfig = {
     nzAnimate: true,
     nzPauseOnHover: true,
   },
+ empty:{
+  nzDefaultEmptyContent: NzEmptyComponent
+ }
 };
 
 

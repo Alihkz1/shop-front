@@ -53,5 +53,8 @@
   "shopCard": "Shopping Card",
   "loginNeeded": "Please login!",
   "editProduct": "Edit Product",
-  "addProduct": "Add New Product"
+  "addProduct": "Add New Product",
+  "comment": "Comment",
+  "date": "Date",
+  "noData": "No Data!"
 }

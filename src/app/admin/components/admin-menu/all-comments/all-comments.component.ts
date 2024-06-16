@@ -4,6 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { Comment } from '../../../../shared/model/comment.model';
+import { DatePipe } from '@angular/common';
+import moment from 'jalali-moment';
 @Component({
   selector: 'app-all-comments',
   templateUrl: './all-comments.component.html',
@@ -24,8 +26,18 @@ export class AllCommentsComponent implements OnInit {
   }
 
   getComments() {
+    let datePipe = new DatePipe('en-US');
     this.adminApi.getComments().subscribe(({ data }: any) => {
-      this._comments$.next(data.comments);
+      const list = data.comments.map((row: any) => {
+        return {
+          ...row,
+          comment: {
+            ...row.comment,
+            date: moment(new Date(row.comment.date)).locale('fa').format('YYYY/MM/DD'),
+          }
+        }
+      })
+      this._comments$.next(list);
     })
   }
 

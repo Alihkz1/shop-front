@@ -53,6 +53,9 @@
   "pay": "پرداخت",
   "shopCard": "سبد خرید",
   "loginNeeded": "لطفا لاگین کنید",
-  "editProduct":"ویرایش محصول",
-  "addProduct":"ثبت محصول جدید"
+  "editProduct": "ویرایش محصول",
+  "addProduct": "ثبت محصول جدید",
+  "comment": "نظر",
+  "date": "تاریخ",
+  "noData":"دیتایی برای نمایش وجود ندارد"
 }
