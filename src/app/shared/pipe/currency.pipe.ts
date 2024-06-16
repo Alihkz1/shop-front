@@ -7,6 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CurrencyPipe implements PipeTransform {
 
   transform(value: number | string): string {
+    if (!value) return '0';
     if (typeof value === 'number') {
       value = value.toString();
     }
