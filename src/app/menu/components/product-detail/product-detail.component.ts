@@ -17,7 +17,7 @@ import { ShopCard } from '../../../shared/model/shop-card.model';
   styleUrl: './product-detail.component.scss'
 })
 export class ProductDetailComponent implements OnInit {
-  product: Product;
+  product: any;
   productInShopCardFlag = false
   inCardAmount: number = 0
 
@@ -74,13 +74,8 @@ export class ProductDetailComponent implements OnInit {
       this.message.create('info', this.translate.instant('alreadyInCard'))
       return;
     }
+    this.product.inCardAmount = 1;
     products.push(this.product);
-    products = products.map((p) => {
-      return {
-        ...p,
-        inCardAmount: 1
-      }
-    })
     const model = {
       userId: this.client.getUser.user.userId,
       products
@@ -89,8 +84,9 @@ export class ProductDetailComponent implements OnInit {
       if (success) {
         this.message.create('success', this.translate.instant('addedToCard'))
         this.productInShopCardFlag = true;
-        this.inCardAmount  = 1;
+        this.inCardAmount = 1;
         this.client.shopCardLength += 1;
+        this.getShopCard()
       }
     })
   }
