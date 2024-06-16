@@ -20,7 +20,7 @@
                     @if (client.getUser.user.userId !== row.userId) {
                     <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف کاربر؟"
                         class="red cursor-pointer" nzOkText="بله" nzCancelText="خیر" nz-icon nzType="delete"
-                        nzTheme="outline" (nzOnConfirm)="deleteUser(row)">
+                        nzTheme="outline" (nzOnConfirm)="deleteUser(row.userId)">
                     </span>
                     }
                     <span class="blue cursor-pointer mx-2" nz-icon nzType="lock" nzTheme="outline"

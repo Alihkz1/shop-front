@@ -130,12 +130,12 @@ export class AdminApi {
       .call()
   }
 
-  public deleteUser(userId: any) {
+  public deleteUser(userId: number) {
     return Api()
       .delete()
       .controller('user')
       .action('delete')
-      .pathVariable(userId)
+      .pathVariable(String(userId))
       .call()
   }
 

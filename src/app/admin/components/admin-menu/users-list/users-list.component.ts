@@ -63,8 +63,8 @@ export class UsersListComponent implements OnInit {
     })
   }
 
-  public deleteUser(user: User) {
-    this.adminApi.deleteUser(user.userId).subscribe(({ success }: any) => {
+  public deleteUser(userId: number) {
+    this.adminApi.deleteUser(userId).subscribe(({ success }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
         this.getData()

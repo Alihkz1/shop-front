@@ -10,6 +10,7 @@ import { ProductModalComponent } from '../../../shared/component/product-modal/p
 import { AdminApi } from '../../../admin/shared/admin.api';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ShopCard } from '../../../shared/model/shop-card.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-product-detail',
@@ -28,6 +29,7 @@ export class ProductDetailComponent implements OnInit {
     public router: Router,
     private menuApi: MenuApi,
     public adminApi: AdminApi,
+    private location: Location,
     public client: ClientService,
     private route: ActivatedRoute,
     private message: NzMessageService,
@@ -146,5 +148,7 @@ export class ProductDetailComponent implements OnInit {
     }
     this.menuApi.modifyShopCard(model).subscribe();
   }
+
+  back() { this.location.back() }
 
 }
