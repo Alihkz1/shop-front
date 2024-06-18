@@ -1,0 +1,27 @@
+.wrapper {
+    height: 100%;
+    overflow: hidden;
+}
+
+.title {
+    margin-top: 10px;
+    font-size: 18px;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+}
+
+.box {
+    background-color: rgb(255, 255, 255);
+    height: 300px;
+}
+
+.cards {
+    height: calc(100vh - 180px);
+    overflow: hidden auto;
+    padding: 10px 0;
+    margin-top: 10px;
+}

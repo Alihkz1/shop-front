@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthApi } from '../../shared/auth.api';
 import { finalize } from 'rxjs';
 import { TranslateService } from "@ngx-translate/core";
-import { ClientService } from '../../../shared/service/client.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 
@@ -16,8 +15,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class SignupComponent {
   signupLoading = false
   form = new FormGroup({
-    email: new FormControl(),
-    password: new FormControl(),
+    email: new FormControl(null, [Validators.required]),
+    password: new FormControl(null, [Validators.required]),
     phone: new FormControl(),
     name: new FormControl()
   })
@@ -27,11 +26,14 @@ export class SignupComponent {
     private authApi: AuthApi,
     private message: NzMessageService,
     private translate: TranslateService,
-    private clientService: ClientService,
   ) { }
 
 
   signup_onClick() {
+    if (this.form.invalid) {
+      this.message.create('error', this.translate.instant('formInvalid'))
+      return;
+    }
     this.signupLoading = true;
     this.authApi.signup(this.form.value)
       .pipe(finalize(() => { this.signupLoading = false; }))

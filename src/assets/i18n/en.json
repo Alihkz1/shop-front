@@ -13,6 +13,7 @@
   "getIn": "ُLogin",
   "alreadyHaveAccount": "Already Have Acoount?",
   "email": "Email",
+  "emailAsUsername": "Email (your username)",
   "enterName": "Enter Your FullName",
   "phone": "Phone Number",
   "usersList": "Users List",

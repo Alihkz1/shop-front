@@ -6,8 +6,8 @@
     <div class="flex-grow">
         <form class="signup-form" [formGroup]="form">
             <input nz-input [placeholder]="'enterName' | translate" formControlName="name" />
-            <input class="mt-2" nz-input [placeholder]="'phone' | translate" formControlName="phone" />
-            <input class="mt-2" nz-input [placeholder]="'email' | translate" formControlName="email" />
+            <input class="mt-2" nz-input [placeholder]="'phone' | translate" formControlName="phone"/>
+            <input class="mt-2" nz-input [placeholder]="'emailAsUsername' | translate" formControlName="email" />
             <input class="mt-2" nz-input [placeholder]="'password' | translate" formControlName="password" />
             <button class="d-none" type="submit" (click)="login_onClick()"></button>
         </form>
