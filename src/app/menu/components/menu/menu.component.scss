@@ -13,5 +13,9 @@
         @media (min-width:992px) and (max-width:1450px) {
             padding: 0px 100px !important;
         }
+
+        @media (max-width:992px) {
+            padding: 0px 10px !important;
+        }
     }
 }

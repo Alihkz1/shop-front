@@ -47,13 +47,13 @@
 
 @media (min-width:767px) {
     .page-h {
-        height: calc(100vh - 215px) !important;
+        height: calc(100vh - 195px) !important;
     }
 }
 
 @media (max-width:767px) {
     .page-h {
-        height: calc(100vh - 350px) !important;
+        height: calc(100vh - 330px) !important;
         overflow-y: auto;
     }
 
