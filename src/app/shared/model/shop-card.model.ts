@@ -5,5 +5,7 @@ export interface ShopCard {
     productId: number;
     imageUrl: string;
     title: string;
+    shopCardId: number;
+    userId: number;
     inCardAmount: number;
 }

@@ -14,6 +14,7 @@ import { TranslateService } from "@ngx-translate/core";
 })
 export class ConfirmCardComponent implements OnInit {
   public totalPrice: number = 0;
+  public shopCardId: number = 0;
   saveLoading: Subscription;
 
   form = new FormGroup({
@@ -42,6 +43,7 @@ export class ConfirmCardComponent implements OnInit {
       if (success && data) {
         const cards: ShopCard[] = data.card;
         this.totalPrice = 0;
+        this.shopCardId = cards[0].shopCardId;
         cards.forEach((card: ShopCard) => {
           this.totalPrice += card.price * card.inCardAmount;
         })
@@ -54,15 +56,17 @@ export class ConfirmCardComponent implements OnInit {
       this.message.create('error', this.translate.instant('formInvalid'))
       return
     }
-    const { userId } = this.client.getUser.user;
-    this.menuApi.addOrder(
+    this.saveLoading = this.menuApi.addOrder(
       {
         ...this.form.value,
-        userId
+        shopCardId: this.shopCardId
       }
     ).subscribe(({ success }: any) => {
       if (success) {
         /* move to online-pay */
+        /* if online pay not success -> order.status =0 */
+        /* if online pay success -> order.status=1 */
+        /* if online pay success -> shopCard.paid = 0 */
       }
     })
   }
