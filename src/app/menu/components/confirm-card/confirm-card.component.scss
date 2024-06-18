@@ -5,27 +5,17 @@
     flex-direction: column;
 }
 
-.title {
-    margin-top: 10px;
-    font-size: 18px;
-    background: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    user-select: none;
-    display: flex;
-    justify-content: center;
-}
-
 .fielder {
     min-height: 65px;
 }
 
 .save {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
     button {
-        width: 150px;
+        width: 300px;
     }
 }
 

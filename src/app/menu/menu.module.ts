@@ -10,7 +10,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { TranslateModule } from "@ngx-translate/core";
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MenuProfileComponent } from './components/menu-profile/menu-profile.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { ShopCardComponent } from './components/shop-card/shop-card.component';
@@ -21,6 +21,7 @@ import { CurrencyPipe } from '../shared/pipe/currency.pipe';
 import { ConfirmCardComponent } from './components/confirm-card/confirm-card.component';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { OrdersComponent } from './components/orders/orders.component';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 const NZ = [
   NzInputModule,
@@ -28,7 +29,8 @@ const NZ = [
   NzIconModule,
   NzAlertModule,
   NzModalModule,
-  NzPopconfirmModule
+  NzPopconfirmModule,
+  NzCheckboxModule
 ]
 
 
@@ -52,6 +54,7 @@ const NZ = [
     TranslateModule,
     ReactiveFormsModule,
     CurrencyPipe,
+    FormsModule,
     ...NZ
   ]
 })

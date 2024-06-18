@@ -9,6 +9,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ProductModalComponent } from '../../../shared/component/product-modal/product-modal.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-products',
@@ -22,6 +23,7 @@ export class ProductsComponent implements OnInit {
   constructor(
     private router: Router,
     private menuApi: MenuApi,
+    private location: Location,
     private adminApi: AdminApi,
     public client: ClientService,
     private route: ActivatedRoute,
@@ -74,4 +76,7 @@ export class ProductsComponent implements OnInit {
       if (result) this.getData()
     })
   }
+
+  back() { this.location.back() }
+
 }

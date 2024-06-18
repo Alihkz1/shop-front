@@ -34,5 +34,4 @@ export class OrdersComponent implements OnInit {
       this._orders$.next(mapped)
     })
   }
-
 }

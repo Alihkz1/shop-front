@@ -43,23 +43,3 @@
     display: flex;
     justify-content: center;
 }
-
-.back {
-    width: fit-content;
-    padding: 10px;
-    border: 1px solid rgb(217, 217, 217);
-    border-radius: 8px;
-    cursor: pointer;
-
-    &-icon {
-        height: 18px;
-        width: 18px;
-        transform: rotate(180deg);
-    }
-}
-
-@media (min-width:767px) {
-    .back {
-        opacity: 0;
-    }
-}

@@ -1,7 +1,10 @@
 <div class="wrapper">
-    <div class="back" (click)="back()">
-        <img class="back-icon" src="assets/svg/back.svg">
-        {{ 'back' | translate }}
+    <div class="wrapper-title">
+        {{ 'productDetails' | translate }}
+        <div class="wrapper-title-back" (click)="back()">
+            <img class="wrapper-title-back-icon" src="assets/svg/back.svg">
+            {{ 'back' | translate }}
+        </div>
     </div>
     <div class="row">
         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">

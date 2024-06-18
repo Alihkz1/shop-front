@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-confirm-card',
@@ -16,6 +17,7 @@ export class ConfirmCardComponent implements OnInit {
   public totalPrice: number = 0;
   public shopCardId: number = 0;
   saveLoading: Subscription;
+  privacyAccepted = false
 
   form = new FormGroup({
     receiverName: new FormControl(null, [Validators.required]),
@@ -28,6 +30,7 @@ export class ConfirmCardComponent implements OnInit {
 
   constructor(
     private menuApi: MenuApi,
+    private location: Location,
     private client: ClientService,
     private message: NzMessageService,
     private translate: TranslateService,
@@ -72,4 +75,6 @@ export class ConfirmCardComponent implements OnInit {
       }
     })
   }
+
+  back() { this.location.back() }
 }

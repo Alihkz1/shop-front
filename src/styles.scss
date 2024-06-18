@@ -97,7 +97,8 @@ nz-message .anticon {
 }
 
 .ant-select-disabled.ant-select:not(.ant-select-customize-input) .ant-select-selector,
-.ant-input[disabled], .ant-btn[disabled]{
+.ant-input[disabled],
+.ant-btn[disabled] {
     color: #000;
 }
 
@@ -144,4 +145,33 @@ nz-message .anticon {
 button.submit {
     width: 100px;
     margin-top: 10px;
+}
+
+.wrapper-title {
+    margin-top: 10px;
+    font-size: 18px;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    &-back {
+        font-size: 12px;
+        width: fit-content;
+        border-radius: 8px;
+        cursor: pointer;
+        padding: 0 10px;
+        position: absolute;
+        right: 0;
+        margin-top: 4px;
+
+        &-icon {
+            height: 16px;
+            width: 16px;
+            transform: rotate(180deg);
+        }
+    }
 }

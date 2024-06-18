@@ -16,10 +16,10 @@ export class ShopCardComponent implements OnInit {
   public get cards(): ShopCard[] { return this._cards$.getValue() }
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
+    private menuApi: MenuApi,
+    private route: ActivatedRoute,
     private client: ClientService,
-    private menuApi: MenuApi
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class ShopCardComponent implements OnInit {
 
   minCount(card: ShopCard) {
     if (card.inCardAmount < 2) return;
-    card.inCardAmount --;
+    card.inCardAmount--;
     const products = this.cards.map((c: ShopCard) => {
       if (c.productId === card.productId) {
         return {
@@ -57,7 +57,7 @@ export class ShopCardComponent implements OnInit {
   }
 
   addCount(card: ShopCard) {
-    card.inCardAmount ++;
+    card.inCardAmount++;
     const products = this.cards.map((c: ShopCard) => {
       if (c.productId === card.productId) {
         return {
@@ -100,5 +100,5 @@ export class ShopCardComponent implements OnInit {
 
   onConfirmCard() {
     this.router.navigate(['menu/confirm-card'])
-   }
+  }
 }
