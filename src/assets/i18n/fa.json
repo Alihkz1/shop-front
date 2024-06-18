@@ -61,5 +61,6 @@
   "senderDetails": "تکمیل مشخصات ارسال",
   "receiverAddress": "آدرس گیرنده",
   "postalCode": "کد پستی",
-  "description":"توضیحات"
+  "description": "توضیحات",
+  "formInvalid": "لطفا اطلاعات را تکمیل کنید"
 }

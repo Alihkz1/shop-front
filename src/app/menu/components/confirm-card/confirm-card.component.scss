@@ -23,6 +23,7 @@
 .save {
     display: flex;
     justify-content: center;
+
     button {
         width: 150px;
     }
@@ -31,4 +32,12 @@
 form {
     overflow: hidden auto;
     padding-bottom: 10px;
+}
+
+.required {
+    color: rgba(255, 0, 0, 0.882);
+
+    &::after {
+        content: '  *';
+    }
 }

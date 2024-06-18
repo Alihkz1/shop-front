@@ -60,5 +60,6 @@
   "senderDetails": "Confirm Orders",
   "receiverAddress": "Reciever Address",
   "postalCode": "Postal Code",
-  "description": "Description"
+  "description": "Description",
+  "formInvalid": "Please fill required fields"
 }

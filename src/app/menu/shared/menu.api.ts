@@ -85,4 +85,13 @@ export class MenuApi {
       .body(model)
       .call()
   }
+
+  public addOrder(model: any) {
+    return Api()
+      .post()
+      .controller('order')
+      .action('add')
+      .body(model)
+      .call()
+  }
 }
