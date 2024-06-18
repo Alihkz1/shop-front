@@ -56,17 +56,19 @@ export class ConfirmCardComponent implements OnInit {
       this.message.create('error', this.translate.instant('formInvalid'))
       return
     }
+    const { userId } = this.client.getUser.user;
     this.saveLoading = this.menuApi.addOrder(
       {
         ...this.form.value,
-        shopCardId: this.shopCardId
+        shopCardId: this.shopCardId,
+        userId
       }
     ).subscribe(({ success }: any) => {
       if (success) {
         /* move to online-pay */
         /* if online pay not success -> order.status =0 */
-        /* if online pay success -> order.status=1 */
-        /* if online pay success -> shopCard.paid = 0 */
+        /* if online pay success -> order.status = 1 */
+        /* if online pay success -> shopCard.paid = 1 */
       }
     })
   }

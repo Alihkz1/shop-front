@@ -2,6 +2,7 @@
   "dir": "rtl",
   "loginButton": "ثبت نام | ورود",
   "aboutUs": "درباره ما",
+  "contactUs": "تماس با ما",
   "submit": "ثبت",
   "yourMessage": "پیام خود را برای ما بنویسید",
   "welcome": "خوش آمدید",
@@ -62,5 +63,6 @@
   "receiverAddress": "آدرس گیرنده",
   "postalCode": "کد پستی",
   "description": "توضیحات",
-  "formInvalid": "لطفا اطلاعات را تکمیل کنید"
+  "formInvalid": "لطفا اطلاعات را تکمیل کنید",
+  "orders": "سفارشات"
 }

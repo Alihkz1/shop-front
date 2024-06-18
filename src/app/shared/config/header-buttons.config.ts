@@ -11,13 +11,17 @@ export const ADMIN_BUTTONS: IHeaderButton[] = [
 
 export const USER_BUTTONS: IHeaderButton[] = [
     {
-        title: "aboutUs",
+        title: "contactUs",
         route: "menu/about-us"
     },
     {
         title: "products",
         route: "menu/categories"
     },
+    {
+        title: "orders",
+        route: "menu/orders"
+    }
 ]
 
 export interface IHeaderButton {

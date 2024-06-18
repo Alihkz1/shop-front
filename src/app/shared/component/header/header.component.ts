@@ -36,7 +36,7 @@ export class HeaderComponent {
       this.router.navigate(['menu/profile'])
   }
 
-  aboutUs_onClick() {
+  contactUs_onClick() {
     this.router.navigate(['menu/about-us'])
   }
 

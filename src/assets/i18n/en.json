@@ -2,6 +2,7 @@
   "dir": "ltr",
   "loginButton": "Login | Register",
   "aboutUs": "About Us",
+  "contactUs": "Contact Us",
   "submit": "Submit",
   "yourMessage": "Enter Your Message For Us",
   "welcome": "Welcome!",
@@ -61,5 +62,6 @@
   "receiverAddress": "Reciever Address",
   "postalCode": "Postal Code",
   "description": "Description",
-  "formInvalid": "Please fill required fields"
+  "formInvalid": "Please fill required fields",
+  "orders": "Orders"
 }

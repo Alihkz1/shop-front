@@ -94,4 +94,13 @@ export class MenuApi {
       .body(model)
       .call()
   }
+
+  public getOrders(userId: number) {
+    return Api()
+      .get()
+      .controller('order')
+      .action('list')
+      .pathVariable(String(userId))
+      .call()
+  }
 }
