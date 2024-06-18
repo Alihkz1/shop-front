@@ -22,12 +22,12 @@
                 <input nz-input formControlName="title" dir="rtl" />
             </div>
             <div class="fielder d-flex flex-column align-items-end w-100">
-                <div class="fielder-title">{{ "price" | translate }}</div>
-                <input nz-input formControlName="price" dir="rtl" type="number"/>
+                <div class="fielder-title">{{ "price" | translate }} ({{ "currency" | translate }})</div>
+                <input nz-input formControlName="price" dir="rtl" priceFormat />
             </div>
             <div class="fielder d-flex flex-column align-items-end w-100">
                 <div class="fielder-title">{{ "amount" | translate }}</div>
-                <input nz-input formControlName="amount" dir="rtl" type="number"/>
+                <input nz-input formControlName="amount" dir="rtl" type="number" />
             </div>
             <div class="fielder my-4 d-flex flex-column align-items-end w-100">
                 <nz-upload [nzCustomRequest]="uploadRequest" dir="rtl">

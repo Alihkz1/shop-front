@@ -14,11 +14,13 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { Subscription } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
+import { PriceFormatDirective } from '../../../menu/shared/directive/price-format.directive';
+import { NumberToCurrency } from '../../function/currency-format.functions';
 
 @Component({
   selector: 'app-product-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, TranslateModule, NzSelectModule, NzInputModule, NzButtonModule, NzUploadModule, NzIconModule],
+  imports: [ReactiveFormsModule, PriceFormatDirective, TranslateModule, NzSelectModule, NzInputModule, NzButtonModule, NzUploadModule, NzIconModule],
   templateUrl: './product-modal.component.html',
   styleUrl: './product-modal.component.scss'
 })
@@ -64,7 +66,11 @@ export class ProductModalComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.modalData.product) {
-      this.form.patchValue(this.modalData.product)
+      const model = {
+        ...this.modalData.product,
+        price: NumberToCurrency(this.modalData.product.price)
+      }
+      this.form.patchValue(model)
     }
     this.getCategories()
   }
@@ -82,32 +88,32 @@ export class ProductModalComponent implements OnInit {
   }
 
   onSubmit() {
+    const model = {
+      ...this.form.value,
+      price: +this.form.value.price.replaceAll(',', ''),
+      imageUrl: this.uploadedImgUrl.value,
+    }
+
     if (this.modalData.product)
-      this.editProduct_onConfirm()
-    else this.addProduct_onConfirm()
+      this.editProduct_onConfirm(model)
+    else this.addProduct_onConfirm(model)
   }
 
-  editProduct_onConfirm() {
-    this.addLoading = this.adminApi.editProduct(
-      {
-        ...this.form.value,
-        imageUrl: this.uploadedImgUrl.value,
-      }).subscribe(({ success }: any) => {
-        if (success) {
-          this.message.create('success', this.translate.instant('actionDone'))
-        }
-        this.modalRef.close(success)
-      });
-  }
-
-  addProduct_onConfirm() {
-    this.addLoading = this.adminApi.addProduct(
-      {
-        ...this.form.value,
-        imageUrl: this.uploadedImgUrl.value,
-        categoryId: this.form.get('categoryId')?.value
+  editProduct_onConfirm(model: any) {
+    this.addLoading = this.adminApi.editProduct(model).subscribe(({ success }: any) => {
+      if (success) {
+        this.message.create('success', this.translate.instant('actionDone'))
       }
-    ).subscribe(({ success }: any) => {
+      this.modalRef.close(success)
+    });
+  }
+
+  addProduct_onConfirm(model: any) {
+    model = {
+      ...model,
+      categoryId: this.form.get('categoryId')?.value
+    }
+    this.addLoading = this.adminApi.addProduct(model).subscribe(({ success }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
       }
