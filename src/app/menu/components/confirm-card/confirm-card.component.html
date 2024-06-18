@@ -1,0 +1,52 @@
+<div class="wrapper">
+    <div class="title">
+        {{ 'senderDetails' | translate }}
+    </div>
+    <form [formGroup]="form" class="flex-grow">
+        <div class="row mt-3">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="fielder">
+                    <div class="fielder-title">{{ "allName" | translate }}</div>
+                    <input nz-input formControlName="receiverName" />
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="fielder">
+                    <div class="fielder-title">{{ "phone" | translate }}</div>
+                    <input nz-input formControlName="receiverPhone" />
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="fielder">
+                    <div class="fielder-title">{{ "email" | translate }}</div>
+                    <input nz-input formControlName="receiverEmail" />
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="fielder">
+                    <div class="fielder-title">{{ "postalCode" | translate }}</div>
+                    <input nz-input formControlName="postalCode" />
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="fielder">
+                    <div class="fielder-title">{{ "receiverAddress" | translate }}</div>
+                    <textarea [nzAutosize]="{ minRows: 3, maxRows: 10 }" nz-input formControlName="address"></textarea>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="fielder">
+                    <div class="fielder-title">{{ "description" | translate }}</div>
+                    <textarea [nzAutosize]="{ minRows: 3, maxRows: 10 }" nz-input
+                        formControlName="description"></textarea>
+                </div>
+            </div>
+        </div>
+        <nz-alert class="mt-3" nzType="info" nzMessage="پرداخت شما به منزله صحت اطلاعات دریافت کننده سفارش می باشد"> </nz-alert>
+        <nz-alert class="mt-1" nzType="info" nzMessage="اطلاعات ارسال توسط پیامک برای شما ارسال خواهد شد"> </nz-alert>
+    </form>
+    <div class="save pt-2">
+        <button [nzLoading]="saveLoading && !saveLoading.closed" nz-button nzType="primary" (click)="pay_onClick()">{{
+            "pay" | translate }}</button>
+    </div>
+</div>

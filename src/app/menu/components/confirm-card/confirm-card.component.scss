@@ -1,0 +1,34 @@
+.wrapper {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    margin-top: 10px;
+    font-size: 18px;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+}
+
+.fielder {
+    min-height: 65px;
+}
+
+.save {
+    display: flex;
+    justify-content: center;
+    button {
+        width: 150px;
+    }
+}
+
+form {
+    overflow: hidden auto;
+    padding-bottom: 10px;
+}

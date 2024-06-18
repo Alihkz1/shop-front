@@ -18,11 +18,14 @@ import { CategoryModalComponent } from '../shared/component/category-modal/categ
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { CurrencyPipe } from '../shared/pipe/currency.pipe';
+import { ConfirmCardComponent } from './components/confirm-card/confirm-card.component';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 
 const NZ = [
   NzInputModule,
   NzButtonModule,
   NzIconModule,
+  NzAlertModule,
   NzModalModule,
   NzPopconfirmModule
 ]
@@ -37,6 +40,7 @@ const NZ = [
     ProductsComponent,
     ShopCardComponent,
     MenuProfileComponent,
+    ConfirmCardComponent
   ],
   imports: [
     CommonModule,

@@ -57,5 +57,8 @@
   "comment": "Comment",
   "date": "Date",
   "noData": "No Data!",
-  "senderDetails": "Confirm Orders"
+  "senderDetails": "Confirm Orders",
+  "receiverAddress": "Reciever Address",
+  "postalCode": "Postal Code",
+  "description": "Description"
 }

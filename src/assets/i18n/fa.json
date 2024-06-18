@@ -57,6 +57,9 @@
   "addProduct": "ثبت محصول جدید",
   "comment": "نظر",
   "date": "تاریخ",
-  "noData":"دیتایی برای نمایش وجود ندارد",
-  "senderDetails":"تکمیل مشخصات ارسال"
+  "noData": "دیتایی برای نمایش وجود ندارد",
+  "senderDetails": "تکمیل مشخصات ارسال",
+  "receiverAddress": "آدرس گیرنده",
+  "postalCode": "کد پستی",
+  "description":"توضیحات"
 }
