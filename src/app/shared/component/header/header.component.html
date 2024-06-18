@@ -2,12 +2,25 @@
     <div class="header" dir="ltr">
         @if (client.isLogin) {
         <div>
-            <img class="power me-2 mx-4" src="assets/svg/power.svg" alt="" (click)="logout_onClick()">
+            <img class="power mx-1" src="assets/svg/power.svg" alt="" (click)="logout_onClick()">
             @for (button of client.headerButtons; track $index) {
             <button class="button dynamic" (click)="navigate(button.route)">{{ button.title | translate }}</button>
             }
+
+            <span class="burger mx-3 mt-1" nz-icon nzType="menu" nzTheme="outline" nz-dropdown [nzDropdownMenu]="menu"
+                nzPlacement="bottomCenter">
+            </span>
+            
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu>
+                    @for (button of client.headerButtons; track $index) {
+                    <li class="menu-item" (click)="navigate(button.route)">{{ button.title | translate }}</li>
+                    }
+                </ul>
+            </nz-dropdown-menu>
+
             @if (client.getUser.user.role === 'USER') {
-            <nz-badge class="cursor-pointer mx-3" [nzCount]="client.shopCardLength" (click)="navigateToShopCard()">
+            <nz-badge class="cursor-pointer mx-2" [nzCount]="client.shopCardLength" (click)="navigateToShopCard()">
                 <span nz-icon nzType="shopping" nzTheme="outline"></span>
             </nz-badge>
             }

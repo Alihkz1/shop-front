@@ -34,14 +34,29 @@
 
 .dynamic {
     height: 50px;
-    // border-right: 1px solid rgb(176, 226, 253);
     padding: 0 14px;
 
     &:hover {
         background: rgba(232, 243, 255, 0.58);
     }
 
-    @media (max-width: 428px) {
-        height: 100%;
+    @media (max-width: 500px) {
+        display: none !important;
     }
+}
+
+.burger {
+    @media (min-width: 500px) {
+        display: none !important;
+    }
+}
+
+.menu-item {
+    height: 50px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 1px solid rgb(241, 241, 241);
 }

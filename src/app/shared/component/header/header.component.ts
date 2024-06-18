@@ -7,15 +7,17 @@ import { TranslateService } from "@ngx-translate/core";
 import { ROLE } from '../../enum/role.enum';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [TranslateModule, NzBadgeModule, NzIconModule],
+  imports: [TranslateModule, NzBadgeModule, NzIconModule, NzDropDownModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+
   constructor(
     private router: Router,
     public client: ClientService,
