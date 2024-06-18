@@ -50,11 +50,11 @@
                 </div>
             </div>
         </div>
-        <nz-alert class="mt-3" nzType="info" nzMessage="پرداخت شما به منزله صحت اطلاعات دریافت کننده سفارش می باشد">
-        </nz-alert>
-        <nz-alert class="mt-1" nzType="info" nzMessage="اطلاعات ارسال توسط پیامک برای شما ارسال خواهد شد"> </nz-alert>
     </form>
-    <div class="save pt-2">
+    <nz-alert class="mt-3" nzType="info" nzMessage="پرداخت شما به منزله صحت اطلاعات دریافت کننده سفارش می باشد">
+    </nz-alert>
+    <nz-alert class="mt-1" nzType="info" nzMessage="اطلاعات ارسال توسط پیامک برای شما ارسال خواهد شد"> </nz-alert>
+    <div class="save pt-2 mb-3">
         <label nz-checkbox [(ngModel)]="privacyAccepted" class="mb-2">قوانین را خواندم</label>
         <button [disabled]="!privacyAccepted" [nzLoading]="saveLoading && !saveLoading.closed" nz-button
             nzType="primary" (click)="pay_onClick()">

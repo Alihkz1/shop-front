@@ -47,13 +47,13 @@
 
 @media (min-width:767px) {
     .page-h {
-        height: calc(100vh - 195px) !important;
+        height: calc(100vh - 165px) !important;
     }
 }
 
 @media (max-width:767px) {
     .page-h {
-        height: calc(100vh - 330px) !important;
+        height: calc(100vh - 300px) !important;
         overflow-y: auto;
     }
 
@@ -62,7 +62,7 @@
     }
 
     .info {
-        height: 170px !important;
+        height: 140px !important;
     }
 
     .box {
@@ -87,7 +87,7 @@
     justify-content: flex-start;
     align-items: center;
     padding: 20px 0;
-    height: 200px;
+    height: 150px;
     background: rgb(195 206 255 / 41%);
     ;
 }
@@ -99,8 +99,9 @@
 }
 
 .finalize {
-    border-bottom: 1px solid rgb(144, 144, 144);
-    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(205, 205, 205);
+    padding-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 .sender-button {
