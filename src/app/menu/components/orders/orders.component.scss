@@ -3,14 +3,82 @@
     overflow: hidden;
 }
 
-.box {
-    background-color: rgb(255, 255, 255);
-    height: 300px;
-}
-
 .cards {
     height: calc(100vh - 160px);
     overflow: hidden auto;
     padding: 10px 0;
     margin-top: 10px;
+}
+
+::ng-deep .ant-alert {
+    width: fit-content;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+::ng-deep .ant-alert-icon {
+    margin-left: 10px;
+}
+
+.box {
+    background-color: rgb(255, 255, 255);
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #dbdbdb;
+    box-shadow: 1px 1px 10px #dcdcdc;
+
+    &-content {
+        padding: 10px;
+        font-size: 14px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &-product {
+        &:hover {
+            background: aliceblue;
+            box-shadow: 1px 1px 10px #dcdcdc;
+        }
+
+        cursor: pointer;
+        width: 200px;
+        height: 100%;
+        border: 1px solid rgb(215, 215, 215);
+        border-radius: 4px;
+        margin: 0 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        img {
+            max-height: 110px;
+        }
+
+        &-title {
+            font-size: 10px;
+            font-weight: bold;
+        }
+    }
+}
+
+.product-field {
+    display: flex;
+}
+
+@media (max-width:900px) {
+    .product-field {
+        flex-direction: column;
+    }
+
+    .box {
+        height: fit-content;
+    }
+
+    .box-product {
+        margin: 5px 0;
+        width: 100%;
+    }
 }
