@@ -27,6 +27,7 @@
   "logoutSuccess": "دوباره برگردیا",
   "price": "قیمت واحد",
   "amount": "مقدار موجود",
+  "notAvailable":"ناموجود",
   "uploadImage": "بارگزاری عکس",
   "error": "خطایی رخ داد",
   "productAdded": "محصول ثبت شد",

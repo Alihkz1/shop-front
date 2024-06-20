@@ -26,6 +26,7 @@
   "logoutSuccess": "See you next time!",
   "price": "Price",
   "amount": "Amount",
+  "notAvailable": "Not Available",
   "uploadImage": "Upload Image Here!",
   "productAdded": "Product Added",
   "error": "Error!",

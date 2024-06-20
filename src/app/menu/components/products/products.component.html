@@ -15,10 +15,18 @@
                 </div>
                 <div class="board-data">
                     <p class="w-100 d-flex justify-content-center mb-1"><b>{{ product.title }}</b></p>
-                    <p> <span> <b>{{ "price" | translate }}:</b> </span> {{ product.price | currencyPipe }} {{ "currency"
-                        | translate
-                        }} </p>
+                    <p> <span> <b>{{ "price" | translate }}:</b> </span> {{ product.price | currencyPipe }}
+                        {{ "currency" | translate }}
+                    </p>
+
+                    @if (product.amount > 0) {
                     <p> <span> <b>{{ "amount" | translate }}:</b> </span> {{ product.amount }} </p>
+                    } @else {
+                    <div class="red d-flex justify-content-center">
+                        {{ "notAvailable" | translate }}
+                    </div>
+                    }
+
                     @if (client.isAdmin) {
                     <div class="board-data-icons">
                         <span class="m-2 blue" nz-icon nzType="edit" nzTheme="outline"

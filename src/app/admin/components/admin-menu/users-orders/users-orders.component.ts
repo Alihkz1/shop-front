@@ -13,7 +13,7 @@ import { ORDER_STATUS } from '../../../../shared/enum/order-status.enum';
   styleUrl: './users-orders.component.scss'
 })
 export class UsersOrdersComponent implements OnInit {
-  selectedIndex = 3;
+  selectedIndex = 0;
 
   private _orders$ = new BehaviorSubject<any[]>([]);
   public get orders() { return this._orders$.getValue() }
@@ -21,7 +21,7 @@ export class UsersOrdersComponent implements OnInit {
   constructor(private adminApi: AdminApi, private router: Router) { }
 
   ngOnInit(): void {
-    this.getOrders()
+    this.getOrders(this.selectedIndex)
   }
 
   getOrders(status?: number) {
@@ -48,7 +48,7 @@ export class UsersOrdersComponent implements OnInit {
       }
     ).subscribe(({ success }: any) => {
       if (success) {
-        this.getOrders();
+        this.getOrders(order.status);
       }
     })
   }
