@@ -1,36 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuApi } from '../../shared/menu.api';
-import { ClientService } from '../../../shared/service/client.service';
+import { AdminApi } from '../../../shared/admin.api';
 import { BehaviorSubject } from 'rxjs';
-import { Product } from '../../../shared/model/product.model';
-import { Router } from '@angular/router';
-import { ShopCard } from '../../../shared/model/shop-card.model';
 import moment from 'jalali-moment';
+import { ShopCard } from '../../../../shared/model/shop-card.model';
+import { Product } from '../../../../shared/model/product.model';
+import { Router } from '@angular/router';
+import { ORDER_STATUS } from '../../../../shared/enum/order-status.enum';
 
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.component.html',
-  styleUrl: './orders.component.scss'
+  selector: 'app-users-orders',
+  templateUrl: './users-orders.component.html',
+  styleUrl: './users-orders.component.scss'
 })
-export class OrdersComponent implements OnInit {
+export class UsersOrdersComponent implements OnInit {
   private _orders$ = new BehaviorSubject<any[]>([]);
   public get orders() { return this._orders$.getValue() }
 
-  constructor(
-    private router: Router,
-    private menuApi: MenuApi,
-    private client: ClientService
-  ) { }
+  constructor(private adminApi: AdminApi, private router: Router) { }
 
   ngOnInit(): void {
     this.getOrders()
   }
 
   getOrders() {
-    const { userId } = this.client.getUser.user
-    this.menuApi.getOrders(userId).subscribe(({ success, data }: any) => {
+    this.adminApi.getAllOrders().subscribe(({ success, data }: any) => {
       if (!success) return;
-      const mapped = data.userAllOrders.map((el: any) => {
+      const mapped = data.allOrders.map((el: any) => {
         return {
           ...el,
           products: JSON.parse(el.products),
@@ -40,6 +35,18 @@ export class OrdersComponent implements OnInit {
       })
       this._orders$.next(mapped)
     })
+  }
+
+  changeStatus(order: any, status: ORDER_STATUS) {
+    this.adminApi.changeOrderStatus({
+      orderId: order.orderId,
+      orderStatus: status
+    })
+      .subscribe(({ success }: any) => {
+        if (success) {
+          this.getOrders();
+        }
+      })
   }
 
   getTotalPrice(products: ShopCard[]) {

@@ -6,6 +6,7 @@ import { AdminProfileComponent } from "./components/admin-profile/admin-profile.
 import { AddProductComponent } from "./components/admin-menu/add-product/add-product.component";
 import { UsersListComponent } from "./components/admin-menu/users-list/users-list.component";
 import { AllCommentsComponent } from "./components/admin-menu/all-comments/all-comments.component";
+import { UsersOrdersComponent } from "./components/admin-menu/users-orders/users-orders.component";
 
 export const routes: Routes = [
     {
@@ -31,6 +32,10 @@ export const routes: Routes = [
                     {
                         path: 'all-comments',
                         component: AllCommentsComponent
+                    },
+                    {
+                        path: 'orders',
+                        component: UsersOrdersComponent
                     }
                 ]
             },

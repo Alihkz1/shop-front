@@ -64,5 +64,6 @@
   "postalCode": "Postal Code",
   "description": "Description",
   "formInvalid": "Please fill required fields",
-  "orders": "Orders"
+  "orders": "Orders",
+  "usersOrders": "Users Orders"
 }

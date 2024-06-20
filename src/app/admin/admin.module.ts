@@ -25,6 +25,8 @@ import { UsersListComponent } from './components/admin-menu/users-list/users-lis
 import { CategoryModalComponent } from '../shared/component/category-modal/category-modal.component';
 import { ProductModalComponent } from '../shared/component/product-modal/product-modal.component';
 import { CurrencyPipe } from '../shared/pipe/currency.pipe';
+import { UsersOrdersComponent } from './components/admin-menu/users-orders/users-orders.component';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 
 const NZ = [
   NzButtonModule,
@@ -37,12 +39,13 @@ const NZ = [
   NzCollapseModule,
   NzCheckboxModule,
   NzToolTipModule,
-  NzTableModule
+  NzTableModule,
+  NzAlertModule,
 ]
 
 
 @NgModule({
-  declarations: [AdminRoutingComponent, AdminMenuComponent, AdminProfileComponent, AddProductComponent, AllCommentsComponent, UsersListComponent],
+  declarations: [AdminRoutingComponent, AdminMenuComponent, AdminProfileComponent, AddProductComponent, AllCommentsComponent, UsersOrdersComponent, UsersListComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
