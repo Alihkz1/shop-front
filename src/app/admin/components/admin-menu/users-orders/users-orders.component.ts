@@ -13,6 +13,8 @@ import { ORDER_STATUS } from '../../../../shared/enum/order-status.enum';
   styleUrl: './users-orders.component.scss'
 })
 export class UsersOrdersComponent implements OnInit {
+  selectedIndex = 3;
+
   private _orders$ = new BehaviorSubject<any[]>([]);
   public get orders() { return this._orders$.getValue() }
 
@@ -22,8 +24,9 @@ export class UsersOrdersComponent implements OnInit {
     this.getOrders()
   }
 
-  getOrders() {
-    this.adminApi.getAllOrders().subscribe(({ success, data }: any) => {
+  getOrders(status?: number) {
+    this.selectedIndex = status != undefined ? status : 3;
+    this.adminApi.getAllOrders({ status }).subscribe(({ success, data }: any) => {
       if (!success) return;
       const mapped = data.allOrders.map((el: any) => {
         return {
@@ -38,15 +41,16 @@ export class UsersOrdersComponent implements OnInit {
   }
 
   changeStatus(order: any, status: ORDER_STATUS) {
-    this.adminApi.changeOrderStatus({
-      orderId: order.orderId,
-      orderStatus: status
+    this.adminApi.changeOrderStatus(
+      {
+        orderId: order.orderId,
+        orderStatus: status
+      }
+    ).subscribe(({ success }: any) => {
+      if (success) {
+        this.getOrders();
+      }
     })
-      .subscribe(({ success }: any) => {
-        if (success) {
-          this.getOrders();
-        }
-      })
   }
 
   getTotalPrice(products: ShopCard[]) {

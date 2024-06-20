@@ -1,5 +1,5 @@
 .wrapper {
-    max-height: calc(100vh - 100px);
+    max-height: calc(100vh - 120px);
     overflow: hidden auto;
 }
 
@@ -79,7 +79,7 @@
 
 @media (max-width: 767px) {
     .wrapper {
-        height: calc(100vh - 280px);
+        height: calc(100vh - 300px);
     }
 
     .box-header {
@@ -89,10 +89,19 @@
     .fit {
         margin-top: 10px;
     }
+
+    .w-25 {
+        font-size: 11px;
+    }
 }
 
 .fit {
     font-size: 12px;
     width: fit-content;
     border: 1px solid rgba(4, 231, 0, 0.708) !important;
+}
+
+.active {
+    border: 1px solid #83cfff;
+    background: aliceblue;
 }

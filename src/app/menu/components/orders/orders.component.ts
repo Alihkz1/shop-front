@@ -13,6 +13,7 @@ import moment from 'jalali-moment';
   styleUrl: './orders.component.scss'
 })
 export class OrdersComponent implements OnInit {
+  selectedIndex = 3;
   private _orders$ = new BehaviorSubject<any[]>([]);
   public get orders() { return this._orders$.getValue() }
 
@@ -26,9 +27,10 @@ export class OrdersComponent implements OnInit {
     this.getOrders()
   }
 
-  getOrders() {
+  getOrders(status?: number) {
+    this.selectedIndex = status != undefined ? status : 3;
     const { userId } = this.client.getUser.user
-    this.menuApi.getOrders(userId).subscribe(({ success, data }: any) => {
+    this.menuApi.getOrders({ userId, status }).subscribe(({ success, data }: any) => {
       if (!success) return;
       const mapped = data.userAllOrders.map((el: any) => {
         return {

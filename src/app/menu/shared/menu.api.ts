@@ -95,12 +95,13 @@ export class MenuApi {
       .call()
   }
 
-  public getOrders(userId: number) {
+  public getOrders(model: { userId: number; status: number }) {
     return Api()
       .get()
       .controller('order')
       .action('list')
-      .pathVariable(String(userId))
+      .pathVariable(String(model.userId))
+      .param({ status: model.status })
       .call()
   }
 }

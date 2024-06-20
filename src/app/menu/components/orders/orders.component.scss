@@ -4,10 +4,9 @@
 }
 
 .cards {
-    height: calc(100vh - 160px);
+    height: calc(100vh - 180px);
     overflow: hidden auto;
-    padding: 10px 0;
-    margin-top: 10px;
+    padding-bottom: 10px;
 }
 
 ::ng-deep .ant-alert {
@@ -81,4 +80,15 @@
         margin: 5px 0;
         width: 100%;
     }
+}
+
+@media (max-width: 767px) {
+    .w-25 {
+        font-size: 11px;
+    }
+}
+
+.active {
+    border: 1px solid #83cfff;
+    background: aliceblue;
 }

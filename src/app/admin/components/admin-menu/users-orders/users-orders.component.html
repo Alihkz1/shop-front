@@ -1,3 +1,9 @@
+<div class="w-100">
+    <button [class.active]="selectedIndex === 3" class="w-25" nz-button nzType="default" (click)="getOrders()">کل سفارشات</button>
+    <button [class.active]="selectedIndex === 0" class="w-25" nz-button nzType="default" (click)="getOrders(0)">جدید</button>
+    <button [class.active]="selectedIndex === 1" class="w-25" nz-button nzType="default" (click)="getOrders(1)">ارسال شده</button>
+    <button [class.active]="selectedIndex === 2" class="w-25" nz-button nzType="default" (click)="getOrders(2)">تکمیل شده</button>
+</div>
 <div class="wrapper">
     <div class="row">
         @for (order of orders; track $index) {
@@ -78,6 +84,11 @@
                 </div>
             </div>
         </div>
+        }
+        @if (orders.length === 0) {
+            <div class="w-100 d-flex justify-content-center mt-5">
+                <nz-alert nzType="error" nzMessage="آیتمی وجود ندارد"></nz-alert>
+            </div>
         }
     </div>
 </div>
