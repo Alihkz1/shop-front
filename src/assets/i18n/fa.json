@@ -78,5 +78,8 @@
   "allOrders": "همه سفارشات",
   "sentViaPost": "توسط پست ارسال شد",
   "waitingForSend": "منتظر ارسال",
-  "receivedByClient": "توسط مشتری تحویل گردید"
+  "receivedByClient": "توسط مشتری تحویل گردید",
+  "receivedByMe": "دریافت کردم",
+  "didntReceivedByMe": "دریافت نکردم",
+  "weWillCallYouAboutDeliver": "به زودی با شماره {{phoneNumber}} تماس میگیریم"
 }

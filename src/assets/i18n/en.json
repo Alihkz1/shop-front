@@ -78,5 +78,8 @@
   "allOrders": "All Orders",
   "sentViaPost": "Sent via post",
   "waitingForSend": "waiting for send",
-  "receivedByClient": "received by client"
+  "receivedByClient": "received by client",
+  "receivedByMe": "Received by me",
+  "didntReceivedByMe": "Didn't received by me",
+  "weWillCallYouAboutDeliver": "We will call you soon."
 }

@@ -21,7 +21,7 @@
             @for (order of orders; track $index) {
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 <div class="box mt-2 p-1">
-                    <div class="d-flex justify-content-center">
+                    <div class="box-header">
                         <div [ngSwitch]="order.status">
                             <div *ngSwitchCase="0">
                                 <nz-alert nzType="warning" nzMessage="پرداخت شده و در انتظار ارسال" nzShowIcon>
@@ -34,6 +34,20 @@
                                 <nz-alert nzType="success" nzMessage="تحویل توسط مشتری" nzShowIcon></nz-alert>
                             </div>
                         </div>
+                        @if (order.status === 1) {
+                        <button class="fit" nz-button nzType="default" nz-popconfirm nzOkText="تایید" nzCancelText="نه"
+                            nzPopconfirmTitle="تایید دریافت" nzPopconfirmPlacement="bottom"
+                            (nzOnConfirm)="changeStatus(order, 2)">
+                            {{ 'receivedByMe' | translate }}
+                        </button>
+                        }
+                        @if (order.status === 2) {
+                        <button class="fit-red" nz-button nzType="default" nz-popconfirm nzOkText="تایید"
+                            nzCancelText="نه" nzPopconfirmTitle="بسته به من نرسیده است" nzPopconfirmPlacement="bottom"
+                            (nzOnConfirm)="changeStatus(order, 3)">
+                            {{ 'didntReceivedByMe' | translate }}
+                        </button>
+                        }
                     </div>
                     <div class="row box-content">
                         <div class="w-100 d-flex flex-column">
@@ -47,7 +61,7 @@
                                 <b>{{ 'productAmount' | translate }} :</b> {{ order.products.length }}
                             </div>
                             <div class="my-1">
-                                <b>{{ 'orderTotalPrice' | translate }} :</b> {{ order.totalPrice | currencyPipe }} 
+                                <b>{{ 'orderTotalPrice' | translate }} :</b> {{ order.totalPrice | currencyPipe }}
                                 {{ 'currency' | translate }}
                             </div>
                             <div class="my-1">
@@ -62,7 +76,7 @@
                                     {{ product.title }}
                                 </div>
                                 <div class="box-amount-price">
-                                    <b>{{ 'price' | translate }} :</b> {{ product.price | currencyPipe }} 
+                                    <b>{{ 'price' | translate }} :</b> {{ product.price | currencyPipe }}
                                     {{ 'currency' | translate }}
                                 </div>
                                 <div class="box-product-amount">
@@ -71,14 +85,24 @@
                             </div>
                             }
                         </div>
+                        @if (order.status === 3) {
+                        <div class="not-deliver">
+                            <nz-alert nzType="warning" [nzMessage]="weCallYou">
+                            </nz-alert>
+                            <ng-template #weCallYou>
+                                {{ 'weWillCallYouAboutDeliver' | translate: { phoneNumber: order.receiverPhone } }}
+                                <span class="mt-1" nz-icon nzType="phone" nzTheme="outline"></span>
+                            </ng-template>
+                        </div>
+                        }
                     </div>
                 </div>
             </div>
             }
             @if (orders.length === 0) {
-                <div class="w-100 d-flex justify-content-center mt-5">
-                    <nz-alert nzType="error" nzMessage="آیتمی وجود ندارد"></nz-alert>
-                </div>
+            <div class="w-100 d-flex justify-content-center mt-5">
+                <nz-alert nzType="error" nzMessage="آیتمی وجود ندارد"></nz-alert>
+            </div>
             }
         </div>
     </div>

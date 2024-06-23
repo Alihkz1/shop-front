@@ -163,7 +163,7 @@ export class AdminApi {
     return Api()
       .put()
       .controller('order')
-      .action('admin-change-status')
+      .action('change-status')
       .body(model)
       .call()
   }

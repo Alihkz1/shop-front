@@ -104,4 +104,13 @@ export class MenuApi {
       .param({ status: model.status })
       .call()
   }
+
+  public orderNotDeliver(orderId: number) {
+    return Api()
+      .put()
+      .controller('order')
+      .action('not-deliver')
+      .pathVariable(String(orderId))
+      .call()
+  }
 }

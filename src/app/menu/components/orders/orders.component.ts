@@ -6,6 +6,8 @@ import { Product } from '../../../shared/model/product.model';
 import { Router } from '@angular/router';
 import { ShopCard } from '../../../shared/model/shop-card.model';
 import moment from 'jalali-moment';
+import { ORDER_STATUS } from '../../../shared/enum/order-status.enum';
+import { AdminApi } from '../../../admin/shared/admin.api';
 
 @Component({
   selector: 'app-orders',
@@ -20,6 +22,7 @@ export class OrdersComponent implements OnInit {
   constructor(
     private router: Router,
     private menuApi: MenuApi,
+    private adminApi: AdminApi,
     private client: ClientService
   ) { }
 
@@ -55,4 +58,18 @@ export class OrdersComponent implements OnInit {
   navigateToProduct(product: Product) {
     this.router.navigate(['menu/products', product.categoryId, product.productId])
   }
+
+  changeStatus(order: any, status: ORDER_STATUS) {
+    this.adminApi.changeOrderStatus(
+      {
+        orderId: order.orderId,
+        orderStatus: status
+      }
+    ).subscribe(({ success }: any) => {
+      if (success) {
+        this.getOrders(order.status);
+      }
+    })
+  }
+
 }
