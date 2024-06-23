@@ -82,5 +82,7 @@
   "receivedByMe": "دریافت کردم",
   "didntReceivedByMe": "دریافت نکردم",
   "notDelivered": "نرسیده",
-  "weWillCallYouAboutDeliver": "به زودی با شماره {{phoneNumber}} تماس میگیریم"
+  "weWillCallYouAboutDeliver": "به زودی با شماره {{phoneNumber}} تماس میگیریم",
+  "getInBeforeBuy":"برای خرید ابتدا باید وارد حساب کاربری شوید",
+  "changePassword": "تغییر رمز عبور"
 }

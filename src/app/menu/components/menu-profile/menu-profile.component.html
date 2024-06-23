@@ -15,5 +15,9 @@
         <button class="submit" [nzLoading]="loading && !loading.closed" nz-button nzType="primary" (click)="onSubmit()">
             {{ "submit" | translate }}
         </button>
+
+        <button class="form-wrapper-change-password" nz-button nzType="default" (click)="openChangePasswordModal()">
+            {{ "changePassword" | translate }}
+        </button>
     </div>
 </form>

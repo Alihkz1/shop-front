@@ -82,5 +82,7 @@
   "receivedByMe": "Received by me",
   "notDelivered": "Not Delivered",
   "didntReceivedByMe": "Didn't received by me",
-  "weWillCallYouAboutDeliver": "We will call you soon."
+  "weWillCallYouAboutDeliver": "We will call you soon.",
+  "getInBeforeBuy": "Login into your account and buy!",
+  "changePassword": "Change Password"
 }

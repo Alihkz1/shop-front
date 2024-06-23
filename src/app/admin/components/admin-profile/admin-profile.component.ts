@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { TranslateService } from "@ngx-translate/core";
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ClientService } from '../../../shared/service/client.service';
+import { ChangePasswordModalComponent } from '../../../shared/component/change-password-modal/change-password-modal.component';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-admin-profile',
@@ -26,6 +28,7 @@ export class AdminProfileComponent implements OnInit {
     private client: ClientService,
     private message: NzMessageService,
     private translate: TranslateService,
+    private modalService: NzModalService,
   ) { }
 
   ngOnInit(): void {
@@ -52,4 +55,21 @@ export class AdminProfileComponent implements OnInit {
       })
   }
 
+  openChangePasswordModal() {
+    this.modalService.create({
+      nzFooter: null,
+      nzCentered: true,
+      nzClosable: false,
+      nzStyle: {
+        width: "400px",
+        borderRadius: "6px",
+      },
+      nzContent: ChangePasswordModalComponent,
+      nzData: { userId: this.client.getUser.user.userId },
+      nzOnOk: () => {
+      },
+    }).afterClose.subscribe((result: boolean) => {
+      if (result) this.message.create('success', this.translate.instant('actionDone'))
+    })
+  }
 }

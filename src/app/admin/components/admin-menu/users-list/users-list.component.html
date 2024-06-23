@@ -24,7 +24,7 @@
                     </span>
                     }
                     <span class="blue cursor-pointer mx-2" nz-icon nzType="lock" nzTheme="outline"
-                        (click)="showChangePasswordModal = true">
+                        (click)="openChangePasswordModal(row)">
                     </span>
                 </td>
             </tr>
@@ -47,13 +47,6 @@
                 </div>
             </tr>
             }
-            <nz-modal [(nzVisible)]="showChangePasswordModal" [nzTitle]="changePasswordTranslate"
-                [nzOkText]="submitTranslate" [nzCancelText]="backTranslate" (nzOnOk)="changePassword(row)"
-                (nzAfterClose)="changePassModal_onClose()" (nzOnCancel)="showChangePasswordModal = false">
-                <ng-container *nzModalContent>
-                    <input nz-input [formControl]="changePasswordControl" />
-                </ng-container>
-            </nz-modal>
         </ng-container>
     </tbody>
 </nz-table>
