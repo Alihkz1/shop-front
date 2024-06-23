@@ -50,6 +50,7 @@ export class OrdersComponent implements OnInit {
       const mapped = data.userAllOrders.map((el: any) => {
         return {
           ...el,
+          showNotReceived: this.showNotReceived(el.date),
           products: JSON.parse(el.products),
           totalPrice: this.getTotalPrice(JSON.parse(el.products)),
           date: moment(new Date(el.date)).locale('fa').format('HH:mm:ss YYYY/MM/DD'),
@@ -66,6 +67,10 @@ export class OrdersComponent implements OnInit {
       }
       this._orders$.next(mapped)
     })
+  }
+
+  showNotReceived(date: number): boolean {
+    return date > new Date().getTime() - (3 * 24 * 60 * 60 * 1000);
   }
 
   getTotalPrice(products: ShopCard[]) {

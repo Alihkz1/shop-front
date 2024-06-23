@@ -44,7 +44,7 @@
                             {{ 'receivedByMe' | translate }}
                         </button>
                         }
-                        @if (order.status === 2) {
+                        @if (order.status === 2 && order.showNotReceived === true) {
                         <button class="fit-red" nz-button nzType="default" nz-popconfirm nzOkText="تایید"
                             nzCancelText="نه" nzPopconfirmTitle="بسته به من نرسیده است" nzPopconfirmPlacement="bottom"
                             (nzOnConfirm)="changeStatus(order, 3)">
