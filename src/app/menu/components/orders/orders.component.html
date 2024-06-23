@@ -3,10 +3,18 @@
         {{ 'orders' | translate }}
     </div>
     <div class="w-100 mt-1">
-        <button [class.active]="selectedIndex === 3" class="w-25" nz-button nzType="default" (click)="getOrders()">کل سفارشات</button>
-        <button [class.active]="selectedIndex === 0" class="w-25" nz-button nzType="default" (click)="getOrders(0)">در انتظار ارسال</button>
-        <button [class.active]="selectedIndex === 1" class="w-25" nz-button nzType="default" (click)="getOrders(1)">ارسال شده</button>
-        <button [class.active]="selectedIndex === 2" class="w-25" nz-button nzType="default" (click)="getOrders(2)">تکمیل شده</button>
+        <button [class.active]="selectedIndex === 3" class="w-25" nz-button nzType="default" (click)="getOrders()">
+            {{ 'allOrders' | translate }}
+        </button>
+        <button [class.active]="selectedIndex === 0" class="w-25" nz-button nzType="default" (click)="getOrders(0)">
+            {{ 'waitingForSend' | translate }}
+        </button>
+        <button [class.active]="selectedIndex === 1" class="w-25" nz-button nzType="default" (click)="getOrders(1)">
+            {{ 'sent' | translate }}
+        </button>
+        <button [class.active]="selectedIndex === 2" class="w-25" nz-button nzType="default" (click)="getOrders(2)">
+            {{ 'confirmed' | translate }}
+        </button>
     </div>
     <div class="cards">
         <div class="row">
@@ -30,19 +38,20 @@
                     <div class="row box-content">
                         <div class="w-100 d-flex flex-column">
                             <div class="my-1">
-                                <b>گیرنده :</b> {{ order.receiverName }}
+                                <b>{{ 'receiver' | translate }} :</b> {{ order.receiverName }}
                             </div>
                             <div class="my-1">
-                                <b>تاریخ ثبت سفارش :</b> {{ order.date }}
+                                <b>{{ 'orderDate' | translate }} :</b> {{ order.date }}
                             </div>
                             <div class="my-1">
-                                <b>تعداد کالا :</b> {{ order.products.length }}
+                                <b>{{ 'productAmount' | translate }} :</b> {{ order.products.length }}
                             </div>
                             <div class="my-1">
-                                <b>مجموع قیمت سفارش :</b> {{ order.totalPrice | currencyPipe }} تومان
+                                <b>{{ 'orderTotalPrice' | translate }} :</b> {{ order.totalPrice | currencyPipe }} 
+                                {{ 'currency' | translate }}
                             </div>
                             <div class="my-1">
-                                <b>آدرس :</b> {{ order.address }}
+                                <b>{{ 'receiverAddress' | translate }} :</b> {{ order.address }}
                             </div>
                         </div>
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2 flex-grow product-field">
@@ -53,10 +62,11 @@
                                     {{ product.title }}
                                 </div>
                                 <div class="box-amount-price">
-                                    <b>قیمت واحد :</b> {{ product.price | currencyPipe }} تومان
+                                    <b>{{ 'price' | translate }} :</b> {{ product.price | currencyPipe }} 
+                                    {{ 'currency' | translate }}
                                 </div>
                                 <div class="box-product-amount">
-                                    <b>تعداد :</b> {{ product.inCardAmount }}
+                                    <b>{{ 'quantity' | translate }} :</b> {{ product.inCardAmount }}
                                 </div>
                             </div>
                             }

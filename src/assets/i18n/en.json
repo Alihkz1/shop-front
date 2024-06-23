@@ -11,6 +11,7 @@
   "username": "Username",
   "password": "Password",
   "getIn": "ُLogin",
+  "quantity": "Quantity",
   "alreadyHaveAccount": "Already Have Acoount?",
   "email": "Email",
   "emailAsUsername": "Email (your username)",
@@ -66,5 +67,16 @@
   "description": "Description",
   "formInvalid": "Please fill required fields",
   "orders": "Orders",
-  "usersOrders": "Users Orders"
+  "usersOrders": "Users Orders",
+  "orderDate": "Order Date",
+  "orderTotalPrice": "Order Total Price",
+  "productAmount": "Product Amount",
+  "receiver": "Receiver",
+  "new": "New",
+  "sent": "Sent",
+  "confirmed": "Confirmed",
+  "allOrders": "All Orders",
+  "sentViaPost": "Sent via post",
+  "waitingForSend": "waiting for send",
+  "receivedByClient": "received by client"
 }
