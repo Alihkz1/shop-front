@@ -6,6 +6,8 @@ import { ShopCard } from '../../../../shared/model/shop-card.model';
 import { Product } from '../../../../shared/model/product.model';
 import { Router } from '@angular/router';
 import { ORDER_STATUS } from '../../../../shared/enum/order-status.enum';
+import { TranslateService } from "@ngx-translate/core";
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-users-orders',
@@ -13,19 +15,32 @@ import { ORDER_STATUS } from '../../../../shared/enum/order-status.enum';
   styleUrl: './users-orders.component.scss'
 })
 export class UsersOrdersComponent implements OnInit {
-  selectedIndex = 0;
+  selectedIndex = -1;
+
+  tabsBadge = {
+    all: 0,
+    waiting: 0,
+    sent: 0,
+    confirmed: 0,
+    notDelivered: 0,
+  }
 
   private _orders$ = new BehaviorSubject<any[]>([]);
   public get orders() { return this._orders$.getValue() }
 
-  constructor(private adminApi: AdminApi, private router: Router) { }
+  constructor(
+    private router: Router,
+    private adminApi: AdminApi,
+    private message: NzMessageService,
+    private translate: TranslateService,
+  ) { }
 
   ngOnInit(): void {
-    this.getOrders(this.selectedIndex)
+    this.getOrders()
   }
 
   getOrders(status?: number) {
-    this.selectedIndex = status != undefined ? status : 3;
+    this.selectedIndex = status != undefined ? status : -1;
     this.adminApi.getAllOrders({ status }).subscribe(({ success, data }: any) => {
       if (!success) return;
       const mapped = data.allOrders.map((el: any) => {
@@ -36,6 +51,15 @@ export class UsersOrdersComponent implements OnInit {
           date: moment(new Date(el.date)).locale('fa').format('HH:mm:ss YYYY/MM/DD'),
         }
       })
+      if (this.selectedIndex == -1) {
+        this.tabsBadge = {
+          all: mapped.length,
+          waiting: mapped.filter((e: any) => e.status === ORDER_STATUS.PAID).length,
+          sent: mapped.filter((e: any) => e.status === ORDER_STATUS.SENT_VIA_POST).length,
+          confirmed: mapped.filter((e: any) => e.status === ORDER_STATUS.DELIVERED).length,
+          notDelivered: mapped.filter((e: any) => e.status === ORDER_STATUS.NOT_DELIVERED).length,
+        }
+      }
       this._orders$.next(mapped)
     })
   }
@@ -48,7 +72,8 @@ export class UsersOrdersComponent implements OnInit {
       }
     ).subscribe(({ success }: any) => {
       if (success) {
-        this.getOrders(order.status);
+        this.message.create('success', this.translate.instant('actionDone'))
+        this.getOrders();
       }
     })
   }
