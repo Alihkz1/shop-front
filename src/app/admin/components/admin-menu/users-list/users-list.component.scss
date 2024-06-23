@@ -19,15 +19,15 @@
 }
 
 nz-table {
-
+    overflow: auto;
+    height: calc(100vh - 100px);
+    
     th {
         background: var(--main-color);
     }
 
     @media (max-width: 767px) {
-        margin-top: 10px;
-        height: calc(100vh - 245px);
-        overflow: auto;
+        height: calc(100vh - 130px);
     }
 }
 
@@ -35,7 +35,8 @@ nz-table {
     background: #d4ffd4;
 }
 
-::ng-deep tr.ant-table-expanded-row > td, tr.ant-table-expanded-row > td {
+::ng-deep tr.ant-table-expanded-row>td,
+tr.ant-table-expanded-row>td {
     background: #f1eaff !important;
     padding: 0 0 10px 0;
 }

@@ -21,8 +21,30 @@
 .right {
     background: #fff;
     border-radius: 4px;
+}
 
-    @media (max-width: 767px) {
+@media (max-width: 767px) {
+    .sm-no-padding {
+        padding: 0 !important;
+    }
+
+    .menu {
+        padding: 0 5px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+
+        &-item {
+            font-size: 10px;
+        }
+    }
+
+    .right {
         height: fit-content;
+    }
+
+    .box {
+        height: calc(100vh - 168px);
     }
 }
