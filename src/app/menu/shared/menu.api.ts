@@ -113,4 +113,13 @@ export class MenuApi {
       .pathVariable(String(orderId))
       .call()
   }
+
+  public productAmountCheck(model: any) {
+    return Api()
+      .get()
+      .controller('product')
+      .action('amount-check')
+      .param(model)
+      .call()
+  }
 }

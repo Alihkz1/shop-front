@@ -10,7 +10,8 @@
                 </div>
                 <div class="total-price">
                     <b>{{ "totalPrice" | translate }}: {{ totalPrice | currencyPipe }} {{ "currency" | translate }}</b>
-                    <button class="mt-4 sender-button" nz-button nzType="default" (click)="onConfirmCard()">
+                    <button [disabled]="amountError" class="mt-4 sender-button" nz-button nzType="default"
+                        (click)="onConfirmCard()">
                         {{ "senderDetails" | translate }}
                     </button>
                 </div>
@@ -30,6 +31,13 @@
                             {{ "currency" | translate }}
                         </div>
                     </div>
+
+                    @if (card.inCardAmount > card.amount) {
+                    <nz-alert nzType="error" [nzMessage]="amountError"></nz-alert>
+                    <ng-template #amountError>
+                        {{ "notAvailableAmount" | translate }}
+                    </ng-template>
+                    }
                     <div class="w-100 d-flex justify-content-between">
                         <nz-button-group>
                             <button nz-button (click)="minCount(card)"><span nz-icon nzType="minus"></span></button>
@@ -39,7 +47,8 @@
                             <button nz-button (click)="addCount(card)"><span nz-icon nzType="plus"></span></button>
                         </nz-button-group>
                         <span class="red cursor-pointer" nz-icon nzType="delete" nzTheme="outline"
-                            (click)="deleteFromShopCard(card)"></span>
+                            (click)="deleteFromShopCard(card)">
+                        </span>
                     </div>
                 </div>
             </div>

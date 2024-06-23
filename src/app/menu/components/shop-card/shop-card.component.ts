@@ -12,6 +12,7 @@ import { ClientService } from '../../../shared/service/client.service';
 })
 export class ShopCardComponent implements OnInit {
   public totalPrice: number = 0;
+  public amountError: boolean = false;
   private _cards$ = new BehaviorSubject<ShopCard[]>([]);
   public get cards(): ShopCard[] { return this._cards$.getValue() }
 
@@ -30,12 +31,24 @@ export class ShopCardComponent implements OnInit {
     const { userId } = this.route.snapshot.params;
     this.menuApi.getUserShopCard(userId).subscribe(({ data, success }: any) => {
       if (success) {
-        const cards: ShopCard[] = data.card;
+        let cards: ShopCard[] = data.card;
+        const productIds = cards.map((el: ShopCard) => el.productId);
         this.totalPrice = 0;
         cards.forEach((card: ShopCard) => {
           this.totalPrice += card.price * card.inCardAmount;
         })
-        this._cards$.next(cards);
+        this.menuApi.productAmountCheck({ ids: productIds }).subscribe((resp: any) => {
+          if (resp.success) {
+            cards = cards.map((card: ShopCard) => {
+              return {
+                ...card,
+                amount: resp.data.products.find((el: any) => el.productId === card.productId).amount
+              }
+            })
+            this.amountError = cards.findIndex((el: ShopCard) => el.amount < el.inCardAmount) != -1;
+            this._cards$.next(cards);
+          }
+        })
       }
     })
   }
@@ -76,7 +89,9 @@ export class ShopCardComponent implements OnInit {
       userId: this.client.getUser.user.userId,
       products: this.cards
     }
-    this.menuApi.modifyShopCard(model).subscribe();
+    this.menuApi.modifyShopCard(model).subscribe(({ success }: any) => {
+      if (success) this.getData()
+    });
   }
 
   navigateToProduct(card: ShopCard) {

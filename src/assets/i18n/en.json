@@ -84,5 +84,6 @@
   "didntReceivedByMe": "Didn't received by me",
   "weWillCallYouAboutDeliver": "We will call you soon.",
   "getInBeforeBuy": "Login into your account and buy!",
-  "changePassword": "Change Password"
+  "changePassword": "Change Password",
+  "notAvailableAmount": "We have fever items available!"
 }
