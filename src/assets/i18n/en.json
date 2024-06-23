@@ -80,6 +80,7 @@
   "waitingForSend": "waiting for send",
   "receivedByClient": "received by client",
   "receivedByMe": "Received by me",
+  "notDelivered": "Not Delivered",
   "didntReceivedByMe": "Didn't received by me",
   "weWillCallYouAboutDeliver": "We will call you soon."
 }

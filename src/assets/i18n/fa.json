@@ -81,5 +81,6 @@
   "receivedByClient": "توسط مشتری تحویل گردید",
   "receivedByMe": "دریافت کردم",
   "didntReceivedByMe": "دریافت نکردم",
+  "notDelivered": "نرسیده",
   "weWillCallYouAboutDeliver": "به زودی با شماره {{phoneNumber}} تماس میگیریم"
 }

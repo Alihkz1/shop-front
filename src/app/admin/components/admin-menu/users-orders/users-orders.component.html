@@ -1,15 +1,18 @@
 <div class="w-100">
-    <button [class.active]="selectedIndex === 3" class="w-25" nz-button nzType="default" (click)="getOrders()">
-        {{ 'allOrders' | translate }}
+    <button [class.active]="selectedIndex === -1" class="w-20" nz-button nzType="default" (click)="getOrders()">
+        {{ 'allOrders' | translate }} ({{ tabsBadge.all }})
     </button>
-    <button [class.active]="selectedIndex === 0" class="w-25" nz-button nzType="default" (click)="getOrders(0)">
-        {{ 'new' | translate }}
+    <button [class.active]="selectedIndex === 0" class="w-20" nz-button nzType="default" (click)="getOrders(0)">
+        {{ 'new' | translate }} ({{ tabsBadge.waiting }})
     </button>
-    <button [class.active]="selectedIndex === 1" class="w-25" nz-button nzType="default" (click)="getOrders(1)">
-        {{ 'sent' | translate }}
+    <button [class.active]="selectedIndex === 1" class="w-20" nz-button nzType="default" (click)="getOrders(1)">
+        {{ 'sent' | translate }} ({{ tabsBadge.sent }})
     </button>
-    <button [class.active]="selectedIndex === 2" class="w-25" nz-button nzType="default" (click)="getOrders(2)">
-        {{ 'confirmed' | translate }}
+    <button [class.active]="selectedIndex === 2" class="w-20" nz-button nzType="default" (click)="getOrders(2)">
+        {{ 'confirmed' | translate }} ({{ tabsBadge.confirmed }})
+    </button>
+    <button [class.active]="selectedIndex === 3" class="w-20" nz-button nzType="default" (click)="getOrders(3)">
+        {{ 'notDelivered' | translate }} <span class="red px-1">({{ tabsBadge.notDelivered }})</span>
     </button>
 </div>
 <div class="wrapper">
@@ -37,7 +40,7 @@
                         {{ 'sentViaPost' | translate }}
                     </button>
                     }
-                    @if (order.status === 1) {
+                    @if (order.status === 1 || order.status === 3) {
                     <button class="fit" nz-button nzType="default" nz-popconfirm nzOkText="تایید" nzCancelText="نه"
                         nzPopconfirmTitle="تایید دریافت توسط مشتری" nzPopconfirmPlacement="bottom"
                         (nzOnConfirm)="changeStatus(order, 2)">
