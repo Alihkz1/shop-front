@@ -122,7 +122,7 @@ export class RequestBuilder {
     }
 
     private toastUnsuccess(): void {
-        this.clientService?.message.create('error', 'خطایی رخ داد')
+        this.clientService?.message.create('error', 'خطای سرور')
     }
 
 }
