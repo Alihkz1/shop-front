@@ -4,7 +4,7 @@
     </div>
     <div class="w-100 mt-1">
         <button [class.active]="selectedIndex === -1" class="w-20" nz-button nzType="default" (click)="getOrders()">
-            {{ 'allOrders' | translate }} ({{ tabsBadge.all }})
+                {{ 'allOrders' | translate }} ({{ tabsBadge.all }})
         </button>
         <button [class.active]="selectedIndex === 0" class="w-20" nz-button nzType="default" (click)="getOrders(0)">
             {{ 'waitingForSend' | translate }} ({{ tabsBadge.waiting }})
