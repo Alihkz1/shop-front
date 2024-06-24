@@ -34,6 +34,7 @@
         bottom: 0;
         width: 100%;
         display: flex;
+        z-index: 1;
 
         &-item {
             font-size: 10px;
