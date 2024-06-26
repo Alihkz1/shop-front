@@ -1,3 +1,5 @@
+@import "../../../shared/style/mixins.scss";
+
 .box {
     height: calc(100vh - 100px);
 }
@@ -23,7 +25,7 @@
     border-radius: 4px;
 }
 
-@media (max-width: 767px) {
+@include respond (md) {
     .sm-no-padding {
         padding: 0 !important;
     }
