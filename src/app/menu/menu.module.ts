@@ -22,6 +22,7 @@ import { ConfirmCardComponent } from './components/confirm-card/confirm-card.com
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { OrdersComponent } from './components/orders/orders.component';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { LoadingComponent } from '../shared/component/loading/loading.component';
 
 const NZ = [
   NzInputModule,
@@ -55,6 +56,7 @@ const NZ = [
     ReactiveFormsModule,
     CurrencyPipe,
     FormsModule,
+    LoadingComponent,
     ...NZ
   ]
 })

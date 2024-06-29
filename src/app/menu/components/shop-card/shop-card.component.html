@@ -3,6 +3,9 @@
         {{ 'shopCard' | translate }}
     </div>
     <div class="row">
+        @if (dataLoading && !dataLoading.closed) {
+        <loading class="mt-5"></loading>
+        }@else {
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 px-0">
             <div class="box info">
                 <div class="finalize">
@@ -54,5 +57,6 @@
             </div>
             }
         </div>
+        }
     </div>
 </div>

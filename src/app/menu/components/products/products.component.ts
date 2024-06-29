@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuApi } from '../../shared/menu.api';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { Product } from '../../../shared/model/product.model';
 import { ClientService } from '../../../shared/service/client.service';
 import { AdminApi } from '../../../admin/shared/admin.api';
@@ -19,6 +19,7 @@ import { Location } from '@angular/common';
 export class ProductsComponent implements OnInit {
   private _products$: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
   public get products() { return this._products$.getValue() }
+  dataLoading: Subscription;
 
   constructor(
     private router: Router,
@@ -38,7 +39,7 @@ export class ProductsComponent implements OnInit {
 
   getData() {
     const { categoryId } = this.route.snapshot.params;
-    this.menuApi.getProducts(categoryId).subscribe(({ success, data }: any) => {
+    this.dataLoading = this.menuApi.getProducts(categoryId).subscribe(({ success, data }: any) => {
       if (success) {
         this._products$.next(data.products);
       }

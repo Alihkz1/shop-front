@@ -7,6 +7,9 @@
         </div>
     </div>
     <div class="row">
+        @if (dataLoading && !dataLoading.closed) {
+        <loading class="mt-5"></loading>
+        }@else {
         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
             <div class="ps-4 pt-2 d-flex justify-content-center">
                 <!-- <img class="fit" [src]="product?.imageUrl" [alt]="product?.title"> -->
@@ -44,7 +47,7 @@
                 </div>
                 }@else {
                 @if (!productInShopCardFlag) {
-                    
+
                 @if (product?.amount > 0) {
                 <button nz-button nzType="default" (click)="addToCard()">
                     {{ 'toShopCard' | translate }}
@@ -73,5 +76,6 @@
                 }
             </div>
         </div>
+        }
     </div>
 </div>

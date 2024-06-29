@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuApi } from '../../shared/menu.api';
 import { ClientService } from '../../../shared/service/client.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { Product } from '../../../shared/model/product.model';
 import { Router } from '@angular/router';
 import { ShopCard } from '../../../shared/model/shop-card.model';
@@ -20,6 +20,7 @@ export class OrdersComponent implements OnInit {
   selectedIndex = -1;
   private _orders$ = new BehaviorSubject<any[]>([]);
   public get orders() { return this._orders$.getValue() }
+  dataLoading: Subscription;
 
   tabsBadge = {
     all: 0,
@@ -45,7 +46,7 @@ export class OrdersComponent implements OnInit {
   getOrders(status?: number) {
     this.selectedIndex = status != undefined ? status : -1;
     const { userId } = this.client.getUser.user
-    this.menuApi.getOrders({ userId, status }).subscribe(({ success, data }: any) => {
+    this.dataLoading = this.menuApi.getOrders({ userId, status }).subscribe(({ success, data }: any) => {
       if (!success) return;
       const mapped = data.userAllOrders.map((el: any) => {
         return {

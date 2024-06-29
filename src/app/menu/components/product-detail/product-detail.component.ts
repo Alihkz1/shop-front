@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MenuApi } from '../../shared/menu.api';
 import { Product } from '../../../shared/model/product.model';
 import { ClientService } from '../../../shared/service/client.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { ProductModalComponent } from '../../../shared/component/product-modal/product-modal.component';
@@ -21,6 +21,7 @@ export class ProductDetailComponent implements OnInit {
   product: any;
   productInShopCardFlag = false
   inCardAmount: number = 0
+  dataLoading: Subscription;
 
   private _userShopCard$ = new BehaviorSubject<ShopCard[]>([]);
   public get userShopCard() { return this._userShopCard$.getValue() }
@@ -63,7 +64,7 @@ export class ProductDetailComponent implements OnInit {
 
   private getData() {
     const { productId } = this.route.snapshot.params;
-    this.menuApi.getProductRetrieve(productId).subscribe(({ success, data }: any) => {
+    this.dataLoading = this.menuApi.getProductRetrieve(productId).subscribe(({ success, data }: any) => {
       if (!success) return;
       this.product = data.product;
       this.getShopCard()
