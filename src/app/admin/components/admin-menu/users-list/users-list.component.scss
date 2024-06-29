@@ -20,14 +20,10 @@
 
 nz-table {
     overflow: auto;
-    height: calc(100vh - 100px);
+    height: 100%;
     
     th {
         background: var(--main-color);
-    }
-
-    @media (max-width: 767px) {
-        height: calc(100vh - 105px);
     }
 }
 

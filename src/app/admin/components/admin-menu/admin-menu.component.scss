@@ -1,9 +1,5 @@
 @import "../../../shared/style/mixins.scss";
 
-.box {
-    height: calc(100vh - 100px);
-}
-
 .menu {
     padding: 10px 5px;
 
@@ -23,6 +19,7 @@
 .right {
     background: #fff;
     border-radius: 4px;
+    height: 100%;
 }
 
 @include respond (md) {
@@ -44,10 +41,11 @@
     }
 
     .right {
-        height: fit-content;
+        height: 0;
     }
+}
 
-    .box {
-        height: calc(100vh - 168px);
-    }
+.pages {
+    height: calc(100vh - 100px);
+    overflow: hidden;
 }

@@ -1,20 +1,9 @@
-.row {
-    height: calc(100vh - 100px);
-    padding: 0 100px;
-
-    @media (max-width: 1200px) and (min-width: 767px) {
-        padding: 0 20px;
-    }
-
-    @media (max-width: 767px) {
-        padding: 0;
-        height: calc(100vh - 115px);
-    }
-}
-
 .category-list {
     height: fit-content;
+    max-height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 
     &-name {
         margin: 0 4px 6px 0;
@@ -54,21 +43,6 @@
 
 ::ng-deep .ant-collapse-header {
     background: aliceblue !important;
-}
-
-nz-collapse {
-    height: fit-content;
-    max-height: calc(100vh - 135px);
-}
-
-@media (max-width: 767px) {
-    .category-list {
-        margin-top: 10px;
-    }
-
-    nz-collapse {
-        max-height: calc(100vh - 170px);
-    }
 }
 
 .product-item {

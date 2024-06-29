@@ -1,5 +1,4 @@
 .wrapper {
-    max-height: calc(100vh - 120px);
     overflow: hidden auto;
 }
 
@@ -78,10 +77,6 @@
 }
 
 @media (max-width: 767px) {
-    .wrapper {
-        height: calc(100vh - 137px);
-    }
-
     .box-header {
         flex-direction: column;
     }
