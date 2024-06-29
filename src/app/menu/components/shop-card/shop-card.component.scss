@@ -2,6 +2,8 @@
     height: 100%;
     overflow: hidden;
     padding: 20px 0 15px 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .box {
@@ -45,22 +47,7 @@
     }
 }
 
-@media (min-width:767px) {
-    .page-h {
-        height: calc(100vh - 165px) !important;
-    }
-}
-
 @media (max-width:767px) {
-    .page-h {
-        height: calc(100vh - 300px) !important;
-        overflow-y: auto;
-    }
-
-    .wrapper {
-        padding: 0;
-    }
-
     .info {
         height: 140px !important;
     }
@@ -89,7 +76,6 @@
     padding: 20px 0;
     height: 150px;
     background: rgb(195 206 255 / 41%);
-    ;
 }
 
 .total-price {

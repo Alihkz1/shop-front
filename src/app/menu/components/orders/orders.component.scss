@@ -1,10 +1,12 @@
 .wrapper {
     height: 100%;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .cards {
-    height: calc(100vh - 180px);
+    flex-grow: 1;
     overflow: hidden auto;
     padding-bottom: 10px;
 }

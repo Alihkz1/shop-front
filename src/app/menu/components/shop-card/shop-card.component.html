@@ -2,7 +2,7 @@
     <div class="wrapper-title">
         {{ 'shopCard' | translate }}
     </div>
-    <div class="row">
+    <div class="row flex-grow overflow-auto">
         @if (dataLoading && !dataLoading.closed) {
         <loading class="mt-5"></loading>
         }@else {
@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-19 col-lg-9 col-md-9 col-sm-12 px-0 overflow-auto page-h">
+        <div class="col-xl-19 col-lg-9 col-md-9 col-sm-12 px-0 overflow-auto flex-grow">
             @for (card of cards; track $index) {
             <div class="box">
                 <!-- <img class="box-image" [src]="card.imageUrl" alt=""> -->

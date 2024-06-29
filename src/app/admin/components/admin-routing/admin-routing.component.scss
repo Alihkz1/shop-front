@@ -5,20 +5,15 @@
     background: var(--main-bg);
 
     &-wrapper {
-        height: calc(100vh - 90px);
+        height: 100%;
         padding: 0 24px;
-
+        
         @media (min-width:1450px) {
             padding: 0px 50px !important;
         }
 
         @media (min-width:992px) and (max-width:1450px) {
             padding: 0px 20px !important;
-        }
-
-        @media (max-width: 767px) {
-            height: calc(100vh - 100px);
-            margin-bottom: 50px !important;
         }
     }
 }
