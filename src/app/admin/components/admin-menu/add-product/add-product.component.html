@@ -10,6 +10,9 @@
                     </button>
                 </div>
             </div>
+            @if (dataLoading && !dataLoading.closed) {
+            <loading class="mt-5"></loading>
+            }@else {
             <nz-collapse class="overflow-auto">
                 @for (category of categories; track $index) {
                 <nz-collapse-panel [nzHeader]="categoryHeader">
@@ -21,15 +24,16 @@
                                 <span>{{ "amount" | translate }}:</span> {{ product.amount }}
                             </p>
                             <p class="product-item-price">
-                                <span>{{ "price" | translate }}:</span> {{ product.price | currencyPipe }} {{ "currency" | translate }}
+                                <span>{{ "price" | translate }}:</span> {{ product.price | currencyPipe }} {{ "currency"
+                                | translate }}
                             </p>
                             <div>
                                 <span class="product-item-icon blue" nz-icon nzType="edit" nzTheme="outline"
                                     (click)="openProductModal(product,null)">
                                 </span>
                                 <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف محصول؟"
-                                    class="product-item-icon red" nzOkText="بله" nzCancelText="خیر" nz-icon nzType="delete" nzTheme="outline"
-                                    (nzOnConfirm)="deleteProduct_onConfirm(product)">
+                                    class="product-item-icon red" nzOkText="بله" nzCancelText="خیر" nz-icon
+                                    nzType="delete" nzTheme="outline" (nzOnConfirm)="deleteProduct_onConfirm(product)">
                                 </span>
                             </div>
                         </div>
@@ -61,6 +65,7 @@
                 </ng-template>
                 }
             </nz-collapse>
+            }
         </div>
     </div>
 </div>

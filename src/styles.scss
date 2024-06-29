@@ -13,16 +13,9 @@ body {
 }
 
 body {
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
-    min-height: -webkit-fill-available;
-}
-
-body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     padding-bottom: env(safe-area-inset-bottom);
-    /* todo: check */
 }
 
 .normal-button {

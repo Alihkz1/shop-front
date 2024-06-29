@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdminApi } from '../../../shared/admin.api';
-import { environment } from '../../../../../env/environment';
+import {  } from '../../../../../env/environment';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { NzModalComponent, NzModalService } from 'ng-zorro-antd/modal';
@@ -9,6 +9,7 @@ import { CategoryModalComponent } from '../../../../shared/component/category-mo
 import { Category } from '../../../../shared/model/category.model';
 import { Product } from '../../../../shared/model/product.model';
 import { ProductModalComponent } from '../../../../shared/component/product-modal/product-modal.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-product',
@@ -17,8 +18,6 @@ import { ProductModalComponent } from '../../../../shared/component/product-moda
 })
 export class AddProductComponent implements OnInit {
   @ViewChild('productModal') productModal: NzModalComponent;
-
-  uploadUrl = environment.UPLOAD_URL;
 
   form = new FormGroup({
     categoryId: new FormControl({ value: null, disabled: true }, Validators.required),
@@ -29,6 +28,7 @@ export class AddProductComponent implements OnInit {
   });
 
   uploadedImgUrl = new FormControl('')
+  dataLoading: Subscription;
   categories: any[] = []
 
   constructor(
@@ -43,7 +43,8 @@ export class AddProductComponent implements OnInit {
   }
 
   getCategories() {
-    this.adminApi.getCategories().subscribe(({ data }: any) => {
+    this.dataLoading = this.adminApi.getCategories()
+    .subscribe(({ data }: any) => {
       this.categories = data.categories;
     })
   }

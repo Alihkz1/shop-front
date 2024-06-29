@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminApi } from '../../../shared/admin.api';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import moment from 'jalali-moment';
 import { ShopCard } from '../../../../shared/model/shop-card.model';
 import { Product } from '../../../../shared/model/product.model';
@@ -16,6 +16,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class UsersOrdersComponent implements OnInit {
   selectedIndex = -1;
+  dataLoading: Subscription;
 
   tabsBadge = {
     all: 0,
@@ -41,7 +42,7 @@ export class UsersOrdersComponent implements OnInit {
 
   getOrders(status?: number) {
     this.selectedIndex = status != undefined ? status : -1;
-    this.adminApi.getAllOrders({ status }).subscribe(({ success, data }: any) => {
+    this.dataLoading = this.adminApi.getAllOrders({ status }).subscribe(({ success, data }: any) => {
       if (!success) return;
       const mapped = data.allOrders.map((el: any) => {
         return {

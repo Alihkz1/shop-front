@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminApi } from '../../../shared/admin.api';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { User } from '../../../../shared/model/user.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
@@ -18,6 +18,7 @@ export class UsersListComponent implements OnInit {
   changePasswordTranslate = 'رمز عبور جدید را وارد کنید'
   submitTranslate = 'ثبت'
   backTranslate = 'بازگشت'
+  dataLoading: Subscription;
 
   expandSet = new Set<number>();
   private _users$ = new BehaviorSubject<User[]>([]);
@@ -58,7 +59,7 @@ export class UsersListComponent implements OnInit {
   }
 
   public getData() {
-    this.adminApi.getUsers().subscribe(({ data }: any) => {
+    this.dataLoading = this.adminApi.getUsers().subscribe(({ data }: any) => {
       this._users$.next(data.users)
     })
   }

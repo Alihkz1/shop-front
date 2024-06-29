@@ -27,6 +27,7 @@ import { ProductModalComponent } from '../shared/component/product-modal/product
 import { CurrencyPipe } from '../shared/pipe/currency.pipe';
 import { UsersOrdersComponent } from './components/admin-menu/users-orders/users-orders.component';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { LoadingComponent } from '../shared/component/loading/loading.component';
 
 const NZ = [
   NzButtonModule,
@@ -40,7 +41,7 @@ const NZ = [
   NzCheckboxModule,
   NzToolTipModule,
   NzTableModule,
-  NzAlertModule,
+  NzAlertModule
 ]
 
 
@@ -56,6 +57,7 @@ const NZ = [
     CategoryModalComponent,
     ProductModalComponent,
     CurrencyPipe,
+    LoadingComponent,
     ...NZ
   ]
 })

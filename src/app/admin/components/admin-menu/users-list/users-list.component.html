@@ -1,3 +1,6 @@
+@if (dataLoading && !dataLoading.closed) {
+<loading></loading>
+}@else {
 <nz-table #basicTable [nzData]="users" nzTableLayout="fixed">
     <thead>
         <tr>
@@ -50,3 +53,4 @@
         </ng-container>
     </tbody>
 </nz-table>
+}

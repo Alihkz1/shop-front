@@ -1,3 +1,6 @@
+@if (dataLoading && !dataLoading.closed) {
+<loading></loading>
+}@else {
 <nz-table class="w-100" #basicTable [nzData]="comments" nzTableLayout="fixed" nzShowPagination="false">
     <thead>
         <tr>
@@ -53,3 +56,4 @@
         </ng-container>
     </tbody>
 </nz-table>
+}
