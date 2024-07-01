@@ -5,10 +5,22 @@
 
     <div class="flex-grow">
         <form class="signup-form" [formGroup]="form">
-            <input nz-input [placeholder]="'enterName' | translate" formControlName="name" />
-            <input class="mt-2" nz-input [placeholder]="'phone' | translate" formControlName="phone"/>
-            <input class="mt-2" nz-input [placeholder]="'emailAsUsername' | translate" formControlName="email" />
-            <input class="mt-2" nz-input [placeholder]="'password' | translate" formControlName="password" />
+            <div class="fielder">
+                <div class="fielder-title">{{ "enterName" | translate }}</div>
+                <input nz-input formControlName="name" />
+            </div>
+            <div class="fielder">
+                <div class="fielder-title">{{ "phone" | translate }}</div>
+                <input nz-input formControlName="phone" />
+            </div>
+            <div class="fielder">
+                <div class="fielder-title">{{ "emailAsUsername" | translate }}</div>
+                <input nz-input formControlName="email" />
+            </div>
+            <div class="fielder">
+                <div class="fielder-title">{{ "password" | translate }}</div>
+                <input nz-input formControlName="password" />
+            </div>
             <button class="d-none" type="submit" (click)="login_onClick()"></button>
         </form>
         <div class="signup-submit">

@@ -14,6 +14,9 @@ import { ADMIN_BUTTONS, USER_BUTTONS } from './shared/config/header-buttons.conf
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+  /* / -> menu/categories */
+  /* admin guard */
+  /* uncomment images */
   constructor(direction: DirectionService, private client: ClientService) {
     direction.setDirection(DIRECTION.RTL);
     if (client.getUser != null && client.getUser != undefined) {
