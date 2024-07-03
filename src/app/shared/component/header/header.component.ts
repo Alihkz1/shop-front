@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ClientService } from '../../service/client.service';
 import { TranslateModule } from "@ngx-translate/core";
 import { Router } from '@angular/router';
@@ -7,7 +7,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { ROLE } from '../../enum/role.enum';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzDropDownModule, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 
 @Component({
   selector: 'app-header',
@@ -17,6 +17,8 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  @ViewChild('menu', { static: false }) menu: NzDropdownMenuComponent;
+  showBurgerMenu = true;
 
   constructor(
     private router: Router,
@@ -52,6 +54,10 @@ export class HeaderComponent {
 
   navigateToShopCard() {
     this.router.navigate([`menu/card/${this.client.getUser.user.userId}`])
+  }
+
+  burger_onClick() {
+    this.showBurgerMenu = true
   }
 
 }

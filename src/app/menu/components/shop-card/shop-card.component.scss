@@ -93,3 +93,22 @@
 .sender-button {
     width: fit-content;
 }
+
+nz-button-group {
+    button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 40px;
+        background: #fff;
+
+        span {
+            font-size: 12px;
+        }
+    }
+}
+
+.red-card {
+    border-top: 1px solid red;
+    border-bottom: 1px solid red;
+}

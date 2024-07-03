@@ -8,15 +8,18 @@
             }
 
             <span class="burger mx-3 mt-1" nz-icon nzType="menu" nzTheme="outline" nz-dropdown [nzDropdownMenu]="menu"
-                nzPlacement="bottomCenter">
+                nzPlacement="bottomCenter" (click)="burger_onClick()">
             </span>
-            
+
             <nz-dropdown-menu #menu="nzDropdownMenu">
+                @if (showBurgerMenu) {
                 <ul nz-menu>
                     @for (button of client.headerButtons; track $index) {
-                    <li class="menu-item" (click)="navigate(button.route)">{{ button.title | translate }}</li>
+                    <li class="menu-item" (click)="navigate(button.route); showBurgerMenu = false">{{ button.title |
+                        translate }}</li>
                     }
                 </ul>
+                }
             </nz-dropdown-menu>
 
             @if (client.getUser.user.role === 'USER') {

@@ -3,7 +3,7 @@
         {{ 'shopCard' | translate }}
     </div>
     <div class="row flex-grow overflow-auto">
-        @if (dataLoading && !dataLoading.closed) {
+        @if (dataLoading) {
         <loading class="mt-5"></loading>
         }@else {
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 px-0">
@@ -22,7 +22,7 @@
         </div>
         <div class="col-xl-19 col-lg-9 col-md-9 col-sm-12 px-0 overflow-auto flex-grow">
             @for (card of cards; track $index) {
-            <div class="box">
+            <div class="box" [class.red-card]="card.inCardAmount > card.amount">
                 <img class="box-image" [src]="card.imageUrl" alt="">
                 <div class="box-detail flex-grow">
                     <div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuApi } from '../../shared/menu.api';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, finalize } from 'rxjs';
 import { ShopCard } from '../../../shared/model/shop-card.model';
 import { ClientService } from '../../../shared/service/client.service';
 
@@ -13,8 +13,9 @@ import { ClientService } from '../../../shared/service/client.service';
 export class ShopCardComponent implements OnInit {
   public totalPrice: number = 0;
   public amountError: boolean = false;
-  dataLoading: Subscription;
-  
+  dataLoading = false;
+  loadingCounter = 0;
+
   private _cards$ = new BehaviorSubject<ShopCard[]>([]);
   public get cards(): ShopCard[] { return this._cards$.getValue() }
 
@@ -30,8 +31,11 @@ export class ShopCardComponent implements OnInit {
   }
 
   getData() {
+    if (this.loadingCounter === 0) this.dataLoading = true;
+    this.loadingCounter++;
+
     const { userId } = this.route.snapshot.params;
-    this.dataLoading = this.menuApi.getUserShopCard(userId).subscribe(({ data, success }: any) => {
+    this.menuApi.getUserShopCard(userId).subscribe(({ data, success }: any) => {
       if (success) {
         let cards: ShopCard[] = data.card;
         const productIds = cards.map((el: ShopCard) => el.productId);
@@ -39,18 +43,20 @@ export class ShopCardComponent implements OnInit {
         cards.forEach((card: ShopCard) => {
           this.totalPrice += card.price * card.inCardAmount;
         })
-        this.menuApi.productAmountCheck({ ids: productIds }).subscribe((resp: any) => {
-          if (resp.success) {
-            cards = cards.map((card: ShopCard) => {
-              return {
-                ...card,
-                amount: resp.data.products.find((el: any) => el.productId === card.productId).amount
-              }
-            })
-            this.amountError = cards.findIndex((el: ShopCard) => el.amount < el.inCardAmount) != -1;
-            this._cards$.next(cards);
-          }
-        })
+        this.menuApi.productAmountCheck({ ids: productIds })
+          .pipe(finalize(() => { this.dataLoading = false; }))
+          .subscribe((resp: any) => {
+            if (resp.success) {
+              cards = cards.map((card: ShopCard) => {
+                return {
+                  ...card,
+                  amount: resp.data.products.find((el: any) => el.productId === card.productId).amount
+                }
+              })
+              this.amountError = cards.findIndex((el: ShopCard) => el.amount < el.inCardAmount) != -1;
+              this._cards$.next(cards);
+            }
+          })
       }
     })
   }

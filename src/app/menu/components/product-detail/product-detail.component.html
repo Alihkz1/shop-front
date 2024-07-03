@@ -22,12 +22,12 @@
                 </div>
 
                 <div class="detail-price mb-2 mt-4">
-                    <span class="detail-price-title"> {{ 'price' | translate }}: </span>
+                    <span class="detail-price-title"> <b>{{ 'price' | translate }}:</b> </span>
                     <span class="mx-2"> {{ product?.price | currencyPipe }} {{ 'currency' | translate }} </span>
                 </div>
 
                 <div class="detail-amount mt-2 mb-4">
-                    <span class="detail-amount-title"> {{ 'amount' | translate }}: </span>
+                    <span class="detail-amount-title"> <b>{{ 'amount' | translate }}:</b> </span>
                     <span class="mx-2"> {{ product?.amount }} </span>
                 </div>
             </div>
@@ -60,6 +60,9 @@
                 }
 
                 }@else {
+                <div class="mx-3 mt-1">
+                    {{ "quantity" | translate }}:
+                </div>
                 <nz-button-group>
                     <button nz-button (click)="minCount()"><span nz-icon nzType="minus"></span></button>
                     <div class="mx-3 mt-1">

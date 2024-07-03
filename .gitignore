@@ -5,6 +5,8 @@
 /tmp
 /out-tsc
 /bazel-out
+/deploy
+deploy.zip
 
 # Node
 /node_modules
