@@ -11,7 +11,7 @@
         <loading class="mt-5"></loading>
         }@else {
         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-            <div class="ps-4 pt-2 d-flex justify-content-center">
+            <div class="ps-4 pt-2 d-flex justify-content-center img">
                 <img class="fit" [src]="product?.imageUrl" [alt]="product?.title">
             </div>
         </div>
@@ -61,7 +61,7 @@
 
                 }@else {
                 <div class="mx-3 mt-1">
-                    {{ "quantity" | translate }}:
+                    <b>{{ "quantity" | translate }}:</b>
                 </div>
                 <nz-button-group>
                     <button nz-button (click)="minCount()"><span nz-icon nzType="minus"></span></button>

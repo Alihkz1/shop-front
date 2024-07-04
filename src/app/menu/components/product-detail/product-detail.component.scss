@@ -9,8 +9,8 @@
 .fit {
     width: fit-content;
     height: fit-content;
-    max-width: 300px;
-    max-height: 300px;
+    max-width: 220px;
+    max-height: 220px;
     border-radius: 8px;
 
     @include respond(md) {
@@ -20,11 +20,7 @@
 }
 
 .detail {
-    border-bottom: 1px solid #d6d6d6;
-    background: #fff;
     padding: 15px;
-    border-radius: 7px;
-    box-shadow: 1px 1px 10px #e1e1e1;
 
     &-title {
         font-size: 22px;
@@ -66,4 +62,17 @@ nz-button-group {
             font-size: 13px;
         }
     }
+}
+
+.row {
+    margin: 10px 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #d6d6d6;
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 1px 1px 10px #e1e1e1;
+}
+
+.img {
+    background-color: rgba(241, 241, 241, 0.379);
 }
