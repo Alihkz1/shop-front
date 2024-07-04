@@ -12,11 +12,10 @@ import { TranslateService } from "@ngx-translate/core";
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.component.html',
-  styleUrl: './orders.component.scss'
+  templateUrl: './my-orders.component.html',
+  styleUrl: './my-orders.component.scss'
 })
-export class OrdersComponent implements OnInit {
+export class MyOrdersComponent implements OnInit {
   selectedIndex = -1;
   private _orders$ = new BehaviorSubject<any[]>([]);
   public get orders() { return this._orders$.getValue() }
@@ -43,11 +42,11 @@ export class OrdersComponent implements OnInit {
     this.getOrders()
   }
 
-  getOrders(status?: number) {
-    this.selectedIndex = status != undefined ? status : -1;
+  getOrders() {
     const { userId } = this.client.getUser.user
-    this.dataLoading = this.menuApi.getOrders({ userId, status }).subscribe(({ success, data }: any) => {
+    this.dataLoading = this.menuApi.getOrders({ userId }).subscribe(({ success, data }: any) => {
       if (!success) return;
+
       const mapped = data.userAllOrders.map((el: any) => {
         return {
           ...el,
@@ -57,16 +56,18 @@ export class OrdersComponent implements OnInit {
           date: moment(new Date(el.date)).locale('fa').format('HH:mm:ss YYYY/MM/DD'),
         }
       })
-      if (this.selectedIndex == -1) {
-        this.tabsBadge = {
-          all: mapped.length,
-          waiting: mapped.filter((e: any) => e.status === ORDER_STATUS.PAID).length,
-          sent: mapped.filter((e: any) => e.status === ORDER_STATUS.SENT_VIA_POST).length,
-          confirmed: mapped.filter((e: any) => e.status === ORDER_STATUS.DELIVERED).length,
-          notDelivered: mapped.filter((e: any) => e.status === ORDER_STATUS.NOT_DELIVERED).length,
-        }
+
+      this.tabsBadge = {
+        all: mapped.length,
+        waiting: mapped.filter((e: any) => e.status === ORDER_STATUS.PAID).length,
+        sent: mapped.filter((e: any) => e.status === ORDER_STATUS.SENT_VIA_POST).length,
+        confirmed: mapped.filter((e: any) => e.status === ORDER_STATUS.DELIVERED).length,
+        notDelivered: mapped.filter((e: any) => e.status === ORDER_STATUS.NOT_DELIVERED).length,
       }
-      this._orders$.next(mapped)
+
+      const ordersData = this.selectedIndex != -1 ? mapped.filter((e: any) => e.status === this.selectedIndex) : mapped;
+
+      this._orders$.next(ordersData)
     })
   }
 

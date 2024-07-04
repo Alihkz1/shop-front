@@ -40,10 +40,10 @@ export class UsersOrdersComponent implements OnInit {
     this.getOrders()
   }
 
-  getOrders(status?: number) {
-    this.selectedIndex = status != undefined ? status : -1;
-    this.dataLoading = this.adminApi.getAllOrders({ status }).subscribe(({ success, data }: any) => {
+  getOrders() {
+    this.dataLoading = this.adminApi.getAllOrders({}).subscribe(({ success, data }: any) => {
       if (!success) return;
+
       const mapped = data.allOrders.map((el: any) => {
         return {
           ...el,
@@ -52,16 +52,19 @@ export class UsersOrdersComponent implements OnInit {
           date: moment(new Date(el.date)).locale('fa').format('HH:mm:ss YYYY/MM/DD'),
         }
       })
-      if (this.selectedIndex == -1) {
-        this.tabsBadge = {
-          all: mapped.length,
-          waiting: mapped.filter((e: any) => e.status === ORDER_STATUS.PAID).length,
-          sent: mapped.filter((e: any) => e.status === ORDER_STATUS.SENT_VIA_POST).length,
-          confirmed: mapped.filter((e: any) => e.status === ORDER_STATUS.DELIVERED).length,
-          notDelivered: mapped.filter((e: any) => e.status === ORDER_STATUS.NOT_DELIVERED).length,
-        }
+
+      this.tabsBadge = {
+        all: mapped.length,
+        waiting: mapped.filter((e: any) => e.status === ORDER_STATUS.PAID).length,
+        sent: mapped.filter((e: any) => e.status === ORDER_STATUS.SENT_VIA_POST).length,
+        confirmed: mapped.filter((e: any) => e.status === ORDER_STATUS.DELIVERED).length,
+        notDelivered: mapped.filter((e: any) => e.status === ORDER_STATUS.NOT_DELIVERED).length,
       }
-      this._orders$.next(mapped)
+
+      const ordersData = this.selectedIndex != -1 ? mapped.filter((e: any) => e.status === this.selectedIndex) : mapped;
+
+
+      this._orders$.next(ordersData)
     })
   }
 

@@ -95,7 +95,7 @@ export class MenuApi {
       .call()
   }
 
-  public getOrders(model: { userId: number; status: number }) {
+  public getOrders(model: { userId: number; status?: number }) {
     return Api()
       .get()
       .controller('order')

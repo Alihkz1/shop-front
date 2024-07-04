@@ -3,20 +3,20 @@
         {{ 'orders' | translate }}
     </div>
     <div class="w-100 mt-1">
-        <button [class.active]="selectedIndex === -1" class="w-20" nz-button nzType="default" (click)="getOrders()">
+        <button [class.active]="selectedIndex === -1" class="w-20" nz-button nzType="default" (click)="selectedIndex = -1; getOrders()">
             {{ 'allOrders' | translate }} ({{ tabsBadge.all }})
         </button>
-        <button [class.active]="selectedIndex === 0" class="w-20" nz-button nzType="default" (click)="getOrders(0)">
+        <button [class.active]="selectedIndex === 0" class="w-20" nz-button nzType="default" (click)="selectedIndex = 0; getOrders()">
             {{ 'waitingForSend' | translate }} ({{ tabsBadge.waiting }})
         </button>
-        <button [class.active]="selectedIndex === 1" class="w-20" nz-button nzType="default" (click)="getOrders(1)">
+        <button [class.active]="selectedIndex === 1" class="w-20" nz-button nzType="default" (click)="selectedIndex = 1; getOrders()">
             {{ 'sent' | translate }} ({{ tabsBadge.sent }})
         </button>
-        <button [class.active]="selectedIndex === 2" class="w-20" nz-button nzType="default" (click)="getOrders(2)">
+        <button [class.active]="selectedIndex === 2" class="w-20" nz-button nzType="default" (click)="selectedIndex = 2; getOrders()">
             {{ 'confirmed' | translate }} ({{ tabsBadge.confirmed }})
         </button>
-        <button [class.active]="selectedIndex === 3" class="w-20" nz-button nzType="default" (click)="getOrders(3)">
-            {{ 'notDelivered' | translate }} ({{ tabsBadge.notDelivered }})
+        <button [class.active]="selectedIndex === 3" class="w-20" nz-button nzType="default" (click)="selectedIndex = 3; getOrders()">
+            {{ 'notDelivered' | translate }} <span class="red mx-1">({{ tabsBadge.notDelivered }})</span>
         </button>
     </div>
     <div class="cards">
