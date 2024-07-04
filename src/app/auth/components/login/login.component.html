@@ -12,7 +12,7 @@
         <div class="login-submit">
             <button nz-button nzType="primary" [disabled]="form.invalid" [nzLoading]="loginLoading"
                 (click)="login_onClick()">
-                {{ "getIn" | translate }}
+                <span *ngIf="!loginLoading"> {{ "getIn" | translate }} </span>
             </button>
         </div>
     </div>

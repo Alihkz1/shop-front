@@ -10,10 +10,10 @@ export const ADMIN_BUTTONS: IHeaderButton[] = [
 ]
 
 export const USER_BUTTONS: IHeaderButton[] = [
-    {
-        title: "contactUs",
-        route: "menu/about-us"
-    },
+    // {
+    //     title: "contactUs",
+    //     route: "menu/about-us"
+    // },
     {
         title: "orders",
         route: "menu/orders"

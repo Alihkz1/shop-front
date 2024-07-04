@@ -15,8 +15,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class SignupComponent {
   signupLoading = false
   form = new FormGroup({
-    email: new FormControl(null, [Validators.required]),
-    password: new FormControl(null, [Validators.required]),
+    email: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
     phone: new FormControl(),
     name: new FormControl()
   })
@@ -35,7 +35,12 @@ export class SignupComponent {
       return;
     }
     this.signupLoading = true;
-    this.authApi.signup(this.form.value)
+    const model = {
+      ...this.form.value,
+      email: this.form.value.email.toLowerCase(),
+      password: this.form.value.password.toLowerCase(),
+    }
+    this.authApi.signup(model)
       .pipe(finalize(() => { this.signupLoading = false; }))
       .subscribe(({ success }: any) => {
         if (success) {

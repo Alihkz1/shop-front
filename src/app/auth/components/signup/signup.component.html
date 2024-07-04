@@ -25,7 +25,7 @@
         </form>
         <div class="signup-submit">
             <button nz-button nzType="primary" [nzLoading]="signupLoading" (click)="signup_onClick()">
-                {{ "register" | translate }}
+                <span *ngIf="!signupLoading"> {{ "register" | translate }} </span>
             </button>
         </div>
     </div>

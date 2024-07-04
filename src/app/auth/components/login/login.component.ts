@@ -18,8 +18,8 @@ import { MenuApi } from '../../../menu/shared/menu.api';
 export class LoginComponent {
   loginLoading = false;
   form = new FormGroup({
-    email: new FormControl(null, Validators.required),
-    password: new FormControl(null, Validators.required)
+    email: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
   })
 
   constructor(
@@ -27,8 +27,8 @@ export class LoginComponent {
     private menuApi: MenuApi,
     private authApi: AuthApi,
     private client: ClientService,
+    private message: NzMessageService,
     private translate: TranslateService,
-    private message: NzMessageService
   ) { }
 
   forgetPassword_onClick() {
@@ -41,7 +41,12 @@ export class LoginComponent {
 
   login_onClick() {
     this.loginLoading = true;
-    this.authApi.login(this.form.value)
+    const model = {
+      ...this.form.value,
+      email: this.form.value.email.toLowerCase(),
+      password: this.form.value.password.toLowerCase(),
+    }
+    this.authApi.login(model)
       .pipe(finalize(() => { this.loginLoading = false; }))
       .subscribe(({ success, data }: any) => {
         if (success) {
