@@ -26,9 +26,14 @@
                     <span class="mx-2"> {{ product?.price | currencyPipe }} {{ 'currency' | translate }} </span>
                 </div>
 
-                <div class="detail-amount mt-2 mb-4">
+                <div class="detail-amount my-2">
                     <span class="detail-amount-title"> <b>{{ 'amount' | translate }}:</b> </span>
                     <span class="mx-2"> {{ product?.amount }} </span>
+                </div>
+
+                <div class="detail-description mb-4">
+                    <span class="detail-description-title"> <b>{{ 'description' | translate }}:</b> </span>
+                    <span class="mx-2"> {{ product?.description }} </span>
                 </div>
             </div>
 

@@ -35,6 +35,7 @@ export class ProductModalComponent implements OnInit {
     title: new FormControl(null, Validators.required),
     price: new FormControl(null, Validators.required),
     amount: new FormControl(null, Validators.required),
+    description: new FormControl(null, Validators.required),
     productId: new FormControl(null, Validators.required),
   });
 

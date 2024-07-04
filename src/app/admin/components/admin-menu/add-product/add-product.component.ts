@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdminApi } from '../../../shared/admin.api';
 import {  } from '../../../../../env/environment';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
-import { NzModalComponent, NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { CategoryModalComponent } from '../../../../shared/component/category-modal/category-modal.component';
 import { Category } from '../../../../shared/model/category.model';
 import { Product } from '../../../../shared/model/product.model';
@@ -17,7 +17,6 @@ import { Subscription } from 'rxjs';
   styleUrl: './add-product.component.scss'
 })
 export class AddProductComponent implements OnInit {
-  @ViewChild('productModal') productModal: NzModalComponent;
 
   form = new FormGroup({
     categoryId: new FormControl({ value: null, disabled: true }, Validators.required),

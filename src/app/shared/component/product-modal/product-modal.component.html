@@ -29,6 +29,11 @@
                 <div class="fielder-title">{{ "amount" | translate }}</div>
                 <input nz-input formControlName="amount" dir="rtl" type="number" />
             </div>
+            <div class="fielder d-flex flex-column align-items-end w-100">
+                <div class="fielder-title">{{ "description" | translate }}</div>
+                <textarea [nzAutosize]="{ minRows: 3, maxRows: 10 }" nz-input formControlName="description" dir="rtl">
+                </textarea>
+            </div>
             <div class="fielder my-4 d-flex flex-column align-items-end w-100">
                 <nz-upload [nzCustomRequest]="uploadRequest" dir="rtl">
                     <button nz-button>
