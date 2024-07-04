@@ -14,13 +14,17 @@
     border-radius: 8px;
 
     @include respond(md) {
-        max-width: 200px;
-        max-height: 200px;
+        max-width: 160px;
+        max-height:160px;
     }
 }
 
 .detail {
     padding: 15px;
+
+    @media (max-width: 767px) {
+        padding: 0;
+    }
 
     &-title {
         font-size: 22px;
@@ -45,7 +49,6 @@
 }
 
 .shop {
-    margin-top: 30px;
     display: flex;
     justify-content: center;
 }
