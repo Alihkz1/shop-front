@@ -15,6 +15,9 @@
 }
 
 .board {
+    padding: 14px;
+    box-shadow: 1px 1px 10px #d6d6d6;
+
     &-image {
         height: 180px;
         background-color: rgba(241, 241, 241, 0.379);
@@ -34,6 +37,7 @@
         height: 120px;
         padding: 10px;
         position: relative;
+
         p {
             margin-bottom: 5px;
         }
@@ -44,6 +48,14 @@
             position: absolute;
             bottom: 1px;
             left: 5px;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .board {
+        &-data {
+            font-size: 14px;
         }
     }
 }

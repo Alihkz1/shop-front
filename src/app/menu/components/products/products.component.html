@@ -1,11 +1,11 @@
-<div class="wrapper">
-    <div class="wrapper-title">
-        {{ 'products' | translate }} {{ 'category' | translate }}
-        <div class="wrapper-title-back" (click)="back()">
-            <img class="wrapper-title-back-icon" src="assets/svg/back.svg">
-            {{ 'back' | translate }}
-        </div>
+<div class="wrapper-title">
+    {{ 'products' | translate }} {{ 'category' | translate }}
+    <div class="wrapper-title-back" (click)="back()">
+        <img class="wrapper-title-back-icon" src="assets/svg/back.svg">
+        {{ 'back' | translate }}
     </div>
+</div>
+<div class="wrapper">
     <div class="row">
         @if (dataLoading && !dataLoading.closed) {
         <loading class="mt-5"></loading>
