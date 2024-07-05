@@ -1,5 +1,5 @@
 .wrapper {
-    height: 250px;
+    height: 400px;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
@@ -21,4 +21,11 @@ nz-upload {
 
 ::ng-deep nz-select-item {
     display: flex !important;
+}
+
+.cropper-container {
+    height: fit-content;
+    max-height: 240px;
+    display: flex;
+    justify-content: center;
 }

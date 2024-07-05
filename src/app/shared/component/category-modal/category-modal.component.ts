@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
@@ -12,19 +12,25 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { AdminApi } from '../../../admin/shared/admin.api';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
+import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-category-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, NzInputModule, NzUploadModule, TranslateModule, NzButtonModule, NzIconModule],
+  imports: [ReactiveFormsModule, ImageCropperModule, NzInputModule, NzUploadModule, TranslateModule, NzButtonModule, NzIconModule],
   templateUrl: './category-modal.component.html',
   styleUrl: './category-modal.component.scss'
 })
 export class CategoryModalComponent implements OnInit {
   modalData = inject(NZ_MODAL_DATA);
   formControl = new FormControl();
-  uploadedImgUrl = new FormControl('')
+  
+  @ViewChild('uploader') uploader: ElementRef<HTMLInputElement>;
+  croppedImage: string | null = null;
+  imageChangedEvent: any;
 
+  // deprecated
+  uploadedImgUrl = new FormControl('')
   public uploadRequest = (item: NzUploadXHRArgs) => {
     const formData = new FormData();
     formData.append('file', item.file as any);
@@ -56,6 +62,14 @@ export class CategoryModalComponent implements OnInit {
       this.formControl.setValue(this.modalData.categoryName)
   }
 
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+  }
+
+  triggerFileInput() {
+    this.uploader.nativeElement.click();
+  }
+
   onBack() {
     this.formControl.reset()
     this.modalRef.close(false)
@@ -71,7 +85,7 @@ export class CategoryModalComponent implements OnInit {
     const model = {
       categoryId: this.modalData.categoryId,
       categoryName: this.formControl.value,
-      imageUrl: this.uploadedImgUrl.value
+      imageUrl: this.croppedImage
     }
     this.adminApi.editCategory(model).subscribe(({ success }: any) => {
       if (success) {
@@ -83,7 +97,7 @@ export class CategoryModalComponent implements OnInit {
 
   addCategory_onConfirm() {
     const model = {
-      imageUrl: this.uploadedImgUrl.value,
+      imageUrl: this.croppedImage,
       categoryName: this.formControl.value
     }
     this.adminApi.addCategory(model).subscribe(({ success }: any) => {

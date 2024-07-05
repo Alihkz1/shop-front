@@ -8,14 +8,20 @@
             {{ "newCategory" | translate }}
             }
         </div>
-        <input nz-input [formControl]="formControl" dir="rtl"/>
-        <div class="fielder my-4">
-            <nz-upload [nzCustomRequest]="uploadRequest" dir="rtl">
-                <button nz-button>
-                    <span nz-icon nzType="upload"></span>
-                    {{ "uploadImage" | translate }}
-                </button>
-            </nz-upload>
+        <input nz-input [formControl]="formControl" dir="rtl" />
+        <div class="fielder d-flex flex-column align-items-end w-100 mt-1">
+            <!-- <nz-upload [nzCustomRequest]="uploadRequest" dir="rtl"> -->
+            <button nz-button (click)="triggerFileInput()">
+                <span nz-icon nzType="upload"></span>
+                {{ "uploadImage" | translate }}
+            </button>
+            <!-- </nz-upload> -->
+            <input class="d-none" type="file" (change)="imageChangedEvent = $event" #uploader />
+            <div class="cropper-container">
+                <image-cropper [aspectRatio]="1.14" [imageChangedEvent]="imageChangedEvent" format="png"
+                    (imageCropped)="imageCropped($event)">
+                </image-cropper>
+            </div>
         </div>
     </div>
 
