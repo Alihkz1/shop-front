@@ -53,6 +53,9 @@
 
     <div>
         <button nz-button nzType="default" class="mx-1" (click)="onBack()">{{ "back" | translate }}</button>
-        <button nz-button nzType="primary" class="mx-1" (click)="onSubmit()">{{ "submit" | translate }}</button>
+        <button nz-button nzType="primary" class="mx-1" (click)="onSubmit()"
+            [nzLoading]="saveLoading && !saveLoading.closed">
+            {{ "submit" | translate }}
+        </button>
     </div>
 </div>

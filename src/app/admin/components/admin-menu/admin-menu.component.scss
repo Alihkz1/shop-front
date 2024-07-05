@@ -23,7 +23,7 @@
 }
 
 @include respond (md) {
-    .sm-no-padding {
+    .md-no-padding {
         padding: 0 !important;
     }
 
@@ -42,6 +42,10 @@
 
     .right {
         height: 0;
+    }
+
+    .pages {
+        height: calc(100vh - 170px) !important;
     }
 }
 

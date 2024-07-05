@@ -13,6 +13,7 @@ import { AdminApi } from '../../../admin/shared/admin.api';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-category-modal',
@@ -24,10 +25,11 @@ import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
 export class CategoryModalComponent implements OnInit {
   modalData = inject(NZ_MODAL_DATA);
   formControl = new FormControl();
-  
+
   @ViewChild('uploader') uploader: ElementRef<HTMLInputElement>;
   croppedImage: string | null = null;
   imageChangedEvent: any;
+  saveLoading: Subscription
 
   // deprecated
   uploadedImgUrl = new FormControl('')
@@ -87,7 +89,7 @@ export class CategoryModalComponent implements OnInit {
       categoryName: this.formControl.value,
       imageUrl: this.croppedImage
     }
-    this.adminApi.editCategory(model).subscribe(({ success }: any) => {
+    this.saveLoading = this.adminApi.editCategory(model).subscribe(({ success }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
       }
@@ -100,7 +102,7 @@ export class CategoryModalComponent implements OnInit {
       imageUrl: this.croppedImage,
       categoryName: this.formControl.value
     }
-    this.adminApi.addCategory(model).subscribe(({ success }: any) => {
+    this.saveLoading = this.adminApi.addCategory(model).subscribe(({ success }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
       }

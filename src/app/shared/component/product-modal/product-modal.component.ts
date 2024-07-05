@@ -28,7 +28,7 @@ import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
 export class ProductModalComponent implements OnInit {
   modalData = inject(NZ_MODAL_DATA);
   categories: Category[] = []
-  addLoading: Subscription
+  saveLoading: Subscription
 
   @ViewChild('uploader') uploader: ElementRef<HTMLInputElement>;
   croppedImage: string | null = null;
@@ -115,7 +115,7 @@ export class ProductModalComponent implements OnInit {
   }
 
   editProduct_onConfirm(model: any) {
-    this.addLoading = this.adminApi.editProduct(model).subscribe(({ success }: any) => {
+    this.saveLoading = this.adminApi.editProduct(model).subscribe(({ success }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
       }
@@ -128,7 +128,7 @@ export class ProductModalComponent implements OnInit {
       ...model,
       categoryId: this.form.get('categoryId')?.value
     }
-    this.addLoading = this.adminApi.addProduct(model).subscribe(({ success }: any) => {
+    this.saveLoading = this.adminApi.addProduct(model).subscribe(({ success }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
       }
