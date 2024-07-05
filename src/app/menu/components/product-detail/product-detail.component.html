@@ -1,89 +1,91 @@
-<div class="wrapper-title">
-    {{ 'productDetails' | translate }}
-    <div class="wrapper-title-back" (click)="back()">
-        <img class="wrapper-title-back-icon" src="assets/svg/back.svg">
-        {{ 'back' | translate }}
+<div class="d-flex flex-column h-100">
+    <div class="wrapper-title">
+        {{ 'productDetails' | translate }}
+        <div class="wrapper-title-back" (click)="back()">
+            <img class="wrapper-title-back-icon" src="assets/svg/back.svg">
+            {{ 'back' | translate }}
+        </div>
     </div>
-</div>
-<div class="wrapper">
-    <div class="row">
-        @if (dataLoading && !dataLoading.closed) {
-        <loading class="mt-5"></loading>
-        }@else {
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-            <div class="ps-4 pt-2 d-flex justify-content-center img">
-                <img class="fit" [src]="product?.imageUrl" [alt]="product?.title">
-            </div>
-        </div>
-        <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
-            <div class="detail mt-4">
-                <div class="detail-title">
-                    {{ product?.title }}
-                </div>
-
-                <div class="detail-price mb-2 mt-4">
-                    <span class="detail-price-title"> <b>{{ 'price' | translate }}:</b> </span>
-                    <span class="mx-2"> {{ product?.price | currencyPipe }} {{ 'currency' | translate }} </span>
-                </div>
-
-                <div class="detail-amount my-2">
-                    <span class="detail-amount-title"> <b>{{ 'amount' | translate }}:</b> </span>
-                    <span class="mx-2"> {{ product?.amount }} </span>
-                </div>
-
-                <div class="detail-description mb-4">
-                    <span class="detail-description-title"> <b>{{ 'description' | translate }}:</b> </span>
-                    <span class="mx-2"> {{ product?.description }} </span>
+    <div class="wrapper">
+        <div class="row">
+            @if (dataLoading && !dataLoading.closed) {
+            <loading class="mt-5"></loading>
+            }@else {
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                <div class="ps-4 pt-2 d-flex justify-content-center img">
+                    <img class="fit" [src]="product?.imageUrl" [alt]="product?.title">
                 </div>
             </div>
-
-            <div class="shop">
-                @if (client.isLogin) {
-                @if (client.isAdmin) {
-                <div class="board-data-icons">
-                    <span class="m-2 blue cursor-pointer" nz-icon nzType="edit" nzTheme="outline"
-                        (click)="editProduct_onClick(product); $event.stopPropagation()">
-                    </span>
-                    <span class="m-2 red cursor-pointer" nz-icon nzType="delete" nzTheme="outline"
-                        zPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف محصول؟" nzOkText="بله"
-                        nzCancelText="خیر" (click)="$event.stopPropagation()"
-                        (nzOnConfirm)="deleteProduct_onClick(product)">
-                    </span>
-                </div>
-                }@else {
-                @if (!productInShopCardFlag) {
-
-                @if (product?.amount > 0) {
-                <button nz-button nzType="default" (click)="addToCard()">
-                    {{ 'toShopCard' | translate }}
-                    <span nz-icon nzType="shopping" nzTheme="outline"></span>
-                </button>
-                } @else {
-                <div class="red d-flex justify-content-center">
-                    {{ "notAvailable" | translate }}
-                </div>
-                }
-
-                }@else {
-                <div class="mx-3 mt-1">
-                    <b>{{ "quantity" | translate }}:</b>
-                </div>
-                <nz-button-group>
-                    <button nz-button (click)="minCount()"><span nz-icon nzType="minus"></span></button>
-                    <div class="mx-3 mt-1">
-                        {{ inCardAmount }}
+            <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
+                <div class="detail mt-4">
+                    <div class="detail-title">
+                        {{ product?.title }}
                     </div>
-                    <button nz-button (click)="addCount()"><span nz-icon nzType="plus"></span></button>
-                </nz-button-group>
-                }
-                }
-                }@else {
-                <button nz-button nzType="default" (click)="navigateToLogin()">
-                    {{ 'getInBeforeBuy' | translate }}
-                </button>
-                }
+    
+                    <div class="detail-price mb-2 mt-4">
+                        <span class="detail-price-title"> <b>{{ 'price' | translate }}:</b> </span>
+                        <span class="mx-2"> {{ product?.price | currencyPipe }} {{ 'currency' | translate }} </span>
+                    </div>
+    
+                    <div class="detail-amount my-2">
+                        <span class="detail-amount-title"> <b>{{ 'amount' | translate }}:</b> </span>
+                        <span class="mx-2"> {{ product?.amount }} </span>
+                    </div>
+    
+                    <div *ngIf="product?.description" class="detail-description mb-4">
+                        <span class="detail-description-title"> <b>{{ 'description' | translate }}:</b> </span>
+                        <span class="mx-2"> {{ product?.description }} </span>
+                    </div>
+                </div>
+    
+                <div class="shop">
+                    @if (client.isLogin) {
+                    @if (client.isAdmin) {
+                    <div class="board-data-icons">
+                        <span class="m-2 blue cursor-pointer" nz-icon nzType="edit" nzTheme="outline"
+                            (click)="editProduct_onClick(product); $event.stopPropagation()">
+                        </span>
+                        <span class="m-2 red cursor-pointer" nz-icon nzType="delete" nzTheme="outline"
+                            zPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف محصول؟" nzOkText="بله"
+                            nzCancelText="خیر" (click)="$event.stopPropagation()"
+                            (nzOnConfirm)="deleteProduct_onClick(product)">
+                        </span>
+                    </div>
+                    }@else {
+                    @if (!productInShopCardFlag) {
+    
+                    @if (product?.amount > 0) {
+                    <button nz-button nzType="default" (click)="addToCard()">
+                        {{ 'toShopCard' | translate }}
+                        <span nz-icon nzType="shopping" nzTheme="outline"></span>
+                    </button>
+                    } @else {
+                    <div class="red d-flex justify-content-center">
+                        {{ "notAvailable" | translate }}
+                    </div>
+                    }
+    
+                    }@else {
+                    <div class="mx-3 mt-1">
+                        <b>{{ "quantity" | translate }}:</b>
+                    </div>
+                    <nz-button-group>
+                        <button nz-button (click)="minCount()"><span nz-icon nzType="minus"></span></button>
+                        <div class="mx-3 mt-1">
+                            {{ inCardAmount }}
+                        </div>
+                        <button nz-button (click)="addCount()"><span nz-icon nzType="plus"></span></button>
+                    </nz-button-group>
+                    }
+                    }
+                    }@else {
+                    <button nz-button nzType="default" (click)="navigateToLogin()">
+                        {{ 'getInBeforeBuy' | translate }}
+                    </button>
+                    }
+                </div>
             </div>
+            }
         </div>
-        }
     </div>
 </div>

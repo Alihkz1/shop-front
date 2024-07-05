@@ -1,5 +1,5 @@
 .wrapper {
-    height: 100%;
+    flex-grow: 1;
     overflow: hidden auto;
     padding: 0 5px 15px 5px;
 }
@@ -17,7 +17,7 @@
 .board {
     padding: 14px;
     box-shadow: 1px 1px 10px #d6d6d6;
-    
+
     &-image {
         height: 180px;
         background-color: rgba(241, 241, 241, 0.379);

@@ -66,7 +66,7 @@ export class ProductsComponent implements OnInit {
       nzCentered: true,
       nzClosable: false,
       nzStyle: {
-        width: "400px",
+        width: "500px",
         borderRadius: "6px",
       },
       nzContent: ProductModalComponent,

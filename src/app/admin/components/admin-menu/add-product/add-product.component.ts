@@ -72,7 +72,7 @@ export class AddProductComponent implements OnInit {
       nzCentered: true,
       nzClosable: false,
       nzStyle: {
-        width: "400px",
+        width: "500px",
         borderRadius: "6px",
       },
       nzContent: CategoryModalComponent,
@@ -94,7 +94,7 @@ export class AddProductComponent implements OnInit {
       nzCentered: true,
       nzClosable: false,
       nzStyle: {
-        width: "400px",
+        width: "500px",
         borderRadius: "6px",
       },
       nzContent: ProductModalComponent,
