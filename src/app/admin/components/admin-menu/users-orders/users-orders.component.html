@@ -1,6 +1,6 @@
 <div class="d-flex flex-column h-100">
     <div class="w-100">
-        <button [class.active]="selectedIndex === -1" class="w-20" nz-button nzType="default" (click)="getOrders()">
+        <button [class.active]="selectedIndex === -1" class="w-20" nz-button nzType="default" (click)="selectedIndex = -1; getOrders()">
             {{ 'allOrders' | translate }} ({{ tabsBadge.all }})
         </button>
         <button [class.active]="selectedIndex === 0" class="w-20" nz-button nzType="default" (click)="selectedIndex = 0; getOrders()">

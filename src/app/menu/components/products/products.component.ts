@@ -78,6 +78,8 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  back() { this.location.back() }
+  back() { 
+    this.router.navigate(['menu/categories'])
+   }
 
 }

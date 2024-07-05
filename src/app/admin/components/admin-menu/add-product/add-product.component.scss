@@ -13,7 +13,7 @@
     &-item {
         margin-top: -4px;
         padding: 0 5px 0 0;
-        height: 30px;
+        height:30px;
         height: 30px;
         border-radius: 2px;
         margin-bottom: 1px;
@@ -48,7 +48,7 @@
 .product-item {
     border-bottom: 1px solid rgb(255 205 27);
     display: flex;
-    height: 100px;
+    height: fit-content;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 15px;
@@ -67,6 +67,11 @@
         @media (max-width: 767px) {
             font-size: 12px;
         }
+    }
+
+    &-description {
+        margin: 0 5px;
+        font-size: 13px;
     }
 
     &-image {

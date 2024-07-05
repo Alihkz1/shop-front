@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdminApi } from '../../../shared/admin.api';
-import {  } from '../../../../../env/environment';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -17,6 +16,12 @@ import { Subscription } from 'rxjs';
   styleUrl: './add-product.component.scss'
 })
 export class AddProductComponent implements OnInit {
+  expandId: number | null = null;
+
+  active_onChange(event: Category, flag: boolean) {
+    if (flag) this.expandId = event.categoryId;
+    else this.expandId = null;
+  }
 
   form = new FormGroup({
     categoryId: new FormControl({ value: null, disabled: true }, Validators.required),
@@ -43,9 +48,9 @@ export class AddProductComponent implements OnInit {
 
   getCategories() {
     this.dataLoading = this.adminApi.getCategories()
-    .subscribe(({ data }: any) => {
-      this.categories = data.categories;
-    })
+      .subscribe(({ data }: any) => {
+        this.categories = data.categories;
+      })
   }
 
   deleteCategory_onConfirm(category: any) {
