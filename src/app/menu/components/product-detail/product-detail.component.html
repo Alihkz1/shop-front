@@ -7,10 +7,10 @@
         </div>
     </div>
     <div class="wrapper">
+        @if (dataLoading && !dataLoading.closed) {
+        <loading class="mt-5"></loading>
+        }@else {
         <div class="row">
-            @if (dataLoading && !dataLoading.closed) {
-            <loading class="mt-5"></loading>
-            }@else {
             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
                 <div class="ps-4 pt-2 d-flex justify-content-center img">
                     <img class="fit" [src]="product?.imageUrl" [alt]="product?.title">
@@ -21,23 +21,23 @@
                     <div class="detail-title">
                         {{ product?.title }}
                     </div>
-    
+
                     <div class="detail-price mb-2 mt-4">
                         <span class="detail-price-title"> <b>{{ 'price' | translate }}:</b> </span>
                         <span class="mx-2"> {{ product?.price | currencyPipe }} {{ 'currency' | translate }} </span>
                     </div>
-    
+
                     <div class="detail-amount my-2">
                         <span class="detail-amount-title"> <b>{{ 'amount' | translate }}:</b> </span>
                         <span class="mx-2"> {{ product?.amount }} </span>
                     </div>
-    
+
                     <div *ngIf="product?.description" class="detail-description mb-4">
                         <span class="detail-description-title"> <b>{{ 'description' | translate }}:</b> </span>
                         <span class="mx-2"> {{ product?.description }} </span>
                     </div>
                 </div>
-    
+
                 <div class="shop">
                     @if (client.isLogin) {
                     @if (client.isAdmin) {
@@ -53,7 +53,7 @@
                     </div>
                     }@else {
                     @if (!productInShopCardFlag) {
-    
+
                     @if (product?.amount > 0) {
                     <button nz-button nzType="default" (click)="addToCard()">
                         {{ 'toShopCard' | translate }}
@@ -64,7 +64,7 @@
                         {{ "notAvailable" | translate }}
                     </div>
                     }
-    
+
                     }@else {
                     <div class="mx-3 mt-1">
                         <b>{{ "quantity" | translate }}:</b>
@@ -85,7 +85,7 @@
                     }
                 </div>
             </div>
-            }
         </div>
+        }
     </div>
 </div>

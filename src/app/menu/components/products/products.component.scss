@@ -20,7 +20,7 @@
 
     &-image {
         height: 180px;
-        background-color: rgba(241, 241, 241, 0.379);
+        background-color: rgba(251, 251, 251, 0.379);
         display: flex;
         justify-content: center;
 
@@ -37,6 +37,7 @@
         height: 120px;
         padding: 10px;
         position: relative;
+        justify-content: space-between;
 
         p {
             margin-bottom: 5px;
@@ -48,6 +49,20 @@
             position: absolute;
             bottom: 1px;
             left: 5px;
+        }
+
+        &-title {
+            font-size: 14px;
+            background: cornsilk;
+            padding: 5px 5px 0 5px;
+        }
+
+        &-price {
+            font-size: 13px;
+        }
+
+        &-amount {
+            font-size: 13px;
         }
     }
 }

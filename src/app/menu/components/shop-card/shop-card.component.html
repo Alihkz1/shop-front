@@ -13,7 +13,8 @@
                 </div>
                 <div class="total-price">
                     <b>{{ "totalPrice" | translate }}: {{ totalPrice | currencyPipe }} {{ "currency" | translate }}</b>
-                    <button [disabled]="amountError" class="mt-4 sender-button" nz-button nzType="default"
+                    <!-- <button [disabled]="amountError" class="mt-4 sender-button" nz-button nzType="default" -->
+                    <button [disabled]="true" class="mt-4 sender-button" nz-button nzType="default"
                         (click)="onConfirmCard()">
                         {{ "senderDetails" | translate }}
                     </button>
