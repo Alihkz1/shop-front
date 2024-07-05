@@ -19,6 +19,7 @@
 
     &-image {
         max-height: 200px;
+        width: 150px;
     }
 
     &-detail {
@@ -119,4 +120,14 @@ nz-button-group {
 .red-card {
     border-top: 1px solid red;
     border-bottom: 1px solid red;
+}
+
+.delete {
+    margin-right: 30px;
+    font-size: 20px;
+    border: 1px solid #e5e5e5;
+    padding: 6px;
+    border-radius: 20px;
+    color: red;
+    cursor: pointer;
 }

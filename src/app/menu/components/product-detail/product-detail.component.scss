@@ -85,3 +85,13 @@ nz-button-group {
 .img {
     background-color: rgba(241, 241, 241, 0.379);
 }
+
+.delete {
+    margin-right: 30px;
+    font-size: 20px;
+    border: 1px solid #e5e5e5;
+    padding: 6px;
+    border-radius: 20px;
+    color: red;
+    cursor: pointer;
+}

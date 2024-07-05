@@ -10,7 +10,6 @@ import { ProductModalComponent } from '../../../shared/component/product-modal/p
 import { AdminApi } from '../../../admin/shared/admin.api';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ShopCard } from '../../../shared/model/shop-card.model';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-product-detail',
@@ -30,7 +29,6 @@ export class ProductDetailComponent implements OnInit {
     public router: Router,
     private menuApi: MenuApi,
     public adminApi: AdminApi,
-    private location: Location,
     public client: ClientService,
     private route: ActivatedRoute,
     private message: NzMessageService,
@@ -94,6 +92,21 @@ export class ProductDetailComponent implements OnInit {
     })
   }
 
+  deleteFromShopCard() {
+    const otherCards = this.userShopCard.filter(c => c.productId != this.product.productId);
+    const model = {
+      userId: this.client.getUser.user.userId,
+      products: otherCards
+    }
+    this.menuApi.modifyShopCard(model).subscribe(({ success }: any) => {
+      if (success) {
+        this.productInShopCardFlag = false;
+        this.client.shopCardLength -= 1;
+        this.getShopCard()
+      }
+    })
+  }
+
   public navigateToLogin() {
     localStorage.setItem('routeAfterLogin', this.router.url)
     this.router.navigate(['/auth/login'])
@@ -150,6 +163,9 @@ export class ProductDetailComponent implements OnInit {
     this.menuApi.modifyShopCard(model).subscribe();
   }
 
-  back() { this.location.back() }
+  back() {
+    const { categoryId } = this.route.snapshot.params
+    this.router.navigate(['menu/products', categoryId])
+  }
 
 }
