@@ -17,11 +17,16 @@ import { TranslateService } from "@ngx-translate/core";
 import { PriceFormatDirective } from '../../../menu/shared/directive/price-format.directive';
 import { NumberToCurrency } from '../../function/currency-format.functions';
 import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 @Component({
   selector: 'app-product-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, ImageCropperModule, PriceFormatDirective, TranslateModule, NzSelectModule, NzInputModule, NzButtonModule, NzUploadModule, NzIconModule],
+  imports: [
+    ReactiveFormsModule, NzCheckboxModule, ImageCropperModule,
+    PriceFormatDirective, TranslateModule, NzSelectModule,
+    NzInputModule, NzButtonModule, NzUploadModule, NzIconModule
+  ],
   templateUrl: './product-modal.component.html',
   styleUrl: './product-modal.component.scss'
 })
@@ -29,10 +34,12 @@ export class ProductModalComponent implements OnInit {
   modalData = inject(NZ_MODAL_DATA);
   categories: Category[] = []
   saveLoading: Subscription
+  standardSizeControl = new FormControl(true);
 
   @ViewChild('uploader') uploader: ElementRef<HTMLInputElement>;
   croppedImage: string | null = null;
   imageChangedEvent: any;
+  aspectRatio = 1.14;
 
   form = new FormGroup({
     categoryId: new FormControl({ value: null, disabled: true }, Validators.required),
@@ -72,6 +79,11 @@ export class ProductModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.standardSizeControl.valueChanges.subscribe((flag: boolean) => {
+      if (flag) this.aspectRatio = 1.14
+      else this.aspectRatio = 0.75;
+    })
+
     if (this.modalData.product) {
       const model = {
         ...this.modalData.product,

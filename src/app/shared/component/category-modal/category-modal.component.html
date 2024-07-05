@@ -11,14 +11,24 @@
         <input nz-input [formControl]="formControl" dir="rtl" />
         <div class="fielder d-flex flex-column align-items-end w-100 mt-1">
             <!-- <nz-upload [nzCustomRequest]="uploadRequest" dir="rtl"> -->
-            <button nz-button (click)="triggerFileInput()">
-                <span nz-icon nzType="upload"></span>
-                {{ "uploadImage" | translate }}
-            </button>
+            <div class="d-flex justify-content-between w-100">
+
+                <div>
+                    @if (imageChangedEvent) {
+                    <label nz-checkbox [formControl]="standardSizeControl">{{ "standardSize" | translate }}</label>
+                    }
+                </div>
+
+                <button nz-button (click)="triggerFileInput()">
+                    <span nz-icon nzType="upload"></span>
+                    {{ "uploadImage" | translate }}
+                </button>
+
+            </div>
             <!-- </nz-upload> -->
             <input class="d-none" type="file" (change)="imageChangedEvent = $event" #uploader />
             <div class="cropper-container">
-                <image-cropper [aspectRatio]="1.14" [imageChangedEvent]="imageChangedEvent" format="png"
+                <image-cropper [aspectRatio]="aspectRatio" [imageChangedEvent]="imageChangedEvent" format="png"
                     (imageCropped)="imageCropped($event)">
                 </image-cropper>
             </div>

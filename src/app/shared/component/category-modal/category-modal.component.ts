@@ -14,21 +14,27 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
 import { Subscription } from 'rxjs';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 @Component({
   selector: 'app-category-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, ImageCropperModule, NzInputModule, NzUploadModule, TranslateModule, NzButtonModule, NzIconModule],
+  imports: [
+    ReactiveFormsModule, ImageCropperModule, NzInputModule, ReactiveFormsModule,
+    NzUploadModule, TranslateModule, NzButtonModule, NzIconModule, NzCheckboxModule
+  ],
   templateUrl: './category-modal.component.html',
   styleUrl: './category-modal.component.scss'
 })
 export class CategoryModalComponent implements OnInit {
   modalData = inject(NZ_MODAL_DATA);
   formControl = new FormControl();
+  standardSizeControl = new FormControl(true);
 
   @ViewChild('uploader') uploader: ElementRef<HTMLInputElement>;
   croppedImage: string | null = null;
   imageChangedEvent: any;
+  aspectRatio = 1.14;
   saveLoading: Subscription
 
   // deprecated
@@ -62,6 +68,10 @@ export class CategoryModalComponent implements OnInit {
   ngOnInit(): void {
     if (this.modalData)
       this.formControl.setValue(this.modalData.categoryName)
+    this.standardSizeControl.valueChanges.subscribe((flag: boolean) => {
+      if (flag) this.aspectRatio = 1.14
+      else this.aspectRatio = 0.75;
+    })
   }
 
   imageCropped(event: ImageCroppedEvent) {
