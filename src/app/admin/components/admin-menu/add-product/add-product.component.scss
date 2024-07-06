@@ -1,20 +1,9 @@
-.row {
-    height: calc(100vh - 100px);
-    padding: 0 100px;
-
-    @media (max-width: 1200px) and (min-width: 767px) {
-        padding: 0 20px;
-    }
-
-    @media (max-width: 767px) {
-        padding: 0;
-        height: calc(100vh - 65px);
-    }
-}
-
 .category-list {
     height: fit-content;
+    max-height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 
     &-name {
         margin: 0 4px 6px 0;
@@ -24,7 +13,7 @@
     &-item {
         margin-top: -4px;
         padding: 0 5px 0 0;
-        height: 30px;
+        height:30px;
         height: 30px;
         border-radius: 2px;
         margin-bottom: 1px;
@@ -52,25 +41,14 @@
     }
 }
 
-nz-collapse {
-    height: fit-content;
-    max-height: calc(100vh - 176px);
-}
-
-@media (max-width: 767px) {
-    .category-list {
-        margin-top: 10px;
-    }
-
-    nz-collapse {
-        max-height: calc(100vh - 270px);
-    }
+::ng-deep .ant-collapse-header {
+    background: aliceblue !important;
 }
 
 .product-item {
     border-bottom: 1px solid rgb(255 205 27);
     display: flex;
-    height: 100px;
+    height: fit-content;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 15px;
@@ -89,6 +67,11 @@ nz-collapse {
         @media (max-width: 767px) {
             font-size: 12px;
         }
+    }
+
+    &-description {
+        margin: 0 5px;
+        font-size: 13px;
     }
 
     &-image {

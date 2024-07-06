@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuApi } from '../../shared/menu.api';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { Category } from '../../../shared/model/category.model';
 import { Router } from '@angular/router';
 import { ClientService } from '../../../shared/service/client.service';
@@ -18,6 +18,7 @@ import { TranslateService } from "@ngx-translate/core";
 export class CategoriesComponent implements OnInit {
   private _categories$: BehaviorSubject<Category[]> = new BehaviorSubject<Category[]>([]);
   public get categories() { return this._categories$.getValue() }
+  dataLoading: Subscription;
 
   constructor(
     private modalService: NzModalService,
@@ -34,7 +35,8 @@ export class CategoriesComponent implements OnInit {
   }
 
   getData() {
-    this.menuApi.getCategories().subscribe(({ success, data }: any) => {
+    this.dataLoading = this.menuApi.getCategories()
+    .subscribe(({ success, data }: any) => {
       if (success) {
         this._categories$.next(data.categories);
       }
@@ -51,7 +53,7 @@ export class CategoriesComponent implements OnInit {
       nzCentered: true,
       nzClosable: false,
       nzStyle: {
-        width: "400px",
+        width: "500px",
         borderRadius: "6px",
       },
       nzContent: CategoryModalComponent,

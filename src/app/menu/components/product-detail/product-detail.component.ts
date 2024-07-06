@@ -3,14 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MenuApi } from '../../shared/menu.api';
 import { Product } from '../../../shared/model/product.model';
 import { ClientService } from '../../../shared/service/client.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { ProductModalComponent } from '../../../shared/component/product-modal/product-modal.component';
 import { AdminApi } from '../../../admin/shared/admin.api';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ShopCard } from '../../../shared/model/shop-card.model';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-product-detail',
@@ -21,6 +20,7 @@ export class ProductDetailComponent implements OnInit {
   product: any;
   productInShopCardFlag = false
   inCardAmount: number = 0
+  dataLoading: Subscription;
 
   private _userShopCard$ = new BehaviorSubject<ShopCard[]>([]);
   public get userShopCard() { return this._userShopCard$.getValue() }
@@ -29,7 +29,6 @@ export class ProductDetailComponent implements OnInit {
     public router: Router,
     private menuApi: MenuApi,
     public adminApi: AdminApi,
-    private location: Location,
     public client: ClientService,
     private route: ActivatedRoute,
     private message: NzMessageService,
@@ -63,7 +62,7 @@ export class ProductDetailComponent implements OnInit {
 
   private getData() {
     const { productId } = this.route.snapshot.params;
-    this.menuApi.getProductRetrieve(productId).subscribe(({ success, data }: any) => {
+    this.dataLoading = this.menuApi.getProductRetrieve(productId).subscribe(({ success, data }: any) => {
       if (!success) return;
       this.product = data.product;
       this.getShopCard()
@@ -93,6 +92,21 @@ export class ProductDetailComponent implements OnInit {
     })
   }
 
+  deleteFromShopCard() {
+    const otherCards = this.userShopCard.filter(c => c.productId != this.product.productId);
+    const model = {
+      userId: this.client.getUser.user.userId,
+      products: otherCards
+    }
+    this.menuApi.modifyShopCard(model).subscribe(({ success }: any) => {
+      if (success) {
+        this.productInShopCardFlag = false;
+        this.client.shopCardLength -= 1;
+        this.getShopCard()
+      }
+    })
+  }
+
   public navigateToLogin() {
     localStorage.setItem('routeAfterLogin', this.router.url)
     this.router.navigate(['/auth/login'])
@@ -114,7 +128,7 @@ export class ProductDetailComponent implements OnInit {
       nzCentered: true,
       nzClosable: false,
       nzStyle: {
-        width: "400px",
+        width: "500px",
         borderRadius: "6px",
       },
       nzContent: ProductModalComponent,
@@ -149,6 +163,9 @@ export class ProductDetailComponent implements OnInit {
     this.menuApi.modifyShopCard(model).subscribe();
   }
 
-  back() { this.location.back() }
+  back() {
+    const { categoryId } = this.route.snapshot.params
+    this.router.navigate(['menu/products', categoryId])
+  }
 
 }

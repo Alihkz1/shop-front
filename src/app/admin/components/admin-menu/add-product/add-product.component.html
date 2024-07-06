@@ -1,66 +1,73 @@
-<div class="row">
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-        <div class="category-list">
-            <div class="d-flex">
-                <div class="category-list-name">
-                    {{ "categories" | translate }}
-                </div>
-                <div class="category-list-add" (click)="openCategoryModal()">
-                    <button nz-button nzType="default"><span nz-icon nzType="plus" nzTheme="outline"></span>
-                    </button>
-                </div>
-            </div>
-            <nz-collapse class="overflow-auto">
-                @for (category of categories; track $index) {
-                <nz-collapse-panel [nzHeader]="categoryHeader">
-                    @for (product of category.products; track $index) {
-                    <div class="product-item">
-                        <div class="product-item-info">
-                            <p class="product-item-title">{{ product.title }}</p>
-                            <p class="product-item-amount">
-                                <span>{{ "amount" | translate }}:</span> {{ product.amount }}
-                            </p>
-                            <p class="product-item-price">
-                                <span>{{ "price" | translate }}:</span> {{ product.price | currencyPipe }} {{ "currency" | translate }}
-                            </p>
-                            <div>
-                                <span class="product-item-icon blue" nz-icon nzType="edit" nzTheme="outline"
-                                    (click)="openProductModal(product,null)">
-                                </span>
-                                <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف محصول؟"
-                                    class="product-item-icon red" nzOkText="بله" nzCancelText="خیر" nz-icon nzType="delete" nzTheme="outline"
-                                    (nzOnConfirm)="deleteProduct_onConfirm(product)">
-                                </span>
-                            </div>
-                        </div>
-                        <img class="product-item-image" [src]="product.imageUrl">
-                    </div>
-                    }
-                </nz-collapse-panel>
-                <ng-template #categoryHeader>
-                    <div class="category-list-item">
-                        <div class="d-flex align-items-center" (click)="$event.stopPropagation()">
-                            <!-- todo: translate -->
-                            <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف دسته بندی؟"
-                                class="category-list-icon red me-1" nzOkText="بله" nzCancelText="خیر" nz-icon
-                                nzType="delete" nzTheme="outline" (nzOnConfirm)="deleteCategory_onConfirm(category)">
-                            </span>
-                            <span class="category-list-icon blue" nz-icon nzType="edit" nzTheme="outline"
-                                (click)="openCategoryModal(category)">
-                            </span>
-
-                            <span class="category-list-icon blue" nz-icon nzType="plus" nzTheme="outline"
-                                (click)="openProductModal(null, category)">
-                            </span>
-                        </div>
-
-                        <div class="d-flex align-items-center category-list-title">
-                            <div class="mt-1">{{ category.categoryName }}</div>
-                        </div>
-                    </div>
-                </ng-template>
-                }
-            </nz-collapse>
+<div class="category-list">
+    <div class="d-flex">
+        <div class="category-list-name">
+            {{ "categories" | translate }}
+        </div>
+        <div class="category-list-add" (click)="openCategoryModal()">
+            <button nz-button nzType="default"><span nz-icon nzType="plus" nzTheme="outline"></span>
+            </button>
         </div>
     </div>
+    @if (dataLoading && !dataLoading.closed) {
+    <loading class="mt-5"></loading>
+    }@else {
+    <nz-collapse class="overflow-auto flex-grow">
+        @for (category of categories; track $index) {
+        <nz-collapse-panel [nzHeader]="categoryHeader" [nzActive]="category.categoryId === expandId"
+            (nzActiveChange)="active_onChange(category,$event)">
+            @for (product of category.products; track $index) {
+            <div class="product-item">
+                <div class="product-item-info">
+                    <p class="product-item-title">{{ product.title }}</p>
+                    <p class="product-item-amount">
+                        <span>{{ "amount" | translate }}:</span> {{ product.amount }}
+                    </p>
+                    <p class="product-item-price">
+                        <span>{{ "price" | translate }}:</span> {{ product.price | currencyPipe }}
+                        {{ "currency" | translate }}
+                    </p>
+                    @if (product.description) {
+                    <p class="product-item-description">
+                        <span>{{ "description" | translate }}:</span> {{ product.description | currencyPipe }}
+                    </p>
+                    }
+                    <div>
+                        <span class="product-item-icon blue" nz-icon nzType="edit" nzTheme="outline"
+                            (click)="openProductModal(product,null)">
+                        </span>
+                        <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف محصول؟"
+                            class="product-item-icon red" nzOkText="بله" nzCancelText="خیر" nz-icon nzType="delete"
+                            nzTheme="outline" (nzOnConfirm)="deleteProduct_onConfirm(product)">
+                        </span>
+                    </div>
+                </div>
+                <img class="product-item-image" [src]="product.imageUrl">
+            </div>
+            }
+        </nz-collapse-panel>
+        <ng-template #categoryHeader>
+            <div class="category-list-item">
+                <div class="d-flex align-items-center" (click)="$event.stopPropagation()">
+                    <!-- todo: translate -->
+                    <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف دسته بندی؟"
+                        class="category-list-icon red me-1" nzOkText="بله" nzCancelText="خیر" nz-icon nzType="delete"
+                        nzTheme="outline" (nzOnConfirm)="deleteCategory_onConfirm(category)">
+                    </span>
+                    <span class="category-list-icon blue" nz-icon nzType="edit" nzTheme="outline"
+                        (click)="openCategoryModal(category)">
+                    </span>
+
+                    <span class="category-list-icon blue" nz-icon nzType="plus" nzTheme="outline"
+                        (click)="openProductModal(null, category)">
+                    </span>
+                </div>
+
+                <div class="d-flex align-items-center category-list-title">
+                    <div class="mt-1">{{ category.categoryName }}</div>
+                </div>
+            </div>
+        </ng-template>
+        }
+    </nz-collapse>
+    }
 </div>

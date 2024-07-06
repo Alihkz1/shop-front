@@ -1,23 +1,33 @@
+@import '../../../shared/style/mixins.scss';
+
 .wrapper {
-    height: 100%;
+    flex-grow: 1;
     overflow: hidden auto;
-    padding: 0 5px 15px 5px;
+    padding-bottom: 15px;
 }
 
 .fit {
     width: fit-content;
     height: fit-content;
-    max-width: 300px;
-    max-height: 300px;
-    border: 1px solid #d7d7d7;
+    max-width: 220px;
+    max-height: 220px;
     border-radius: 8px;
+
+    @include respond(md) {
+        max-width: 160px;
+        max-height: 160px;
+    }
 }
 
 .detail {
-    border-bottom: 1px solid #d6d6d6;
+    padding: 15px;
+
+    @media (max-width: 767px) {
+        padding: 0;
+    }
 
     &-title {
-        font-size: 22px;
+        font-size: 14px;
         border-bottom: 1px solid #d6d6d6;
         display: flex;
         justify-content: center;
@@ -27,19 +37,61 @@
 
     &-amount {
         &-title {
-            font-size: 17px;
+            font-size: 13px;
         }
     }
 
     &-price {
         &-title {
-            font-size: 17px;
+            font-size: 13px;
+        }
+    }
+
+    &-description {
+        &-title {
+            font-size: 13px;
         }
     }
 }
 
 .shop {
-    margin-top: 30px;
     display: flex;
     justify-content: center;
+}
+
+nz-button-group {
+    button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 40px;
+        background: #fff;
+
+        span {
+            font-size: 13px;
+        }
+    }
+}
+
+.row {
+    margin: 10px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid #d6d6d6;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 1px 1px 10px #e1e1e1;
+}
+
+.img {
+    background-color: rgba(241, 241, 241, 0.379);
+}
+
+.delete {
+    margin-right: 30px;
+    font-size: 20px;
+    border: 1px solid #e5e5e5;
+    padding: 6px;
+    border-radius: 20px;
+    color: red;
+    cursor: pointer;
 }

@@ -1,4 +1,4 @@
-<div class="w-100 d-flex justify-content-center pt-4 pb-2 px-2">
+<div class="wrapper w-100 d-flex justify-content-center pt-4 pb-2 px-2">
     <div class="header" dir="ltr">
         @if (client.isLogin) {
         <div>
@@ -8,15 +8,18 @@
             }
 
             <span class="burger mx-3 mt-1" nz-icon nzType="menu" nzTheme="outline" nz-dropdown [nzDropdownMenu]="menu"
-                nzPlacement="bottomCenter">
+                nzPlacement="bottomCenter" (click)="burger_onClick()">
             </span>
-            
+
             <nz-dropdown-menu #menu="nzDropdownMenu">
+                @if (showBurgerMenu) {
                 <ul nz-menu>
                     @for (button of client.headerButtons; track $index) {
-                    <li class="menu-item" (click)="navigate(button.route)">{{ button.title | translate }}</li>
+                    <li class="menu-item" (click)="navigate(button.route); showBurgerMenu = false">{{ button.title |
+                        translate }}</li>
                     }
                 </ul>
+                }
             </nz-dropdown-menu>
 
             @if (client.getUser.user.role === 'USER') {
@@ -33,7 +36,7 @@
         </div>
         }
         @else {
-        <button class="button" (click)="contactUs_onClick()">{{ "contactUs" | translate }}</button>
+        <!-- <button class="button" (click)="contactUs_onClick()">{{ "contactUs" | translate }}</button> -->
         <button class="button" (click)="navigate('menu/categories')">{{ "products" | translate }}</button>
         <button class="button login" (click)="login_onClick()">{{ "loginButton" | translate }}</button>
         }

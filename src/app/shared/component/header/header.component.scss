@@ -51,6 +51,12 @@
     }
 }
 
+.wrapper {
+    @media (max-width: 767px) {
+        padding-top: 5px !important;
+    }
+}
+
 .menu-item {
     height: 50px;
     width: 120px;

@@ -1,6 +1,4 @@
-.box {
-    height: calc(100vh - 100px);
-}
+@import "../../../shared/style/mixins.scss";
 
 .menu {
     padding: 10px 5px;
@@ -21,8 +19,37 @@
 .right {
     background: #fff;
     border-radius: 4px;
+    height: 100%;
+}
 
-    @media (max-width: 767px) {
-        height: fit-content;
+@include respond (md) {
+    .md-no-padding {
+        padding: 0 !important;
     }
+
+    .menu {
+        padding: 0 5px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        z-index: 1;
+
+        &-item {
+            font-size: 10px;
+        }
+    }
+
+    .right {
+        height: 0;
+    }
+
+    .pages {
+        height: calc(100vh - 200px) !important;
+    }
+}
+
+.pages {
+    height: calc(100vh - 100px);
+    overflow: hidden;
 }

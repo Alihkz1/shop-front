@@ -59,7 +59,7 @@ export class MenuApi {
       .call();
   }
 
-  public getUserShopCard(userId: number) {
+  public  getUserShopCard(userId: number) {
     return Api()
       .get()
       .controller('card')
@@ -95,12 +95,31 @@ export class MenuApi {
       .call()
   }
 
-  public getOrders(userId: number) {
+  public getOrders(model: { userId: number; status?: number }) {
     return Api()
       .get()
       .controller('order')
       .action('list')
-      .pathVariable(String(userId))
+      .pathVariable(String(model.userId))
+      .param({ status: model.status })
+      .call()
+  }
+
+  public orderNotDeliver(orderId: number) {
+    return Api()
+      .put()
+      .controller('order')
+      .action('not-deliver')
+      .pathVariable(String(orderId))
+      .call()
+  }
+
+  public productAmountCheck(model: any) {
+    return Api()
+      .get()
+      .controller('product')
+      .action('amount-check')
+      .param(model)
       .call()
   }
 }

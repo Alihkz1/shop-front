@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
@@ -16,28 +16,42 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { PriceFormatDirective } from '../../../menu/shared/directive/price-format.directive';
 import { NumberToCurrency } from '../../function/currency-format.functions';
+import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 @Component({
   selector: 'app-product-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, PriceFormatDirective, TranslateModule, NzSelectModule, NzInputModule, NzButtonModule, NzUploadModule, NzIconModule],
+  imports: [
+    ReactiveFormsModule, NzCheckboxModule, ImageCropperModule,
+    PriceFormatDirective, TranslateModule, NzSelectModule,
+    NzInputModule, NzButtonModule, NzUploadModule, NzIconModule
+  ],
   templateUrl: './product-modal.component.html',
   styleUrl: './product-modal.component.scss'
 })
 export class ProductModalComponent implements OnInit {
   modalData = inject(NZ_MODAL_DATA);
   categories: Category[] = []
-  uploadedImgUrl = new FormControl('')
-  addLoading: Subscription
+  saveLoading: Subscription
+  standardSizeControl = new FormControl(true);
+
+  @ViewChild('uploader') uploader: ElementRef<HTMLInputElement>;
+  croppedImage: string | null = null;
+  imageChangedEvent: any;
+  aspectRatio = 1.14;
 
   form = new FormGroup({
     categoryId: new FormControl({ value: null, disabled: true }, Validators.required),
     title: new FormControl(null, Validators.required),
     price: new FormControl(null, Validators.required),
     amount: new FormControl(null, Validators.required),
+    description: new FormControl(null, Validators.required),
     productId: new FormControl(null, Validators.required),
   });
 
+  // deprecated
+  uploadedImgUrl = new FormControl('')
   public uploadRequest = (item: NzUploadXHRArgs) => {
     const formData = new FormData();
     formData.append('file', item.file as any);
@@ -65,6 +79,11 @@ export class ProductModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.standardSizeControl.valueChanges.subscribe((flag: boolean) => {
+      if (flag) this.aspectRatio = 1.14
+      else this.aspectRatio = 0.75;
+    })
+
     if (this.modalData.product) {
       const model = {
         ...this.modalData.product,
@@ -73,6 +92,14 @@ export class ProductModalComponent implements OnInit {
       this.form.patchValue(model)
     }
     this.getCategories()
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+  }
+
+  triggerFileInput() {
+    this.uploader.nativeElement.click();
   }
 
   getCategories() {
@@ -91,7 +118,7 @@ export class ProductModalComponent implements OnInit {
     const model = {
       ...this.form.value,
       price: +this.form.value.price.replaceAll(',', ''),
-      imageUrl: this.uploadedImgUrl.value,
+      imageUrl: this.croppedImage,
     }
 
     if (this.modalData.product)
@@ -100,7 +127,7 @@ export class ProductModalComponent implements OnInit {
   }
 
   editProduct_onConfirm(model: any) {
-    this.addLoading = this.adminApi.editProduct(model).subscribe(({ success }: any) => {
+    this.saveLoading = this.adminApi.editProduct(model).subscribe(({ success }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
       }
@@ -113,7 +140,7 @@ export class ProductModalComponent implements OnInit {
       ...model,
       categoryId: this.form.get('categoryId')?.value
     }
-    this.addLoading = this.adminApi.addProduct(model).subscribe(({ success }: any) => {
+    this.saveLoading = this.adminApi.addProduct(model).subscribe(({ success }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
       }

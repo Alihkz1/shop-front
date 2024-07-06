@@ -1,4 +1,4 @@
-@import url('../src/app/shared/color/colors.scss');
+@import url('../src/app/shared/style/colors.scss');
 @import url('../src/assets/fonts/fontiran.css');
 
 * {
@@ -7,14 +7,14 @@
 
 html,
 body {
-    height: 100%;
+    height: auto !important;
+    background: #eff0f5 !important;
 }
 
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     padding-bottom: env(safe-area-inset-bottom);
-    /* todo: check */
 }
 
 .normal-button {
@@ -174,4 +174,9 @@ button.submit {
             transform: rotate(180deg);
         }
     }
+}
+
+
+.w-20 {
+    width: 20%;
 }

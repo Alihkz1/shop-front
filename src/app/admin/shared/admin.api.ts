@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Api } from '../../shared/class/request-builder';
+import { ORDER_STATUS } from '../../shared/enum/order-status.enum';
+import { ParamsHandler } from '../../shared/class/params-handler';
 
 @Injectable({
   providedIn: 'root'
@@ -144,6 +146,24 @@ export class AdminApi {
       .put()
       .controller('user')
       .action('change-password')
+      .body(model)
+      .call()
+  }
+
+  public getAllOrders(params: any) {
+    return Api()
+      .get()
+      .controller('order')
+      .action('admin-list')
+      .param(params)
+      .call()
+  }
+
+  public changeOrderStatus(model: any) {
+    return Api()
+      .put()
+      .controller('order')
+      .action('change-status')
       .body(model)
       .call()
   }

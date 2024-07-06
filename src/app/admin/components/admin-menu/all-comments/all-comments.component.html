@@ -1,62 +1,59 @@
-<div class="row">
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-        <div class="box">
-            <nz-table #basicTable [nzData]="comments" nzTableLayout="fixed" nzShowPagination="false">
-                <thead>
-                    <tr>
-                        <th nzWidth="150px">
-                            <div class="d-flex justify-content-center">
-                                {{ 'email' | translate}}
-                            </div>
-                        </th>
-                        <th nzWidth="150px">
-                            <div class="d-flex justify-content-center">
-                                {{ 'allName' | translate}}
-                            </div>
-                        </th>
-                        <th nzWidth="150px">
-                            <div class="d-flex justify-content-center">
-                                {{ 'phone' | translate}}
-                            </div>
-                        </th>
-                        <th nzWidth="120px">
-                            <div class="d-flex justify-content-center">
-                                {{ 'date' | translate}}
-                            </div>
-                        </th>
-                        <th nzWidth="250px">
-                            <div class="d-flex justify-content-center">
-                                {{ 'comment' | translate}}
-                            </div>
-                        </th>
-                        <th nzWidth="100px">
-                            <div class="d-flex justify-content-center">
-                                {{ 'actions' | translate}}
-                            </div>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <ng-container *ngFor="let row of basicTable.data">
-                        <tr [class.green-bg]="row.role === 'ADMIN'">
-                            <td>{{ row.user?.email }}</td>
-                            <td>{{ row.user?.name }}</td>
-                            <td>{{ row.user?.phone }}</td>
-                            <td>{{ row.comment?.date }}</td>
-                            <td>{{ row.comment?.message }}</td>
-                            <td>
-                                <label nzTooltipTitle="خوانده شد" nzTooltipPlacement="top" nz-tooltip
-                                    class="comment-read mx-1" nz-checkbox [nzChecked]="row.comment.read"
-                                    (nzCheckedChange)="read_onChange($event,row.comment)"></label>
+@if (dataLoading && !dataLoading.closed) {
+<loading></loading>
+}@else {
+<nz-table class="w-100" #basicTable [nzData]="comments" nzTableLayout="fixed" nzShowPagination="false">
+    <thead>
+        <tr>
+            <th nzWidth="150px">
+                <div class="d-flex justify-content-center">
+                    {{ 'email' | translate}}
+                </div>
+            </th>
+            <th nzWidth="150px">
+                <div class="d-flex justify-content-center">
+                    {{ 'allName' | translate}}
+                </div>
+            </th>
+            <th nzWidth="150px">
+                <div class="d-flex justify-content-center">
+                    {{ 'phone' | translate}}
+                </div>
+            </th>
+            <th nzWidth="120px">
+                <div class="d-flex justify-content-center">
+                    {{ 'date' | translate}}
+                </div>
+            </th>
+            <th nzWidth="250px">
+                <div class="d-flex justify-content-center">
+                    {{ 'comment' | translate}}
+                </div>
+            </th>
+            <th nzWidth="100px">
+                <div class="d-flex justify-content-center">
+                    {{ 'actions' | translate}}
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let row of basicTable.data">
+            <tr [class.green-bg]="row.role === 'ADMIN'">
+                <td>{{ row.user?.email }}</td>
+                <td>{{ row.user?.name }}</td>
+                <td>{{ row.user?.phone }}</td>
+                <td>{{ row.comment?.date }}</td>
+                <td>{{ row.comment?.message }}</td>
+                <td>
+                    <label nzTooltipTitle="خوانده شد" nzTooltipPlacement="top" nz-tooltip class="comment-read mx-1"
+                        nz-checkbox [nzChecked]="row.comment.read"
+                        (nzCheckedChange)="read_onChange($event,row.comment)"></label>
 
-                                <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف نظر؟"
-                                    class="red cursor-pointer mx-1" nzOkText="بله" nzCancelText="خیر" nz-icon
-                                    nzType="delete" nzTheme="outline"
-                                    (nzOnConfirm)="deleteComment(row.comment.commentId)"></span>
-                            </td>
-                    </ng-container>
-                </tbody>
-            </nz-table>
-        </div>
-    </div>
-</div>
+                    <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف نظر؟"
+                        class="red cursor-pointer mx-1" nzOkText="بله" nzCancelText="خیر" nz-icon nzType="delete"
+                        nzTheme="outline" (nzOnConfirm)="deleteComment(row.comment.commentId)"></span>
+                </td>
+        </ng-container>
+    </tbody>
+</nz-table>
+}

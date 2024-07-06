@@ -2,24 +2,29 @@
     <div class="wrapper-title">
         {{ 'shopCard' | translate }}
     </div>
-    <div class="row">
+    <div class="row flex-grow overflow-auto">
+        @if (dataLoading) {
+        <loading class="mt-5"></loading>
+        }@else {
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 px-0">
             <div class="box info">
                 <div class="finalize">
                     {{ "makeOrderFinal" | translate }}
                 </div>
-                <div class="total-price mt-2">
-                    {{ "totalPrice" | translate }}: {{ totalPrice | currencyPipe }} {{ "currency" | translate }}
-                    <button class="mt-5 sender-button" nz-button nzType="default" (click)="onConfirmCard()">
+                <div class="total-price">
+                    <b>{{ "totalPrice" | translate }}: {{ totalPrice | currencyPipe }} {{ "currency" | translate }}</b>
+                    <!-- <button [disabled]="amountError" class="mt-4 sender-button" nz-button nzType="default" -->
+                    <button [disabled]="true" class="mt-4 sender-button" nz-button nzType="default"
+                        (click)="onConfirmCard()">
                         {{ "senderDetails" | translate }}
                     </button>
                 </div>
             </div>
         </div>
-        <div class="col-xl-19 col-lg-9 col-md-9 col-sm-12 px-0 overflow-auto page-h">
+        <div class="col-xl-19 col-lg-9 col-md-9 col-sm-12 px-0 overflow-auto flex-grow">
             @for (card of cards; track $index) {
-            <div class="box">
-                <!-- <img class="box-image" [src]="card.imageUrl" alt=""> -->
+            <div class="box" [class.red-card]="card.inCardAmount > card.amount">
+                <img class="box-image" [src]="card.imageUrl" alt="">
                 <div class="box-detail flex-grow">
                     <div>
                         <div class="box-detail-title">
@@ -30,6 +35,13 @@
                             {{ "currency" | translate }}
                         </div>
                     </div>
+
+                    @if (card.inCardAmount > card.amount) {
+                    <nz-alert nzType="error" [nzMessage]="amountError"></nz-alert>
+                    <ng-template #amountError>
+                        {{ "notAvailableAmount" | translate }}
+                    </ng-template>
+                    }
                     <div class="w-100 d-flex justify-content-between">
                         <nz-button-group>
                             <button nz-button (click)="minCount(card)"><span nz-icon nzType="minus"></span></button>
@@ -38,12 +50,14 @@
                             </div>
                             <button nz-button (click)="addCount(card)"><span nz-icon nzType="plus"></span></button>
                         </nz-button-group>
-                        <span class="red cursor-pointer" nz-icon nzType="delete" nzTheme="outline"
-                            (click)="deleteFromShopCard(card)"></span>
+                        <span class="delete" nz-icon nzType="delete" nzTheme="outline"
+                            (click)="deleteFromShopCard(card)">
+                        </span>
                     </div>
                 </div>
             </div>
             }
         </div>
+        }
     </div>
 </div>

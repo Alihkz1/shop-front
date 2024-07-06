@@ -1,5 +1,6 @@
 .wrapper {
-    height: 500px;
+    height: 100%;
+    max-height: fit-content;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
@@ -25,4 +26,11 @@ nz-upload {
 
 ::ng-deep .ant-input-stepperless[type=number] {
     direction: rtl !important;
+}
+
+.cropper-container {
+    height: fit-content;
+    max-height: 240px;
+    display: flex;
+    justify-content: center;
 }

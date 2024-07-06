@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminApi } from '../../../shared/admin.api';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { User } from '../../../../shared/model/user.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
-import { FormControl } from '@angular/forms';
 import { Comment } from '../../../../shared/model/comment.model';
 import { ClientService } from '../../../../shared/service/client.service';
+import { ChangePasswordModalComponent } from '../../../../shared/component/change-password-modal/change-password-modal.component';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-users-list',
@@ -17,10 +18,9 @@ export class UsersListComponent implements OnInit {
   changePasswordTranslate = 'رمز عبور جدید را وارد کنید'
   submitTranslate = 'ثبت'
   backTranslate = 'بازگشت'
-  changePasswordControl = new FormControl()
+  dataLoading: Subscription;
 
   expandSet = new Set<number>();
-  showChangePasswordModal = false;
   private _users$ = new BehaviorSubject<User[]>([]);
   public get users(): User[] {
     return this._users$.getValue();
@@ -35,6 +35,7 @@ export class UsersListComponent implements OnInit {
     public client: ClientService,
     private message: NzMessageService,
     private translate: TranslateService,
+    private modalService: NzModalService,
   ) { }
 
   ngOnInit(): void {
@@ -58,7 +59,7 @@ export class UsersListComponent implements OnInit {
   }
 
   public getData() {
-    this.adminApi.getUsers().subscribe(({ data }: any) => {
+    this.dataLoading = this.adminApi.getUsers().subscribe(({ data }: any) => {
       this._users$.next(data.users)
     })
   }
@@ -72,20 +73,21 @@ export class UsersListComponent implements OnInit {
     })
   }
 
-  public changePassword(user: User) {
-    const model = {
-      userId: user.userId,
-      newPassword: this.changePasswordControl.value
-    }
-    this.adminApi.changePassword(model).subscribe(({ success }: any) => {
-      if (success) {
-        this.message.create('success', this.translate.instant('actionDone'))
-        this.showChangePasswordModal = false;
-      }
+  openChangePasswordModal(user: User) {
+    this.modalService.create({
+      nzFooter: null,
+      nzCentered: true,
+      nzClosable: false,
+      nzStyle: {
+        width: "500px",
+        borderRadius: "6px",
+      },
+      nzContent: ChangePasswordModalComponent,
+      nzData: { userId: user.userId },
+      nzOnOk: () => {
+      },
+    }).afterClose.subscribe((result: boolean) => {
+      if (result) this.message.create('success', this.translate.instant('actionDone'))
     })
-  }
-
-  public changePassModal_onClose() {
-    this.changePasswordControl.reset()
   }
 }

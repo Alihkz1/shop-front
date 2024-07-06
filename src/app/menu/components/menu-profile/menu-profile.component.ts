@@ -5,6 +5,8 @@ import { TranslateService } from "@ngx-translate/core";
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { MenuApi } from '../../shared/menu.api';
 import { ClientService } from '../../../shared/service/client.service';
+import { ChangePasswordModalComponent } from '../../../shared/component/change-password-modal/change-password-modal.component';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-menu-profile',
@@ -22,10 +24,11 @@ export class MenuProfileComponent implements OnInit {
   })
 
   constructor(
-    private client: ClientService,
     private menuApi: MenuApi,
+    private client: ClientService,
     private message: NzMessageService,
     private translate: TranslateService,
+    private modalService: NzModalService,
   ) { }
 
   ngOnInit(): void {
@@ -52,4 +55,21 @@ export class MenuProfileComponent implements OnInit {
       })
   }
 
+  openChangePasswordModal() {
+    this.modalService.create({
+      nzFooter: null,
+      nzCentered: true,
+      nzClosable: false,
+      nzStyle: {
+        width: "500px",
+        borderRadius: "6px",
+      },
+      nzContent: ChangePasswordModalComponent,
+      nzData: { userId: this.client.getUser.user.userId },
+      nzOnOk: () => {
+      },
+    }).afterClose.subscribe((result: boolean) => {
+      if (result) this.message.create('success', this.translate.instant('actionDone'))
+    })
+  }
 }

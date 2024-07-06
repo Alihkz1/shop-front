@@ -1,14 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdminApi } from '../../../shared/admin.api';
-import { environment } from '../../../../../env/environment';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
-import { NzModalComponent, NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { CategoryModalComponent } from '../../../../shared/component/category-modal/category-modal.component';
 import { Category } from '../../../../shared/model/category.model';
 import { Product } from '../../../../shared/model/product.model';
 import { ProductModalComponent } from '../../../../shared/component/product-modal/product-modal.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-product',
@@ -16,9 +16,12 @@ import { ProductModalComponent } from '../../../../shared/component/product-moda
   styleUrl: './add-product.component.scss'
 })
 export class AddProductComponent implements OnInit {
-  @ViewChild('productModal') productModal: NzModalComponent;
+  expandId: number | null = null;
 
-  uploadUrl = environment.UPLOAD_URL;
+  active_onChange(event: Category, flag: boolean) {
+    if (flag) this.expandId = event.categoryId;
+    else this.expandId = null;
+  }
 
   form = new FormGroup({
     categoryId: new FormControl({ value: null, disabled: true }, Validators.required),
@@ -29,6 +32,7 @@ export class AddProductComponent implements OnInit {
   });
 
   uploadedImgUrl = new FormControl('')
+  dataLoading: Subscription;
   categories: any[] = []
 
   constructor(
@@ -43,9 +47,10 @@ export class AddProductComponent implements OnInit {
   }
 
   getCategories() {
-    this.adminApi.getCategories().subscribe(({ data }: any) => {
-      this.categories = data.categories;
-    })
+    this.dataLoading = this.adminApi.getCategories()
+      .subscribe(({ data }: any) => {
+        this.categories = data.categories;
+      })
   }
 
   deleteCategory_onConfirm(category: any) {
@@ -72,7 +77,7 @@ export class AddProductComponent implements OnInit {
       nzCentered: true,
       nzClosable: false,
       nzStyle: {
-        width: "400px",
+        width: "500px",
         borderRadius: "6px",
       },
       nzContent: CategoryModalComponent,
@@ -94,7 +99,7 @@ export class AddProductComponent implements OnInit {
       nzCentered: true,
       nzClosable: false,
       nzStyle: {
-        width: "400px",
+        width: "500px",
         borderRadius: "6px",
       },
       nzContent: ProductModalComponent,

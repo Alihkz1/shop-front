@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="d-flex flex-column h-100">
     <div class="wrapper-title">
         {{ 'products' | translate }} {{ 'category' | translate }}
         <div class="wrapper-title-back" (click)="back()">
@@ -6,33 +6,51 @@
             {{ 'back' | translate }}
         </div>
     </div>
-    <div class="row">
-        @for (product of products; track product; let i = $index) {
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 cmt">
-            <div class="board" (click)="board_onClick(product)">
-                <div class="board-image">
-                    <!-- <img [src]="product.imageUrl" [alt]="product.title"> -->
-                </div>
-                <div class="board-data">
-                    <p class="w-100 d-flex justify-content-center mb-1"><b>{{ product.title }}</b></p>
-                    <p> <span> <b>{{ "price" | translate }}:</b> </span> {{ product.price | currencyPipe }} {{ "currency"
-                        | translate
-                        }} </p>
-                    <p> <span> <b>{{ "amount" | translate }}:</b> </span> {{ product.amount }} </p>
-                    @if (client.isAdmin) {
-                    <div class="board-data-icons">
-                        <span class="m-2 blue" nz-icon nzType="edit" nzTheme="outline"
-                            (click)="editProduct_onClick(product); $event.stopPropagation()">
-                        </span>
-                        <span class="m-2 red" nz-icon nzType="delete" nzTheme="outline" zPopconfirmPlacement="right"
-                            nz-popconfirm nzPopconfirmTitle="حذف محصول؟" nzOkText="بله" nzCancelText="خیر"
-                            (click)="$event.stopPropagation()" (nzOnConfirm)="deleteProduct_onClick(product)">
-                        </span>
+    <div class="wrapper">
+        <div class="row">
+            @if (dataLoading && !dataLoading.closed) {
+            <loading class="mt-5"></loading>
+            }@else {
+            @for (product of products; track product; let i = $index) {
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 custom-padding">
+                <div class="board" (click)="board_onClick(product)">
+                    <div class="board-image">
+                        <img [src]="product.imageUrl" [alt]="product.title">
                     </div>
-                    }
+                    <div class="board-data">
+                        <p class="w-100 d-flex justify-content-center mb-1 board-data-title"><b>{{ product.title }}</b>
+                        </p>
+                        <div>
+                            <p class="board-data-price"> <span> <b>{{ "price" | translate }}:</b> </span> {{
+                                product.price | currencyPipe }}
+                                {{ "currency" | translate }}
+                            </p>
+                            @if (product.amount > 0) {
+                            <p class="board-data-amount"> <span> <b>{{ "amount" | translate }}:</b> </span> {{
+                                product.amount }} </p>
+                            } @else {
+                            <div class="red d-flex justify-content-center">
+                                {{ "notAvailable" | translate }}
+                            </div>
+                            }
+                        </div>
+
+                        @if (client.isAdmin) {
+                        <div class="board-data-icons">
+                            <span class="m-2 blue" nz-icon nzType="edit" nzTheme="outline"
+                                (click)="editProduct_onClick(product); $event.stopPropagation()">
+                            </span>
+                            <span class="m-2 red" nz-icon nzType="delete" nzTheme="outline" zPopconfirmPlacement="right"
+                                nz-popconfirm nzPopconfirmTitle="حذف محصول؟" nzOkText="بله" nzCancelText="خیر"
+                                (click)="$event.stopPropagation()" (nzOnConfirm)="deleteProduct_onClick(product)">
+                            </span>
+                        </div>
+                        }
+                    </div>
                 </div>
             </div>
+            }
+            }
         </div>
-        }
     </div>
 </div>

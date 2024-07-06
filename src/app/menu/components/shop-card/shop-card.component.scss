@@ -2,6 +2,8 @@
     height: 100%;
     overflow: hidden;
     padding: 20px 0 15px 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .box {
@@ -17,6 +19,7 @@
 
     &-image {
         max-height: 200px;
+        width: 150px;
     }
 
     &-detail {
@@ -45,24 +48,9 @@
     }
 }
 
-@media (min-width:767px) {
-    .page-h {
-        height: calc(100vh - 195px) !important;
-    }
-}
-
 @media (max-width:767px) {
-    .page-h {
-        height: calc(100vh - 330px) !important;
-        overflow-y: auto;
-    }
-
-    .wrapper {
-        padding: 0;
-    }
-
     .info {
-        height: 170px !important;
+        height: 140px !important;
     }
 
     .box {
@@ -79,6 +67,14 @@
             }
         }
     }
+
+    .wrapper {
+        padding: 0;
+
+        &-title {
+            margin: 0;
+        }
+    }
 }
 
 .info {
@@ -87,9 +83,8 @@
     justify-content: flex-start;
     align-items: center;
     padding: 20px 0;
-    height: 200px;
+    height: 150px;
     background: rgb(195 206 255 / 41%);
-    ;
 }
 
 .total-price {
@@ -99,10 +94,40 @@
 }
 
 .finalize {
-    border-bottom: 1px solid rgb(144, 144, 144);
-    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(205, 205, 205);
+    padding-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 .sender-button {
     width: fit-content;
+}
+
+nz-button-group {
+    button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 40px;
+        background: #fff;
+
+        span {
+            font-size: 12px;
+        }
+    }
+}
+
+.red-card {
+    border-top: 1px solid red;
+    border-bottom: 1px solid red;
+}
+
+.delete {
+    margin-right: 30px;
+    font-size: 20px;
+    border: 1px solid #e5e5e5;
+    padding: 6px;
+    border-radius: 20px;
+    color: red;
+    cursor: pointer;
 }

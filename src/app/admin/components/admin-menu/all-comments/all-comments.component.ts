@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminApi } from '../../../shared/admin.api';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { Comment } from '../../../../shared/model/comment.model';
@@ -14,6 +14,7 @@ import moment from 'jalali-moment';
 export class AllCommentsComponent implements OnInit {
   private _comments$ = new BehaviorSubject<any[]>([]);
   public get comments() { return this._comments$.getValue() }
+  dataLoading: Subscription;
 
   constructor(
     private adminApi: AdminApi,
@@ -26,8 +27,7 @@ export class AllCommentsComponent implements OnInit {
   }
 
   getComments() {
-    let datePipe = new DatePipe('en-US');
-    this.adminApi.getComments().subscribe(({ data }: any) => {
+   this.dataLoading =  this.adminApi.getComments().subscribe(({ data }: any) => {
       const list = data.comments.map((row: any) => {
         return {
           ...row,
