@@ -86,5 +86,6 @@
   "getInBeforeBuy": "برای خرید ابتدا باید وارد حساب کاربری شوید",
   "changePassword": "تغییر رمز عبور",
   "notAvailableAmount": "موجودی سایت کمتر از تعداد انتخابی شما است",
-  "standardSize":"سایز استاندارد سایت"
+  "standardSize":"سایز استاندارد سایت",
+  "productsCount":"تعداد محصولات"
 }

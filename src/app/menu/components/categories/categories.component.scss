@@ -1,82 +1,88 @@
 .wrapper {
-    flex-grow: 1;
-    overflow: hidden auto;
-    padding: 0 5px 15px 5px;
+  flex-grow: 1;
+  overflow: hidden auto;
+  padding: 0 5px 15px 5px;
 }
 
 .custom-padding {
-    @media (max-width: 767px) {
-        margin-top: 12px;
-    }
+  @media (max-width: 767px) {
+    margin-top: 12px;
+  }
 
-    @media (min-width: 767px) {
-        margin-top: 24px;
-    }
+  @media (min-width: 767px) {
+    margin-top: 24px;
+  }
 }
 
 .board {
-    padding: 14px;
-    box-shadow: 1px 1px 10px #d6d6d6;
+  padding: 14px;
+  box-shadow: 1px 1px 10px #d6d6d6;
 
-    &-image {
-        height: 180px;
-        background-color: rgba(241, 241, 241, 0.379);
-        display: flex;
-        justify-content: center;
-        align-items: center;
+  &-image {
+    height: 180px;
+    background-color: rgba(241, 241, 241, 0.379);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-        img {
-            height: fit-content;
-            max-height: 180px;
-        }
+    img {
+      height: fit-content;
+      max-height: 180px;
+    }
+  }
+
+  &-data {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    height: 120px;
+
+    &-icons {
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      font-size: 18px;
     }
 
-    &-data {
-        padding: 5px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        position: relative;
-        align-items: center;
-        height: 120px;
-
-        &-icons {
-            display: flex;
-            justify-content: center;
-            position: absolute;
-            bottom: 5px;
-            left: 5px;
-            font-size: 18px;
-        }
+    &-count {
+      font-size: 12px;
     }
+  }
 }
 
 @media (max-width: 767px) {
-    .board {
-        position: relative;
-        display: flex;
-        align-items: center;
+  .board {
+    position: relative;
+    display: flex;
+    align-items: center;
 
-        &-image {
-            height: 100%;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            opacity: 0.3;
-        }
-
-        &-data {
-            height: 100%;
-            z-index: 1;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            font-size: 35px;
-            font-weight: 600;
-        }
+    &-image {
+      height: 100%;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      opacity: 0.3;
     }
+
+    &-data {
+      height: 100%;
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      &-name {
+        font-size: 35px;
+        font-weight: 600;
+      }
+    }
+  }
 }
