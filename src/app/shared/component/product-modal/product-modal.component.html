@@ -34,38 +34,65 @@
                 <textarea [nzAutosize]="{ minRows: 3, maxRows: 10 }" nz-input formControlName="description" dir="rtl">
                 </textarea>
             </div>
-            <div class="fielder d-flex flex-row justify-content-end w-100">
-                <span>{{ "hasSizing" | translate }}</span>
-                <label class="mx-1" nz-checkbox [formControl]="sizingCheckbox"></label>
-            </div>
-            @if (hasSizing) {
-                
-            }
-            <div class="fielder d-flex flex-column align-items-end w-100">
-                <!-- <nz-upload [nzCustomRequest]="uploadRequest" dir="rtl"> -->
-                <div class="d-flex justify-content-between w-100">
-
-                    <div>
-                        @if (imageChangedEvent) {
-                        <label nz-checkbox [formControl]="standardSizeControl">{{ "standardSize" | translate }}</label>
-                        }
-                    </div>
-
-                    <button nz-button (click)="triggerFileInput()">
-                        <span nz-icon nzType="upload"></span>
-                        {{ "uploadImage" | translate }}
-                    </button>
-
+            <div class="fielder d-flex flex-row w-100 justify-content-between" dir="rtl">
+                <div>
+                    <span>{{ "hasSizing" | translate }}</span>
+                    <label class="mx-1" nz-checkbox [formControl]="sizingCheckbox"></label>
                 </div>
-                <!-- </nz-upload> -->
-                <input class="d-none" type="file" (change)="imageChangedEvent = $event" #uploader />
-                <div class="cropper-container">
-                    <image-cropper [aspectRatio]="aspectRatio" [imageChangedEvent]="imageChangedEvent" format="png"
-                        (imageCropped)="imageCropped($event)">
-                    </image-cropper>
-                </div>
+                @if (hasSizing) {
+                <button nz-button nzType="default" class="mx-1" (click)="addRow_onClick()">
+                    {{ "newSize" | translate }}
+                </button>
+                }
             </div>
         </form>
+        @if (hasSizing) {
+        <div class="my-1">
+            @for (row of getFormArrayItemValue(); track $index) {
+            <div class="w-100 d-flex justify-content-center">
+                <span class="delete" nz-icon nzType="delete" nzTheme="outline" (click)="deleteRow_onClick($index)">
+                </span>
+                <div class="d-flex" dir="rtl">
+                    <span class="pt-1">
+                        {{ "amount" | translate }}:
+                    </span>
+                    <input class="size-field" nz-input placeholder="مقدار" [(ngModel)]="row.amount" />
+                </div>
+                <div class="d-flex mx-2" dir="rtl">
+                    <span class="pt-1">
+                        {{ "size" | translate }}:
+                    </span>
+                    <input class="size-field" nz-input placeholder="عنوان" [(ngModel)]="row.size" />
+                </div>
+            </div>
+            }
+        </div>
+        }
+
+        <div class="fielder d-flex flex-column align-items-end w-100">
+            <!-- <nz-upload [nzCustomRequest]="uploadRequest" dir="rtl"> -->
+            <div class="d-flex justify-content-between w-100">
+
+                <div>
+                    @if (imageChangedEvent) {
+                    <label nz-checkbox [formControl]="standardSizeControl">{{ "standardSize" | translate }}</label>
+                    }
+                </div>
+
+                <button class="mt-2" nz-button (click)="triggerFileInput()">
+                    <span nz-icon nzType="upload"></span>
+                    {{ "uploadImage" | translate }}
+                </button>
+
+            </div>
+            <!-- </nz-upload> -->
+            <input class="d-none" type="file" (change)="imageChangedEvent = $event" #uploader />
+            <div class="cropper-container">
+                <image-cropper [aspectRatio]="aspectRatio" [imageChangedEvent]="imageChangedEvent" format="png"
+                    (imageCropped)="imageCropped($event)">
+                </image-cropper>
+            </div>
+        </div>
     </div>
 
     <div>

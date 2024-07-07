@@ -95,5 +95,7 @@
   "wrongPhoneFormat": "Wrong phone number format",
   "wrongEmailFormat": "Wrong Email format",
   "sortBy": "Sort By",
-  "hasSizing": "Has Sizing"
+  "hasSizing": "Has Sizing",
+  "size": "Size",
+  "newSize": "New Size"
 }

@@ -34,3 +34,16 @@ nz-upload {
     display: flex;
     justify-content: center;
 }
+
+.size-field {
+    width: 100px;
+    height: 30px;
+    margin: 0 5px;
+}
+
+.delete {
+    font-size: 14px;
+    color: red;
+    margin: 0 10px;
+    cursor: pointer;
+}

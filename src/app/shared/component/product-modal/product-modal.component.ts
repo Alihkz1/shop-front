@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { TranslateModule } from "@ngx-translate/core";
@@ -18,12 +18,13 @@ import { PriceFormatDirective } from '../../../menu/shared/directive/price-forma
 import { NumberToCurrency } from '../../function/currency-format.functions';
 import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-modal',
   standalone: true,
   imports: [
-    ReactiveFormsModule, NzCheckboxModule, ImageCropperModule,
+    ReactiveFormsModule, CommonModule, FormsModule, NzCheckboxModule, ImageCropperModule,
     PriceFormatDirective, TranslateModule, NzSelectModule,
     NzInputModule, NzButtonModule, NzUploadModule, NzIconModule
   ],
@@ -50,8 +51,25 @@ export class ProductModalComponent implements OnInit {
     amount: new FormControl(null, Validators.required),
     description: new FormControl(null, Validators.required),
     productId: new FormControl(null, Validators.required),
-    size: new FormControl(null, Validators.required),
+    size: new FormArray([])
   });
+
+  public get getSizes() { return this.form.controls['size'] as FormArray; }
+
+
+  public addRow_onClick() {
+    const items = this.form.controls['size'] as FormArray;
+    items.push(new FormControl({ size: '', amount: '' }));
+  }
+
+  public deleteRow_onClick(i: number) {
+    const items = this.form.controls['size'] as FormArray;
+    items.removeAt(i);
+  }
+
+  public getFormArrayItemValue(): any[] {
+    return this.getSizes.value;
+  }
 
   // deprecated
   uploadedImgUrl = new FormControl('')
@@ -88,13 +106,32 @@ export class ProductModalComponent implements OnInit {
     })
 
     if (this.modalData.product) {
+      if (this.modalData.product.size) {
+        this.sizingCheckbox.setValue(true)
+        const sizeList: any[] = JSON.parse(this.modalData.product.size)
+        sizeList.forEach((item) => {
+          this.fillForm(item)
+        })
+      }
       const model = {
         ...this.modalData.product,
-        price: NumberToCurrency(this.modalData.product.price)
+        price: NumberToCurrency(this.modalData.product.price),
+        size: null
       }
       this.form.patchValue(model)
     }
+
     this.getCategories()
+  }
+
+  public fillForm(newItem: { size: string, amount: string }): void {
+    const formArrayValue = this.form.controls['size'] as FormArray;
+    formArrayValue.push(
+      new FormBuilder().group({
+        size: newItem.size,
+        amount: newItem.amount,
+      })
+    );
   }
 
   imageCropped(event: ImageCroppedEvent) {
@@ -122,8 +159,8 @@ export class ProductModalComponent implements OnInit {
       ...this.form.value,
       price: +this.form.value.price.replaceAll(',', ''),
       imageUrl: this.croppedImage,
+      size: JSON.stringify(this.form.value.size)
     }
-
     if (this.modalData.product)
       this.editProduct_onConfirm(model)
     else this.addProduct_onConfirm(model)
