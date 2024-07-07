@@ -87,5 +87,8 @@
   "changePassword": "Change Password",
   "notAvailableAmount": "We have fever items available!",
   "standardSize": "Standard Size",
-  "productsCount": "Products Count"
+  "productsCount": "Products Count",
+  "productHasBeenDeleted": "Product has been deleted",
+  "productManagement": "Product Management",
+  "userManagement":"User Management"
 }

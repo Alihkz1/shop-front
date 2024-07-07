@@ -2,9 +2,14 @@
     <div class="header" dir="ltr">
         @if (client.isLogin) {
         <div>
+
             <img class="power mx-1" src="assets/svg/power.svg" alt="" (click)="logout_onClick()">
+
             @for (button of client.headerButtons; track $index) {
-            <button class="button dynamic" (click)="navigate(button.route)" [class.active]="isActiveRoute(button.route)">{{ button.title | translate }}</button>
+            <button class="button dynamic" (click)="navigate(button.route)"
+                [class.active]="isActiveRoute(button.route)">
+                {{ button.title | translate }}
+            </button>
             }
 
             <span class="burger mx-3 mt-1" nz-icon nzType="menu" nzTheme="outline" nz-dropdown [nzDropdownMenu]="menu"
@@ -24,10 +29,13 @@
             </nz-dropdown-menu>
 
             @if (client.getUser.user.role === 'USER') {
-            <nz-badge class="cursor-pointer mx-2" [nzCount]="client.shopCardLength" (click)="navigateToShopCard()">
-                <span nz-icon nzType="shopping" nzTheme="outline"></span>
-            </nz-badge>
+            <button class="button" [class.active]="isActiveRoute('menu/card')" (click)="navigateToShopCard()">
+                <nz-badge class="cursor-pointer mx-2" [nzCount]="client.shopCardLength">
+                    <span nz-icon nzType="shopping" nzTheme="outline"></span>
+                </nz-badge>
+            </button>
             }
+
         </div>
         <div class="d-flex align-items-center">
             <div class="client-name pe-2">
@@ -38,8 +46,10 @@
         }
         @else {
         <!-- <button class="button" (click)="contactUs_onClick()">{{ "contactUs" | translate }}</button> -->
-        <button class="button" (click)="navigate('menu/categories')">{{ "products" | translate }}</button>
-        <button class="button login" (click)="login_onClick()">{{ "loginButton" | translate }}</button>
+        <button class="button" (click)="navigate('menu/categories')" [class.active]="categoryIsActiveRoute()">{{
+            "products" | translate }}</button>
+        <button class="button login" (click)="navigate('auth/login')" [class.active]="authIsActiveRoute()">{{
+            "loginButton" | translate }}</button>
         }
     </div>
 </div>

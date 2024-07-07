@@ -28,7 +28,7 @@ export class HeaderComponent {
     public client: ClientService,
     private message: NzMessageService,
     private translate: TranslateService
-  ) {}
+  ) { }
 
   logout_onClick() {
     this.client.logout();
@@ -46,10 +46,6 @@ export class HeaderComponent {
     this.router.navigate(['menu/about-us']);
   }
 
-  login_onClick() {
-    this.router.navigate(['auth/login']);
-  }
-
   navigate(route: string) {
     this.router.navigate([route]);
   }
@@ -65,5 +61,15 @@ export class HeaderComponent {
   isActiveRoute(route: string): boolean {
     const { url } = this.router;
     return url.startsWith('/' + route);
+  }
+
+  categoryIsActiveRoute(): boolean {
+    const { url } = this.router;
+    return url.startsWith('/' + 'menu');
+  }
+
+  authIsActiveRoute(): boolean {
+    const { url } = this.router;
+    return url.startsWith('/' + 'auth');
   }
 }
