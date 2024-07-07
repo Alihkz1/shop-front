@@ -38,3 +38,11 @@ button.option {
     margin: 0 5px;
     font-size: 12px;
 }
+
+.fielder {
+    &-title {
+        font-size: 12px !important;
+        margin-bottom: 2px !important;
+        color: #6b6b6b;
+    }
+}

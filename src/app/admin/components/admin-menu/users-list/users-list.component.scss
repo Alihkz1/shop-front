@@ -21,7 +21,7 @@
 nz-table {
     overflow: auto;
     height: 100%;
-    
+
     th {
         background: var(--main-color);
     }
@@ -39,4 +39,16 @@ tr.ant-table-expanded-row>td {
 
 ::ng-deep .ant-table table {
     text-align: center;
+}
+
+@media (max-width: 767px) {
+
+    td,
+    th {
+        font-size: 10px !important;
+    }
+
+    ::ng-deep .ant-table table {
+        text-align: start;
+    }
 }

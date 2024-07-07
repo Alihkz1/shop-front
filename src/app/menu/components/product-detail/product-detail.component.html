@@ -38,7 +38,7 @@
                         <span class="mx-2"> {{ product?.description }} </span>
                     </div>
 
-                    <div *ngIf="product?.size" class="detail-size mb-4">
+                    <div *ngIf="product?.size" class="detail-size mt-2 mb-4">
                         <span class="detail-size-title"> <b>{{ 'selectSize' | translate }}:</b> </span>
                         <nz-select [formControl]="sizeFormControl" nzAllowClear>
                             @for (item of product.size; track $index) {
