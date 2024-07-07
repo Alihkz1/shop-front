@@ -38,11 +38,9 @@ export class ShopCardComponent implements OnInit {
     this.menuApi.getUserShopCard(userId).subscribe(({ data, success }: any) => {
       if (success) {
         let cards: ShopCard[] = data.card;
-        const productIds = cards.map((el: ShopCard) => el.productId);
+        const productIds: number[] = cards.map((el: ShopCard) => el.productId);
         this.totalPrice = 0;
-        cards.forEach((card: ShopCard) => {
-          this.totalPrice += card.price * card.inCardAmount;
-        })
+
         this.menuApi.productAmountCheck({ ids: productIds })
           .pipe(finalize(() => { this.dataLoading = false; }))
           .subscribe((resp: any) => {
@@ -50,8 +48,12 @@ export class ShopCardComponent implements OnInit {
               cards = cards.map((card: ShopCard) => {
                 return {
                   ...card,
-                  amount: resp.data.products.find((el: any) => el.productId === card.productId).amount
+                  amount: resp.data.products.find((el: any) => el.productId === card.productId).amount,
+                  price: resp.data.products.find((el: any) => el.productId === card.productId).price,
                 }
+              })
+              cards.forEach((c: ShopCard) => {
+                this.totalPrice += c.price * c.inCardAmount;
               })
               this.amountError = cards.findIndex((el: ShopCard) => el.amount < el.inCardAmount) != -1;
               this._cards$.next(cards);
@@ -122,6 +124,7 @@ export class ShopCardComponent implements OnInit {
   }
 
   onConfirmCard() {
+    /* todo: call amount-check to see if prices are changed! */
     this.router.navigate(['menu/confirm-card'])
   }
 }
