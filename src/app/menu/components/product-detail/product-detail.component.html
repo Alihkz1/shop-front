@@ -33,10 +33,22 @@
                         <span class="mx-2"> {{ product?.amount }} </span>
                     </div>
 
-                    <div *ngIf="product?.description" class="detail-description mb-4">
+                    <div *ngIf="product?.description" class="detail-description">
                         <span class="detail-description-title"> <b>{{ 'description' | translate }}:</b> </span>
                         <span class="mx-2"> {{ product?.description }} </span>
                     </div>
+
+                    <div *ngIf="product?.size" class="detail-size mb-4">
+                        <span class="detail-size-title"> <b>{{ 'selectSize' | translate }}:</b> </span>
+                        <nz-select [formControl]="sizeFormControl" nzAllowClear>
+                            @for (item of product.size; track $index) {
+                            <nz-option [nzValue]="item.size" [nzLabel]="item.size"></nz-option>
+                            }
+                        </nz-select>
+                    </div>
+
+
+
                 </div>
 
                 <div class="shop">
@@ -56,7 +68,8 @@
                     @if (!productInShopCardFlag) {
 
                     @if (product?.amount > 0) {
-                    <button nz-button nzType="default" (click)="addToCard()">
+                    <button nz-button nzType="default" (click)="addToCard()"
+                        [disabled]="product?.size && selectedSize === null">
                         {{ 'toShopCard' | translate }}
                         <span nz-icon nzType="shopping" nzTheme="outline"></span>
                     </button>
@@ -90,7 +103,8 @@
                 </div>
             </div>
             } @else {
-            <nz-alert class="d-flex justify-content-center" nzType="error" [nzMessage]="'productHasBeenDeleted' | translate"></nz-alert>
+            <nz-alert class="d-flex justify-content-center" nzType="error"
+                [nzMessage]="'productHasBeenDeleted' | translate"></nz-alert>
             }
         </div>
         }

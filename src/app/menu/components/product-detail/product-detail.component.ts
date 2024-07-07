@@ -10,6 +10,7 @@ import { ProductModalComponent } from '../../../shared/component/product-modal/p
 import { AdminApi } from '../../../admin/shared/admin.api';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ShopCard } from '../../../shared/model/shop-card.model';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-product-detail',
@@ -21,6 +22,8 @@ export class ProductDetailComponent implements OnInit {
   productInShopCardFlag = false
   inCardAmount: number = 0
   dataLoading: Subscription;
+  sizeFormControl = new FormControl();
+  public get selectedSize() { return this.sizeFormControl.value }
 
   private _userShopCard$ = new BehaviorSubject<ShopCard[]>([]);
   public get userShopCard() { return this._userShopCard$.getValue() }
@@ -38,15 +41,28 @@ export class ProductDetailComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.changeSizeListener()
     this.getData()
   }
 
+  private getData() {
+    const { productId } = this.route.snapshot.params;
+    this.dataLoading = this.menuApi.getProductRetrieve(productId).subscribe(({ success, data }: any) => {
+      if (!success) return;
+      this.product = data.product;
+      this.product.size = data.product.size ? JSON.parse(data.product.size) : null;
+      this.getShopCard()
+    })
+  }
+
+
   private checkProductInShopCard() {
-    let products: ShopCard[] = this.userShopCard;
+    const products: ShopCard[] = this.userShopCard;
     const productInShopCard = products.find(p => p.productId === this.product.productId)
     if (productInShopCard) {
       this.productInShopCardFlag = true
       this.inCardAmount = productInShopCard.inCardAmount
+      this.sizeFormControl.setValue(productInShopCard.size)
     }
   }
 
@@ -60,15 +76,6 @@ export class ProductDetailComponent implements OnInit {
     })
   }
 
-  private getData() {
-    const { productId } = this.route.snapshot.params;
-    this.dataLoading = this.menuApi.getProductRetrieve(productId).subscribe(({ success, data }: any) => {
-      if (!success) return;
-      this.product = data.product;
-      this.getShopCard()
-    })
-  }
-
   public addToCard() {
     let products: any[] = this.userShopCard;
     if (products.map(p => p.productId).includes(this.product.productId)) {
@@ -76,7 +83,7 @@ export class ProductDetailComponent implements OnInit {
       return;
     }
     this.product.inCardAmount = 1;
-    products.push(this.product);
+    products.push({ ...this.product, size: this.selectedSize });
     const model = {
       userId: this.client.getUser.user.userId,
       products
@@ -144,6 +151,7 @@ export class ProductDetailComponent implements OnInit {
     const card = this.userShopCard.filter(c => c.productId === this.product.productId)[0]
     if (card.inCardAmount < 2) return;
     card.inCardAmount--;
+    card.size = this.selectedSize
     this.inCardAmount -= 1;
     this.updateCards();
   }
@@ -151,8 +159,19 @@ export class ProductDetailComponent implements OnInit {
   addCount() {
     const card = this.userShopCard.filter(c => c.productId === this.product.productId)[0]
     card.inCardAmount++;
+    card.size = this.selectedSize
     this.inCardAmount += 1;
     this.updateCards();
+  }
+
+  changeSizeListener() {
+    this.sizeFormControl.valueChanges.subscribe((value: string) => {
+      if (!value) return;
+      const card = this.userShopCard.filter(c => c.productId === this.product.productId)[0]
+      if (!card) return;
+      card.size = value
+      this.updateCards();
+    })
   }
 
   private updateCards() {

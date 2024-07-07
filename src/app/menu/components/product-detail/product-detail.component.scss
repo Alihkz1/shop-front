@@ -52,6 +52,27 @@
             font-size: 13px;
         }
     }
+
+    &-size {
+        &-title {
+            font-size: 13px;
+        }
+
+        nz-select {
+            margin: 0 10px;
+            width: 100px;
+
+            ::ng-deep nz-select-item {
+                display: flex;
+                justify-content: center;
+            }
+
+            ::ng-deep nz-select-arrow {
+                margin-top: -10px !important;
+            }
+        }
+
+    }
 }
 
 .shop {

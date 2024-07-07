@@ -8,4 +8,5 @@ export interface ShopCard {
     shopCardId: number;
     userId: number;
     inCardAmount: number;
+    size: string;
 }
