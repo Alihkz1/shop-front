@@ -50,7 +50,11 @@ export class ProductDetailComponent implements OnInit {
     this.dataLoading = this.menuApi.getProductRetrieve(productId).subscribe(({ success, data }: any) => {
       if (!success) return;
       this.product = data.product;
-      this.product.size = data.product.size ? JSON.parse(data.product.size) : null;
+      if (data.product.size) {
+        let sizeArray: any[] = JSON.parse(data.product.size);
+        sizeArray = sizeArray.sort((a, b) => a.size - b.size);
+        this.product.size = sizeArray
+      }
       this.getShopCard()
     })
   }

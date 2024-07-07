@@ -107,8 +107,9 @@ export class ProductModalComponent implements OnInit {
 
     if (this.modalData.product) {
       if (this.modalData.product.size) {
-        this.sizingCheckbox.setValue(true)
         const sizeList: any[] = JSON.parse(this.modalData.product.size)
+        if (sizeList.length)
+          this.sizingCheckbox.setValue(true)
         sizeList.forEach((item) => {
           this.fillForm(item)
         })

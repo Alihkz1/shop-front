@@ -47,3 +47,9 @@ nz-upload {
     margin: 0 10px;
     cursor: pointer;
 }
+
+.no-md {
+    @media (max-width: 767px) {
+        display: none;
+    }
+}

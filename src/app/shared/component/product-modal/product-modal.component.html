@@ -53,16 +53,16 @@
                 <span class="delete" nz-icon nzType="delete" nzTheme="outline" (click)="deleteRow_onClick($index)">
                 </span>
                 <div class="d-flex" dir="rtl">
-                    <span class="pt-1">
+                    <span class="pt-1 no-md">
                         {{ "amount" | translate }}:
                     </span>
-                    <input class="size-field" nz-input placeholder="مقدار" [(ngModel)]="row.amount" />
+                    <input class="size-field" nz-input placeholder="موجودی" [(ngModel)]="row.amount" />
                 </div>
                 <div class="d-flex mx-2" dir="rtl">
-                    <span class="pt-1">
+                    <span class="pt-1 no-md">
                         {{ "size" | translate }}:
                     </span>
-                    <input class="size-field" nz-input placeholder="عنوان" [(ngModel)]="row.size" />
+                    <input class="size-field" nz-input placeholder="عنوان سایز" [(ngModel)]="row.size" />
                 </div>
             </div>
             }
