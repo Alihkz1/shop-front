@@ -52,7 +52,7 @@ export class ProductDetailComponent implements OnInit {
       this.product = data.product;
       if (data.product.size) {
         let sizeArray: any[] = JSON.parse(data.product.size);
-        sizeArray = sizeArray.sort((a, b) => a.size - b.size);
+        sizeArray = sizeArray.sort((a, b) => a.size - b.size).filter((e) => e.amount > 0);
         this.product.size = sizeArray
       }
       this.getShopCard()

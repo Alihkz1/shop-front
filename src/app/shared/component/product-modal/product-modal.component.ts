@@ -107,7 +107,10 @@ export class ProductModalComponent implements OnInit {
 
     if (this.modalData.product) {
       if (this.modalData.product.size) {
-        const sizeList: any[] = JSON.parse(this.modalData.product.size)
+        let sizeList: any[]
+        if (typeof this.modalData.product.size === 'string')
+          sizeList = JSON.parse(this.modalData.product.size)
+        else sizeList = this.modalData.product.size
         if (sizeList.length)
           this.sizingCheckbox.setValue(true)
         sizeList.forEach((item) => {
@@ -144,7 +147,7 @@ export class ProductModalComponent implements OnInit {
   }
 
   getCategories() {
-    this.adminApi.getCategories().subscribe(({ data }: any) => {
+    this.adminApi.getCategoriesLight().subscribe(({ data }: any) => {
       this.categories = data.categories;
       this.form.get('categoryId')?.setValue(this.modalData.category?.categoryId || this.modalData.product?.categoryId);
     })

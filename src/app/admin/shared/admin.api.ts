@@ -43,6 +43,14 @@ export class AdminApi {
       .call()
   }
 
+  public getCategoriesLight() {
+    return Api()
+      .get()
+      .controller('category')
+      .action('light-list')
+      .call()
+  }
+
   public deleteCategory(categoryId: number) {
     return Api()
       .delete()
