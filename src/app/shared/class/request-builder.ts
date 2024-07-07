@@ -118,6 +118,9 @@ export class RequestBuilder {
             this.clientService?.message.create('error', "لطفا وارد حساب کاربری خود شوید")
             this.clientService?.logout()
         }
+        if (status === 400) {
+            this.clientService?.message.create('error', error.error.message)
+        }
         return of(error.error);
     }
 

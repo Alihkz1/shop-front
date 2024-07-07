@@ -90,5 +90,8 @@
   "productsCount": "Products Count",
   "productHasBeenDeleted": "Product has been deleted",
   "productManagement": "Product Management",
-  "userManagement":"User Management"
+  "userManagement": "User Management",
+  "emailOrPhone": "Email or phone number",
+  "wrongPhoneFormat": "Wrong phone number format",
+  "wrongEmailFormat": "Wrong Email format"
 }

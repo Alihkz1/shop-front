@@ -14,7 +14,7 @@
   "alreadyHaveAccount": "آیا حساب کاربری دارید؟",
   "email": "پست الکترونیک",
   "emailAsUsername": "ایمیل (نام کاربری شما)",
-  "enterName": "نام خود را وارد کنید",
+  "enterName": "نام کامل خود را وارد کنید",
   "phone": "تلفن همراه",
   "addProduct": "ثبت محصول جدید",
   "usersList": "لیست کاربران",
@@ -90,5 +90,9 @@
   "productsCount": "تعداد محصولات",
   "productHasBeenDeleted": "محصول حذف شده است",
   "productManagement": "مدیریت محصولات",
-  "userManagement": "مدیریت کاربران"
+  "userManagement": "مدیریت کاربران",
+  "emailOrPhone": "ایمیل یا شماره همراه",
+  "phoneExample": "شروع با 09",
+  "wrongPhoneFormat": "لطفا تلفن همراه را به درستی وارد نمایید",
+  "wrongEmailFormat": "لطفا ایمیل را به درستی وارد نمایید"
 }

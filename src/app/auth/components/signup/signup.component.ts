@@ -15,9 +15,15 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class SignupComponent {
   signupLoading = false
   form = new FormGroup({
-    email: new FormControl('', [Validators.required]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+    ]),
     password: new FormControl('', [Validators.required]),
-    phone: new FormControl(),
+    phone: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^09\d{9}$/)
+    ]),
     name: new FormControl()
   })
 
@@ -30,6 +36,14 @@ export class SignupComponent {
 
 
   signup_onClick() {
+    if (this.form.get('phone').hasError('pattern')) {
+      this.message.create('error', this.translate.instant('wrongPhoneFormat'))
+      return;
+    }
+    if (this.form.get('email').hasError('pattern')) {
+      this.message.create('error', this.translate.instant('wrongEmailFormat'))
+      return;
+    }
     if (this.form.invalid) {
       this.message.create('error', this.translate.instant('formInvalid'))
       return;

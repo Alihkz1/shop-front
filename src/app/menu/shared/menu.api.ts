@@ -19,7 +19,7 @@ export class MenuApi {
     return Api()
       .get()
       .controller('category')
-      .action('list')
+      .action('light-list')
       .call();
   }
 

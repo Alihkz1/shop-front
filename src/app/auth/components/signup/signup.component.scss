@@ -1,12 +1,12 @@
 .signup {
     height: 100%;
     width: 100%;
-    padding: 10px 0;
     display: flex;
+    padding-bottom: 10px;
     flex-direction: column;
 
     &-title {
-        padding: 10px 30px;
+        padding: 10px 30px 2px 30px;
     }
 
     &-form {
@@ -16,6 +16,8 @@
 
     &-submit {
         padding-right: 30px;
+        margin-bottom: 10px;
+
         button {
             width: 100px;
         }
@@ -30,4 +32,9 @@ button.option {
     &:hover {
         color: var(--link);
     }
+}
+
+.phone-example {
+    margin: 0 5px;
+    font-size: 12px;
 }

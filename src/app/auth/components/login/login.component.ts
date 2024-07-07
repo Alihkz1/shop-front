@@ -18,7 +18,7 @@ import { MenuApi } from '../../../menu/shared/menu.api';
 export class LoginComponent {
   loginLoading = false;
   form = new FormGroup({
-    email: new FormControl('', Validators.required),
+    emailOrPhone: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   })
 
@@ -43,7 +43,7 @@ export class LoginComponent {
     this.loginLoading = true;
     const model = {
       ...this.form.value,
-      email: this.form.value.email.toLowerCase(),
+      emailOrPhone: this.form.value.emailOrPhone.toLowerCase(),
       password: this.form.value.password.toLowerCase(),
     }
     this.authApi.login(model)
