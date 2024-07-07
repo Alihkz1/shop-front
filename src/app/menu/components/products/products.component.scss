@@ -73,4 +73,22 @@
             font-size: 14px;
         }
     }
+    .wrapper-title-text {
+        opacity: 0;
+    }
+}
+
+.wrapper-title-sort {
+    position: absolute;
+    left: 10px;
+    top: 3px;
+
+    nz-select {
+        width: 100px;
+    }
+
+    span {
+        font-size: 12px;
+        margin: 0 10px;
+    }
 }

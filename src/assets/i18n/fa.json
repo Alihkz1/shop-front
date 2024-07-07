@@ -94,5 +94,6 @@
   "emailOrPhone": "ایمیل یا شماره همراه",
   "phoneExample": "شروع با 09",
   "wrongPhoneFormat": "لطفا تلفن همراه را به درستی وارد نمایید",
-  "wrongEmailFormat": "لطفا ایمیل را به درستی وارد نمایید"
+  "wrongEmailFormat": "لطفا ایمیل را به درستی وارد نمایید",
+  "sortBy": "مرتب سازی بر اساس"
 }

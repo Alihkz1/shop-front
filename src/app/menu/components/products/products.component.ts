@@ -9,7 +9,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ProductModalComponent } from '../../../shared/component/product-modal/product-modal.component';
-import { Location } from '@angular/common';
+import { FormControl } from '@angular/forms';
+import { SORT_PRODUCT } from '../../../shared/enum/sort-products.enum';
 
 @Component({
   selector: 'app-products',
@@ -20,11 +21,26 @@ export class ProductsComponent implements OnInit {
   private _products$: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
   public get products() { return this._products$.getValue() }
   dataLoading: Subscription;
+  sortFormControl = new FormControl()
+
+  sortItems = [
+    {
+      value: SORT_PRODUCT.EXPENSIVE,
+      label: "گران ترین"
+    },
+    {
+      value: SORT_PRODUCT.CHEAP,
+      label: "ارزان ترین"
+    },
+    {
+      value: SORT_PRODUCT.MOST_BUY,
+      label: "پر فروش ترین"
+    }
+  ]
 
   constructor(
     private router: Router,
     private menuApi: MenuApi,
-    private location: Location,
     private adminApi: AdminApi,
     public client: ClientService,
     private route: ActivatedRoute,
@@ -35,11 +51,21 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData()
+    this.sortChangeListener()
+  }
+
+  sortChangeListener() {
+    this.sortFormControl.valueChanges.subscribe(() => {
+      this.getData()
+    })
   }
 
   getData() {
     const { categoryId } = this.route.snapshot.params;
-    this.dataLoading = this.menuApi.getProducts(categoryId).subscribe(({ success, data }: any) => {
+    this.dataLoading = this.menuApi.getProducts(
+      categoryId,
+      { sort: this.sortFormControl.value }
+    ).subscribe(({ success, data }: any) => {
       if (success) {
         this._products$.next(data.products);
       }
@@ -78,8 +104,8 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  back() { 
+  back() {
     this.router.navigate(['menu/categories'])
-   }
+  }
 
 }

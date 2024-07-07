@@ -93,5 +93,6 @@
   "userManagement": "User Management",
   "emailOrPhone": "Email or phone number",
   "wrongPhoneFormat": "Wrong phone number format",
-  "wrongEmailFormat": "Wrong Email format"
+  "wrongEmailFormat": "Wrong Email format",
+  "sortBy": "Sort By"
 }

@@ -72,7 +72,7 @@ export class MyOrdersComponent implements OnInit {
   }
 
   showNotReceived(date: number): boolean {
-    return date > new Date().getTime() - (3 * 24 * 60 * 60 * 1000);
+    return date > new Date().getTime() - (10 * 24 * 60 * 60 * 1000);
   }
 
   getTotalPrice(products: ShopCard[]) {

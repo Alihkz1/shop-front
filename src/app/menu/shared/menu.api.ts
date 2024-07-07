@@ -23,12 +23,13 @@ export class MenuApi {
       .call();
   }
 
-  public getProducts(categoryId: number) {
+  public getProducts(categoryId: number, params: any = {}) {
     return Api()
       .get()
       .controller('product')
       .action('list')
       .pathVariable(String(categoryId))
+      .param(params)
       .call();
   }
 
@@ -59,7 +60,7 @@ export class MenuApi {
       .call();
   }
 
-  public  getUserShopCard(userId: number) {
+  public getUserShopCard(userId: number) {
     return Api()
       .get()
       .controller('card')

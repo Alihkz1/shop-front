@@ -1,6 +1,14 @@
 <div class="d-flex flex-column h-100">
     <div class="wrapper-title">
-        {{ 'products' | translate }} {{ 'category' | translate }}
+        <div class="wrapper-title-sort">
+            <span>{{ 'sortBy' | translate }}</span>
+            <nz-select [formControl]="sortFormControl" nzAllowClear>
+                @for (item of sortItems; track $index) {
+                <nz-option [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+                }
+            </nz-select>
+        </div>
+        <div class="wrapper-title-text">{{ 'products' | translate }} {{ 'category' | translate }}</div>
         <div class="wrapper-title-back" (click)="back()">
             <img class="wrapper-title-back-icon" src="assets/svg/back.svg">
             {{ 'back' | translate }}
@@ -15,7 +23,7 @@
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 custom-padding">
                 <div class="board" (click)="board_onClick(product)">
                     <div class="board-image">
-                        <img [src]="product.imageUrl" [alt]="product.title">
+                        <!-- <img [src]="product.imageUrl" [alt]="product.title"> -->
                     </div>
                     <div class="board-data">
                         <p class="w-100 d-flex justify-content-center mb-1 board-data-title"><b>{{ product.title }}</b>
