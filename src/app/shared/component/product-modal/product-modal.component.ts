@@ -40,6 +40,8 @@ export class ProductModalComponent implements OnInit {
   croppedImage: string | null = null;
   imageChangedEvent: any;
   aspectRatio = 1.14;
+  sizingCheckbox = new FormControl(false);
+  public get hasSizing(): boolean { return this.sizingCheckbox.value }
 
   form = new FormGroup({
     categoryId: new FormControl({ value: null, disabled: true }, Validators.required),
@@ -48,6 +50,7 @@ export class ProductModalComponent implements OnInit {
     amount: new FormControl(null, Validators.required),
     description: new FormControl(null, Validators.required),
     productId: new FormControl(null, Validators.required),
+    size: new FormControl(null, Validators.required),
   });
 
   // deprecated

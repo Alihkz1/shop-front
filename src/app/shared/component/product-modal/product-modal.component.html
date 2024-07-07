@@ -34,22 +34,29 @@
                 <textarea [nzAutosize]="{ minRows: 3, maxRows: 10 }" nz-input formControlName="description" dir="rtl">
                 </textarea>
             </div>
+            <div class="fielder d-flex flex-row justify-content-end w-100">
+                <span>{{ "hasSizing" | translate }}</span>
+                <label class="mx-1" nz-checkbox [formControl]="sizingCheckbox"></label>
+            </div>
+            @if (hasSizing) {
+                
+            }
             <div class="fielder d-flex flex-column align-items-end w-100">
                 <!-- <nz-upload [nzCustomRequest]="uploadRequest" dir="rtl"> -->
-                    <div class="d-flex justify-content-between w-100">
+                <div class="d-flex justify-content-between w-100">
 
-                        <div>
-                            @if (imageChangedEvent) {
-                            <label nz-checkbox [formControl]="standardSizeControl">{{ "standardSize" | translate }}</label>
-                            }
-                        </div>
-        
-                        <button nz-button (click)="triggerFileInput()">
-                            <span nz-icon nzType="upload"></span>
-                            {{ "uploadImage" | translate }}
-                        </button>
-        
+                    <div>
+                        @if (imageChangedEvent) {
+                        <label nz-checkbox [formControl]="standardSizeControl">{{ "standardSize" | translate }}</label>
+                        }
                     </div>
+
+                    <button nz-button (click)="triggerFileInput()">
+                        <span nz-icon nzType="upload"></span>
+                        {{ "uploadImage" | translate }}
+                    </button>
+
+                </div>
                 <!-- </nz-upload> -->
                 <input class="d-none" type="file" (change)="imageChangedEvent = $event" #uploader />
                 <div class="cropper-container">
