@@ -161,15 +161,24 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addCount() {
-    const maxOfSelectedSize = this.product.size.find((el: any) => el.size === this.selectedSize);
-    if (this.inCardAmount >= maxOfSelectedSize.amount) {
+    if (this.product.size) {
+      const maxOfSelectedSize = this.product.size.find((el: any) => el.size === this.selectedSize);
+      if (this.inCardAmount >= maxOfSelectedSize.amount) {
+        this.message.create(
+          'error',
+          this.translate.instant('noAmountForThisSize', { count: maxOfSelectedSize.amount, size: maxOfSelectedSize.size })
+        )
+        return
+      }
+    }
+    const card = this.userShopCard.filter(c => c.productId === this.product.productId)[0]
+    if (card.inCardAmount >= this.product.amount) {
       this.message.create(
         'error',
-        this.translate.instant('noAmountForThisSize', { count: maxOfSelectedSize.amount, size: maxOfSelectedSize.size })
+        this.translate.instant('noAmount', { count: this.product.amount })
       )
       return
     }
-    const card = this.userShopCard.filter(c => c.productId === this.product.productId)[0]
     card.inCardAmount++;
     card.size = this.selectedSize
     this.inCardAmount += 1;
