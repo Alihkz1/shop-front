@@ -25,6 +25,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { LoadingComponent } from '../shared/component/loading/loading.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { TrackOrderComponent } from './components/track-order/track-order.component';
 
 const NZ = [
   NzInputModule,
@@ -49,7 +50,8 @@ const NZ = [
     ShopCardComponent,
     MenuProfileComponent,
     ConfirmCardComponent,
-    MyOrdersComponent
+    MyOrdersComponent,
+    TrackOrderComponent
   ],
   imports: [
     CommonModule,

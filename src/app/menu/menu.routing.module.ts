@@ -9,6 +9,7 @@ import { MenuProfileComponent } from "./components/menu-profile/menu-profile.com
 import { ShopCardComponent } from "./components/shop-card/shop-card.component";
 import { ConfirmCardComponent } from "./components/confirm-card/confirm-card.component";
 import { MyOrdersComponent } from "./components/my-orders/my-orders.component";
+import { TrackOrderComponent } from "./components/track-order/track-order.component";
 
 export const routes: Routes = [
     {
@@ -46,6 +47,10 @@ export const routes: Routes = [
             {
                 path: 'about-us',
                 component: AboutUsComponent
+            },
+            {
+                path: 'track',
+                component: TrackOrderComponent
             }
         ]
     },

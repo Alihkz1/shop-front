@@ -101,5 +101,6 @@
   "selectSize": "انتخاب سایز",
   "newSize": "سایز جدید",
   "noAmountForThisSize":"تنها {{count}} عدد از سایز {{size}} موجودی داریم",
-  "noAmount":"موجودی سایت تعداد {{count}} عدد است"
+  "noAmount":"موجودی سایت تعداد {{count}} عدد است",
+  "trackOrder":"پیگیری سفارش"
 }

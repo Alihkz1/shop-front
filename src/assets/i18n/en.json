@@ -100,5 +100,6 @@
   "selectSize": "Select Size",
   "newSize": "New Size",
   "noAmountForThisSize": "only {{count}} items are available!",
-  "noAmount": "only {{count}} items are available!"
+  "noAmount": "only {{count}} items are available!",
+  "trackOrder": "Track Order"
 }

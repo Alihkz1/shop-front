@@ -65,11 +65,16 @@ export class HeaderComponent {
 
   categoryIsActiveRoute(): boolean {
     const { url } = this.router;
-    return url.startsWith('/' + 'menu');
+    return url.includes('product') || url.includes('categories');
+  }
+
+  trackIsActiveRoute(): boolean {
+    const { url } = this.router;
+    return url.includes('track');
   }
 
   authIsActiveRoute(): boolean {
     const { url } = this.router;
-    return url.startsWith('/' + 'auth');
+    return url.includes('auth');
   }
 }
