@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, finalize } from 'rxjs';
 import { ShopCard } from '../../../shared/model/shop-card.model';
 import { ClientService } from '../../../shared/service/client.service';
+import { Product } from '../../../shared/model/product.model';
 
 @Component({
   selector: 'app-shop-card',
@@ -125,7 +126,24 @@ export class ShopCardComponent implements OnInit {
   }
 
   onConfirmCard() {
-    /* todo: call amount-check to see if prices are changed! */
-    this.router.navigate(['menu/confirm-card'])
+    this.dataLoading = true
+    const productIds = this.cards.map((e => e.productId))
+    this.menuApi.productAmountCheck({ ids: productIds })
+      .pipe(finalize(() => { this.dataLoading = false; }))
+      .subscribe(({ success, data }: any) => {
+        if (success) {
+          const products: Product[] = data.products;
+          let hasAnyLowerAmount = false;
+          products.forEach((productInServer: Product) => {
+            const productInCard = this.cards.find((e) => e.productId === productInServer.productId);
+            if (productInServer.amount < productInCard.inCardAmount) {
+              hasAnyLowerAmount = true;
+            }
+          })
+          if (!hasAnyLowerAmount)
+            this.router.navigate(['menu/confirm-card'])
+          else this.getData()
+        }
+      })
   }
 }

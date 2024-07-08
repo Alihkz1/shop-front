@@ -9,16 +9,19 @@
                     <div class="finalize">
                         {{ "makeOrderFinal" | translate }}
                     </div>
-                    @if (!dataLoading) {
+
                     <div class="total-price">
-                        <b>{{ "totalPrice" | translate }}: {{ totalPrice | currencyPipe }} {{ "currency" | translate}}
+                        <b>{{ "totalPrice" | translate }}:
+                            @if (totalPrice > 0) {
+                            {{ totalPrice | currencyPipe }} {{ "currency" | translate}}
+                            }
                         </b>
                         <button [disabled]="amountError" class="mt-4 sender-button" nz-button nzType="default"
                             (click)="onConfirmCard()">
                             {{ "senderDetails" | translate }}
                         </button>
                     </div>
-                    }
+
                 </div>
             </div>
             <div class="col-xl-19 col-lg-9 col-md-9 col-sm-12 px-0 left">
@@ -29,7 +32,7 @@
                 }
                 @for (card of cards; track $index) {
                 <div class="box" [class.red-card]="card.inCardAmount > card.amount">
-                    <img class="box-image" [src]="card.imageUrl" alt="">
+                    <img class="box-image" [src]="card.imageUrl">
                     <div class="box-detail flex-grow">
                         <div>
                             <div class="box-detail-title">
