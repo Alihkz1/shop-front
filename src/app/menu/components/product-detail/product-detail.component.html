@@ -14,7 +14,7 @@
             @if (product?.productId) {
             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
                 <div class="ps-4 pt-2 d-flex justify-content-center img">
-                    <img class="fit" [src]="product?.imageUrl" [alt]="product?.title">
+                    <!-- <img class="fit" [src]="product?.imageUrl" [alt]="product?.title"> -->
                 </div>
             </div>
             <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
@@ -27,11 +27,13 @@
                         <span class="detail-price-title"> <b>{{ 'price' | translate }}:</b> </span>
                         <span class="mx-2"> {{ product?.price | currencyPipe }} {{ 'currency' | translate }} </span>
                     </div>
-
+                    
+                    @if (!product?.size) {
                     <div class="detail-amount my-2">
                         <span class="detail-amount-title"> <b>{{ 'amount' | translate }}:</b> </span>
                         <span class="mx-2"> {{ product?.amount }} </span>
                     </div>
+                    }
 
                     <div *ngIf="product?.description" class="detail-description">
                         <span class="detail-description-title"> <b>{{ 'description' | translate }}:</b> </span>
