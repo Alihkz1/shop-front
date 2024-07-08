@@ -101,5 +101,9 @@
   "newSize": "New Size",
   "noAmountForThisSize": "only {{count}} items are available!",
   "noAmount": "only {{count}} items are available!",
-  "trackOrder": "Track Order"
+  "trackOrder": "Track Order",
+  "loginToSeeOrders": "Please Login to see all orders!",
+  "enterOrderCode": "Enter Order Code Here",
+  "search": "Search",
+  "orderCode": "Order Code"
 }

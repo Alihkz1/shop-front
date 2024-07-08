@@ -51,6 +51,15 @@ export class MenuApi {
       .call();
   }
 
+  public trackOrder(orderCode: string) {
+    return Api()
+      .get()
+      .controller('order')
+      .action('track')
+      .pathVariable(String(orderCode))
+      .call();
+  }
+
   public editUser(model: any) {
     return Api()
       .put()
