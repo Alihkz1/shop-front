@@ -16,6 +16,7 @@ export class TrackOrderComponent {
   orderCodeControl = new FormControl();
   private _order$ = new BehaviorSubject(null);
   public get order() { return this._order$.getValue() }
+  orderNotFound = false;
 
   constructor(private router: Router, private menuApi: MenuApi) { }
 
@@ -27,6 +28,7 @@ export class TrackOrderComponent {
     if (!this.orderCodeControl.value) return;
     this.trackLoading = this.menuApi.trackOrder(this.orderCodeControl.value).subscribe(({ data }: any) => {
       if (data) {
+        this.orderNotFound = false;
         const order = [data.order].map((el: any) => {
           return {
             ...el,
@@ -36,6 +38,9 @@ export class TrackOrderComponent {
           }
         })[0];
         this._order$.next(order)
+      } if (data === null) {
+        this.orderNotFound = true;
+        this._order$.next(null)
       }
     });
   }

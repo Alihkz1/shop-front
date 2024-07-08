@@ -24,6 +24,12 @@
                 [nzLoading]="trackLoading && !trackLoading.closed"> {{ "search" | translate }}
             </button>
         </div>
+        @if(orderNotFound){
+        <div class="d-flex justify-content-center">
+            <nz-alert class="mt-3" nzType="error" nzMessage="کد پیگیری اشتباه است">
+            </nz-alert>
+        </div>
+        }
         @if(order){
         <div class="order">
             <div class="box mt-2 p-1">
