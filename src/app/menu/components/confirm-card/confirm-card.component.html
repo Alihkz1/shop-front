@@ -10,16 +10,19 @@
         <div class="row mt-3">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                 <div class="fielder">
-                    <div class="fielder-title" [class.required]="form.get('receiverName').hasError('required')">{{
-                        "allName" | translate }}</div>
+                    <div class="fielder-title" [class.required]="form.get('receiverName').hasError('required')">
+                        {{ "allName" | translate }}
+                    </div>
                     <input nz-input formControlName="receiverName" />
                 </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                 <div class="fielder">
-                    <div class="fielder-title" [class.required]="form.get('receiverPhone').hasError('required')">{{
-                        "phone" | translate }}</div>
-                    <input nz-input formControlName="receiverPhone" type="number" />
+                    <div class="fielder-title" [class.required]="form.get('receiverPhone').hasError('required')">
+                        {{"phone" | translate }}
+                        <span class="phone-example">({{ "phoneExample" | translate }})</span>
+                    </div>
+                    <input nz-input formControlName="receiverPhone" />
                 </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
@@ -30,15 +33,16 @@
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                 <div class="fielder">
-                    <div class="fielder-title" [class.required]="form.get('postalCode').hasError('required')">{{
-                        "postalCode" | translate }}</div>
+                    <div class="fielder-title" [class.required]="form.get('postalCode').hasError('required')">
+                        {{ "postalCode" | translate }}</div>
                     <input nz-input formControlName="postalCode" type="number" />
                 </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                 <div class="fielder">
-                    <div class="fielder-title" [class.required]="form.get('address').hasError('required')">{{
-                        "receiverAddress" | translate }}</div>
+                    <div class="fielder-title" [class.required]="form.get('address').hasError('required')">
+                        {{ "receiverAddress" | translate }}
+                    </div>
                     <textarea [nzAutosize]="{ minRows: 3, maxRows: 10 }" nz-input formControlName="address"></textarea>
                 </div>
             </div>
@@ -56,7 +60,7 @@
     <nz-alert class="mt-1" nzType="info" nzMessage="اطلاعات ارسال توسط پیامک برای شما ارسال خواهد شد"> </nz-alert>
     <div class="save pt-2 mb-3">
         <label nz-checkbox [(ngModel)]="privacyAccepted" class="mb-2">قوانین را خواندم</label>
-        <button [disabled]="!privacyAccepted || form.invalid" [nzLoading]="saveLoading && !saveLoading.closed" nz-button
+        <button [disabled]="!privacyAccepted" [nzLoading]="saveLoading && !saveLoading.closed" nz-button
             nzType="primary" (click)="pay_onClick()">
             {{ "pay" | translate }} {{ totalPrice | currencyPipe }} {{ 'currency' | translate }}
         </button>

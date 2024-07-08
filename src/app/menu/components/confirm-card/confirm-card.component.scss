@@ -31,3 +31,14 @@ form {
         content: '  *';
     }
 }
+
+.phone-example {
+    font-size: 11px;
+    margin: 0 5px;
+}
+
+@media (max-width: 767px) {
+    ::ng-deep .ant-alert-content {
+        font-size: 11px;
+    }
+}

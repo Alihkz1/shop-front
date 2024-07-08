@@ -21,7 +21,7 @@ export class ConfirmCardComponent implements OnInit {
 
   form = new FormGroup({
     receiverName: new FormControl(null, [Validators.required]),
-    receiverPhone: new FormControl(null, [Validators.required]),
+    receiverPhone: new FormControl(null, [Validators.required, Validators.pattern(/^09\d{9}$/)]),
     receiverEmail: new FormControl(null),
     address: new FormControl(null, [Validators.required]),
     postalCode: new FormControl(null, [Validators.required]),
@@ -55,6 +55,10 @@ export class ConfirmCardComponent implements OnInit {
   }
 
   pay_onClick() {
+    if (this.form.get('receiverPhone').hasError('pattern')) {
+      this.message.create('error', this.translate.instant('wrongPhoneFormat'))
+      return;
+    }
     if (this.form.invalid) {
       this.message.create('error', this.translate.instant('formInvalid'))
       return

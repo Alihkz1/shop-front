@@ -36,7 +36,7 @@ export class ShopCardComponent implements OnInit {
 
     const { userId } = this.route.snapshot.params;
     this.menuApi.getUserShopCard(userId).subscribe(({ data, success }: any) => {
-      if (success) {
+      if (success && data?.card) {
         let cards: ShopCard[] = data.card;
         const productIds: number[] = cards.map((el: ShopCard) => el.productId);
         this.totalPrice = 0;
@@ -59,7 +59,7 @@ export class ShopCardComponent implements OnInit {
               this._cards$.next(cards);
             }
           })
-      }
+      } else this.dataLoading = false;
     })
   }
 
@@ -79,7 +79,7 @@ export class ShopCardComponent implements OnInit {
     this.totalPrice -= card.price
   }
 
-  addCount(card: ShopCard) {    
+  addCount(card: ShopCard) {
     card.inCardAmount++;
     const products = this.cards.map((c: ShopCard) => {
       if (c.productId === card.productId) {
