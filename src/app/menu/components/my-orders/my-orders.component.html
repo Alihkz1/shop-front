@@ -80,6 +80,9 @@
                             <div class="my-1">
                                 <b>{{ 'receiverAddress' | translate }} :</b> {{ order.address }}
                             </div>
+                            <div class="my-1">
+                                <b>{{ 'orderCode' | translate }} :</b> {{ order.code }}
+                            </div>
                         </div>
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2 flex-grow product-field">
                             @for (product of order.products; track $index) {

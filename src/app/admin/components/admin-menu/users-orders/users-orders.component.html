@@ -1,18 +1,23 @@
 <div class="d-flex flex-column h-100">
     <div class="w-100">
-        <button [class.active]="selectedIndex === -1" class="w-20" nz-button nzType="default" (click)="selectedIndex = -1; getOrders()">
+        <button [class.active]="selectedIndex === -1" class="w-20" nz-button nzType="default"
+            (click)="selectedIndex = -1; getOrders()">
             {{ 'allOrders' | translate }} ({{ tabsBadge.all }})
         </button>
-        <button [class.active]="selectedIndex === 0" class="w-20" nz-button nzType="default" (click)="selectedIndex = 0; getOrders()">
+        <button [class.active]="selectedIndex === 0" class="w-20" nz-button nzType="default"
+            (click)="selectedIndex = 0; getOrders()">
             {{ 'new' | translate }} ({{ tabsBadge.waiting }})
         </button>
-        <button [class.active]="selectedIndex === 1" class="w-20" nz-button nzType="default" (click)="selectedIndex = 1; getOrders()">
+        <button [class.active]="selectedIndex === 1" class="w-20" nz-button nzType="default"
+            (click)="selectedIndex = 1; getOrders()">
             {{ 'sent' | translate }} ({{ tabsBadge.sent }})
         </button>
-        <button [class.active]="selectedIndex === 2" class="w-20" nz-button nzType="default" (click)="selectedIndex = 2; getOrders()">
+        <button [class.active]="selectedIndex === 2" class="w-20" nz-button nzType="default"
+            (click)="selectedIndex = 2; getOrders()">
             {{ 'confirmed' | translate }} ({{ tabsBadge.confirmed }})
         </button>
-        <button [class.active]="selectedIndex === 3" class="w-20" nz-button nzType="default" (click)="selectedIndex = 3; getOrders()">
+        <button [class.active]="selectedIndex === 3" class="w-20" nz-button nzType="default"
+            (click)="selectedIndex = 3; getOrders()">
             {{ 'notDelivered' | translate }} <span class="red px-1">({{ tabsBadge.notDelivered }})</span>
         </button>
     </div>
@@ -78,6 +83,9 @@
                             </div>
                             <div class="my-1">
                                 <b>{{ 'orderDate' | translate }} :</b> {{ order.date }}
+                            </div>
+                            <div class="my-1">
+                                <b>{{ 'orderCode' | translate }} :</b> {{ order.code }}
                             </div>
                         </div>
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2 flex-grow product-field">
