@@ -79,7 +79,7 @@ export class ShopCardComponent implements OnInit {
     this.totalPrice -= card.price
   }
 
-  addCount(card: ShopCard) {
+  addCount(card: ShopCard) {    
     card.inCardAmount++;
     const products = this.cards.map((c: ShopCard) => {
       if (c.productId === card.productId) {
@@ -114,6 +114,7 @@ export class ShopCardComponent implements OnInit {
       userId: this.client.getUser.user.userId,
       products: otherCards
     }
+    this.dataLoading = true;
     this.menuApi.modifyShopCard(model).subscribe(({ success }: any) => {
       if (success) {
         this.totalPrice = this.totalPrice - card.price * card.inCardAmount;

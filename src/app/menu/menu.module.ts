@@ -24,6 +24,7 @@ import { MyOrdersComponent } from './components/my-orders/my-orders.component';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { LoadingComponent } from '../shared/component/loading/loading.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 const NZ = [
   NzInputModule,
@@ -33,7 +34,8 @@ const NZ = [
   NzModalModule,
   NzPopconfirmModule,
   NzCheckboxModule,
-  NzSelectModule
+  NzSelectModule,
+  NzToolTipModule
 ]
 
 

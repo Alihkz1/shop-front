@@ -38,6 +38,9 @@
                             <span class="mx-1"> {{ card.size }} </span>
                         </div>
                         }
+                        <div class="box-detail-quantity"> {{ "quantity" | translate }}:
+                            <span class="mx-1"> {{ card.inCardAmount }} </span>
+                        </div>
                     </div>
 
                     @if (card.inCardAmount > card.amount) {
@@ -46,16 +49,16 @@
                         {{ "notAvailableAmount" | translate }}
                     </ng-template>
                     }
-                    <div class="w-100 d-flex justify-content-between">
-                        <nz-button-group>
+                    <div class="w-100 d-flex justify-content-end">
+                        <!-- <nz-button-group>
                             <button nz-button (click)="minCount(card)"><span nz-icon nzType="minus"></span></button>
                             <div class="mx-3 mt-1">
                                 {{ card.inCardAmount }}
                             </div>
                             <button nz-button (click)="addCount(card)"><span nz-icon nzType="plus"></span></button>
-                        </nz-button-group>
-                        <span class="delete" nz-icon nzType="delete" nzTheme="outline"
-                            (click)="deleteFromShopCard(card)">
+                        </nz-button-group> -->
+                        <span class="delete" nz-icon nzType="delete" nzTheme="outline" nzTooltipTitle="حذف"
+                            nzTooltipPlacement="right" nz-button nz-tooltip (click)="deleteFromShopCard(card)">
                         </span>
                     </div>
                 </div>
