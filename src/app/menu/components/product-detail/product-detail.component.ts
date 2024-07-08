@@ -41,8 +41,8 @@ export class ProductDetailComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.changeSizeListener()
     this.getData()
+    this.changeSizeListener()
   }
 
   private getData() {
@@ -161,6 +161,14 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addCount() {
+    const maxOfSelectedSize = this.product.size.find((el: any) => el.size === this.selectedSize);
+    if (this.inCardAmount >= maxOfSelectedSize.amount) {
+      this.message.create(
+        'error',
+        this.translate.instant('noAmountForThisSize', { count: maxOfSelectedSize.amount, size: maxOfSelectedSize.size })
+      )
+      return
+    }
     const card = this.userShopCard.filter(c => c.productId === this.product.productId)[0]
     card.inCardAmount++;
     card.size = this.selectedSize
@@ -172,6 +180,11 @@ export class ProductDetailComponent implements OnInit {
     this.sizeFormControl.valueChanges.subscribe((value: string) => {
       if (!value) return;
       const card = this.userShopCard.filter(c => c.productId === this.product.productId)[0]
+      const maxAmountOfSelectedSize = +this.product.size.find((e: any) => e.size === value).amount;
+      if (this.inCardAmount > maxAmountOfSelectedSize) {
+        card.inCardAmount = +maxAmountOfSelectedSize;
+        this.inCardAmount = +maxAmountOfSelectedSize
+      }
       if (!card) return;
       card.size = value
       this.updateCards();

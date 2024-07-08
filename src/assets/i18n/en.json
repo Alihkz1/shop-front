@@ -98,5 +98,6 @@
   "hasSizing": "Has Sizing",
   "size": "Size",
   "selectSize": "Select Size",
-  "newSize": "New Size"
+  "newSize": "New Size",
+  "noAmountForThisSize":"only {{count}} items are available!"
 }

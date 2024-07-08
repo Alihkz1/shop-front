@@ -99,5 +99,6 @@
   "hasSizing": "دارای سایزبندی",
   "size": "سایز",
   "selectSize": "انتخاب سایز",
-  "newSize": "سایز جدید"
+  "newSize": "سایز جدید",
+  "noAmountForThisSize":"تنها {{count}} عدد از سایز {{size}} موجودی داریم"
 }
