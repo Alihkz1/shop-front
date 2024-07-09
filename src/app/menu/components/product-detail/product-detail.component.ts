@@ -18,7 +18,7 @@ import { FormControl } from '@angular/forms';
   styleUrl: './product-detail.component.scss'
 })
 export class ProductDetailComponent implements OnInit {
-  product: any;
+  product: { product: Product, productSize: any[] };
   productInShopCardFlag = false
   inCardAmount: number = 0
   dataLoading: Subscription;
@@ -50,10 +50,8 @@ export class ProductDetailComponent implements OnInit {
     this.dataLoading = this.menuApi.getProductRetrieve(productId).subscribe(({ success, data }: any) => {
       if (!success) return;
       this.product = data.product;
-      if (data.product.size) {
-        let sizeArray: any[] = JSON.parse(data.product.size);
-        sizeArray = sizeArray.sort((a, b) => a.size - b.size).filter((e) => e.amount > 0);
-        this.product.size = sizeArray
+      if (data.product.productSize.length > 0) {
+        this.product.productSize = data.product.productSize.sort((a: any, b: any) => a.size - b.size).filter((e: any) => e.amount > 0);
       }
       this.getShopCard()
     })
@@ -61,13 +59,14 @@ export class ProductDetailComponent implements OnInit {
 
 
   private checkProductInShopCard() {
-    const products: ShopCard[] = this.userShopCard;
-    const productInShopCard = products.find(p => p.productId === this.product.productId)
-    if (productInShopCard) {
-      this.productInShopCardFlag = true
-      this.inCardAmount = productInShopCard.inCardAmount
-      this.sizeFormControl.setValue(productInShopCard.size)
-    }
+    /* todo */
+    // const products: ShopCard[] = this.userShopCard;
+    // const productInShopCard = products.find(p => p.productId === this.product.product.productId)
+    // if (productInShopCard) {
+    //   this.productInShopCardFlag = true
+    //   this.inCardAmount = productInShopCard.inCardAmount
+    //   this.sizeFormControl.setValue(productInShopCard.size)
+    // }
   }
 
   private getShopCard() {
@@ -81,41 +80,43 @@ export class ProductDetailComponent implements OnInit {
   }
 
   public addToCard() {
-    let products: any[] = this.userShopCard;
-    if (products.map(p => p.productId).includes(this.product.productId)) {
-      this.message.create('info', this.translate.instant('alreadyInCard'))
-      return;
-    }
-    this.product.inCardAmount = 1;
-    products.push({ ...this.product, size: this.selectedSize });
-    const model = {
-      userId: this.client.getUser.user.userId,
-      products
-    }
-    this.menuApi.modifyShopCard(model).subscribe(({ success }: any) => {
-      if (success) {
-        this.message.create('success', this.translate.instant('addedToCard'))
-        this.productInShopCardFlag = true;
-        this.inCardAmount = 1;
-        this.client.shopCardLength += 1;
-        this.getShopCard()
-      }
-    })
+    /* todo */
+    // let products: any[] = this.userShopCard;
+    // if (products.map(p => p.productId).includes(this.product.product.productId)) {
+    //   this.message.create('info', this.translate.instant('alreadyInCard'))
+    //   return;
+    // }
+    // this.product.product.inCardAmount = 1;
+    // products.push({ ...this.product, size: this.selectedSize });
+    // const model = {
+    //   userId: this.client.getUser.user.userId,
+    //   products
+    // }
+    // this.menuApi.modifyShopCard(model).subscribe(({ success }: any) => {
+    //   if (success) {
+    //     this.message.create('success', this.translate.instant('addedToCard'))
+    //     this.productInShopCardFlag = true;
+    //     this.inCardAmount = 1;
+    //     this.client.shopCardLength += 1;
+    //     this.getShopCard()
+    //   }
+    // })
   }
 
   deleteFromShopCard() {
-    const otherCards = this.userShopCard.filter(c => c.productId != this.product.productId);
-    const model = {
-      userId: this.client.getUser.user.userId,
-      products: otherCards
-    }
-    this.menuApi.modifyShopCard(model).subscribe(({ success }: any) => {
-      if (success) {
-        this.productInShopCardFlag = false;
-        this.client.shopCardLength -= 1;
-        this.getShopCard()
-      }
-    })
+    /* todo */
+    // const otherCards = this.userShopCard.filter(c => c.productId != this.product.product.productId);
+    // const model = {
+    //   userId: this.client.getUser.user.userId,
+    //   products: otherCards
+    // }
+    // this.menuApi.modifyShopCard(model).subscribe(({ success }: any) => {
+    //   if (success) {
+    //     this.productInShopCardFlag = false;
+    //     this.client.shopCardLength -= 1;
+    //     this.getShopCard()
+    //   }
+    // })
   }
 
   public navigateToLogin() {
@@ -133,7 +134,7 @@ export class ProductDetailComponent implements OnInit {
     })
   }
 
-  editProduct_onClick(product: Product) {
+  editProduct_onClick(product: any) {
     this.modalService.create({
       nzFooter: null,
       nzCentered: true,
@@ -144,57 +145,59 @@ export class ProductDetailComponent implements OnInit {
       },
       nzContent: ProductModalComponent,
       nzData: { product },
-      nzOnOk: () => {
-      },
+      nzOnOk: () => { },
     }).afterClose.subscribe((result: boolean) => {
       if (result) this.getData()
     })
   }
 
   minCount() {
-    const card = this.userShopCard.filter(c => c.productId === this.product.productId)[0]
-    if (card.inCardAmount < 2) return;
-    card.inCardAmount--;
-    card.size = this.selectedSize
-    this.inCardAmount -= 1;
-    this.updateCards();
+    /* todo */
+    // const card = this.userShopCard.find(c => c.productId === this.product.product.productId);
+    // if (card.inCardAmount < 2) return;
+    // card.inCardAmount--;
+    // card.size = this.selectedSize
+    // this.inCardAmount -= 1;
+    // this.updateCards();
   }
 
   addCount() {
-    if (this.product.size) {
-      const maxOfSelectedSize = this.product.size.find((el: any) => el.size === this.selectedSize);
-      if (this.inCardAmount >= maxOfSelectedSize.amount) {
-        this.message.create(
-          'error',
-          this.translate.instant('noAmountForThisSize', { count: maxOfSelectedSize.amount, size: maxOfSelectedSize.size })
-        )
-        return
-      }
-    }
-    const card = this.userShopCard.filter(c => c.productId === this.product.productId)[0]
-    if (card.inCardAmount >= this.product.amount) {
-      this.message.create(
-        'error',
-        this.translate.instant('noAmount', { count: this.product.amount })
-      )
-      return
-    }
-    card.inCardAmount++;
-    card.size = this.selectedSize
-    this.inCardAmount += 1;
-    this.updateCards();
+    /* todo */
+    // if (this.product.productSize.length) {
+    //   const maxOfSelectedSize = this.product.productSize.find((el: any) => el.size === this.selectedSize);
+    //   if (this.inCardAmount >= maxOfSelectedSize.amount) {
+    //     this.message.create(
+    //       'error',
+    //       this.translate.instant('noAmountForThisSize', { count: maxOfSelectedSize.amount, size: maxOfSelectedSize.size })
+    //     )
+    //     return
+    //   }
+    // }
+    // const card = this.userShopCard.find(c => c.productId === this.product.product.productId);
+    // if (card.inCardAmount >= this.product.product.amount) {
+    //   this.message.create(
+    //     'error',
+    //     this.translate.instant('noAmount', { count: this.product.product.amount })
+    //   )
+    //   return
+    // }
+    // card.inCardAmount++;
+    // card.size = this.selectedSize
+    // this.inCardAmount += 1;
+    // this.updateCards();
   }
 
   changeSizeListener() {
     this.sizeFormControl.valueChanges.subscribe((value: string) => {
       if (!value) return;
-      const card = this.userShopCard.filter(c => c.productId === this.product.productId)[0]
-      const maxAmountOfSelectedSize = +this.product.size.find((e: any) => e.size === value).amount;
+      const card = this.userShopCard.find(c => c.productId === this.product.product.productId);
+      const maxAmountOfSelectedSize = +this.product.productSize.find((e: any) => e.size === value).amount;
       if (this.inCardAmount > maxAmountOfSelectedSize) {
         card.inCardAmount = +maxAmountOfSelectedSize;
         this.inCardAmount = +maxAmountOfSelectedSize
       }
       if (!card) return;
+      /* todo */
       card.size = value
       this.updateCards();
     })

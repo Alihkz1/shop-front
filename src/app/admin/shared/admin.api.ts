@@ -60,6 +60,15 @@ export class AdminApi {
       .call()
   }
 
+  public deleteSize(sizeId: number) {
+    return Api()
+      .delete()
+      .controller('size')
+      .action('delete')
+      .pathVariable(String(sizeId))
+      .call()
+  }
+
   public editCategory(model: any) {
     return Api()
       .put()

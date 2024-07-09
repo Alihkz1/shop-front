@@ -54,7 +54,7 @@ export class LoginComponent {
           if (data.user.role === ROLE.ADMIN) {
             this.client.isAdmin = true;
             this.client.setHeaderButtons = ADMIN_BUTTONS;
-            this.router.navigate(['/admin/add-product']);
+            this.router.navigate(['/admin/orders']);
           } else {
             this.getShopCardLength();
             this.client.isAdmin = false;

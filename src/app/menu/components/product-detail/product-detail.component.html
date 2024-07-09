@@ -11,39 +11,40 @@
         <loading class="mt-5"></loading>
         }@else {
         <div class="row">
-            @if (product?.productId) {
+            @if (product?.product.productId) {
             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
                 <div class="ps-4 pt-2 d-flex justify-content-center img">
-                    <img class="fit" [src]="product?.imageUrl" [alt]="product?.title">
+                    <img class="fit" [src]="product?.product.imageUrl" [alt]="product?.product.title">
                 </div>
             </div>
             <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
                 <div class="detail mt-4">
                     <div class="detail-title">
-                        {{ product?.title }}
+                        {{ product?.product.title }}
                     </div>
 
                     <div class="detail-price mb-2 mt-4">
                         <span class="detail-price-title"> <b>{{ 'price' | translate }}:</b> </span>
-                        <span class="mx-2"> {{ product?.price | currencyPipe }} {{ 'currency' | translate }} </span>
+                        <span class="mx-2"> {{ product?.product.price | currencyPipe }} {{ 'currency' | translate }}
+                        </span>
                     </div>
-                    
-                    @if (!product?.size) {
+
+                    @if (product?.productSize.length === 0) {
                     <div class="detail-amount my-2">
                         <span class="detail-amount-title"> <b>{{ 'amount' | translate }}:</b> </span>
-                        <span class="mx-2"> {{ product?.amount }} </span>
+                        <span class="mx-2"> {{ product?.product.amount }} </span>
                     </div>
                     }
 
-                    <div *ngIf="product?.description" class="detail-description">
+                    <div *ngIf="product?.product.description" class="detail-description">
                         <span class="detail-description-title"> <b>{{ 'description' | translate }}:</b> </span>
-                        <span class="mx-2"> {{ product?.description }} </span>
+                        <span class="mx-2"> {{ product?.product.description }} </span>
                     </div>
 
-                    <div *ngIf="product?.size" class="detail-size mt-2 mb-4">
+                    <div *ngIf="product?.productSize.length > 0" class="detail-size mt-2 mb-4">
                         <span class="detail-size-title"> <b>{{ 'selectSize' | translate }}:</b> </span>
                         <nz-select [formControl]="sizeFormControl" nzAllowClear>
-                            @for (item of product.size; track $index) {
+                            @for (item of product.productSize; track $index) {
                             <nz-option [nzValue]="item.size" [nzLabel]="item.size"></nz-option>
                             }
                         </nz-select>
@@ -61,15 +62,15 @@
                         <span class="m-2 red cursor-pointer" nz-icon nzType="delete" nzTheme="outline"
                             zPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف محصول؟" nzOkText="بله"
                             nzCancelText="خیر" (click)="$event.stopPropagation()"
-                            (nzOnConfirm)="deleteProduct_onClick(product)">
+                            (nzOnConfirm)="deleteProduct_onClick(product.product)">
                         </span>
                     </div>
                     }@else {
                     @if (!productInShopCardFlag) {
 
-                    @if (product?.amount > 0) {
+                    @if (product?.product.amount > 0) {
                     <button nz-button nzType="default" (click)="addToCard()"
-                        [disabled]="product?.size && selectedSize === null">
+                        [disabled]="product?.productSize.length > 0 && selectedSize === null">
                         {{ 'toShopCard' | translate }}
                         <span nz-icon nzType="shopping" nzTheme="outline"></span>
                     </button>

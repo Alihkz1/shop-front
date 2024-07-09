@@ -62,8 +62,8 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  deleteProduct_onConfirm(product: any) {
-    this.adminApi.deleteProduct(product.productId).subscribe(({ success }: any) => {
+  deleteProduct_onConfirm(productId: number) {
+    this.adminApi.deleteProduct(productId).subscribe(({ success }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
         this.getCategories();
@@ -89,7 +89,7 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  openProductModal(product: Product | null, category: Category | null) {
+  openProductModal(product: any | null, category: Category | null) {
     const nzData = {
       product,
       category

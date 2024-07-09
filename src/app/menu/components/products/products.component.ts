@@ -18,7 +18,7 @@ import { SORT_PRODUCT } from '../../../shared/enum/sort-products.enum';
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent implements OnInit {
-  private _products$: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
+  private _products$: BehaviorSubject<{ product: Product, productSize: any[] }[]> = new BehaviorSubject<{ product: Product, productSize: any[] }[]>([]);
   public get products() { return this._products$.getValue() }
   dataLoading: Subscription;
   sortFormControl = new FormControl()
@@ -86,7 +86,7 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  editProduct_onClick(product: Product) {
+  editProduct_onClick(product: any) {
     this.modalService.create({
       nzFooter: null,
       nzCentered: true,
