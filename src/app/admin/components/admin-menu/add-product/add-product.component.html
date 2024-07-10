@@ -28,7 +28,7 @@
                         <span>{{ "price" | translate }}:</span> {{ product.product.price | currencyPipe }}
                         {{ "currency" | translate }}
                     </p>
-                    @if (product.description) {
+                    @if (product.product.description) {
                     <p class="product-item-description">
                         <span>{{ "description" | translate }}:</span> {{ product.product.description | currencyPipe }}
                     </p>

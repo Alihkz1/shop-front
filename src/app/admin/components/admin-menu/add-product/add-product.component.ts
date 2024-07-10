@@ -107,7 +107,7 @@ export class AddProductComponent implements OnInit {
       nzOnOk: () => {
       },
     }).afterClose.subscribe((result: boolean) => {
-      if (result) this.getCategories()
+      this.getCategories()
     })
   }
 }

@@ -5,6 +5,7 @@ import { MenuApi } from '../../shared/menu.api';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Product } from '../../../shared/model/product.model';
 import moment from 'jalali-moment';
+import { OrderDto } from '../../../shared/model/order-dto.model';
 
 @Component({
   selector: 'app-track-order',
@@ -29,14 +30,13 @@ export class TrackOrderComponent {
     this.trackLoading = this.menuApi.trackOrder(this.orderCodeControl.value).subscribe(({ data }: any) => {
       if (data) {
         this.orderNotFound = false;
-        const order = [data.order].map((el: any) => {
+        const order = [data.order].map((el: OrderDto) => {
           return {
             ...el,
-            totalPrice: this.getTotalPrice(JSON.parse(el.products)),
-            products: JSON.parse(el.products),
-            date: moment(new Date(el.date)).locale('fa').format('HH:mm:ss YYYY/MM/DD')
+            totalPrice: this.getTotalPrice(el.products),
+            date: moment(new Date(el.order.date)).locale('fa').format('HH:mm:ss YYYY/MM/DD'),
           }
-        })[0];
+        })[0]
         this._order$.next(order)
       } if (data === null) {
         this.orderNotFound = true;
