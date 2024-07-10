@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { Location } from '@angular/common';
+import { ShopCardDto } from '../../../shared/model/shopCardDto.model';
 
 @Component({
   selector: 'app-confirm-card',
@@ -42,15 +43,14 @@ export class ConfirmCardComponent implements OnInit {
 
   private getShopCard() {
     if (!this.client.isLogin || this.client.isAdmin) return;
-    this.menuApi.getUserShopCardLightList(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
+    this.menuApi.getUserShopCard(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
       if (success && data) {
-        const cards: ShopCard[] = data.card;
+        const cards: ShopCardDto[] = data.cards;
         this.totalPrice = 0;
-        this.shopCardId = cards[0].shopCardId;
-        // cards.forEach((card: ShopCard) => {
-        //   this.totalPrice += card.price * card.inCardAmount;
-        // })
-        /* todo */
+        this.shopCardId = cards[0].shopCard.shopCardId;
+        cards.forEach((card: ShopCardDto) => {
+          this.totalPrice += card.product.product.price * card.shopCard.amount;
+        })
       }
     })
   }

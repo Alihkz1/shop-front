@@ -12,6 +12,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { ShopCard } from '../../../shared/model/shop-card.model';
 import { FormControl } from '@angular/forms';
 import { Size } from '../../../shared/model/size.model';
+import { ProductDto } from '../../../shared/model/productDto.model';
 
 @Component({
   selector: 'app-product-detail',
@@ -19,7 +20,7 @@ import { Size } from '../../../shared/model/size.model';
   styleUrl: './product-detail.component.scss'
 })
 export class ProductDetailComponent implements OnInit {
-  product: { product: Product, productSize: Size[] };
+  product: ProductDto;
   productInShopCardFlag = false
   wantToBuyAmount: number = 0
   productInShopCard: any;
@@ -127,7 +128,7 @@ export class ProductDetailComponent implements OnInit {
     })
   }
 
-  editProduct_onClick(product: any) {
+  editProduct_onClick() {
     this.modalService.create({
       nzFooter: null,
       nzCentered: true,
@@ -137,7 +138,7 @@ export class ProductDetailComponent implements OnInit {
         borderRadius: "6px",
       },
       nzContent: ProductModalComponent,
-      nzData: { product },
+      nzData: { product: this.product },
       nzOnOk: () => { },
     }).afterClose.subscribe((result: boolean) => {
       this.getData()

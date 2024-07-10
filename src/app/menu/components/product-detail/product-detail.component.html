@@ -57,7 +57,7 @@
                     @if (client.isAdmin) {
                     <div class="board-data-icons">
                         <span class="m-2 blue cursor-pointer" nz-icon nzType="edit" nzTheme="outline"
-                            (click)="editProduct_onClick(product); $event.stopPropagation()">
+                            (click)="editProduct_onClick(); $event.stopPropagation()">
                         </span>
                         <span class="m-2 red cursor-pointer" nz-icon nzType="delete" nzTheme="outline"
                             zPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف محصول؟" nzOkText="بله"

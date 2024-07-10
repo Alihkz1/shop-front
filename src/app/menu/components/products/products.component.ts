@@ -11,7 +11,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { ProductModalComponent } from '../../../shared/component/product-modal/product-modal.component';
 import { FormControl } from '@angular/forms';
 import { SORT_PRODUCT } from '../../../shared/enum/sort-products.enum';
-import { Size } from '../../../shared/model/size.model';
+import { ProductDto } from '../../../shared/model/productDto.model';
 
 @Component({
   selector: 'app-products',
@@ -19,7 +19,7 @@ import { Size } from '../../../shared/model/size.model';
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent implements OnInit {
-  private _products$: BehaviorSubject<{ product: Product, productSize: Size[] }[]> = new BehaviorSubject<{ product: Product, productSize: Size[] }[]>([]);
+  private _products$: BehaviorSubject<ProductDto[]> = new BehaviorSubject<ProductDto[]>([]);
   public get products() { return this._products$.getValue() }
   dataLoading: Subscription;
   sortFormControl = new FormControl()
@@ -87,7 +87,7 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  editProduct_onClick(product: any) {
+  editProduct_onClick(product: ProductDto) {
     this.modalService.create({
       nzFooter: null,
       nzCentered: true,

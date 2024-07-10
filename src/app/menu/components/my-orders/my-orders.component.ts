@@ -81,7 +81,6 @@ export class MyOrdersComponent implements OnInit {
     //   totalPrice += p.price * p.inCardAmount;
     // });
     // return totalPrice;
-    /* todo */
   }
 
   navigateToProduct(product: Product) {

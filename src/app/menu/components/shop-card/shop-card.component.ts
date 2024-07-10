@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MenuApi } from '../../shared/menu.api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, finalize } from 'rxjs';
-import { ShopCard } from '../../../shared/model/shop-card.model';
 import { ClientService } from '../../../shared/service/client.service';
 import { Product } from '../../../shared/model/product.model';
 import { Size } from '../../../shared/model/size.model';
+import { ShopCardDto } from '../../../shared/model/shopCardDto.model';
 
 @Component({
   selector: 'app-shop-card',
@@ -18,8 +18,8 @@ export class ShopCardComponent implements OnInit {
   dataLoading = false;
   loadingCounter = 0;
 
-  private _cards$ = new BehaviorSubject<{ shopCard: ShopCard; product: { product: Product, productSize: Size[] } }[]>([]);
-  public get cards(): { shopCard: ShopCard; product: { product: Product, productSize: Size[] } }[] { return this._cards$.getValue() }
+  private _cards$ = new BehaviorSubject<ShopCardDto[]>([]);
+  public get cards(): ShopCardDto[] { return this._cards$.getValue() }
 
   constructor(
     private router: Router,
@@ -39,7 +39,7 @@ export class ShopCardComponent implements OnInit {
     const { userId } = this.route.snapshot.params;
     this.menuApi.getUserShopCard(userId).subscribe(({ data, success }: any) => {
       if (success && data?.cards) {
-        let cards: { shopCard: ShopCard; product: { product: Product, productSize: Size[] } }[] = data.cards;
+        let cards: ShopCardDto[] = data.cards;
         const productIds: number[] = cards.map((el: any) => el.product.product.productId);
         this.totalPrice = 0;
         this.menuApi.productAmountCheck({ ids: productIds })
@@ -104,7 +104,7 @@ export class ShopCardComponent implements OnInit {
       })
   }
 
-  hasAmountError(card: { shopCard: ShopCard; product: { product: Product, productSize: Size[] } }) {
+  hasAmountError(card: ShopCardDto) {
     if (card.shopCard.size === null)
       return card.shopCard.amount > card.product.product.amount
     else
