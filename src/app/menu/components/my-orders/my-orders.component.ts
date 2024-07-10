@@ -86,10 +86,10 @@ export class MyOrdersComponent implements OnInit {
     this.router.navigate(['menu/products', product.categoryId, product.productId])
   }
 
-  changeStatus(order: any, status: ORDER_STATUS) {
+  changeStatus(orderId: number, status: ORDER_STATUS) {
     this.adminApi.changeOrderStatus(
       {
-        orderId: order.orderId,
+        orderId,
         orderStatus: status
       }
     ).subscribe(({ success }: any) => {

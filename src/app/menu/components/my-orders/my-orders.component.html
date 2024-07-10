@@ -48,14 +48,14 @@
                         @if (order.order.status === 1) {
                         <button class="fit" nz-button nzType="default" nz-popconfirm nzOkText="تایید" nzCancelText="نه"
                             nzPopconfirmTitle="تایید دریافت" nzPopconfirmPlacement="bottom"
-                            (nzOnConfirm)="changeStatus(order, 2)">
+                            (nzOnConfirm)="changeStatus(order.order.orderId, 2)">
                             {{ 'receivedByMe' | translate }}
                         </button>
                         }
                         @if (order.order.status === 2 && order.showNotReceived === true) {
                         <button class="fit-red" nz-button nzType="default" nz-popconfirm nzOkText="تایید"
                             nzCancelText="نه" nzPopconfirmTitle="بسته به من نرسیده است" nzPopconfirmPlacement="bottom"
-                            (nzOnConfirm)="changeStatus(order, 3)">
+                            (nzOnConfirm)="changeStatus(order.order.orderId, 3)">
                             {{ 'didntReceivedByMe' | translate }}
                         </button>
                         }
@@ -66,8 +66,7 @@
                             <nz-alert nzType="warning" [nzMessage]="weCallYou">
                             </nz-alert>
                             <ng-template #weCallYou>
-                                {{ 'weWillCallYouAboutDeliver' | translate: { phoneNumber: order.order.receiverPhone }
-                                }}
+                                {{ 'weWillCallYouAboutDeliver' | translate: { phoneNumber: order.order.receiverPhone } }}
                                 <span class="mt-1" nz-icon nzType="phone" nzTheme="outline"></span>
                             </ng-template>
                         </div>

@@ -23,13 +23,14 @@ export class ProductDetailComponent implements OnInit {
   product: ProductDto;
   productInShopCardFlag = false
   wantToBuyAmount: number = 0
-  productInShopCard: any;
+  productInShopCard: ShopCard;
   dataLoading: Subscription;
+
   sizeFormControl = new FormControl();
   public get selectedSize() { return this.sizeFormControl.value }
 
   private _userShopCard$ = new BehaviorSubject<ShopCard[]>([]);
-  public get userShopCard() { return this._userShopCard$.getValue() }
+  public get userShopCard(): ShopCard[] { return this._userShopCard$.getValue() }
 
   constructor(
     public router: Router,
@@ -54,7 +55,9 @@ export class ProductDetailComponent implements OnInit {
       if (!success) return;
       this.product = data.product;
       if (data.product.productSize.length > 0) {
-        this.product.productSize = data.product.productSize.sort((a: Size, b: Size) => +a.size - +b.size).filter((e: any) => e.amount > 0);
+        this.product.productSize = data.product.productSize
+          .sort((a: Size, b: Size) => +a.size - +b.size)
+          .filter((e: Size) => e.amount > 0);
       }
       this.getShopCard()
     })
@@ -156,7 +159,7 @@ export class ProductDetailComponent implements OnInit {
     if (!card) return;
     if (this.product.productSize.length > 0) {
       const maxAmountOfSelectedSize = +this.product.productSize
-        .find((e: any) => e.size === this.selectedSize).amount;
+        .find((e: Size) => e.size === this.selectedSize).amount;
       if (this.wantToBuyAmount >= maxAmountOfSelectedSize) {
         this.message.create('error', this.translate.instant('noAmountForThisSize', {
           size: this.selectedSize,

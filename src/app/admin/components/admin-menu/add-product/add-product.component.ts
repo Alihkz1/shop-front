@@ -10,6 +10,7 @@ import { Product } from '../../../../shared/model/product.model';
 import { ProductModalComponent } from '../../../../shared/component/product-modal/product-modal.component';
 import { Subscription } from 'rxjs';
 import { CategoryDto } from '../../../../shared/model/category-dto.model';
+import { ProductDto } from '../../../../shared/model/product-dto.model';
 
 @Component({
   selector: 'app-add-product',
@@ -54,7 +55,7 @@ export class AddProductComponent implements OnInit {
       })
   }
 
-  deleteCategory_onConfirm(category: any) {
+  deleteCategory_onConfirm(category: CategoryDto) {
     this.adminApi.deleteCategory(category.categoryId).subscribe(({ success }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
@@ -90,7 +91,7 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  openProductModal(product: any | null, category: CategoryDto | null) {
+  openProductModal(product: ProductDto | null, category: CategoryDto | null) {
     const nzData = {
       product,
       category
