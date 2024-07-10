@@ -1,0 +1,15 @@
+export interface Order {
+    address: string,
+    code: string,
+    date: number,
+    description: string,
+    orderId: number,
+    paid: number,
+    postalCode: number,
+    receiverEmail: string,
+    receiverName: string,
+    receiverPhone: string,
+    shopCardId: number,
+    status: number,
+    userId: number,
+}
