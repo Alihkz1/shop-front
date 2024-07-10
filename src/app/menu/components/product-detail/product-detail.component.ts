@@ -12,7 +12,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { ShopCard } from '../../../shared/model/shop-card.model';
 import { FormControl } from '@angular/forms';
 import { Size } from '../../../shared/model/size.model';
-import { ProductDto } from '../../../shared/model/productDto.model';
+import { ProductDto } from '../../../shared/model/product-dto.model';
 
 @Component({
   selector: 'app-product-detail',

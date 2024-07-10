@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { Location } from '@angular/common';
-import { ShopCardDto } from '../../../shared/model/shopCardDto.model';
+import { ShopCardDto } from '../../../shared/model/shop-card-dto.model';
 
 @Component({
   selector: 'app-confirm-card',

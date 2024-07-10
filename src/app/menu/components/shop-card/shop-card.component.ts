@@ -5,7 +5,7 @@ import { BehaviorSubject, finalize } from 'rxjs';
 import { ClientService } from '../../../shared/service/client.service';
 import { Product } from '../../../shared/model/product.model';
 import { Size } from '../../../shared/model/size.model';
-import { ShopCardDto } from '../../../shared/model/shopCardDto.model';
+import { ShopCardDto } from '../../../shared/model/shop-card-dto.model';
 import { AmountCheckDto } from '../../../shared/model/amount-check-dto.model';
 
 @Component({

@@ -9,6 +9,7 @@ import { Category } from '../../../../shared/model/category.model';
 import { Product } from '../../../../shared/model/product.model';
 import { ProductModalComponent } from '../../../../shared/component/product-modal/product-modal.component';
 import { Subscription } from 'rxjs';
+import { CategoryDto } from '../../../../shared/model/category-dto.model';
 
 @Component({
   selector: 'app-add-product',
@@ -18,7 +19,7 @@ import { Subscription } from 'rxjs';
 export class AddProductComponent implements OnInit {
   expandId: number | null = null;
 
-  active_onChange(event: Category, flag: boolean) {
+  active_onChange(event: CategoryDto, flag: boolean) {
     if (flag) this.expandId = event.categoryId;
     else this.expandId = null;
   }
@@ -33,7 +34,7 @@ export class AddProductComponent implements OnInit {
 
   uploadedImgUrl = new FormControl('')
   dataLoading: Subscription;
-  categories: any[] = []
+  categories: CategoryDto[] = []
 
   constructor(
     private adminApi: AdminApi,
@@ -71,7 +72,7 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  openCategoryModal(category?: Category) {
+  openCategoryModal(category?: CategoryDto) {
     this.modalService.create({
       nzFooter: null,
       nzCentered: true,
@@ -89,7 +90,7 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  openProductModal(product: any | null, category: Category | null) {
+  openProductModal(product: any | null, category: CategoryDto | null) {
     const nzData = {
       product,
       category

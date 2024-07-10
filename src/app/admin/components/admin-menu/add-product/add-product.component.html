@@ -14,7 +14,7 @@
     <nz-collapse class="overflow-auto flex-grow">
         @for (category of categories; track $index) {
         <nz-collapse-panel [nzHeader]="categoryHeader" [nzActive]="category.categoryId === expandId"
-            (nzActiveChange)="active_onChange(category,$event)">
+            (nzActiveChange)="active_onChange(category, $event)">
             @for (product of category.products; track $index) {
             <div class="product-item">
                 <div class="product-item-info">
