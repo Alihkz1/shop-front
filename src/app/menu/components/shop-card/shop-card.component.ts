@@ -6,6 +6,7 @@ import { ClientService } from '../../../shared/service/client.service';
 import { Product } from '../../../shared/model/product.model';
 import { Size } from '../../../shared/model/size.model';
 import { ShopCardDto } from '../../../shared/model/shopCardDto.model';
+import { AmountCheckDto } from '../../../shared/model/amount-check-dto.model';
 
 @Component({
   selector: 'app-shop-card',
@@ -89,11 +90,15 @@ export class ShopCardComponent implements OnInit {
       .pipe(finalize(() => { this.dataLoading = false; }))
       .subscribe(({ success, data }: any) => {
         if (success) {
-          const products: Product[] = data.products;
+          const products: AmountCheckDto[] = data.products;
           let hasAnyLowerAmount = false;
-          products.forEach((productInServer: Product) => {
+          products.forEach((productInServer: AmountCheckDto) => {
             const productInCard = this.cards.find((e) => e.product.product.productId === productInServer.productId);
-            if (productInServer.amount < productInCard.shopCard.amount) {
+            if (productInServer.isSized) {
+              if (productInServer.sizes.find((el: Size) => el.size == productInCard.shopCard.size).amount < productInCard.shopCard.amount) {
+                hasAnyLowerAmount = true;
+              }
+            } else if (productInServer.amount < productInCard.shopCard.amount) {
               hasAnyLowerAmount = true;
             }
           })
