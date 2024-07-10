@@ -5,7 +5,7 @@ import { MenuApi } from '../../shared/menu.api';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Product } from '../../../shared/model/product.model';
 import moment from 'jalali-moment';
-import { OrderDto } from '../../../shared/model/order-dto.model';
+import { OrderDto, OrderProduct } from '../../../shared/model/order-dto.model';
 
 @Component({
   selector: 'app-track-order',
@@ -13,10 +13,12 @@ import { OrderDto } from '../../../shared/model/order-dto.model';
   styleUrl: './track-order.component.scss'
 })
 export class TrackOrderComponent {
-  trackLoading: Subscription
+  trackLoading: Subscription;
+
   orderCodeControl = new FormControl();
-  private _order$ = new BehaviorSubject(null);
-  public get order() { return this._order$.getValue() }
+  private _order$ = new BehaviorSubject<OrderDto>(null);
+  public get order(): OrderDto { return this._order$.getValue() }
+
   orderNotFound = false;
 
   constructor(private router: Router, private menuApi: MenuApi) { }
@@ -36,7 +38,7 @@ export class TrackOrderComponent {
             totalPrice: this.getTotalPrice(el.products),
             date: moment(new Date(el.order.date)).locale('fa').format('HH:mm:ss YYYY/MM/DD'),
           }
-        })[0]
+        })[0];
         this._order$.next(order)
       } if (data === null) {
         this.orderNotFound = true;
@@ -45,10 +47,10 @@ export class TrackOrderComponent {
     });
   }
 
-  getTotalPrice(products: any[]) {
+  getTotalPrice(products: OrderProduct[]) {
     let totalPrice = 0;
-    products.forEach((p) => {
-      totalPrice += p.price * p.inCardAmount;
+    products.forEach((p: OrderProduct) => {
+      totalPrice += p.product.price * p.amount;
     });
     return totalPrice;
   }

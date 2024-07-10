@@ -1,3 +1,5 @@
+import { ORDER_STATUS } from "../enum/order-status.enum";
+
 export interface Order {
     address: string,
     code: string,
@@ -10,6 +12,6 @@ export interface Order {
     receiverName: string,
     receiverPhone: string,
     shopCardId: number,
-    status: number,
+    status: ORDER_STATUS,
     userId: number,
 }

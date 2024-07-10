@@ -34,7 +34,7 @@
         <div class="order">
             <div class="box mt-2 p-1">
                 <div class="box-header">
-                    <div [ngSwitch]="order.status">
+                    <div [ngSwitch]="order.order.status">
                         <div *ngSwitchCase="0">
                             <nz-alert nzType="warning" nzMessage="پرداخت شده و در انتظار ارسال" nzShowIcon>
                             </nz-alert>

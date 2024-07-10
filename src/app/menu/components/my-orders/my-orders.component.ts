@@ -18,7 +18,7 @@ import { OrderDto, OrderProduct } from '../../../shared/model/order-dto.model';
 export class MyOrdersComponent implements OnInit {
   selectedIndex = -1;
   private _orders$ = new BehaviorSubject<OrderDto[]>([]);
-  public get orders() { return this._orders$.getValue() }
+  public get orders(): OrderDto[] { return this._orders$.getValue() }
   dataLoading: Subscription;
 
   tabsBadge = {
