@@ -17,8 +17,8 @@ export class ShopCardComponent implements OnInit {
   dataLoading = false;
   loadingCounter = 0;
 
-  private _cards$ = new BehaviorSubject<any[]>([]);
-  public get cards(): { shopCard: any; product: any }[] { return this._cards$.getValue() }
+  private _cards$ = new BehaviorSubject<{ shopCard: ShopCard; product: { product: Product, productSize: any[] } }[]>([]);
+  public get cards(): { shopCard: ShopCard; product: { product: Product, productSize: any[] } }[] { return this._cards$.getValue() }
 
   constructor(
     private router: Router,
@@ -38,8 +38,8 @@ export class ShopCardComponent implements OnInit {
     const { userId } = this.route.snapshot.params;
     this.menuApi.getUserShopCard(userId).subscribe(({ data, success }: any) => {
       if (success && data?.cards) {
-        let cards: ShopCard[] = data.cards;
-        const productIds: number[] = cards.map((el: any) => el.product.productId);
+        let cards: { shopCard: ShopCard; product: { product: Product, productSize: any[] } }[] = data.cards;
+        const productIds: number[] = cards.map((el: any) => el.product.product.productId);
         this.totalPrice = 0;
         this.menuApi.productAmountCheck({ ids: productIds })
           .pipe(finalize(() => { this.dataLoading = false; }))
@@ -50,15 +50,17 @@ export class ShopCardComponent implements OnInit {
                   ...card,
                   product: {
                     ...card.product,
-                    amount: resp.data.products.find((el: any) => el.productId === card.product.productId).amount,
-                    price: resp.data.products.find((el: any) => el.productId === card.product.productId).price,
+                    product: {
+                      ...card.product.product,
+                      amount: resp.data.products.find((el: any) => el.productId === card.product.product.productId).amount,
+                      price: resp.data.products.find((el: any) => el.productId === card.product.product.productId).price,
+                    }
                   }
                 }
               })
               cards.forEach((c: any) => {
-                this.totalPrice += c.product.price * c.shopCard.amount;
+                this.totalPrice += c.product.product.price * c.shopCard.amount;
               })
-              this.amountError = cards.findIndex((el: any) => el.amount < el.shopCard.amount) != -1;
               this._cards$.next(cards);
             }
           })
@@ -66,7 +68,7 @@ export class ShopCardComponent implements OnInit {
     })
   }
 
-  navigateToProduct(card: ShopCard) {
+  navigateToProduct(card: Product) {
     this.router.navigate(['menu/products', card.categoryId, card.productId])
   }
 
@@ -81,7 +83,7 @@ export class ShopCardComponent implements OnInit {
 
   onConfirmCard() {
     this.dataLoading = true
-    const productIds = this.cards.map((e => e.product.productId))
+    const productIds = this.cards.map((e => e.product.product.productId))
     this.menuApi.productAmountCheck({ ids: productIds })
       .pipe(finalize(() => { this.dataLoading = false; }))
       .subscribe(({ success, data }: any) => {
@@ -89,7 +91,7 @@ export class ShopCardComponent implements OnInit {
           const products: Product[] = data.products;
           let hasAnyLowerAmount = false;
           products.forEach((productInServer: Product) => {
-            const productInCard = this.cards.find((e) => e.product.productId === productInServer.productId);
+            const productInCard = this.cards.find((e) => e.product.product.productId === productInServer.productId);
             if (productInServer.amount < productInCard.shopCard.amount) {
               hasAnyLowerAmount = true;
             }
@@ -99,5 +101,25 @@ export class ShopCardComponent implements OnInit {
           else this.getData()
         }
       })
+  }
+
+  hasAmountError(card: { shopCard: ShopCard; product: { product: Product, productSize: any[] } }) {
+    if (card.shopCard.size === null)
+      return card.shopCard.amount > card.product.product.amount
+    else
+      return card.shopCard.amount > card.product.productSize.find((e: any) => e.size == card.shopCard.size).amount
+  }
+
+  anyAmountError() {
+    let flag = false;
+    this.cards.forEach((card) => {
+      if (card.shopCard.size === null) {
+
+        if (card.shopCard.amount > card.product.product.amount)
+          flag = true
+      } else if (card.shopCard.amount > card.product.productSize.find((e: any) => e.size == card.shopCard.size).amount)
+        flag = true;
+    })
+    return flag
   }
 }

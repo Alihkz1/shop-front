@@ -76,11 +76,12 @@ export class MyOrdersComponent implements OnInit {
   }
 
   getTotalPrice(products: ShopCard[]) {
-    let totalPrice = 0;
-    products.forEach((p) => {
-      totalPrice += p.price * p.inCardAmount;
-    });
-    return totalPrice;
+    // let totalPrice = 0;
+    // products.forEach((p) => {
+    //   totalPrice += p.price * p.inCardAmount;
+    // });
+    // return totalPrice;
+    /* todo */
   }
 
   navigateToProduct(product: Product) {

@@ -47,9 +47,10 @@ export class ConfirmCardComponent implements OnInit {
         const cards: ShopCard[] = data.card;
         this.totalPrice = 0;
         this.shopCardId = cards[0].shopCardId;
-        cards.forEach((card: ShopCard) => {
-          this.totalPrice += card.price * card.inCardAmount;
-        })
+        // cards.forEach((card: ShopCard) => {
+        //   this.totalPrice += card.price * card.inCardAmount;
+        // })
+        /* todo */
       }
     })
   }
