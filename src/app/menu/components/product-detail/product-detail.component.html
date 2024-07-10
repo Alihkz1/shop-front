@@ -14,7 +14,7 @@
             @if (product?.product.productId) {
             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
                 <div class="ps-4 pt-2 d-flex justify-content-center img">
-                    <img class="fit" [src]="product?.product.imageUrl" [alt]="product?.product.title">
+                    <!-- <img class="fit" [src]="product?.product.imageUrl" [alt]="product?.product.title"> -->
                 </div>
             </div>
             <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
@@ -87,7 +87,7 @@
                     <nz-button-group>
                         <button nz-button (click)="minCount()"><span nz-icon nzType="minus"></span></button>
                         <div class="mx-3 mt-1">
-                            {{ inCardAmount }}
+                            {{ wantToBuyAmount }}
                         </div>
                         <button nz-button (click)="addCount()"><span nz-icon nzType="plus"></span></button>
                     </nz-button-group>

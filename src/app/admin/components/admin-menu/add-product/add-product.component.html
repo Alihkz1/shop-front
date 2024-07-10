@@ -19,9 +19,11 @@
             <div class="product-item">
                 <div class="product-item-info">
                     <p class="product-item-title">{{ product.product.title }}</p>
+                    @if (product.productSize.length === 0) {
                     <p class="product-item-amount">
                         <span>{{ "amount" | translate }}:</span> {{ product.product.amount }}
                     </p>
+                    }
                     <p class="product-item-price">
                         <span>{{ "price" | translate }}:</span> {{ product.product.price | currencyPipe }}
                         {{ "currency" | translate }}

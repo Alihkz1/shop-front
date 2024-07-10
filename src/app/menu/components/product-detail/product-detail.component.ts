@@ -20,7 +20,8 @@ import { FormControl } from '@angular/forms';
 export class ProductDetailComponent implements OnInit {
   product: { product: Product, productSize: any[] };
   productInShopCardFlag = false
-  inCardAmount: number = 0
+  wantToBuyAmount: number = 0
+  productInShopCard: any;
   dataLoading: Subscription;
   sizeFormControl = new FormControl();
   public get selectedSize() { return this.sizeFormControl.value }
@@ -59,64 +60,55 @@ export class ProductDetailComponent implements OnInit {
 
 
   private checkProductInShopCard() {
-    /* todo */
-    // const products: ShopCard[] = this.userShopCard;
-    // const productInShopCard = products.find(p => p.productId === this.product.product.productId)
-    // if (productInShopCard) {
-    //   this.productInShopCardFlag = true
-    //   this.inCardAmount = productInShopCard.inCardAmount
-    //   this.sizeFormControl.setValue(productInShopCard.size)
-    // }
+    const products: ShopCard[] = this.userShopCard;
+    this.productInShopCard = products.find(p => p.productId === this.product.product.productId)
+    if (this.productInShopCard) {
+      this.productInShopCardFlag = true
+      this.wantToBuyAmount = this.productInShopCard.amount
+      this.sizeFormControl.setValue(this.productInShopCard.size)
+    }
   }
 
   private getShopCard() {
     if (!this.client.isLogin || this.client.isAdmin) return;
-    this.menuApi.getUserShopCard(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
+    this.menuApi.getUserShopCardLightList(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
       if (success && data) {
-        this._userShopCard$.next(data.card)
+        this._userShopCard$.next(data.cards)
         this.checkProductInShopCard()
       }
     })
   }
 
   public addToCard() {
-    /* todo */
-    // let products: any[] = this.userShopCard;
-    // if (products.map(p => p.productId).includes(this.product.product.productId)) {
-    //   this.message.create('info', this.translate.instant('alreadyInCard'))
-    //   return;
-    // }
-    // this.product.product.inCardAmount = 1;
-    // products.push({ ...this.product, size: this.selectedSize });
-    // const model = {
-    //   userId: this.client.getUser.user.userId,
-    //   products
-    // }
-    // this.menuApi.modifyShopCard(model).subscribe(({ success }: any) => {
-    //   if (success) {
-    //     this.message.create('success', this.translate.instant('addedToCard'))
-    //     this.productInShopCardFlag = true;
-    //     this.inCardAmount = 1;
-    //     this.client.shopCardLength += 1;
-    //     this.getShopCard()
-    //   }
-    // })
+    const model = {
+      shopCardId: this.productInShopCard?.shopCardId,
+      productId: this.product.product.productId,
+      userId: this.client.getUser.user.userId,
+      size: this.sizeFormControl.value,
+      amount: 1,
+      paid: 0,
+    }
+    this.menuApi.modifyShopCard(model).subscribe(({ success, data }: any) => {
+      if (success) {
+        this.getShopCard()
+        this.client.shopCardLength += 1;
+        this.productInShopCardFlag = true;
+        this.productInShopCard = data.card
+        this.wantToBuyAmount = data.card.amount
+      }
+    })
   }
 
   deleteFromShopCard() {
-    /* todo */
-    // const otherCards = this.userShopCard.filter(c => c.productId != this.product.product.productId);
-    // const model = {
-    //   userId: this.client.getUser.user.userId,
-    //   products: otherCards
-    // }
-    // this.menuApi.modifyShopCard(model).subscribe(({ success }: any) => {
-    //   if (success) {
-    //     this.productInShopCardFlag = false;
-    //     this.client.shopCardLength -= 1;
-    //     this.getShopCard()
-    //   }
-    // })
+    this.menuApi.deleteShopCard(this.productInShopCard.shopCardId).subscribe(({ success }: any) => {
+      if (success) {
+        this.client.shopCardLength -= 1;
+        this.productInShopCard = null;
+        this.productInShopCardFlag = false;
+        this.wantToBuyAmount = 0;
+        this.sizeFormControl.reset()
+      }
+    })
   }
 
   public navigateToLogin() {
@@ -147,68 +139,74 @@ export class ProductDetailComponent implements OnInit {
       nzData: { product },
       nzOnOk: () => { },
     }).afterClose.subscribe((result: boolean) => {
-      if (result) this.getData()
+      this.getData()
     })
   }
 
   minCount() {
-    /* todo */
-    // const card = this.userShopCard.find(c => c.productId === this.product.product.productId);
-    // if (card.inCardAmount < 2) return;
-    // card.inCardAmount--;
-    // card.size = this.selectedSize
-    // this.inCardAmount -= 1;
-    // this.updateCards();
+    if (this.wantToBuyAmount === 1) return
+    this.wantToBuyAmount -= 1;
+    this.modifyShopCard()
   }
 
   addCount() {
-    /* todo */
-    // if (this.product.productSize.length) {
-    //   const maxOfSelectedSize = this.product.productSize.find((el: any) => el.size === this.selectedSize);
-    //   if (this.inCardAmount >= maxOfSelectedSize.amount) {
-    //     this.message.create(
-    //       'error',
-    //       this.translate.instant('noAmountForThisSize', { count: maxOfSelectedSize.amount, size: maxOfSelectedSize.size })
-    //     )
-    //     return
-    //   }
-    // }
-    // const card = this.userShopCard.find(c => c.productId === this.product.product.productId);
-    // if (card.inCardAmount >= this.product.product.amount) {
-    //   this.message.create(
-    //     'error',
-    //     this.translate.instant('noAmount', { count: this.product.product.amount })
-    //   )
-    //   return
-    // }
-    // card.inCardAmount++;
-    // card.size = this.selectedSize
-    // this.inCardAmount += 1;
-    // this.updateCards();
+    const card = this.userShopCard.find(c => c.productId === this.product.product.productId);
+    if (!card) return;
+    if (this.product.productSize.length > 0) {
+      const maxAmountOfSelectedSize = +this.product.productSize
+        .find((e: any) => e.size === this.selectedSize).amount;
+      if (this.wantToBuyAmount >= maxAmountOfSelectedSize) {
+        this.message.create('error', this.translate.instant('noAmountForThisSize', {
+          size: this.selectedSize,
+          count: maxAmountOfSelectedSize
+        }));
+        return
+      } else {
+        this.wantToBuyAmount += 1
+        this.modifyShopCard()
+      }
+    }
+    else {
+      if (this.wantToBuyAmount >= this.product.product.amount) {
+        this.message.create('error', this.translate.instant('noAmount', {
+          count: this.product.product.amount
+        }));
+        return
+      }
+      this.wantToBuyAmount += 1
+      this.modifyShopCard()
+    }
   }
 
   changeSizeListener() {
     this.sizeFormControl.valueChanges.subscribe((value: string) => {
       if (!value) return;
       const card = this.userShopCard.find(c => c.productId === this.product.product.productId);
-      const maxAmountOfSelectedSize = +this.product.productSize.find((e: any) => e.size === value).amount;
-      if (this.inCardAmount > maxAmountOfSelectedSize) {
-        card.inCardAmount = +maxAmountOfSelectedSize;
-        this.inCardAmount = +maxAmountOfSelectedSize
-      }
       if (!card) return;
-      /* todo */
-      card.size = value
-      this.updateCards();
+      const maxAmountOfSelectedSize = +this.product.productSize.find((e: any) => e.size === value).amount;
+      if (this.wantToBuyAmount > maxAmountOfSelectedSize) {
+        this.wantToBuyAmount = +maxAmountOfSelectedSize
+      }
+      this.modifyShopCard()
     })
   }
 
-  private updateCards() {
+  modifyShopCard() {
     const model = {
+      shopCardId: this.productInShopCard?.shopCardId,
+      productId: this.product.product.productId,
       userId: this.client.getUser.user.userId,
-      products: this.userShopCard
+      size: this.sizeFormControl.value,
+      amount: this.wantToBuyAmount,
+      paid: 0,
     }
-    this.menuApi.modifyShopCard(model).subscribe();
+    this.menuApi.modifyShopCard(model).subscribe(({ success, data }: any) => {
+      if (success) {
+        this.productInShopCardFlag = true;
+        this.productInShopCard = data.card
+        this.wantToBuyAmount = data.card.amount
+      }
+    })
   }
 
   back() {

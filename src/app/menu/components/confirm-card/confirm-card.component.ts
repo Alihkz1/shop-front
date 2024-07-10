@@ -42,7 +42,7 @@ export class ConfirmCardComponent implements OnInit {
 
   private getShopCard() {
     if (!this.client.isLogin || this.client.isAdmin) return;
-    this.menuApi.getUserShopCard(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
+    this.menuApi.getUserShopCardLightList(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
       if (success && data) {
         const cards: ShopCard[] = data.card;
         this.totalPrice = 0;
