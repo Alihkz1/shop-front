@@ -11,6 +11,7 @@ import { AdminApi } from '../../../admin/shared/admin.api';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ShopCard } from '../../../shared/model/shop-card.model';
 import { FormControl } from '@angular/forms';
+import { Size } from '../../../shared/model/size.model';
 
 @Component({
   selector: 'app-product-detail',
@@ -18,7 +19,7 @@ import { FormControl } from '@angular/forms';
   styleUrl: './product-detail.component.scss'
 })
 export class ProductDetailComponent implements OnInit {
-  product: { product: Product, productSize: any[] };
+  product: { product: Product, productSize: Size[] };
   productInShopCardFlag = false
   wantToBuyAmount: number = 0
   productInShopCard: any;
@@ -52,7 +53,7 @@ export class ProductDetailComponent implements OnInit {
       if (!success) return;
       this.product = data.product;
       if (data.product.productSize.length > 0) {
-        this.product.productSize = data.product.productSize.sort((a: any, b: any) => a.size - b.size).filter((e: any) => e.amount > 0);
+        this.product.productSize = data.product.productSize.sort((a: Size, b: Size) => +a.size - +b.size).filter((e: any) => e.amount > 0);
       }
       this.getShopCard()
     })
@@ -183,7 +184,7 @@ export class ProductDetailComponent implements OnInit {
       if (!value) return;
       const card = this.userShopCard.find(c => c.productId === this.product.product.productId);
       if (!card) return;
-      const maxAmountOfSelectedSize = +this.product.productSize.find((e: any) => e.size === value).amount;
+      const maxAmountOfSelectedSize = +this.product.productSize.find((e: Size) => e.size == value).amount;
       if (this.wantToBuyAmount > maxAmountOfSelectedSize) {
         this.wantToBuyAmount = +maxAmountOfSelectedSize
       }

@@ -5,6 +5,7 @@ import { BehaviorSubject, finalize } from 'rxjs';
 import { ShopCard } from '../../../shared/model/shop-card.model';
 import { ClientService } from '../../../shared/service/client.service';
 import { Product } from '../../../shared/model/product.model';
+import { Size } from '../../../shared/model/size.model';
 
 @Component({
   selector: 'app-shop-card',
@@ -17,8 +18,8 @@ export class ShopCardComponent implements OnInit {
   dataLoading = false;
   loadingCounter = 0;
 
-  private _cards$ = new BehaviorSubject<{ shopCard: ShopCard; product: { product: Product, productSize: any[] } }[]>([]);
-  public get cards(): { shopCard: ShopCard; product: { product: Product, productSize: any[] } }[] { return this._cards$.getValue() }
+  private _cards$ = new BehaviorSubject<{ shopCard: ShopCard; product: { product: Product, productSize: Size[] } }[]>([]);
+  public get cards(): { shopCard: ShopCard; product: { product: Product, productSize: Size[] } }[] { return this._cards$.getValue() }
 
   constructor(
     private router: Router,
@@ -38,7 +39,7 @@ export class ShopCardComponent implements OnInit {
     const { userId } = this.route.snapshot.params;
     this.menuApi.getUserShopCard(userId).subscribe(({ data, success }: any) => {
       if (success && data?.cards) {
-        let cards: { shopCard: ShopCard; product: { product: Product, productSize: any[] } }[] = data.cards;
+        let cards: { shopCard: ShopCard; product: { product: Product, productSize: Size[] } }[] = data.cards;
         const productIds: number[] = cards.map((el: any) => el.product.product.productId);
         this.totalPrice = 0;
         this.menuApi.productAmountCheck({ ids: productIds })
@@ -103,11 +104,11 @@ export class ShopCardComponent implements OnInit {
       })
   }
 
-  hasAmountError(card: { shopCard: ShopCard; product: { product: Product, productSize: any[] } }) {
+  hasAmountError(card: { shopCard: ShopCard; product: { product: Product, productSize: Size[] } }) {
     if (card.shopCard.size === null)
       return card.shopCard.amount > card.product.product.amount
     else
-      return card.shopCard.amount > card.product.productSize.find((e: any) => e.size == card.shopCard.size).amount
+      return card.shopCard.amount > card.product.productSize.find((e: Size) => e.size == card.shopCard.size).amount
   }
 
   anyAmountError() {
@@ -117,7 +118,7 @@ export class ShopCardComponent implements OnInit {
 
         if (card.shopCard.amount > card.product.product.amount)
           flag = true
-      } else if (card.shopCard.amount > card.product.productSize.find((e: any) => e.size == card.shopCard.size).amount)
+      } else if (card.shopCard.amount > card.product.productSize.find((e: Size) => e.size == card.shopCard.size).amount)
         flag = true;
     })
     return flag

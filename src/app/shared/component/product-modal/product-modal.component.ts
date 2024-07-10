@@ -19,6 +19,7 @@ import { NumberToCurrency } from '../../function/currency-format.functions';
 import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { CommonModule } from '@angular/common';
+import { Size } from '../../model/size.model';
 
 @Component({
   selector: 'app-product-modal',
@@ -119,7 +120,7 @@ export class ProductModalComponent implements OnInit {
 
       if (this.modalData.product.productSize.length) {
         this.sizingCheckbox.setValue(true)
-        this.modalData.product.productSize.forEach((item: any) => {
+        this.modalData.product.productSize.forEach((item: Size) => {
           this.fillForm(item)
         })
       }
@@ -136,7 +137,7 @@ export class ProductModalComponent implements OnInit {
     this.getCategories()
   }
 
-  public fillForm(newItem: { size: string, amount: string, id: number, productId: number }): void {
+  public fillForm(newItem: Size): void {
     const formArrayValue = this.form.controls['size'] as FormArray;
     formArrayValue.push(
       new FormBuilder().group({
