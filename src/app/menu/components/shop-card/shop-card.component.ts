@@ -115,7 +115,6 @@ export class ShopCardComponent implements OnInit {
     let flag = false;
     this.cards.forEach((card) => {
       if (card.shopCard.size === null) {
-
         if (card.shopCard.amount > card.product.product.amount)
           flag = true
       } else if (card.shopCard.amount > card.product.productSize.find((e: Size) => e.size == card.shopCard.size).amount)

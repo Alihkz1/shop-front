@@ -37,7 +37,7 @@ export class ProductModalComponent implements OnInit {
   categories: Category[] = []
   saveLoading: Subscription
   standardSizeControl = new FormControl(true);
-
+  showAmountField = true
   @ViewChild('uploader') uploader: ElementRef<HTMLInputElement>;
   croppedImage: string | null = null;
   imageChangedEvent: any;
@@ -114,6 +114,9 @@ export class ProductModalComponent implements OnInit {
     this.standardSizeControl.valueChanges.subscribe((flag: boolean) => {
       if (flag) this.aspectRatio = 1.14
       else this.aspectRatio = 0.75;
+    })
+    this.sizingCheckbox.valueChanges.subscribe((flag: boolean) => {
+      this.showAmountField = !flag;
     })
 
     if (this.modalData.product) {
