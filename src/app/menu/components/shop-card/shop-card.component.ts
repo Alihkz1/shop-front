@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MenuApi } from '../../shared/menu.api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, finalize } from 'rxjs';
-import { ShopCard } from '../../../shared/model/shop-card.model';
 import { ClientService } from '../../../shared/service/client.service';
 import { Product } from '../../../shared/model/product.model';
+import { Size } from '../../../shared/model/size.model';
+import { ShopCardDto } from '../../../shared/model/shop-card-dto.model';
+import { AmountCheckDto } from '../../../shared/model/amount-check-dto.model';
 
 @Component({
   selector: 'app-shop-card',
@@ -17,8 +19,8 @@ export class ShopCardComponent implements OnInit {
   dataLoading = false;
   loadingCounter = 0;
 
-  private _cards$ = new BehaviorSubject<ShopCard[]>([]);
-  public get cards(): ShopCard[] { return this._cards$.getValue() }
+  private _cards$ = new BehaviorSubject<ShopCardDto[]>([]);
+  public get cards(): ShopCardDto[] { return this._cards$.getValue() }
 
   constructor(
     private router: Router,
@@ -37,26 +39,30 @@ export class ShopCardComponent implements OnInit {
 
     const { userId } = this.route.snapshot.params;
     this.menuApi.getUserShopCard(userId).subscribe(({ data, success }: any) => {
-      if (success && data?.card) {
-        let cards: ShopCard[] = data.card;
-        const productIds: number[] = cards.map((el: ShopCard) => el.productId);
+      if (success && data?.cards) {
+        let cards: ShopCardDto[] = data.cards;
+        const productIds: number[] = cards.map((el: any) => el.product.product.productId);
         this.totalPrice = 0;
-
         this.menuApi.productAmountCheck({ ids: productIds })
           .pipe(finalize(() => { this.dataLoading = false; }))
           .subscribe((resp: any) => {
             if (resp.success) {
-              cards = cards.map((card: ShopCard) => {
+              cards = cards.map((card: any) => {
                 return {
                   ...card,
-                  amount: resp.data.products.find((el: any) => el.productId === card.productId).amount,
-                  price: resp.data.products.find((el: any) => el.productId === card.productId).price,
+                  product: {
+                    ...card.product,
+                    product: {
+                      ...card.product.product,
+                      amount: resp.data.products.find((el: any) => el.productId === card.product.product.productId).amount,
+                      price: resp.data.products.find((el: any) => el.productId === card.product.product.productId).price,
+                    }
+                  }
                 }
               })
-              cards.forEach((c: ShopCard) => {
-                this.totalPrice += c.price * c.inCardAmount;
+              cards.forEach((c: any) => {
+                this.totalPrice += c.product.product.price * c.shopCard.amount;
               })
-              this.amountError = cards.findIndex((el: ShopCard) => el.amount < el.inCardAmount) != -1;
               this._cards$.next(cards);
             }
           })
@@ -64,61 +70,13 @@ export class ShopCardComponent implements OnInit {
     })
   }
 
-  minCount(card: ShopCard) {
-    if (card.inCardAmount < 2) return;
-    card.inCardAmount--;
-    const products = this.cards.map((c: ShopCard) => {
-      if (c.productId === card.productId) {
-        return {
-          ...c,
-          inCardAmount: c.inCardAmount++
-        }
-      } else return c;
-    })
-    this._cards$.next(products);
-    this.updateCards();
-    this.totalPrice -= card.price
-  }
-
-  addCount(card: ShopCard) {
-    card.inCardAmount++;
-    const products = this.cards.map((c: ShopCard) => {
-      if (c.productId === card.productId) {
-        return {
-          ...c,
-          inCardAmount: c.inCardAmount++
-        }
-      } else return c;
-    })
-    this._cards$.next(products);
-    this.updateCards();
-    this.totalPrice += card.price;
-  }
-
-  private updateCards() {
-    const model = {
-      userId: this.client.getUser.user.userId,
-      products: this.cards
-    }
-    this.menuApi.modifyShopCard(model).subscribe(({ success }: any) => {
-      if (success) this.getData()
-    });
-  }
-
-  navigateToProduct(card: ShopCard) {
+  navigateToProduct(card: Product) {
     this.router.navigate(['menu/products', card.categoryId, card.productId])
   }
 
-  deleteFromShopCard(card: ShopCard) {
-    const otherCards = this.cards.filter(c => c.productId != card.productId);
-    const model = {
-      userId: this.client.getUser.user.userId,
-      products: otherCards
-    }
-    this.dataLoading = true;
-    this.menuApi.modifyShopCard(model).subscribe(({ success }: any) => {
+  deleteFromShopCard(shopCardId: number) {
+    this.menuApi.deleteShopCard(shopCardId).subscribe(({ success }: any) => {
       if (success) {
-        this.totalPrice = this.totalPrice - card.price * card.inCardAmount;
         this.client.shopCardLength -= 1;
         this.getData()
       }
@@ -127,16 +85,20 @@ export class ShopCardComponent implements OnInit {
 
   onConfirmCard() {
     this.dataLoading = true
-    const productIds = this.cards.map((e => e.productId))
+    const productIds = this.cards.map((e => e.product.product.productId))
     this.menuApi.productAmountCheck({ ids: productIds })
       .pipe(finalize(() => { this.dataLoading = false; }))
       .subscribe(({ success, data }: any) => {
         if (success) {
-          const products: Product[] = data.products;
+          const products: AmountCheckDto[] = data.products;
           let hasAnyLowerAmount = false;
-          products.forEach((productInServer: Product) => {
-            const productInCard = this.cards.find((e) => e.productId === productInServer.productId);
-            if (productInServer.amount < productInCard.inCardAmount) {
+          products.forEach((productInServer: AmountCheckDto) => {
+            const productInCard = this.cards.find((e) => e.product.product.productId === productInServer.productId);
+            if (productInServer.isSized) {
+              if (productInServer.sizes.find((el: Size) => el.size == productInCard.shopCard.size).amount < productInCard.shopCard.amount) {
+                hasAnyLowerAmount = true;
+              }
+            } else if (productInServer.amount < productInCard.shopCard.amount) {
               hasAnyLowerAmount = true;
             }
           })
@@ -145,5 +107,24 @@ export class ShopCardComponent implements OnInit {
           else this.getData()
         }
       })
+  }
+
+  hasAmountError(card: ShopCardDto) {
+    if (card.shopCard.size === null)
+      return card.shopCard.amount > card.product.product.amount
+    else
+      return card.shopCard.amount > card.product.productSize.find((e: Size) => e.size == card.shopCard.size).amount
+  }
+
+  anyAmountError() {
+    let flag = false;
+    this.cards.forEach((card) => {
+      if (card.shopCard.size === null) {
+        if (card.shopCard.amount > card.product.product.amount)
+          flag = true
+      } else if (card.shopCard.amount > card.product.productSize.find((e: Size) => e.size == card.shopCard.size).amount)
+        flag = true;
+    })
+    return flag
   }
 }

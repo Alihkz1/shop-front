@@ -7,6 +7,8 @@ import { Subscription } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { Location } from '@angular/common';
+import { ShopCardDto } from '../../../shared/model/shop-card-dto.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-confirm-card',
@@ -29,6 +31,7 @@ export class ConfirmCardComponent implements OnInit {
   })
 
   constructor(
+    private router: Router,
     private menuApi: MenuApi,
     private location: Location,
     private client: ClientService,
@@ -44,11 +47,11 @@ export class ConfirmCardComponent implements OnInit {
     if (!this.client.isLogin || this.client.isAdmin) return;
     this.menuApi.getUserShopCard(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
       if (success && data) {
-        const cards: ShopCard[] = data.card;
+        const cards: ShopCardDto[] = data.cards;
         this.totalPrice = 0;
-        this.shopCardId = cards[0].shopCardId;
-        cards.forEach((card: ShopCard) => {
-          this.totalPrice += card.price * card.inCardAmount;
+        this.shopCardId = cards[0].shopCard.shopCardId;
+        cards.forEach((card: ShopCardDto) => {
+          this.totalPrice += card.product.product.price * card.shopCard.amount;
         })
       }
     })
@@ -72,7 +75,11 @@ export class ConfirmCardComponent implements OnInit {
       }
     ).subscribe(({ success }: any) => {
       if (success) {
+        this.client.shopCardLength = 0;
+        this.message.create('success', this.translate.instant('orderSubmit'))
+        this.router.navigate(['menu/orders'])
         /* move to online-pay */
+        /* then move to my orders */
         /* if online pay not success -> order.status =0 */
         /* if online pay success -> order.status = 1 */
         /* if online pay success -> shopCard.paid = 1 */

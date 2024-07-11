@@ -14,34 +14,36 @@
     <nz-collapse class="overflow-auto flex-grow">
         @for (category of categories; track $index) {
         <nz-collapse-panel [nzHeader]="categoryHeader" [nzActive]="category.categoryId === expandId"
-            (nzActiveChange)="active_onChange(category,$event)">
+            (nzActiveChange)="active_onChange(category, $event)">
             @for (product of category.products; track $index) {
             <div class="product-item">
                 <div class="product-item-info">
-                    <p class="product-item-title">{{ product.title }}</p>
+                    <p class="product-item-title">{{ product.product.title }}</p>
+                    @if (product.productSize.length === 0) {
                     <p class="product-item-amount">
-                        <span>{{ "amount" | translate }}:</span> {{ product.amount }}
+                        <span>{{ "amount" | translate }}:</span> {{ product.product.amount }}
                     </p>
+                    }
                     <p class="product-item-price">
-                        <span>{{ "price" | translate }}:</span> {{ product.price | currencyPipe }}
+                        <span>{{ "price" | translate }}:</span> {{ product.product.price | currencyPipe }}
                         {{ "currency" | translate }}
                     </p>
-                    @if (product.description) {
+                    @if (product.product.description) {
                     <p class="product-item-description">
-                        <span>{{ "description" | translate }}:</span> {{ product.description | currencyPipe }}
+                        <span>{{ "description" | translate }}:</span> {{ product.product.description | currencyPipe }}
                     </p>
                     }
                     <div>
                         <span class="product-item-icon blue" nz-icon nzType="edit" nzTheme="outline"
-                            (click)="openProductModal(product,null)">
+                            (click)="openProductModal(product, null)">
                         </span>
                         <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف محصول؟"
                             class="product-item-icon red" nzOkText="بله" nzCancelText="خیر" nz-icon nzType="delete"
-                            nzTheme="outline" (nzOnConfirm)="deleteProduct_onConfirm(product)">
+                            nzTheme="outline" (nzOnConfirm)="deleteProduct_onConfirm(product.product.productId)">
                         </span>
                     </div>
                 </div>
-                <img class="product-item-image" [src]="product.imageUrl">
+                <img class="product-item-image" [src]="product.product.imageUrl">
             </div>
             }
         </nz-collapse-panel>

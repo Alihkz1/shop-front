@@ -21,24 +21,24 @@
             }@else {
             @for (product of products; track product; let i = $index) {
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 custom-padding">
-                <div class="board" (click)="board_onClick(product)">
+                <div class="board" (click)="board_onClick(product.product)">
                     <div class="board-image">
-                        <img [src]="product.imageUrl" [alt]="product.title">
+                        <!-- <img [src]="product.product.imageUrl" [alt]="product.product.title"> -->
                     </div>
                     <div class="board-data">
-                        <p class="w-100 d-flex justify-content-center mb-1 board-data-title"><b>{{ product.title }}</b>
+                        <p class="w-100 d-flex justify-content-center mb-1 board-data-title"><b>{{ product.product.title }}</b>
                         </p>
                         <div>
                             <p class="board-data-price"> <span> <b>{{ "price" | translate }}:</b> </span> {{
-                                product.price | currencyPipe }}
+                                product.product.price | currencyPipe }}
                                 {{ "currency" | translate }}
                             </p>
-                            @if (product.amount > 0 && !product.size) {
+                            @if (product.product.amount > 0 && product.productSize.length === 0) {
                             <p class="board-data-amount"> <span> <b>{{ "amount" | translate }}:</b> </span>
-                                {{ product.amount }}
+                                {{ product.product.amount }}
                             </p>
                             }
-                            @if (product.amount === 0) {
+                            @if (product.product.amount === 0) {
                             <div class="red d-flex justify-content-center">
                                 {{ "notAvailable" | translate }}
                             </div>
@@ -52,7 +52,7 @@
                             </span>
                             <span class="m-2 red" nz-icon nzType="delete" nzTheme="outline" zPopconfirmPlacement="right"
                                 nz-popconfirm nzPopconfirmTitle="حذف محصول؟" nzOkText="بله" nzCancelText="خیر"
-                                (click)="$event.stopPropagation()" (nzOnConfirm)="deleteProduct_onClick(product)">
+                                (click)="$event.stopPropagation()" (nzOnConfirm)="deleteProduct_onClick(product.product)">
                             </span>
                         </div>
                         }

@@ -69,6 +69,15 @@ export class MenuApi {
       .call();
   }
 
+  public getUserShopCardLightList(userId: number) {
+    return Api()
+      .get()
+      .controller('card')
+      .action('light')
+      .pathVariable(String(userId))
+      .call()
+  }
+
   public getUserShopCard(userId: number) {
     return Api()
       .get()
@@ -93,6 +102,15 @@ export class MenuApi {
       .controller('card')
       .action('modify')
       .body(model)
+      .call()
+  }
+
+  public deleteShopCard(shopCardId: number) {
+    return Api()
+      .delete()
+      .controller('card')
+      .action('delete')
+      .pathVariable(String(shopCardId))
       .call()
   }
 

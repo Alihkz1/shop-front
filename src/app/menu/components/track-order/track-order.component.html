@@ -34,7 +34,7 @@
         <div class="order">
             <div class="box mt-2 p-1">
                 <div class="box-header">
-                    <div [ngSwitch]="order.status">
+                    <div [ngSwitch]="order.order.status">
                         <div *ngSwitchCase="0">
                             <nz-alert nzType="warning" nzMessage="پرداخت شده و در انتظار ارسال" nzShowIcon>
                             </nz-alert>
@@ -48,19 +48,19 @@
                     </div>
                 </div>
                 <div class="row box-content">
-                    @if (order.status === 3) {
+                    @if (order.order.status === 3) {
                     <div class="not-deliver">
                         <nz-alert nzType="warning" [nzMessage]="weCallYou">
                         </nz-alert>
                         <ng-template #weCallYou>
-                            {{ 'weWillCallYouAboutDeliver' | translate: { phoneNumber: order.receiverPhone } }}
+                            {{ 'weWillCallYouAboutDeliver' | translate: { phoneNumber: order.order.receiverPhone } }}
                             <span class="mt-1" nz-icon nzType="phone" nzTheme="outline"></span>
                         </ng-template>
                     </div>
                     }
                     <div class="w-100 d-flex flex-column">
                         <div class="my-1">
-                            <b>{{ 'receiver' | translate }} :</b> {{ order.receiverName }}
+                            <b>{{ 'receiver' | translate }} :</b> {{ order.order.receiverName }}
                         </div>
                         <div class="my-1">
                             <b>{{ 'orderDate' | translate }} :</b> {{ order.date }}
@@ -70,31 +70,31 @@
                             {{ 'currency' | translate }}
                         </div>
                         <div class="my-1">
-                            <b>{{ 'receiverAddress' | translate }} :</b> {{ order.address }}
+                            <b>{{ 'receiverAddress' | translate }} :</b> {{ order.order.address }}
                         </div>
                         <div class="my-1">
-                            <b>{{ 'phone' | translate }} :</b> {{ order.receiverPhone }}
+                            <b>{{ 'phone' | translate }} :</b> {{ order.order.receiverPhone }}
                         </div>
                         <div class="my-1">
-                            <b>{{ 'postalCode' | translate }} :</b> {{ order.postalCode }}
+                            <b>{{ 'postalCode' | translate }} :</b> {{ order.order.postalCode }}
                         </div>
                         <div class="my-1">
-                            <b>{{ 'orderCode' | translate }} :</b> {{ order.code }}
+                            <b>{{ 'orderCode' | translate }} :</b> {{ order.order.code }}
                         </div>
                     </div>
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2 flex-grow product-field">
                         @for (product of order.products; track $index) {
-                        <div class="box-product" (click)="navigateToProduct(product)">
-                            <img [src]="product.imageUrl">
+                        <div class="box-product" (click)="navigateToProduct(product.product)">
+                            <img [src]="product.product.imageUrl">
                             <div class="box-product-title">
-                                {{ product.title }}
+                                {{ product.product.title }}
                             </div>
                             <div class="box-amount-price">
-                                <b>{{ 'price' | translate }} :</b> {{ product.price | currencyPipe }}
+                                <b>{{ 'price' | translate }} :</b> {{ product.product.price | currencyPipe }}
                                 {{ 'currency' | translate }}
                             </div>
                             <div class="box-product-amount">
-                                <b>{{ 'quantity' | translate }} :</b> {{ product.inCardAmount }}
+                                <b>{{ 'quantity' | translate }} :</b> {{ product.amount }}
                             </div>
                         </div>
                         }

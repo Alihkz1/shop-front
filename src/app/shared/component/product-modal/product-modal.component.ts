@@ -19,6 +19,7 @@ import { NumberToCurrency } from '../../function/currency-format.functions';
 import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { CommonModule } from '@angular/common';
+import { Size } from '../../model/size.model';
 
 @Component({
   selector: 'app-product-modal',
@@ -36,7 +37,7 @@ export class ProductModalComponent implements OnInit {
   categories: Category[] = []
   saveLoading: Subscription
   standardSizeControl = new FormControl(true);
-
+  showAmountField = true
   @ViewChild('uploader') uploader: ElementRef<HTMLInputElement>;
   croppedImage: string | null = null;
   imageChangedEvent: any;
@@ -56,15 +57,25 @@ export class ProductModalComponent implements OnInit {
 
   public get getSizes() { return this.form.controls['size'] as FormArray; }
 
+  public sizeByIndex(i: number) { return this.form.controls['size'].controls[i].value; }
 
   public addRow_onClick() {
     const items = this.form.controls['size'] as FormArray;
-    items.push(new FormControl({ size: '', amount: '' }));
+    items.push(new FormControl({ size: '', amount: '', id: null, productId: null }));
   }
 
   public deleteRow_onClick(i: number) {
-    const items = this.form.controls['size'] as FormArray;
-    items.removeAt(i);
+    if (this.sizeByIndex(i).id)
+      this.adminApi.deleteSize(this.sizeByIndex(i).id).subscribe(({ success }: any) => {
+        if (success) {
+          const items = this.form.controls['size'] as FormArray;
+          items.removeAt(i);
+        }
+      })
+    else {
+      const items = this.form.controls['size'] as FormArray;
+      items.removeAt(i);
+    }
   }
 
   public getFormArrayItemValue(): any[] {
@@ -104,36 +115,39 @@ export class ProductModalComponent implements OnInit {
       if (flag) this.aspectRatio = 1.14
       else this.aspectRatio = 0.75;
     })
+    this.sizingCheckbox.valueChanges.subscribe((flag: boolean) => {
+      this.showAmountField = !flag;
+    })
 
     if (this.modalData.product) {
-      if (this.modalData.product.size) {
-        let sizeList: any[]
-        if (typeof this.modalData.product.size === 'string')
-          sizeList = JSON.parse(this.modalData.product.size)
-        else sizeList = this.modalData.product.size
-        if (sizeList.length)
-          this.sizingCheckbox.setValue(true)
-        sizeList.forEach((item) => {
+
+      if (this.modalData.product.productSize.length) {
+        this.sizingCheckbox.setValue(true)
+        this.modalData.product.productSize.forEach((item: Size) => {
           this.fillForm(item)
         })
       }
+
       const model = {
-        ...this.modalData.product,
-        price: NumberToCurrency(this.modalData.product.price),
+        ...this.modalData.product.product,
+        price: NumberToCurrency(this.modalData.product.product.price),
         size: null
       }
       this.form.patchValue(model)
+
     }
 
     this.getCategories()
   }
 
-  public fillForm(newItem: { size: string, amount: string }): void {
+  public fillForm(newItem: Size): void {
     const formArrayValue = this.form.controls['size'] as FormArray;
     formArrayValue.push(
       new FormBuilder().group({
+        id: newItem.id,
         size: newItem.size,
         amount: newItem.amount,
+        productId: newItem.productId,
       })
     );
   }
@@ -149,7 +163,7 @@ export class ProductModalComponent implements OnInit {
   getCategories() {
     this.adminApi.getCategoriesLight().subscribe(({ data }: any) => {
       this.categories = data.categories;
-      this.form.get('categoryId')?.setValue(this.modalData.category?.categoryId || this.modalData.product?.categoryId);
+      this.form.get('categoryId')?.setValue(this.modalData.category?.categoryId || this.modalData.product?.product?.categoryId);
     })
   }
 
@@ -159,7 +173,7 @@ export class ProductModalComponent implements OnInit {
   }
 
   onSubmit() {
-    const sizeArr = this.form.value.size.filter((e: any) => e.amount > 0)
+    const sizeArr = this.form.value.size;
     const model = {
       ...this.form.value,
       price: +this.form.value.price.replaceAll(',', ''),

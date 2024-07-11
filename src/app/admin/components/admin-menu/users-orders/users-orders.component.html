@@ -30,7 +30,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 <div class="box mt-2 p-1">
                     <div class="box-header">
-                        <div [ngSwitch]="order.status">
+                        <div [ngSwitch]="order.order.status">
                             <div *ngSwitchCase="0">
                                 <nz-alert nzType="warning" nzMessage="پرداخت شده و در انتظار ارسال" nzShowIcon>
                                 </nz-alert>
@@ -42,17 +42,17 @@
                                 <nz-alert nzType="success" nzMessage="تحویل توسط مشتری" nzShowIcon></nz-alert>
                             </div>
                         </div>
-                        @if (order.status === 0) {
+                        @if (order.order.status === 0) {
                         <button class="fit" nz-button nzType="default" nz-popconfirm nzOkText="تایید" nzCancelText="نه"
                             nzPopconfirmTitle="تایید ارسال توسط پست" nzPopconfirmPlacement="bottom"
-                            (nzOnConfirm)="changeStatus(order, 1)">
+                            (nzOnConfirm)="changeStatus(order.order.orderId, 1)">
                             {{ 'sentViaPost' | translate }}
                         </button>
                         }
-                        @if (order.status === 1 || order.status === 3) {
+                        @if (order.order.status === 1 || order.order.status === 3) {
                         <button class="fit" nz-button nzType="default" nz-popconfirm nzOkText="تایید" nzCancelText="نه"
                             nzPopconfirmTitle="تایید دریافت توسط مشتری" nzPopconfirmPlacement="bottom"
-                            (nzOnConfirm)="changeStatus(order, 2)">
+                            (nzOnConfirm)="changeStatus(order.order.orderId, 2)">
                             {{ 'receivedByClient' | translate }}
                         </button>
                         }
@@ -60,48 +60,47 @@
                     <div class="row box-content">
                         <div class="w-100 d-flex flex-column">
                             <div class="my-1">
-                                <b>{{ 'receiver' | translate }} :</b> {{ order.receiverName }}
+                                <b>{{ 'receiver' | translate }} :</b> {{ order.order.receiverName }}
                             </div>
                             <div class="my-1">
-                                <b>{{ 'email' | translate }} :</b> {{ order.receiverEmail }}
+                                <b>{{ 'email' | translate }} :</b> {{ order.order.receiverEmail }}
                             </div>
                             <div class="my-1">
-                                <b>{{ 'phone' | translate }} :</b> {{ order.receiverPhone }}
+                                <b>{{ 'phone' | translate }} :</b> {{ order.order.receiverPhone }}
                             </div>
                             <div class="my-1">
-                                <b>{{ 'receiverAddress' | translate }} :</b> {{ order.address }}
+                                <b>{{ 'receiverAddress' | translate }} :</b> {{ order.order.address }}
                             </div>
                             <div class="my-1">
-                                <b>{{ 'description' | translate }} :</b> {{ order.description }}
+                                <b>{{ 'description' | translate }} :</b> {{ order.order.description }}
                             </div>
                             <div class="my-1">
-                                <b>{{ 'postalCode' | translate }} :</b> {{ order.postalCode }}
+                                <b>{{ 'postalCode' | translate }} :</b> {{ order.order.postalCode }}
                             </div>
                             <div class="my-1">
                                 <b>{{ 'orderTotalPrice' | translate }} :</b> {{ order.totalPrice | currencyPipe }} {{
                                 'currency' | translate }}
                             </div>
                             <div class="my-1">
-                                <b>{{ 'orderDate' | translate }} :</b> {{ order.date }}
+                                <b>{{ 'orderDate' | translate }} :</b> {{ order.order.date }}
                             </div>
                             <div class="my-1">
-                                <b>{{ 'orderCode' | translate }} :</b> {{ order.code }}
+                                <b>{{ 'orderCode' | translate }} :</b> {{ order.order.code }}
                             </div>
                         </div>
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2 flex-grow product-field">
                             @for (product of order.products; track $index) {
-                            <div class="box-product" (click)="navigateToProduct(product)">
-                                <img [src]="product.imageUrl">
+                            <div class="box-product" (click)="navigateToProduct(product.product)">
+                                <img [src]="product.product.imageUrl">
                                 <div class="box-product-title">
-                                    {{ product.title }}
+                                    {{ product.product.title }}
                                 </div>
                                 <div class="box-amount-price">
-                                    <b>{{ 'price' | translate }} :</b> {{ product.price | currencyPipe }} {{ 'currency'
-                                    |
-                                    translate }}
+                                    <b>{{ 'price' | translate }} :</b> {{ product.product.price | currencyPipe }}
+                                    {{ 'currency'| translate }}
                                 </div>
                                 <div class="box-product-amount">
-                                    <b>{{ 'quantity' | translate }} :</b> {{ product.inCardAmount }}
+                                    <b>{{ 'quantity' | translate }} :</b> {{ product.amount }}
                                 </div>
                             </div>
                             }

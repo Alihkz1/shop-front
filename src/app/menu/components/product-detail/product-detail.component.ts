@@ -11,6 +11,8 @@ import { AdminApi } from '../../../admin/shared/admin.api';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ShopCard } from '../../../shared/model/shop-card.model';
 import { FormControl } from '@angular/forms';
+import { Size } from '../../../shared/model/size.model';
+import { ProductDto } from '../../../shared/model/product-dto.model';
 
 @Component({
   selector: 'app-product-detail',
@@ -18,15 +20,17 @@ import { FormControl } from '@angular/forms';
   styleUrl: './product-detail.component.scss'
 })
 export class ProductDetailComponent implements OnInit {
-  product: any;
+  product: ProductDto;
   productInShopCardFlag = false
-  inCardAmount: number = 0
+  wantToBuyAmount: number = 0
+  productInShopCard: ShopCard;
   dataLoading: Subscription;
+
   sizeFormControl = new FormControl();
   public get selectedSize() { return this.sizeFormControl.value }
 
   private _userShopCard$ = new BehaviorSubject<ShopCard[]>([]);
-  public get userShopCard() { return this._userShopCard$.getValue() }
+  public get userShopCard(): ShopCard[] { return this._userShopCard$.getValue() }
 
   constructor(
     public router: Router,
@@ -50,10 +54,10 @@ export class ProductDetailComponent implements OnInit {
     this.dataLoading = this.menuApi.getProductRetrieve(productId).subscribe(({ success, data }: any) => {
       if (!success) return;
       this.product = data.product;
-      if (data.product.size) {
-        let sizeArray: any[] = JSON.parse(data.product.size);
-        sizeArray = sizeArray.sort((a, b) => a.size - b.size).filter((e) => e.amount > 0);
-        this.product.size = sizeArray
+      if (data.product.productSize.length > 0) {
+        this.product.productSize = data.product.productSize
+          .sort((a: Size, b: Size) => +a.size - +b.size)
+          // .filter((e: Size) => e.amount > 0);
       }
       this.getShopCard()
     })
@@ -62,58 +66,52 @@ export class ProductDetailComponent implements OnInit {
 
   private checkProductInShopCard() {
     const products: ShopCard[] = this.userShopCard;
-    const productInShopCard = products.find(p => p.productId === this.product.productId)
-    if (productInShopCard) {
+    this.productInShopCard = products.find(p => p.productId === this.product.product.productId)
+    if (this.productInShopCard) {
       this.productInShopCardFlag = true
-      this.inCardAmount = productInShopCard.inCardAmount
-      this.sizeFormControl.setValue(productInShopCard.size)
+      this.wantToBuyAmount = this.productInShopCard.amount
+      this.sizeFormControl.setValue(this.productInShopCard.size)
     }
   }
 
   private getShopCard() {
     if (!this.client.isLogin || this.client.isAdmin) return;
-    this.menuApi.getUserShopCard(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
+    this.menuApi.getUserShopCardLightList(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
       if (success && data) {
-        this._userShopCard$.next(data.card)
+        this._userShopCard$.next(data.cards)
         this.checkProductInShopCard()
       }
     })
   }
 
   public addToCard() {
-    let products: any[] = this.userShopCard;
-    if (products.map(p => p.productId).includes(this.product.productId)) {
-      this.message.create('info', this.translate.instant('alreadyInCard'))
-      return;
-    }
-    this.product.inCardAmount = 1;
-    products.push({ ...this.product, size: this.selectedSize });
     const model = {
+      shopCardId: this.productInShopCard?.shopCardId,
+      productId: this.product.product.productId,
       userId: this.client.getUser.user.userId,
-      products
+      size: this.sizeFormControl.value,
+      amount: 1,
+      paid: 0,
     }
-    this.menuApi.modifyShopCard(model).subscribe(({ success }: any) => {
+    this.menuApi.modifyShopCard(model).subscribe(({ success, data }: any) => {
       if (success) {
-        this.message.create('success', this.translate.instant('addedToCard'))
-        this.productInShopCardFlag = true;
-        this.inCardAmount = 1;
-        this.client.shopCardLength += 1;
         this.getShopCard()
+        this.client.shopCardLength += 1;
+        this.productInShopCardFlag = true;
+        this.productInShopCard = data.card
+        this.wantToBuyAmount = data.card.amount
       }
     })
   }
 
   deleteFromShopCard() {
-    const otherCards = this.userShopCard.filter(c => c.productId != this.product.productId);
-    const model = {
-      userId: this.client.getUser.user.userId,
-      products: otherCards
-    }
-    this.menuApi.modifyShopCard(model).subscribe(({ success }: any) => {
+    this.menuApi.deleteShopCard(this.productInShopCard.shopCardId).subscribe(({ success }: any) => {
       if (success) {
-        this.productInShopCardFlag = false;
         this.client.shopCardLength -= 1;
-        this.getShopCard()
+        this.productInShopCard = null;
+        this.productInShopCardFlag = false;
+        this.wantToBuyAmount = 0;
+        this.sizeFormControl.reset()
       }
     })
   }
@@ -133,7 +131,7 @@ export class ProductDetailComponent implements OnInit {
     })
   }
 
-  editProduct_onClick(product: Product) {
+  editProduct_onClick() {
     this.modalService.create({
       nzFooter: null,
       nzCentered: true,
@@ -143,69 +141,77 @@ export class ProductDetailComponent implements OnInit {
         borderRadius: "6px",
       },
       nzContent: ProductModalComponent,
-      nzData: { product },
-      nzOnOk: () => {
-      },
+      nzData: { product: this.product },
+      nzOnOk: () => { },
     }).afterClose.subscribe((result: boolean) => {
-      if (result) this.getData()
+      this.getData()
     })
   }
 
   minCount() {
-    const card = this.userShopCard.filter(c => c.productId === this.product.productId)[0]
-    if (card.inCardAmount < 2) return;
-    card.inCardAmount--;
-    card.size = this.selectedSize
-    this.inCardAmount -= 1;
-    this.updateCards();
+    if (this.wantToBuyAmount === 1 || this.wantToBuyAmount === 0) return
+    this.wantToBuyAmount -= 1;
+    this.modifyShopCard()
   }
 
   addCount() {
-    if (this.product.size) {
-      const maxOfSelectedSize = this.product.size.find((el: any) => el.size === this.selectedSize);
-      if (this.inCardAmount >= maxOfSelectedSize.amount) {
-        this.message.create(
-          'error',
-          this.translate.instant('noAmountForThisSize', { count: maxOfSelectedSize.amount, size: maxOfSelectedSize.size })
-        )
+    const card = this.userShopCard.find(c => c.productId === this.product.product.productId);
+    if (!card) return;
+    if (this.product.productSize.length > 0) {
+      const maxAmountOfSelectedSize = +this.product.productSize
+        .find((e: Size) => e.size === this.selectedSize).amount;
+      if (this.wantToBuyAmount >= maxAmountOfSelectedSize) {
+        this.message.create('error', this.translate.instant('noAmountForThisSize', {
+          size: this.selectedSize,
+          count: maxAmountOfSelectedSize
+        }));
         return
+      } else {
+        this.wantToBuyAmount += 1
+        this.modifyShopCard()
       }
     }
-    const card = this.userShopCard.filter(c => c.productId === this.product.productId)[0]
-    if (card.inCardAmount >= this.product.amount) {
-      this.message.create(
-        'error',
-        this.translate.instant('noAmount', { count: this.product.amount })
-      )
-      return
+    else {
+      if (this.wantToBuyAmount >= this.product.product.amount) {
+        this.message.create('error', this.translate.instant('noAmount', {
+          count: this.product.product.amount
+        }));
+        return
+      }
+      this.wantToBuyAmount += 1
+      this.modifyShopCard()
     }
-    card.inCardAmount++;
-    card.size = this.selectedSize
-    this.inCardAmount += 1;
-    this.updateCards();
   }
 
   changeSizeListener() {
     this.sizeFormControl.valueChanges.subscribe((value: string) => {
       if (!value) return;
-      const card = this.userShopCard.filter(c => c.productId === this.product.productId)[0]
-      const maxAmountOfSelectedSize = +this.product.size.find((e: any) => e.size === value).amount;
-      if (this.inCardAmount > maxAmountOfSelectedSize) {
-        card.inCardAmount = +maxAmountOfSelectedSize;
-        this.inCardAmount = +maxAmountOfSelectedSize
-      }
+      const card = this.userShopCard.find(c => c.productId === this.product.product.productId);
       if (!card) return;
-      card.size = value
-      this.updateCards();
+      const maxAmountOfSelectedSize = +this.product.productSize.find((e: Size) => e.size == value).amount;
+      if (this.wantToBuyAmount > maxAmountOfSelectedSize) {
+        this.wantToBuyAmount = +maxAmountOfSelectedSize
+      }
+      this.modifyShopCard()
     })
   }
 
-  private updateCards() {
+  modifyShopCard() {
     const model = {
+      shopCardId: this.productInShopCard?.shopCardId,
+      productId: this.product.product.productId,
       userId: this.client.getUser.user.userId,
-      products: this.userShopCard
+      size: this.sizeFormControl.value,
+      amount: this.wantToBuyAmount,
+      paid: 0,
     }
-    this.menuApi.modifyShopCard(model).subscribe();
+    this.menuApi.modifyShopCard(model).subscribe(({ success, data }: any) => {
+      if (success) {
+        this.productInShopCardFlag = true;
+        this.productInShopCard = data.card
+        this.wantToBuyAmount = data.card.amount
+      }
+    })
   }
 
   back() {

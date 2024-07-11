@@ -9,6 +9,8 @@ import { Category } from '../../../../shared/model/category.model';
 import { Product } from '../../../../shared/model/product.model';
 import { ProductModalComponent } from '../../../../shared/component/product-modal/product-modal.component';
 import { Subscription } from 'rxjs';
+import { CategoryDto } from '../../../../shared/model/category-dto.model';
+import { ProductDto } from '../../../../shared/model/product-dto.model';
 
 @Component({
   selector: 'app-add-product',
@@ -18,7 +20,7 @@ import { Subscription } from 'rxjs';
 export class AddProductComponent implements OnInit {
   expandId: number | null = null;
 
-  active_onChange(event: Category, flag: boolean) {
+  active_onChange(event: CategoryDto, flag: boolean) {
     if (flag) this.expandId = event.categoryId;
     else this.expandId = null;
   }
@@ -33,7 +35,7 @@ export class AddProductComponent implements OnInit {
 
   uploadedImgUrl = new FormControl('')
   dataLoading: Subscription;
-  categories: any[] = []
+  categories: CategoryDto[] = []
 
   constructor(
     private adminApi: AdminApi,
@@ -53,7 +55,7 @@ export class AddProductComponent implements OnInit {
       })
   }
 
-  deleteCategory_onConfirm(category: any) {
+  deleteCategory_onConfirm(category: CategoryDto) {
     this.adminApi.deleteCategory(category.categoryId).subscribe(({ success }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
@@ -62,8 +64,8 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  deleteProduct_onConfirm(product: any) {
-    this.adminApi.deleteProduct(product.productId).subscribe(({ success }: any) => {
+  deleteProduct_onConfirm(productId: number) {
+    this.adminApi.deleteProduct(productId).subscribe(({ success }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('actionDone'))
         this.getCategories();
@@ -71,7 +73,7 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  openCategoryModal(category?: Category) {
+  openCategoryModal(category?: CategoryDto) {
     this.modalService.create({
       nzFooter: null,
       nzCentered: true,
@@ -89,7 +91,7 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  openProductModal(product: Product | null, category: Category | null) {
+  openProductModal(product: ProductDto | null, category: CategoryDto | null) {
     const nzData = {
       product,
       category
@@ -107,7 +109,7 @@ export class AddProductComponent implements OnInit {
       nzOnOk: () => {
       },
     }).afterClose.subscribe((result: boolean) => {
-      if (result) this.getCategories()
+      this.getCategories()
     })
   }
 }

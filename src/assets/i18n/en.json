@@ -105,5 +105,6 @@
   "loginToSeeOrders": "Please Login to see all orders!",
   "enterOrderCode": "Enter Order Code Here",
   "search": "Search",
-  "orderCode": "Order Code"
+  "orderCode": "Order Code",
+  "orderSubmit": "Order submitted successfully!"
 }
