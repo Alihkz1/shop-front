@@ -106,5 +106,6 @@
   "enterOrderCode": "Enter Order Code Here",
   "search": "Search",
   "orderCode": "Order Code",
-  "orderSubmit": "Order submitted successfully!"
+  "orderSubmit": "Order submitted successfully!",
+  "postTrackCode": "Enter track code here!"
 }

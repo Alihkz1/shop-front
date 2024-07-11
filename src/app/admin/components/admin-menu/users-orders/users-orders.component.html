@@ -48,6 +48,10 @@
                             (nzOnConfirm)="changeStatus(order.order.orderId, 1)">
                             {{ 'sentViaPost' | translate }}
                         </button>
+                        <!-- <button class="fit" nz-button nzType="default"
+                            (click)="openPostTrackCodeModal(order.order.orderId)">
+                            {{ "sentViaPost" | translate }}
+                        </button> -->
                         }
                         @if (order.order.status === 1 || order.order.status === 3) {
                         <button class="fit" nz-button nzType="default" nz-popconfirm nzOkText="تایید" nzCancelText="نه"

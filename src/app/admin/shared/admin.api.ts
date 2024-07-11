@@ -167,6 +167,15 @@ export class AdminApi {
       .call()
   }
 
+  public trackCode(model: { orderId: number; trackCode: string }) {
+    return Api()
+      .put()
+      .controller('order')
+      .action('track-code')
+      .body(model)
+      .call()
+  }
+
   public getAllOrders(params: any) {
     return Api()
       .get()

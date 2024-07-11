@@ -14,4 +14,5 @@ export interface Order {
     shopCardId: number,
     status: ORDER_STATUS,
     userId: number,
+    trackCode: string,
 }

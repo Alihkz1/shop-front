@@ -8,6 +8,8 @@ import { ORDER_STATUS } from '../../../../shared/enum/order-status.enum';
 import { TranslateService } from "@ngx-translate/core";
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { OrderDto, OrderProduct } from '../../../../shared/model/order-dto.model';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { PostTrackCodeModalComponent } from '../../../../shared/component/post-track-code-modal/post-track-code-modal.component';
 
 @Component({
   selector: 'app-users-orders',
@@ -15,7 +17,7 @@ import { OrderDto, OrderProduct } from '../../../../shared/model/order-dto.model
   styleUrl: './users-orders.component.scss'
 })
 export class UsersOrdersComponent implements OnInit {
-  selectedIndex = -1;
+  selectedIndex = 0;
   dataLoading: Subscription;
 
   tabsBadge = {
@@ -33,6 +35,7 @@ export class UsersOrdersComponent implements OnInit {
     private router: Router,
     private adminApi: AdminApi,
     private message: NzMessageService,
+    private modalService: NzModalService,
     private translate: TranslateService,
   ) { }
 
@@ -90,5 +93,26 @@ export class UsersOrdersComponent implements OnInit {
 
   navigateToProduct(product: Product) {
     this.router.navigate(['menu/products', product.categoryId, product.productId])
+  }
+
+  openPostTrackCodeModal(orderId: number) {
+    this.modalService.create({
+      nzFooter: null,
+      nzCentered: true,
+      nzClosable: false,
+      nzStyle: {
+        width: "500px",
+        borderRadius: "6px",
+      },
+      nzContent: PostTrackCodeModalComponent,
+      nzData: { orderId },
+      nzOnOk: () => {
+      },
+    }).afterClose.subscribe((result: boolean) => {
+      if (result) {
+        this.message.create('success', this.translate.instant('actionDone'))
+        this.getOrders()
+      }
+    })
   }
 }
