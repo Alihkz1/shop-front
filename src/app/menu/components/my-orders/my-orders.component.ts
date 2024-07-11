@@ -16,7 +16,7 @@ import { OrderDto, OrderProduct } from '../../../shared/model/order-dto.model';
   styleUrl: './my-orders.component.scss'
 })
 export class MyOrdersComponent implements OnInit {
-  selectedIndex = -1;
+  selectedIndex = 0;
   private _orders$ = new BehaviorSubject<OrderDto[]>([]);
   public get orders(): OrderDto[] { return this._orders$.getValue() }
   dataLoading: Subscription;

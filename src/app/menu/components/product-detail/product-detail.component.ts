@@ -57,7 +57,7 @@ export class ProductDetailComponent implements OnInit {
       if (data.product.productSize.length > 0) {
         this.product.productSize = data.product.productSize
           .sort((a: Size, b: Size) => +a.size - +b.size)
-          .filter((e: Size) => e.amount > 0);
+          // .filter((e: Size) => e.amount > 0);
       }
       this.getShopCard()
     })
@@ -149,7 +149,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   minCount() {
-    if (this.wantToBuyAmount === 1) return
+    if (this.wantToBuyAmount === 1 || this.wantToBuyAmount === 0) return
     this.wantToBuyAmount -= 1;
     this.modifyShopCard()
   }
