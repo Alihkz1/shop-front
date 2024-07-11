@@ -107,5 +107,6 @@
   "search": "Search",
   "orderCode": "Order Code",
   "orderSubmit": "Order submitted successfully!",
-  "postTrackCode": "Enter track code here!"
+  "postTrackCode": "Enter track code here!",
+  "orderAmountError":"Some of products are not available now!"
 }

@@ -3,12 +3,14 @@ import { MenuApi } from '../../shared/menu.api';
 import { ClientService } from '../../../shared/service/client.service';
 import { ShopCard } from '../../../shared/model/shop-card.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { Location } from '@angular/common';
 import { ShopCardDto } from '../../../shared/model/shop-card-dto.model';
 import { Router } from '@angular/router';
+import { AmountCheckDto } from '../../../shared/model/amount-check-dto.model';
+import { Size } from '../../../shared/model/size.model';
 
 @Component({
   selector: 'app-confirm-card',
@@ -20,6 +22,10 @@ export class ConfirmCardComponent implements OnInit {
   public shopCardId: number = 0;
   saveLoading: Subscription;
   privacyAccepted = false
+
+  private _cards$ = new BehaviorSubject<ShopCardDto[]>([]);
+  public get cards(): ShopCardDto[] { return this._cards$.getValue() }
+
 
   form = new FormGroup({
     receiverName: new FormControl(null, [Validators.required]),
@@ -48,6 +54,7 @@ export class ConfirmCardComponent implements OnInit {
     this.menuApi.getUserShopCard(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
       if (success && data) {
         const cards: ShopCardDto[] = data.cards;
+        this._cards$.next(data.cards);
         this.totalPrice = 0;
         this.shopCardId = cards[0].shopCard.shopCardId;
         cards.forEach((card: ShopCardDto) => {
@@ -66,6 +73,35 @@ export class ConfirmCardComponent implements OnInit {
       this.message.create('error', this.translate.instant('formInvalid'))
       return
     }
+    const productIds: number[] = this.cards.map((el: any) => el.product.product.productId);
+    this.menuApi.productAmountCheck({ ids: productIds })
+      .subscribe(({ success, data }: any) => {
+        if (success) {
+          const products: AmountCheckDto[] = data.products;
+          let hasAnyLowerAmount = false;
+          products.forEach((productInServer: AmountCheckDto) => {
+            const productInCard = this.cards.find((e) => e.product.product.productId === productInServer.productId);
+            if (productInServer.isSized) {
+              if (productInServer.sizes.find((el: Size) => el.size == productInCard.shopCard.size).amount < productInCard.shopCard.amount) {
+                hasAnyLowerAmount = true;
+              }
+            } else if (productInServer.amount < productInCard.shopCard.amount) {
+              hasAnyLowerAmount = true;
+            }
+          })
+          if (!hasAnyLowerAmount)
+            this.goToPay()
+          else {
+            this.message.create('error', this.translate.instant('orderAmountError'))
+            const { userId } = this.client.getUser.user;
+            this.router.navigate(['menu/card', userId])
+          }
+        }
+      })
+
+  }
+
+  goToPay() {
     const { userId } = this.client.getUser.user;
     this.saveLoading = this.menuApi.addOrder(
       {

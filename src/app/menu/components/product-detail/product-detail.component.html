@@ -68,7 +68,7 @@
                     }@else {
                     @if (!productInShopCardFlag) {
 
-                    @if (product?.product.amount > 0) {
+                    @if (product?.product.amount > 0 || product?.productSize.length !== 0) {
                     <button nz-button nzType="default" (click)="addToCard()"
                         [disabled]="product?.productSize.length > 0 && selectedSize === null">
                         {{ 'toShopCard' | translate }}

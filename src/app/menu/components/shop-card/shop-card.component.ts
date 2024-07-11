@@ -116,8 +116,9 @@ export class ShopCardComponent implements OnInit {
       return card.shopCard.amount > card.product.productSize.find((e: Size) => e.size == card.shopCard.size).amount
   }
 
-  anyAmountError() {
+  disableConfirmCard(): boolean {
     let flag = false;
+    if (this.cards.length === 0) return true;
     this.cards.forEach((card) => {
       if (card.shopCard.size === null) {
         if (card.shopCard.amount > card.product.product.amount)

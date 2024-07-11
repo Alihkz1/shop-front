@@ -16,7 +16,7 @@
                             {{ totalPrice | currencyPipe }} {{ "currency" | translate}}
                             }
                         </b>
-                        <button [disabled]="anyAmountError()" class="mt-4 sender-button" nz-button nzType="default"
+                        <button [disabled]="disableConfirmCard()" class="mt-4 sender-button" nz-button nzType="default"
                             (click)="onConfirmCard()">
                             {{ "senderDetails" | translate }}
                         </button>
