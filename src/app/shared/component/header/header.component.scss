@@ -72,3 +72,12 @@
     cursor: pointer;
     border-bottom: 1px solid rgb(241, 241, 241);
 }
+
+@media (max-width:767px) {
+
+    .button,
+    .client-name,
+    .dynamic {
+        font-size: 12px;
+    }
+}

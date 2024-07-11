@@ -9,6 +9,7 @@
       }@else { @for (cat of categories; track cat; let i = $index) {
       <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 custom-padding">
         <div class="board" (click)="board_onClick(cat)">
+          <app-steam></app-steam>
           <div class="board-image">
             <!-- <img [src]="cat.imageUrl" [alt]="cat.categoryName" /> -->
           </div>
@@ -21,27 +22,12 @@
             </div> -->
             @if (client.isAdmin) {
             <div class="board-data-icons">
-              <span
-                class="m-2 blue"
-                nz-icon
-                nzType="edit"
-                nzTheme="outline"
-                (click)="openCategoryModal(cat); $event.stopPropagation()"
-              >
+              <span class="m-2 blue" nz-icon nzType="edit" nzTheme="outline"
+                (click)="openCategoryModal(cat); $event.stopPropagation()">
               </span>
-              <span
-                class="m-2 red"
-                nz-icon
-                nzType="delete"
-                nzTheme="outline"
-                nzPopconfirmPlacement="right"
-                nz-popconfirm
-                nzPopconfirmTitle="حذف دسته بندی؟"
-                nzOkText="بله"
-                nzCancelText="خیر"
-                (click)="$event.stopPropagation()"
-                (nzOnConfirm)="deleteCategory_onConfirm(cat)"
-              >
+              <span class="m-2 red" nz-icon nzType="delete" nzTheme="outline" nzPopconfirmPlacement="right"
+                nz-popconfirm nzPopconfirmTitle="حذف دسته بندی؟" nzOkText="بله" nzCancelText="خیر"
+                (click)="$event.stopPropagation()" (nzOnConfirm)="deleteCategory_onConfirm(cat)">
               </span>
             </div>
             }

@@ -26,6 +26,7 @@ import { LoadingComponent } from '../shared/component/loading/loading.component'
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { TrackOrderComponent } from './components/track-order/track-order.component';
+import { SteamComponent } from '../shared/component/steam/steam.component';
 
 const NZ = [
   NzInputModule,
@@ -63,6 +64,7 @@ const NZ = [
     CurrencyPipe,
     FormsModule,
     LoadingComponent,
+    SteamComponent,
     ...NZ
   ]
 })
