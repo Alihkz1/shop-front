@@ -42,6 +42,22 @@ export class MenuApi {
       .call();
   }
 
+  public getMostBuy() {
+    return Api()
+      .get()
+      .controller('product')
+      .action('most-buy')
+      .call();
+  }
+
+  public getNewest() {
+    return Api()
+      .get()
+      .controller('product')
+      .action('newest')
+      .call();
+  }
+
   public getUser(userId: number) {
     return Api()
       .get()

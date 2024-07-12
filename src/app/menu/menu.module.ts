@@ -28,6 +28,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { TrackOrderComponent } from './components/track-order/track-order.component';
 import { SteamComponent } from '../shared/component/steam/steam.component';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 
 const NZ = [
   NzInputModule,
@@ -53,7 +54,8 @@ const NZ = [
     MenuProfileComponent,
     ConfirmCardComponent,
     MyOrdersComponent,
-    TrackOrderComponent
+    TrackOrderComponent,
+    LandingPageComponent,
   ],
   imports: [
     CommonModule,
@@ -67,7 +69,7 @@ const NZ = [
     LoadingComponent,
     SteamComponent,
     NzDropDownModule,
-    ...NZ
+    ...NZ,
   ]
 })
 export class MenuModule { }

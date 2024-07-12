@@ -10,12 +10,17 @@ import { ShopCardComponent } from "./components/shop-card/shop-card.component";
 import { ConfirmCardComponent } from "./components/confirm-card/confirm-card.component";
 import { MyOrdersComponent } from "./components/my-orders/my-orders.component";
 import { TrackOrderComponent } from "./components/track-order/track-order.component";
+import { LandingPageComponent } from "./components/landing-page/landing-page.component";
 
 export const routes: Routes = [
     {
         path: '',
         component: MenuComponent,
         children: [
+            {
+                path: 'landing',
+                component: LandingPageComponent
+            },
             {
                 path: 'categories',
                 component: CategoriesComponent
