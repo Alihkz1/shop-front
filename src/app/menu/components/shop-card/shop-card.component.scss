@@ -15,6 +15,7 @@
     padding: 0 20px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     border-radius: 5px;
 
     &-image {
@@ -65,8 +66,7 @@
 
     .box {
         &-detail {
-            border-right: unset;
-            border-top: 1px solid rgb(235, 235, 235);
+            border-top: unset;
 
             &-title {
                 font-size: 12px;
@@ -151,8 +151,7 @@ nz-button-group {
 }
 
 .red-card {
-    border-top: 1px solid red;
-    border-bottom: 1px solid red;
+   background: rgba(255, 198, 198, 0.542);
 }
 
 .delete {

@@ -32,7 +32,7 @@
                 }
                 @for (card of cards; track $index) {
                 <div class="box" [class.red-card]="hasAmountError(card)">
-                    <!-- <img class="box-image" [src]="card.product.product.imageUrl"> -->
+                        <!-- <img class="box-image" [src]="card.product.product.imageUrl"> -->
                     <div class="box-detail flex-grow">
                         <div>
                             <div class="box-detail-title">
@@ -54,7 +54,7 @@
                         </div>
 
                         @if (hasAmountError(card)) {
-                        <nz-alert nzType="error" [nzMessage]="amountError"></nz-alert>
+                        <nz-alert class="py-2" nzType="error" [nzMessage]="amountError"></nz-alert>
                         <ng-template #amountError>
                             {{ "notAvailableAmount" | translate }}
                         </ng-template>
