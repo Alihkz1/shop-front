@@ -47,4 +47,21 @@ nz-table {
     th {
         background: var(--main-colosr);
     }
+
+    td,
+    th {
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 767px) {
+
+    td,
+    th {
+        font-size: 10px !important;
+    }
+
+    ::ng-deep .ant-table table {
+        text-align: start;
+    }
 }

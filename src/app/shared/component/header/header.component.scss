@@ -80,4 +80,15 @@
     .dynamic {
         font-size: 12px;
     }
+
+    .splitter {
+        margin: 0;
+    }
+}
+
+.splitter {
+    background: #9a9a9aa4;
+    height: 30px;
+    width: 1px;
+    margin: 0 5px;
 }

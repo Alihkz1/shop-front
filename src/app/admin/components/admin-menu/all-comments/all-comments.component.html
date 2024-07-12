@@ -39,9 +39,9 @@
     <tbody>
         <ng-container *ngFor="let row of basicTable.data">
             <tr [class.green-bg]="row.role === 'ADMIN'">
-                <td>{{ row.user?.email }}</td>
-                <td>{{ row.user?.name }}</td>
-                <td>{{ row.user?.phone }}</td>
+                <td>{{ row.user?.email || '-' }}</td>
+                <td>{{ row.user?.name || '-' }}</td>
+                <td>{{ row.user?.phone || '-' }}</td>
                 <td>{{ row.comment?.date }}</td>
                 <td>{{ row.comment?.message }}</td>
                 <td>

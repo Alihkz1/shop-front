@@ -58,7 +58,7 @@ export class AllCommentsComponent implements OnInit {
       }
     ).subscribe(({ success }: any) => {
       if (success) {
-        this.getComments()
+        // this.getComments()
       }
     })
   }

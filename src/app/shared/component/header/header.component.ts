@@ -60,7 +60,7 @@ export class HeaderComponent {
 
   isActiveRoute(route: string): boolean {
     const { url } = this.router;
-    return url.startsWith('/' + route);
+    return url.includes('/' + route);
   }
 
   categoryIsActiveRoute(): boolean {
