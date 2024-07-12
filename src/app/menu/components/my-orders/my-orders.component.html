@@ -66,7 +66,8 @@
                             <nz-alert nzType="warning" [nzMessage]="weCallYou">
                             </nz-alert>
                             <ng-template #weCallYou>
-                                {{ 'weWillCallYouAboutDeliver' | translate: { phoneNumber: order.order.receiverPhone } }}
+                                {{ 'weWillCallYouAboutDeliver' | translate: { phoneNumber: order.order.receiverPhone }
+                                }}
                                 <span class="mt-1" nz-icon nzType="phone" nzTheme="outline"></span>
                             </ng-template>
                         </div>
@@ -106,9 +107,14 @@
                                     <b>{{ 'price' | translate }} :</b> {{ product.product.price | currencyPipe }}
                                     {{ 'currency' | translate }}
                                 </div>
-                                <div class="box-product-amount">
+                                <div class="box-product-amount my-1">
                                     <b>{{ 'quantity' | translate }} :</b> {{ product.amount }}
                                 </div>
+                                @if (product.size) {
+                                <div class="box-product-size">
+                                    <b>{{ 'size' | translate }} :</b> {{ product.size }}
+                                </div>
+                                }
                             </div>
                             }
                         </div>

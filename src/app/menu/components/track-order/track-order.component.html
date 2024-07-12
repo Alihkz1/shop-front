@@ -96,6 +96,11 @@
                             <div class="box-product-amount">
                                 <b>{{ 'quantity' | translate }} :</b> {{ product.amount }}
                             </div>
+                            @if (product.size) {
+                            <div class="box-product-size">
+                                <b>{{ 'size' | translate }} :</b> {{ product.size }}
+                            </div>
+                            }
                         </div>
                         }
                     </div>
