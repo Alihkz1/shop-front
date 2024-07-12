@@ -92,3 +92,14 @@
     width: 1px;
     margin: 0 5px;
 }
+
+.dynamic-wrapper {
+    display: flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+}
+
+.hide-splitter {
+    display: none;
+}

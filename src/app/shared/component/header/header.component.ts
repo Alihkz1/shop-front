@@ -11,6 +11,7 @@ import {
   NzDropDownModule,
   NzDropdownMenuComponent,
 } from 'ng-zorro-antd/dropdown';
+import { ViewportService } from '../../service/view-port.service';
 
 @Component({
   selector: 'app-header',
@@ -26,6 +27,7 @@ export class HeaderComponent {
   constructor(
     private router: Router,
     public client: ClientService,
+    public viewPort: ViewportService,
     private message: NzMessageService,
     private translate: TranslateService
   ) { }
@@ -60,7 +62,8 @@ export class HeaderComponent {
 
   isActiveRoute(route: string): boolean {
     const { url } = this.router;
-    return url.includes('/' + route);
+    if (route.includes('admin')) return url.includes('admin');
+    else return url.includes('/' + route);
   }
 
   categoryIsActiveRoute(): boolean {
