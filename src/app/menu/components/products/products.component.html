@@ -1,18 +1,33 @@
 <div class="d-flex flex-column h-100">
     <div class="wrapper-title">
+
         <div class="wrapper-title-sort">
-            <span>{{ 'sortBy' | translate }}</span>
-            <nz-select [formControl]="sortFormControl" nzAllowClear>
-                @for (item of sortItems; track $index) {
-                <nz-option [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+            <span (click)="showSortMenu = true" class="cursor-pointer" nz-dropdown [nzDropdownMenu]="menu"
+                nzPlacement="bottomCenter">
+                {{ 'sortBy' | translate }}
+                <img class="sort" src="assets/svg/sort.svg" nz-icon nzType="menu" nzTheme="outline"
+                    (click)="showSortMenu = true">
+            </span>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+                @if (showSortMenu) {
+                <ul nz-menu>
+                    @for (item of sortItems; track $index) {
+                    <li class="menu-item" (click)="sort_onChange($index + 1)">
+                        {{ item.label }}
+                    </li>
+                    }
+                </ul>
                 }
-            </nz-select>
+            </nz-dropdown-menu>
         </div>
+
         <div class="wrapper-title-text">{{ 'products' | translate }} {{ 'category' | translate }}</div>
+
         <div class="wrapper-title-back" (click)="back()">
             <img class="wrapper-title-back-icon" src="assets/svg/back.svg">
             {{ 'back' | translate }}
         </div>
+        
     </div>
     <div class="wrapper">
         <div class="row">
@@ -26,11 +41,12 @@
                         <!-- <img [src]="product.product.imageUrl" [alt]="product.product.title"> -->
                     </div>
                     <div class="board-data">
-                        <p class="w-100 d-flex justify-content-center mb-1 board-data-title"><b>{{ product.product.title }}</b>
+                        <p class="w-100 d-flex justify-content-center mb-1 board-data-title"><b>
+                                {{ product.product.title }}</b>
                         </p>
                         <div>
-                            <p class="board-data-price"> <span> <b>{{ "price" | translate }}:</b> </span> {{
-                                product.product.price | currencyPipe }}
+                            <p class="board-data-price"> <span> <b>{{ "price" | translate }}:</b> </span>
+                                {{ product.product.price | currencyPipe }}
                                 {{ "currency" | translate }}
                             </p>
                             @if (product.product.amount > 0 && product.productSize.length === 0) {
@@ -52,7 +68,8 @@
                             </span>
                             <span class="m-2 red" nz-icon nzType="delete" nzTheme="outline" zPopconfirmPlacement="right"
                                 nz-popconfirm nzPopconfirmTitle="حذف محصول؟" nzOkText="بله" nzCancelText="خیر"
-                                (click)="$event.stopPropagation()" (nzOnConfirm)="deleteProduct_onClick(product.product)">
+                                (click)="$event.stopPropagation()"
+                                (nzOnConfirm)="deleteProduct_onClick(product.product)">
                             </span>
                         </div>
                         }

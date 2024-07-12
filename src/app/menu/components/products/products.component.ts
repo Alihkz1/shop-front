@@ -9,7 +9,6 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ProductModalComponent } from '../../../shared/component/product-modal/product-modal.component';
-import { FormControl } from '@angular/forms';
 import { SORT_PRODUCT } from '../../../shared/enum/sort-products.enum';
 import { ProductDto } from '../../../shared/model/product-dto.model';
 
@@ -22,7 +21,8 @@ export class ProductsComponent implements OnInit {
   private _products$: BehaviorSubject<ProductDto[]> = new BehaviorSubject<ProductDto[]>([]);
   public get products() { return this._products$.getValue() }
   dataLoading: Subscription;
-  sortFormControl = new FormControl()
+  showSortMenu = true;
+  sortValue: SORT_PRODUCT;
 
   sortItems = [
     {
@@ -52,25 +52,24 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData()
-    this.sortChangeListener()
-  }
-
-  sortChangeListener() {
-    this.sortFormControl.valueChanges.subscribe(() => {
-      this.getData()
-    })
   }
 
   getData() {
     const { categoryId } = this.route.snapshot.params;
     this.dataLoading = this.menuApi.getProducts(
       categoryId,
-      { sort: this.sortFormControl.value }
+      { sort: this.sortValue }
     ).subscribe(({ success, data }: any) => {
       if (success) {
         this._products$.next(data.products);
       }
     })
+  }
+
+  sort_onChange(index: SORT_PRODUCT) {
+    this.sortValue = index;
+    this.getData()
+    this.showSortMenu = false;
   }
 
   board_onClick(product: Product) {

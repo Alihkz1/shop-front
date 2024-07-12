@@ -27,6 +27,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { TrackOrderComponent } from './components/track-order/track-order.component';
 import { SteamComponent } from '../shared/component/steam/steam.component';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 
 const NZ = [
   NzInputModule,
@@ -65,6 +66,7 @@ const NZ = [
     FormsModule,
     LoadingComponent,
     SteamComponent,
+    NzDropDownModule,
     ...NZ
   ]
 })
