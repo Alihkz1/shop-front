@@ -7,8 +7,9 @@
             <th>{{ 'email' | translate}}</th>
             <th>{{ 'allName' | translate}}</th>
             <th>{{ 'phone' | translate}}</th>
+            <th>{{ 'loginCount' | translate}}</th>
             <!-- <th>{{ 'more' | translate}}</th> -->
-            <th>{{ 'delete' | translate}}</th>
+            <th>{{ 'actions' | translate}}</th>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +18,7 @@
                 <td>{{ row.email }}</td>
                 <td>{{ row.name }}</td>
                 <td>{{ row.phone }}</td>
+                <td>{{ row.loginCount }}</td>
                 <!-- <td [nzExpand]="expandSet.has(row.userId)" (nzExpandChange)="onExpandChange(row.userId, $event)">
                 </td> -->
                 <td>

@@ -109,5 +109,6 @@
   "orderSubmit": "Order submitted successfully!",
   "postTrackCode": "Enter track code here!",
   "orderAmountError": "Some of products are not available now!",
-  "admin": "Admin"
+  "admin": "Admin",
+  "loginCount": "Login Count"
 }
