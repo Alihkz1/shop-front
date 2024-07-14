@@ -9,7 +9,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AddProductComponent } from './components/admin-menu/add-product/add-product.component';
+import { ProductManagementComponent } from './components/admin-menu/product-management/product-management.component';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -28,6 +28,7 @@ import { CurrencyPipe } from '../shared/pipe/currency.pipe';
 import { UsersOrdersComponent } from './components/admin-menu/users-orders/users-orders.component';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { LoadingComponent } from '../shared/component/loading/loading.component';
+import { AddProductComponent } from './components/admin-menu/add-product/add-product.component';
 
 const NZ = [
   NzButtonModule,
@@ -46,7 +47,7 @@ const NZ = [
 
 
 @NgModule({
-  declarations: [AdminRoutingComponent, AdminMenuComponent, AdminProfileComponent, AddProductComponent, AllCommentsComponent, UsersOrdersComponent, UsersListComponent],
+  declarations: [AdminRoutingComponent, AddProductComponent, AdminMenuComponent, AdminProfileComponent, ProductManagementComponent, AllCommentsComponent, UsersOrdersComponent, UsersListComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -58,7 +59,7 @@ const NZ = [
     ProductModalComponent,
     CurrencyPipe,
     LoadingComponent,
-    ...NZ
+    ...NZ,
   ]
 })
 export class AdminModule { }

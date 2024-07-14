@@ -5,11 +5,21 @@
 
     <div class="flex-grow">
         <form class="login-form" [formGroup]="form">
+
             <input nz-input [placeholder]="'emailOrPhone' | translate" formControlName="emailOrPhone"
                 autocomplete="username" />
-            <input class="mt-2" nz-input [placeholder]="'password' | translate" type="password"
-                formControlName="password" autocomplete="current-password" />
+
+            <div class="position-relative">
+                <input class="mt-2" nz-input [placeholder]="'password' | translate" [type]="passwordInputType"
+                    formControlName="password" autocomplete="current-password" />
+                <img class="visibility" src="assets/svg/visible.svg" [class.d-none]="passwordIsVisible"
+                    (click)="passwordIsVisible = true; passwordInputType = 'text'">
+                <img class="visibility" src="assets/svg/unvisible.svg" [class.d-none]="!passwordIsVisible"
+                    (click)="passwordIsVisible = false; passwordInputType = 'password'">
+            </div>
+
             <button class="d-none" type="submit" (click)="login_onClick()"></button>
+
         </form>
         <div class="login-submit">
             <button nz-button nzType="primary" [disabled]="form.invalid" [nzLoading]="loginLoading"

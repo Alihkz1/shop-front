@@ -3,10 +3,11 @@ import { AdminRoutingComponent } from "./components/admin-routing/admin-routing.
 import { NgModule } from "@angular/core";
 import { AdminMenuComponent } from "./components/admin-menu/admin-menu.component";
 import { AdminProfileComponent } from "./components/admin-profile/admin-profile.component";
-import { AddProductComponent } from "./components/admin-menu/add-product/add-product.component";
+import { ProductManagementComponent } from "./components/admin-menu/product-management/product-management.component";
 import { UsersListComponent } from "./components/admin-menu/users-list/users-list.component";
 import { AllCommentsComponent } from "./components/admin-menu/all-comments/all-comments.component";
 import { UsersOrdersComponent } from "./components/admin-menu/users-orders/users-orders.component";
+import { AddProductComponent } from "./components/admin-menu/add-product/add-product.component";
 
 export const routes: Routes = [
     {
@@ -20,6 +21,10 @@ export const routes: Routes = [
                     {
                         path: 'add-product',
                         component: AddProductComponent
+                    },
+                    {
+                        path: 'product-management',
+                        component: ProductManagementComponent
                     },
                     {
                         path: 'profile',

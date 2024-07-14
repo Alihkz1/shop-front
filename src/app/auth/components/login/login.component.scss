@@ -30,3 +30,12 @@ button.option {
         color: var(--link);
     }
 }
+
+.visibility {
+    height: 20px;
+    position: absolute;
+    left: 10px;
+    top: 20px;
+    opacity: 0.6;
+    cursor: pointer;
+}

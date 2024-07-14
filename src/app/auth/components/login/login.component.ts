@@ -16,6 +16,8 @@ import { MenuApi } from '../../../menu/shared/menu.api';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  passwordIsVisible = false;
+  passwordInputType = 'password'
   loginLoading = false;
   form = new FormGroup({
     emailOrPhone: new FormControl('', Validators.required),

@@ -1,7 +1,7 @@
 export const ADMIN_BUTTONS: IHeaderButton[] = [
     {
         title: "dashboard",
-        route: "admin/add-product"
+        route: "admin/product-management"
     },
     {
         title: "products",
