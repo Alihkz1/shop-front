@@ -126,6 +126,7 @@ export class ShopCardComponent implements OnInit {
       } else if (card.shopCard.amount > card.product.productSize.find((e: Size) => e.size == card.shopCard.size).amount)
         flag = true;
     })
-    return flag
+    if (this.totalPrice === 0) return true
+    else return flag
   }
 }
