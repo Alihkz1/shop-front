@@ -14,7 +14,7 @@
 ::ng-deep .ant-alert {
     width: fit-content;
     font-size: 12px;
-    border-radius: 4px;
+    border-radius: var(--main-border-radius);
 }
 
 ::ng-deep .ant-alert-icon {
@@ -27,7 +27,7 @@
     display: flex;
     flex-direction: column;
     border: 1px solid #dbdbdb;
-    box-shadow: 1px 1px 10px #dcdcdc;
+    box-shadow: var(--main-shadow);
 
     &-header {
         display: flex;
@@ -44,14 +44,14 @@
 
     &-product {
         &:hover {
-            box-shadow: 1px 1px 10px #dcdcdc;
+            box-shadow: var(--main-shadow);
         }
 
         cursor: pointer;
         width: 200px;
         height: 100%;
         border: 1px solid rgb(215, 215, 215);
-        border-radius: 4px;
+        border-radius: var(--main-border-radius);
         margin: 0 5px;
         display: flex;
         flex-direction: column;

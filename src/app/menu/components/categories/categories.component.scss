@@ -16,7 +16,7 @@
 
 .board {
   padding: 14px;
-  box-shadow: 1px 1px 10px #d6d6d6;
+  box-shadow: var(--main-shadow);
 
   &-image {
     height: 180px;
