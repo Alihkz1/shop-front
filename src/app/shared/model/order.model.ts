@@ -1,6 +1,7 @@
 import { ORDER_STATUS } from "../enum/order-status.enum";
 
 export interface Order {
+    username: string,
     address: string,
     code: string,
     date: number,

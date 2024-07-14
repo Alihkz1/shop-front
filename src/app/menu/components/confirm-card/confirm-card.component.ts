@@ -100,11 +100,12 @@ export class ConfirmCardComponent implements OnInit {
   }
 
   goToPay() {
-    const { userId } = this.client.getUser.user;
+    const { userId, email } = this.client.getUser.user;
     this.saveLoading = this.menuApi.addOrder(
       {
         ...this.form.value,
-        userId
+        userId,
+        username: email
       }
     ).subscribe(({ success }: any) => {
       if (success) {

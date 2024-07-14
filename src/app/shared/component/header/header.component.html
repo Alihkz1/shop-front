@@ -62,12 +62,12 @@
             <button class="button" (click)="contactUs_onClick()" [class.active]="isActiveRoute('about-us')">{{
                 "contactUs" | translate }}</button>
             <div class="splitter"></div>
-            <button class="button" (click)="navigate('menu/categories')" [class.active]="categoryIsActiveRoute()">
-                {{ "products" | translate }}
-            </button>
-            <div class="splitter"></div>
             <button class="button mx-1" (click)="navigate('menu/track')" [class.active]="trackIsActiveRoute()">
                 {{ "trackOrder" | translate }}
+            </button>
+            <div class="splitter"></div>
+            <button class="button" (click)="navigate('menu/categories')" [class.active]="categoryIsActiveRoute()">
+                {{ "products" | translate }}
             </button>
         </div>
         <button class="button login" (click)="navigate('auth/login')" [class.active]="authIsActiveRoute()">

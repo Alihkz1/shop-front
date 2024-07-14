@@ -17,6 +17,6 @@
     max-width: 90%;
     height: fit-content;
     background: white;
-    border-radius: 6px;
-    box-shadow: 1px 1px 10px #dcdcdc;
+    border-radius: var(--main-border-radius);
+    box-shadow: var(--main-shadow);
 }

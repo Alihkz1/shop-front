@@ -1,4 +1,4 @@
-@import url('../src/app/shared/style/colors.scss');
+@import url('../src/app/shared/style/variables.scss');
 @import url('../src/assets/fonts/fontiran.css');
 
 * {
@@ -15,23 +15,6 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     padding-bottom: env(safe-area-inset-bottom);
-}
-
-.normal-button {
-    border: none;
-    background-color: white;
-    min-height: 35px;
-    min-width: 80px;
-    border-radius: 5px;
-}
-
-.primary-button {
-    border: none;
-    padding: 0 5px;
-    background-color: #0d6efd;
-    color: white;
-    height: 35px;
-    border-radius: 5px;
 }
 
 .red-splitter {
@@ -54,12 +37,11 @@ body {
     width: 100%;
     background: #fff;
     border: 1px solid #efefef;
-    border-radius: 2px;
-    border-radius: 6px;
+    border-radius: var(--main-border-radius);
     cursor: pointer;
 
     &:hover {
-        box-shadow: 1px 1px 10px #dcdcdc;
+        box-shadow: var(--main-shadow);
     }
 }
 
@@ -93,7 +75,7 @@ nz-message .anticon {
 .ant-input,
 .ant-select {
     height: 40px;
-    border-radius: 4px;
+    border-radius: var(--main-border-radius);
 }
 
 .ant-select-disabled.ant-select:not(.ant-select-customize-input) .ant-select-selector,
@@ -117,13 +99,13 @@ nz-message .anticon {
 }
 
 ::-webkit-scrollbar-track {
-    border-radius: 8px;
+    border-radius: var(--main-border-radius);
     background-color: #e7e7e7;
     border: 1px solid #cacaca;
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius: 8px;
+    border-radius: var(--main-border-radius);
     border: 3px solid transparent;
     background-clip: content-box;
     background-color: #6298e9;
@@ -152,7 +134,7 @@ button.submit {
     font-size: 18px;
     background: white;
     padding: 5px 10px;
-    border-radius: 5px;
+    border-radius: var(--main-border-radius);
     user-select: none;
     display: flex;
     justify-content: center;
@@ -161,7 +143,6 @@ button.submit {
     &-back {
         font-size: 12px;
         width: fit-content;
-        border-radius: 8px;
         cursor: pointer;
         padding: 0 10px;
         position: absolute;

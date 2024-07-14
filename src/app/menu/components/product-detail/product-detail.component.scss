@@ -11,7 +11,7 @@
     height: fit-content;
     max-width: 220px;
     max-height: 220px;
-    border-radius: 8px;
+    border-radius: var(--main-border-radius);
 
     @include respond(md) {
         max-width: 160px;
@@ -99,7 +99,6 @@ nz-button-group {
     padding: 10px 0;
     border-bottom: 1px solid #d6d6d6;
     background: #fff;
-    border-radius: 4px;
 }
 
 .img {
