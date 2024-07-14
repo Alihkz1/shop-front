@@ -45,7 +45,7 @@
                         <span class="detail-size-title"> <b>{{ 'selectSize' | translate }}:</b> </span>
                         <nz-select [formControl]="sizeFormControl" nzAllowClear>
                             @for (item of product.productSize; track $index) {
-                            <nz-option [nzValue]="item.size" [nzLabel]="+item.size"></nz-option>
+                            <nz-option [nzValue]="item.size" [nzLabel]="item.size"></nz-option>
                             }
                         </nz-select>
                     </div>
