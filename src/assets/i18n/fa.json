@@ -111,5 +111,7 @@
   "postTrackCode": "کد رهگیری پستی را وارد کنید",
   "orderAmountError": "موجودی محصولات سفارش تغییر کرده است",
   "admin": "ادمین",
-  "loginCount": "تعداد لاگین"
+  "loginCount": "تعداد لاگین",
+  "orderCount": "تعداد سفارشات",
+  "totalBuy": "مجموع خرید"
 }

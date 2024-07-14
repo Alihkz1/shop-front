@@ -61,7 +61,7 @@
                         }
                     </div>
                     <div class="row box-content">
-                        @if (order.order.status) {
+                        @if (order.order.status === 3) {
                         <div class="not-deliver">
                             <nz-alert nzType="warning" [nzMessage]="weCallYou">
                             </nz-alert>

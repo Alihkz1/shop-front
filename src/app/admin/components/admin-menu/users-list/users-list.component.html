@@ -8,6 +8,8 @@
             <th>{{ 'allName' | translate}}</th>
             <th>{{ 'phone' | translate}}</th>
             <th>{{ 'loginCount' | translate}}</th>
+            <th>{{ 'orderCount' | translate}}</th>
+            <th>{{ 'totalBuy' | translate}}</th>
             <!-- <th>{{ 'more' | translate}}</th> -->
             <th>{{ 'actions' | translate}}</th>
         </tr>
@@ -19,6 +21,8 @@
                 <td>{{ row.name }}</td>
                 <td>{{ row.phone }}</td>
                 <td>{{ row.loginCount }}</td>
+                <td>{{ row.orderCount }}</td>
+                <td>{{ row.totalBuy | currencyPipe }} {{ 'currency' | translate}}</td>
                 <!-- <td [nzExpand]="expandSet.has(row.userId)" (nzExpandChange)="onExpandChange(row.userId, $event)">
                 </td> -->
                 <td>

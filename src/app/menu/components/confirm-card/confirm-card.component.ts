@@ -19,7 +19,6 @@ import { Size } from '../../../shared/model/size.model';
 })
 export class ConfirmCardComponent implements OnInit {
   public totalPrice: number = 0;
-  public shopCardId: number = 0;
   saveLoading: Subscription;
   privacyAccepted = false
 
@@ -56,7 +55,6 @@ export class ConfirmCardComponent implements OnInit {
         const cards: ShopCardDto[] = data.cards;
         this._cards$.next(data.cards);
         this.totalPrice = 0;
-        this.shopCardId = cards[0].shopCard.shopCardId;
         cards.forEach((card: ShopCardDto) => {
           this.totalPrice += card.product.product.price * card.shopCard.amount;
         })
@@ -106,7 +104,6 @@ export class ConfirmCardComponent implements OnInit {
     this.saveLoading = this.menuApi.addOrder(
       {
         ...this.form.value,
-        shopCardId: this.shopCardId,
         userId
       }
     ).subscribe(({ success }: any) => {

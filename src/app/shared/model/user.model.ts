@@ -8,4 +8,6 @@ export interface User {
     password: string;
     role: ROLE;
     loginCount: number;
+    orderCount: number;
+    totalBuy: number;
 }
