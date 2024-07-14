@@ -51,9 +51,17 @@ export class MenuProfileComponent implements OnInit {
         if (success) {
           this.message.create('success', this.translate.instant('actionDone'));
           this.getData()
+          this.updateName()
         }
       })
   }
+
+  private updateName() {
+    const user = this.client.getUser;
+    user.user.name = this.form.value.name
+    this.client.setUser = user;
+  }
+
 
   openChangePasswordModal() {
     this.modalService.create({

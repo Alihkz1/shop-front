@@ -5,8 +5,10 @@
 
     <div class="flex-grow">
         <form class="login-form" [formGroup]="form">
-            <input nz-input [placeholder]="'emailOrPhone' | translate" formControlName="emailOrPhone" />
-            <input class="mt-2" nz-input [placeholder]="'password' | translate" formControlName="password" />
+            <input nz-input [placeholder]="'emailOrPhone' | translate" formControlName="emailOrPhone"
+                autocomplete="username" />
+            <input class="mt-2" nz-input [placeholder]="'password' | translate" type="password"
+                formControlName="password" autocomplete="current-password" />
             <button class="d-none" type="submit" (click)="login_onClick()"></button>
         </form>
         <div class="login-submit">

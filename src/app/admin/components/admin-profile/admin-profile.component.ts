@@ -51,8 +51,15 @@ export class AdminProfileComponent implements OnInit {
         if (success) {
           this.message.create('success', this.translate.instant('actionDone'));
           this.getData()
+          this.updateName()
         }
       })
+  }
+
+  private updateName() {
+    const user = this.client.getUser;
+    user.user.name = this.form.value.name
+    this.client.setUser = user;
   }
 
   openChangePasswordModal() {
@@ -69,7 +76,9 @@ export class AdminProfileComponent implements OnInit {
       nzOnOk: () => {
       },
     }).afterClose.subscribe((result: boolean) => {
-      if (result) this.message.create('success', this.translate.instant('actionDone'))
+      if (result) {
+        this.message.create('success', this.translate.instant('actionDone'))
+      }
     })
   }
 }
