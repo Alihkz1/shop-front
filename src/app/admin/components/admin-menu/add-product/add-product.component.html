@@ -28,11 +28,6 @@
                         <span>{{ "price" | translate }}:</span> {{ product.product.price | currencyPipe }}
                         {{ "currency" | translate }}
                     </p>
-                    @if (product.product.description) {
-                    <p class="product-item-description">
-                        <span>{{ "description" | translate }}:</span> {{ product.product.description | currencyPipe }}
-                    </p>
-                    }
                     <div>
                         <span class="product-item-icon blue" nz-icon nzType="edit" nzTheme="outline"
                             (click)="openProductModal(product, null)">

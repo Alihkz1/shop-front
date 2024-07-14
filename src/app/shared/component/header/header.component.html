@@ -28,8 +28,8 @@
                     @if (showBurgerMenu) {
                     <ul nz-menu>
                         @for (button of client.headerButtons; track $index) {
-                        <li class="menu-item" (click)="navigate(button.route); showBurgerMenu = false">{{ button.title |
-                            translate }}
+                        <li class="menu-item" (click)="navigate(button.route); showBurgerMenu = false">
+                            {{ button.title | translate }}
                         </li>
                         }
                     </ul>
@@ -50,6 +50,9 @@
         <div class="d-flex align-items-center">
             <div class="client-name pe-2">
                 {{ client.getUser.user.name }}
+                <!-- @if (client.getUser.user.role === 'ADMIN') {
+                <span class="is-admin">({{ 'admin' | translate }})</span>
+                } -->
             </div>
             <img class="profile" src="assets/svg/profile.svg" alt="" (click)="profile_onClick()">
         </div>

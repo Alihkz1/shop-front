@@ -95,12 +95,11 @@ nz-button-group {
 }
 
 .row {
-    margin: 10px 0;
+    margin: 5px 0;
     padding: 10px 0;
     border-bottom: 1px solid #d6d6d6;
     background: #fff;
     border-radius: 4px;
-    box-shadow: 1px 1px 10px #e1e1e1;
 }
 
 .img {
@@ -115,4 +114,26 @@ nz-button-group {
     border-radius: 20px;
     color: red;
     cursor: pointer;
+}
+
+::ng-deep .ant-tabs-nav-wrap {
+    background: #fff;
+}
+
+::ng-deep .ant-tabs>.ant-tabs-nav {
+    margin: 0;
+}
+
+::ng-deep .ant-tabs-tab {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 767px) {
+        width: fit-content;
+    }
+}
+
+::ng-deep .ant-tabs-tab+.ant-tabs-tab {
+    margin: 0;
 }
