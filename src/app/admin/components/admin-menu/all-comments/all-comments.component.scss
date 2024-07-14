@@ -40,12 +40,11 @@
 }
 
 nz-table {
-    width: 100%;
     overflow: auto;
     height: 100%;
 
     th {
-        background: var(--main-colosr);
+        background: var(--main-color);
     }
 
     td,
@@ -59,9 +58,5 @@ nz-table {
     td,
     th {
         font-size: 10px !important;
-    }
-
-    ::ng-deep .ant-table table {
-        text-align: start;
     }
 }

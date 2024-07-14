@@ -54,7 +54,8 @@
                                 {{ product.product.amount }}
                             </p>
                             }
-                            @if (product.product.amount === 0) {
+                            <!-- todo: if sized -->
+                            @if (product.product.amount === 0 && product.productSize.length === 0) {
                             <div class="red d-flex justify-content-center">
                                 {{ "notAvailable" | translate }}
                             </div>

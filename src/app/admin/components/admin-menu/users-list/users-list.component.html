@@ -7,7 +7,7 @@
             <th>{{ 'email' | translate}}</th>
             <th>{{ 'allName' | translate}}</th>
             <th>{{ 'phone' | translate}}</th>
-            <th>{{ 'more' | translate}}</th>
+            <!-- <th>{{ 'more' | translate}}</th> -->
             <th>{{ 'delete' | translate}}</th>
         </tr>
     </thead>
@@ -17,8 +17,8 @@
                 <td>{{ row.email }}</td>
                 <td>{{ row.name }}</td>
                 <td>{{ row.phone }}</td>
-                <td [nzExpand]="expandSet.has(row.userId)" (nzExpandChange)="onExpandChange(row.userId, $event)">
-                </td>
+                <!-- <td [nzExpand]="expandSet.has(row.userId)" (nzExpandChange)="onExpandChange(row.userId, $event)">
+                </td> -->
                 <td>
                     @if (client.getUser.user.userId !== row.userId) {
                     <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف کاربر؟"
@@ -31,7 +31,7 @@
                     </span>
                 </td>
             </tr>
-            @if (client.getUser.user.userId !== row.userId) {
+            <!-- @if (client.getUser.user.userId !== row.userId) {
             <tr [nzExpand]="expandSet.has(row.userId)">
                 <div class="w-100 comments">
                     <div class="comments-title">{{ 'userComments' | translate }}</div>
@@ -49,7 +49,7 @@
                     }
                 </div>
             </tr>
-            }
+            } -->
         </ng-container>
     </tbody>
 </nz-table>

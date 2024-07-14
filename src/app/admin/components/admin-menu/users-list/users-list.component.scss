@@ -24,6 +24,7 @@ nz-table {
 
     th {
         background: var(--main-color);
+        text-align: center;
     }
 }
 
@@ -46,9 +47,5 @@ tr.ant-table-expanded-row>td {
     td,
     th {
         font-size: 10px !important;
-    }
-
-    ::ng-deep .ant-table table {
-        text-align: start;
     }
 }

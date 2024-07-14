@@ -1,35 +1,35 @@
 @if (dataLoading && !dataLoading.closed) {
 <loading></loading>
 }@else {
-<nz-table class="w-100" #basicTable [nzData]="comments" nzTableLayout="fixed" nzShowPagination="false">
+<nz-table #basicTable [nzData]="comments" nzTableLayout="fixed" nzShowPagination="false">
     <thead>
         <tr>
-            <th nzWidth="150px">
+            <th>
                 <div class="d-flex justify-content-center">
                     {{ 'email' | translate}}
                 </div>
             </th>
-            <th nzWidth="150px">
+            <th>
                 <div class="d-flex justify-content-center">
                     {{ 'allName' | translate}}
                 </div>
             </th>
-            <th nzWidth="150px">
+            <th>
                 <div class="d-flex justify-content-center">
                     {{ 'phone' | translate}}
                 </div>
             </th>
-            <th nzWidth="120px">
+            <th>
                 <div class="d-flex justify-content-center">
                     {{ 'date' | translate}}
                 </div>
             </th>
-            <th nzWidth="250px">
+            <th>
                 <div class="d-flex justify-content-center">
                     {{ 'comment' | translate}}
                 </div>
             </th>
-            <th nzWidth="100px">
+            <th>
                 <div class="d-flex justify-content-center">
                     {{ 'actions' | translate}}
                 </div>

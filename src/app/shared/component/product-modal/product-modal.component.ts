@@ -178,7 +178,8 @@ export class ProductModalComponent implements OnInit {
       ...this.form.value,
       price: +this.form.value.price.replaceAll(',', ''),
       imageUrl: this.croppedImage,
-      size: JSON.stringify(sizeArr)
+      size: JSON.stringify(sizeArr),
+      amount: sizeArr.length > 0 ? 0 : this.form.value.amount
     }
     if (this.modalData.product)
       this.editProduct_onConfirm(model)

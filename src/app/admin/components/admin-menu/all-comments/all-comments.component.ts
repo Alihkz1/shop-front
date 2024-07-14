@@ -33,7 +33,7 @@ export class AllCommentsComponent implements OnInit {
           ...row,
           comment: {
             ...row.comment,
-            date: moment(new Date(row.comment.date)).locale('fa').format('YYYY/MM/DD'),
+            date: moment(new Date(row.comment.date)).locale('fa').format('HH:mm:ss YYYY/MM/DD'),
           }
         }
       })

@@ -8,6 +8,7 @@ import { Comment } from '../../../../shared/model/comment.model';
 import { ClientService } from '../../../../shared/service/client.service';
 import { ChangePasswordModalComponent } from '../../../../shared/component/change-password-modal/change-password-modal.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { ROLE } from '../../../../shared/enum/role.enum';
 
 @Component({
   selector: 'app-users-list',
@@ -60,7 +61,8 @@ export class UsersListComponent implements OnInit {
 
   public getData() {
     this.dataLoading = this.adminApi.getUsers().subscribe(({ data }: any) => {
-      this._users$.next(data.users)
+      const users = data.users.filter((u: User) => u.role === ROLE.USER);
+      this._users$.next(users)
     })
   }
 

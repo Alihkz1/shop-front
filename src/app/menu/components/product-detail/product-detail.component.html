@@ -29,7 +29,7 @@
                         </span>
                     </div>
 
-                    @if (product?.productSize.length === 0) {
+                    @if (product?.product.amount > 0 && product?.productSize.length === 0) {
                     <div class="detail-amount my-2">
                         <span class="detail-amount-title"> <b>{{ 'amount' | translate }}:</b> </span>
                         <span class="mx-2"> {{ product?.product.amount }} </span>
