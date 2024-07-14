@@ -41,7 +41,7 @@ export class ShopCardComponent implements OnInit {
     this.menuApi.getUserShopCard(userId).subscribe(({ data, success }: any) => {
       if (success && data?.cards) {
         let cards: ShopCardDto[] = data.cards;
-        const productIds: number[] = cards.map((el: any) => el.product.product.productId);
+        const productIds: number[] = cards.map((el: ShopCardDto) => el.product.product.productId);
         this.totalPrice = 0;
         this.menuApi.productAmountCheck({ ids: productIds })
           .pipe(finalize(() => { this.dataLoading = false; }))
@@ -54,8 +54,8 @@ export class ShopCardComponent implements OnInit {
                     ...card.product,
                     product: {
                       ...card.product.product,
-                      amount: resp.data.products.find((el: any) => el.productId === card.product.product.productId).amount,
-                      price: resp.data.products.find((el: any) => el.productId === card.product.product.productId).price,
+                      amount: resp.data.products.find((el: AmountCheckDto) => el.productId === card.product.product.productId).amount,
+                      price: resp.data.products.find((el: AmountCheckDto) => el.productId === card.product.product.productId).price,
                     }
                   }
                 }
