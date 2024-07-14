@@ -113,5 +113,6 @@
   "admin": "ادمین",
   "loginCount": "تعداد لاگین",
   "orderCount": "تعداد سفارشات",
-  "totalBuy": "مجموع خرید"
+  "totalBuy": "مجموع خرید",
+  "yourCardIsEmpty":"سبد خرید شما خالی است"
 }

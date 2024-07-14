@@ -110,5 +110,6 @@
   "postTrackCode": "Enter track code here!",
   "orderAmountError": "Some of products are not available now!",
   "admin": "Admin",
-  "loginCount": "Login Count"
+  "loginCount": "Login Count",
+  "yourCardIsEmpty": "Your card is empty"
 }

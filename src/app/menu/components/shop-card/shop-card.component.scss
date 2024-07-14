@@ -151,7 +151,7 @@ nz-button-group {
 }
 
 .red-card {
-   background: rgba(255, 198, 198, 0.542);
+    background: rgba(255, 198, 198, 0.542);
 }
 
 .delete {
@@ -162,4 +162,21 @@ nz-button-group {
     border-radius: 20px;
     color: red;
     cursor: pointer;
+}
+
+.empty-shop {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &-image {
+        height: 200px;
+    }
+
+    &-text {
+        font-size: 18px;
+        margin-top: 15px;
+    }
 }
