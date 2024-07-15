@@ -1,4 +1,7 @@
 @import url('../src/app/shared/style/variables.scss');
+@import url('../src/app/shared/style/scroll-bar.style.scss');
+@import url('../src/app/shared/style/nz-field.style.scss');
+@import url('../src/app/shared/style/page-title.style.scss');
 @import url('../src/assets/fonts/fontiran.css');
 
 * {
@@ -30,7 +33,7 @@ body {
     cursor: ew-resize;
 }
 
-.flex-grow {
+.flex-grow-1 {
     flex-grow: 1 !important;
 }
 
@@ -77,49 +80,6 @@ nz-message .anticon {
     cursor: pointer;
 }
 
-
-/* ant-field */
-
-.ant-input,
-.ant-select {
-    height: 40px;
-    border-radius: var(--main-border-radius);
-}
-
-.ant-select-disabled.ant-select:not(.ant-select-customize-input) .ant-select-selector,
-.ant-input[disabled],
-.ant-btn[disabled] {
-    color: #000;
-}
-
-.ant-input[disabled] {
-    background: #fff;
-}
-
-.ant-collapse>.ant-collapse-item>.ant-collapse-header {
-    background: #fff;
-}
-
-/* scrollbar */
-
-::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-}
-
-::-webkit-scrollbar-track {
-    border-radius: var(--main-border-radius);
-    background-color: #e7e7e7;
-    border: 1px solid #cacaca;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: var(--main-border-radius);
-    border: 3px solid transparent;
-    background-clip: content-box;
-    background-color: #6298e9;
-}
-
 /* form */
 
 .fielder {
@@ -136,34 +96,6 @@ nz-message .anticon {
 button.submit {
     width: 100px;
     margin-top: 10px;
-}
-
-.wrapper-title {
-    margin-top: 10px;
-    font-size: 18px;
-    background: var(--wrapper-title-bg);
-    padding: 5px 10px;
-    border-radius: var(--main-border-radius);
-    user-select: none;
-    display: flex;
-    justify-content: center;
-    position: relative;
-
-    &-back {
-        font-size: 12px;
-        width: fit-content;
-        cursor: pointer;
-        padding: 0 10px;
-        position: absolute;
-        right: 0;
-        margin-top: 4px;
-
-        &-icon {
-            height: 16px;
-            width: 16px;
-            transform: rotate(180deg);
-        }
-    }
 }
 
 .w-20 {

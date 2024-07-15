@@ -3,7 +3,7 @@
         [nzLoading]="saveLoading && !saveLoading.closed" [disabled]="form.invalid">
         {{ "submit" | translate }}
     </button>
-    <nz-tabset class="flex-grow overflow-auto" (nzSelectChange)="tabIndex_onChange($event)">
+    <nz-tabset class="flex-grow-1 overflow-auto" (nzSelectChange)="tabIndex_onChange($event)">
 
         <nz-tab nzTitle="مشخصات">
             <form [formGroup]="form" class="form">
@@ -58,7 +58,8 @@
             <div class="fielder d-flex flex-column w-100 align-items-end">
                 <div>
                     <span class="size-checkbox">{{ "hasSizing" | translate }}</span>
-                    <label nz-checkbox [formControl]="sizingCheckbox"></label>
+                    <label nz-checkbox [formControl]="sizingCheckbox">
+                    </label>
                 </div>
                 <button *ngIf="hasSizing" nz-button nzType="default" class="new-size-btn" (click)="addRow_onClick()">
                     {{ "newSize" | translate }}
@@ -66,20 +67,20 @@
             </div>
             <div *ngIf="hasSizing" class="my-1">
                 @for (row of getFormArrayItemValue(); track $index) {
-                <div class="w-100 d-flex justify-content-center" dir="ltr">
+                <div class="size-wrapper">
                     <span class="delete" nz-icon nzType="delete" nzTheme="outline" (click)="deleteRow_onClick($index)">
                     </span>
-                    <div class="d-flex" dir="rtl">
-                        <span class="pt-1 no-md">
+                    <div class="size-wrapper-half">
+                        <span class="size-wrapper-title">
                             {{ "amount" | translate }}:
                         </span>
-                        <input class="size-field" nz-input placeholder="موجودی" [(ngModel)]="row.amount" />
+                        <input class="size-wrapper-field" nz-input placeholder="موجودی" [(ngModel)]="row.amount" />
                     </div>
-                    <div class="d-flex mx-2" dir="rtl">
-                        <span class="pt-1 no-md">
+                    <div class="size-wrapper-half">
+                        <span class="size-wrapper-title">
                             {{ "size" | translate }}:
                         </span>
-                        <input class="size-field" nz-input placeholder="عنوان سایز" [(ngModel)]="row.size" />
+                        <input class="size-wrapper-field" nz-input placeholder="عنوان سایز" [(ngModel)]="row.size" />
                     </div>
                 </div>
                 }

@@ -1,5 +1,5 @@
 <div class="d-flex flex-column h-100">
-    <div class="wrapper-title">
+    <div class="page-title">
         {{ 'trackOrder' | translate }}
     </div>
     <div class="wrapper">
@@ -82,7 +82,7 @@
                             <b>{{ 'orderCode' | translate }} :</b> {{ order.order.code }}
                         </div>
                     </div>
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2 flex-grow product-field">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2 flex-grow-1 product-field">
                         @for (product of order.products; track $index) {
                         <div class="box-product" (click)="navigateToProduct(product.product)">
                             <img [src]="product.product.imageUrl">

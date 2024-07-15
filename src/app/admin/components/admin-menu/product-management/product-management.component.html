@@ -11,7 +11,7 @@
     @if (dataLoading && !dataLoading.closed) {
     <loading class="mt-5"></loading>
     }@else {
-    <nz-collapse class="overflow-auto flex-grow">
+    <nz-collapse class="overflow-auto flex-grow-1">
         @for (category of categories; track $index) {
         <nz-collapse-panel [nzHeader]="categoryHeader" [nzActive]="category.categoryId === expandId"
             (nzActiveChange)="active_onChange(category, $event)">

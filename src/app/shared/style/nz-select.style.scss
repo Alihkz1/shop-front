@@ -1,0 +1,10 @@
+::ng-deep nz-select-top-control {
+    direction: rtl;
+    padding-top: 4px !important;
+    height: 40px !important;
+    border-radius: var(--main-border-radius) !important;
+}
+
+::ng-deep nz-option-item {
+    direction: rtl;
+}

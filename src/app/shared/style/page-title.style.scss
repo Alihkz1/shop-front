@@ -1,0 +1,27 @@
+.page-title {
+    margin-top: 10px;
+    font-size: 18px;
+    background: var(--page-title-bg);
+    padding: 5px 10px;
+    border-radius: var(--main-border-radius);
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    &-back {
+        font-size: 12px;
+        width: fit-content;
+        cursor: pointer;
+        padding: 0 10px;
+        position: absolute;
+        right: 0;
+        margin-top: 4px;
+
+        &-icon {
+            height: 16px;
+            width: 16px;
+            transform: rotate(180deg);
+        }
+    }
+}

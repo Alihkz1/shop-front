@@ -1,5 +1,5 @@
 <div class="d-flex flex-column h-100">
-    <div class="wrapper-title">
+    <div class="page-title m-0">
         {{ 'shopCard' | translate }}
     </div>
     <div class="wrapper">
@@ -39,7 +39,7 @@
                 @for (card of cards; track $index) {
                 <div class="box" [class.red-card]="hasAmountError(card)">
                     <img class="box-image" [src]="card.product.product.imageUrl">
-                    <div class="box-detail flex-grow">
+                    <div class="box-detail flex-grow-1">
                         <div>
                             <div class="box-detail-title">
                                 <a (click)="navigateToProduct(card.product.product)">{{ card.product.product.title

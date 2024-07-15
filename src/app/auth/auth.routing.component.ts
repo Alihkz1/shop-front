@@ -4,7 +4,7 @@ import { Component } from "@angular/core";
   selector: 'auth-routing',
   template: `<div class="main">
                  <app-header></app-header>
-                  <div class="d-flex justify-content-center align-items-center flex-grow">
+                  <div class="d-flex justify-content-center align-items-center flex-grow-1">
                     <div class="box">
                     <router-outlet></router-outlet>   
                     </div>
