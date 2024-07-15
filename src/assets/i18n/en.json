@@ -114,5 +114,6 @@
   "yourCardIsEmpty": "Your card is empty",
   "imageGallery": "Image Gallery",
   "onlyImageAccepted": "Only images are accepted!",
-  "details": "Details"
+  "details": "Details",
+  "fillRequiredFields": "Please fill required fields"
 }

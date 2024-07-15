@@ -111,6 +111,10 @@ export class ProductCrudComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.form.invalid) {
+      this.message.create('error', this.translate.instant('fillRequiredFields'))
+      return
+    }
     const sizeArr = this.form.value.size;
     const model = {
       ...this.form.value,

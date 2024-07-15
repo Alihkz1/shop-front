@@ -118,5 +118,6 @@
   "yourCardIsEmpty": "سبد خرید شما خالی است",
   "imageGallery": "عکس ها",
   "onlyImageAccepted": "لطفا فایل عکس بارگزاری کنید",
-  "details": "مشخصات"
+  "details": "مشخصات",
+  "fillRequiredFields": "فیلد های ضروری را پر نمایید"
 }

@@ -1,6 +1,6 @@
 <div class="wrapper">
     <button nz-button nzType="primary" class="save" (click)="onSubmit()"
-        [nzLoading]="saveLoading && !saveLoading.closed" [disabled]="form.invalid">
+        [nzLoading]="saveLoading && !saveLoading.closed">
         {{ "submit" | translate }}
     </button>
     <nz-tabset class="flex-grow-1 overflow-auto" (nzSelectChange)="tabIndex_onChange($event)">
