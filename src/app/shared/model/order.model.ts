@@ -16,4 +16,5 @@ export interface Order {
     status: ORDER_STATUS,
     userId: number,
     trackCode: string,
+    paidAmount: number,
 }

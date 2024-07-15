@@ -89,6 +89,10 @@
                                 'currency' | translate }}
                             </div>
                             <div class="my-1">
+                                <b>{{ 'totalPaid' | translate }} :</b> {{ order.order.paidAmount | currencyPipe }}
+                                {{ 'currency' | translate }}
+                            </div>
+                            <div class="my-1">
                                 <b>{{ 'orderDate' | translate }} :</b> {{ order.date }}
                             </div>
                             <div class="my-1">

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuApi } from '../../shared/menu.api';
 import { ClientService } from '../../../shared/service/client.service';
-import { ShopCard } from '../../../shared/model/shop-card.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -105,7 +104,8 @@ export class ConfirmCardComponent implements OnInit {
       {
         ...this.form.value,
         userId,
-        username: email
+        username: email,
+        paidAmount: this.totalPrice
       }
     ).subscribe(({ success }: any) => {
       if (success) {
