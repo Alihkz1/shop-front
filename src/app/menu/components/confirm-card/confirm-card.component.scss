@@ -24,14 +24,6 @@ form {
     padding-bottom: 10px;
 }
 
-.required {
-    color: rgba(255, 0, 0, 0.882);
-
-    &::after {
-        content: '  *';
-    }
-}
-
 .phone-example {
     font-size: 11px;
     margin: 0 5px;

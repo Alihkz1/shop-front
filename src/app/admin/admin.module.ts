@@ -8,7 +8,7 @@ import { HeaderComponent } from '../shared/component/header/header.component';
 import { TranslateModule } from "@ngx-translate/core";
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductManagementComponent } from './components/admin-menu/product-management/product-management.component';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
@@ -29,6 +29,10 @@ import { UsersOrdersComponent } from './components/admin-menu/users-orders/users
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { LoadingComponent } from '../shared/component/loading/loading.component';
 import { AddProductComponent } from './components/admin-menu/add-product/add-product.component';
+import { ImageCropperModalComponent } from '../shared/component/image-cropper-modal/image-cropper-modal.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { PriceFormatDirective } from '../menu/shared/directive/price-format.directive';
 
 const NZ = [
   NzButtonModule,
@@ -42,7 +46,8 @@ const NZ = [
   NzCheckboxModule,
   NzToolTipModule,
   NzTableModule,
-  NzAlertModule
+  NzAlertModule,
+  NzTabsModule
 ]
 
 
@@ -59,6 +64,10 @@ const NZ = [
     ProductModalComponent,
     CurrencyPipe,
     LoadingComponent,
+    ImageCropperModalComponent,
+    EditorModule,
+    FormsModule,
+    PriceFormatDirective,
     ...NZ,
   ]
 })

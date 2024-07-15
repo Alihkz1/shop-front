@@ -1,1 +1,89 @@
-<p>add-product works!</p>
+<div class="wrapper">
+    <button nz-button nzType="primary" class="save" (click)="onSubmit()"
+        [nzLoading]="saveLoading && !saveLoading.closed" [disabled]="form.invalid">
+        {{ "submit" | translate }}
+    </button>
+    <nz-tabset class="flex-grow overflow-auto" (nzSelectChange)="tabIndex_onChange($event)">
+
+        <nz-tab nzTitle="مشخصات">
+            <form [formGroup]="form" class="form">
+                <div class="fielder align-items-end w-100">
+                    <div class="fielder-title" [class.required]="form.get('categoryId').hasError('required')">{{
+                        "category" |
+                        translate }}</div>
+                    <nz-select class="w-100" formControlName="categoryId">
+                        @for (item of categories; track $index) {
+                        <nz-option [nzValue]="item.categoryId" [nzLabel]="item.categoryName ?? ''"></nz-option>
+                        }
+                    </nz-select>
+                </div>
+                <div class="fielder align-items-end w-100">
+                    <div class="fielder-title" [class.required]="form.get('title').hasError('required')">{{
+                        "productTitle" | translate }}</div>
+                    <input nz-input formControlName="title" />
+                </div>
+                <div class="fielder align-items-end w-100">
+                    <div class="fielder-title" [class.required]="form.get('price').hasError('required')">{{ "price" |
+                        translate }} ({{ "currency" | translate }})</div>
+                    <input nz-input formControlName="price" priceFormat />
+                </div>
+                <div class="fielder align-items-end w-100">
+                    <div class="fielder-title">{{ "amount" | translate }}</div>
+                    <input nz-input formControlName="amount" type="number" />
+                </div>
+                <div class="fielder align-items-end w-100">
+                    <div class="fielder-title">{{ "details" | translate }}</div>
+                    <editor class="w-100" formControlName="description" [apiKey]="tinyApi" [init]="tinyConfig"></editor>
+                </div>
+            </form>
+        </nz-tab>
+
+        <nz-tab nzTitle="عکس ها">
+            <div class="fielder gallery align-items-end w-100">
+                <input class="d-none" type="file" (change)="image_onSelect($event)" #uploader />
+                <button nz-button nzType="default" class="mb-3" (click)="triggerFileInput()">
+                    {{ "uploadImage" | translate }}
+                </button>
+                <div class="row w-100">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 p-1" *ngFor="let image of uploadedImages">
+                        <div class="d-flex justify-content-center align-items-center h-100 w-100">
+                            <img class="gallery-uploaded" [src]="image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nz-tab>
+
+        <nz-tab nzTitle="سایز بندی">
+            <div class="fielder d-flex flex-column w-100 align-items-end">
+                <div>
+                    <span class="size-checkbox">{{ "hasSizing" | translate }}</span>
+                    <label nz-checkbox [formControl]="sizingCheckbox"></label>
+                </div>
+                <button *ngIf="hasSizing" nz-button nzType="default" class="new-size-btn" (click)="addRow_onClick()">
+                    {{ "newSize" | translate }}
+                </button>
+            </div>
+            <div *ngIf="hasSizing" class="my-1">
+                @for (row of getFormArrayItemValue(); track $index) {
+                <div class="w-100 d-flex justify-content-center" dir="ltr">
+                    <span class="delete" nz-icon nzType="delete" nzTheme="outline" (click)="deleteRow_onClick($index)">
+                    </span>
+                    <div class="d-flex" dir="rtl">
+                        <span class="pt-1 no-md">
+                            {{ "amount" | translate }}:
+                        </span>
+                        <input class="size-field" nz-input placeholder="موجودی" [(ngModel)]="row.amount" />
+                    </div>
+                    <div class="d-flex mx-2" dir="rtl">
+                        <span class="pt-1 no-md">
+                            {{ "size" | translate }}:
+                        </span>
+                        <input class="size-field" nz-input placeholder="عنوان سایز" [(ngModel)]="row.size" />
+                    </div>
+                </div>
+                }
+            </div>
+        </nz-tab>
+    </nz-tabset>
+</div>

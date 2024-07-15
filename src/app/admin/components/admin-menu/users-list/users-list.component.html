@@ -1,43 +1,45 @@
 @if (dataLoading && !dataLoading.closed) {
 <loading></loading>
 }@else {
-<nz-table #basicTable [nzData]="users" nzTableLayout="fixed">
-    <thead>
-        <tr>
-            <th>{{ 'email' | translate}}</th>
-            <th>{{ 'allName' | translate}}</th>
-            <th>{{ 'phone' | translate}}</th>
-            <th>{{ 'loginCount' | translate}}</th>
-            <th>{{ 'orderCount' | translate}}</th>
-            <th>{{ 'totalBuy' | translate}}</th>
-            <!-- <th>{{ 'more' | translate}}</th> -->
-            <th>{{ 'actions' | translate}}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <ng-container *ngFor="let row of basicTable.data">
-            <tr [class.green-bg]="row.role === 'ADMIN'">
-                <td>{{ row.email }}</td>
-                <td>{{ row.name }}</td>
-                <td>{{ row.phone }}</td>
-                <td>{{ row.loginCount }}</td>
-                <td>{{ row.orderCount }}</td>
-                <td>{{ row.totalBuy | currencyPipe }} {{ 'currency' | translate}}</td>
-                <!-- <td [nzExpand]="expandSet.has(row.userId)" (nzExpandChange)="onExpandChange(row.userId, $event)">
-                </td> -->
-                <td>
-                    @if (client.getUser.user.userId !== row.userId) {
-                    <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف کاربر؟"
-                        class="red cursor-pointer" nzOkText="بله" nzCancelText="خیر" nz-icon nzType="delete"
-                        nzTheme="outline" (nzOnConfirm)="deleteUser(row.userId)">
-                    </span>
-                    }
-                    <span class="blue cursor-pointer mx-2" nz-icon nzType="lock" nzTheme="outline"
-                        (click)="openChangePasswordModal(row)">
-                    </span>
-                </td>
+<div class="overflow-auto">
+
+    <nz-table #basicTable [nzData]="users" nzTableLayout="fixed" nzShowPagination="false">
+        <thead>
+            <tr>
+                <th>{{ 'email' | translate}}</th>
+                <th>{{ 'allName' | translate}}</th>
+                <th>{{ 'phone' | translate}}</th>
+                <th>{{ 'loginCount' | translate}}</th>
+                <th>{{ 'orderCount' | translate}}</th>
+                <th>{{ 'totalBuy' | translate}}</th>
+                <!-- <th>{{ 'more' | translate}}</th> -->
+                <th>{{ 'actions' | translate}}</th>
             </tr>
-            <!-- @if (client.getUser.user.userId !== row.userId) {
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let row of basicTable.data">
+                <tr [class.green-bg]="row.role === 'ADMIN'">
+                    <td>{{ row.email }}</td>
+                    <td>{{ row.name }}</td>
+                    <td>{{ row.phone }}</td>
+                    <td>{{ row.loginCount }}</td>
+                    <td>{{ row.orderCount }}</td>
+                    <td>{{ row.totalBuy | currencyPipe }} {{ 'currency' | translate}}</td>
+                    <!-- <td [nzExpand]="expandSet.has(row.userId)" (nzExpandChange)="onExpandChange(row.userId, $event)">
+                </td> -->
+                    <td>
+                        @if (client.getUser.user.userId !== row.userId) {
+                        <span nzPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف کاربر؟"
+                            class="red cursor-pointer" nzOkText="بله" nzCancelText="خیر" nz-icon nzType="delete"
+                            nzTheme="outline" (nzOnConfirm)="deleteUser(row.userId)">
+                        </span>
+                        }
+                        <span class="blue cursor-pointer mx-2" nz-icon nzType="lock" nzTheme="outline"
+                            (click)="openChangePasswordModal(row)">
+                        </span>
+                    </td>
+                </tr>
+                <!-- @if (client.getUser.user.userId !== row.userId) {
             <tr [nzExpand]="expandSet.has(row.userId)">
                 <div class="w-100 comments">
                     <div class="comments-title">{{ 'userComments' | translate }}</div>
@@ -56,7 +58,8 @@
                 </div>
             </tr>
             } -->
-        </ng-container>
-    </tbody>
-</nz-table>
+            </ng-container>
+        </tbody>
+    </nz-table>
+</div>
 }

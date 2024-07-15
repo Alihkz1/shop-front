@@ -49,21 +49,9 @@
                             </div>
 
                         </div>
-
+                        @if (!client.isAdmin) {
                         <div class="shop">
                             @if (client.isLogin) {
-                            @if (client.isAdmin) {
-                            <div class="board-data-icons">
-                                <span class="m-2 blue cursor-pointer" nz-icon nzType="edit" nzTheme="outline"
-                                    (click)="editProduct_onClick(); $event.stopPropagation()">
-                                </span>
-                                <span class="m-2 red cursor-pointer" nz-icon nzType="delete" nzTheme="outline"
-                                    zPopconfirmPlacement="right" nz-popconfirm nzPopconfirmTitle="حذف محصول؟"
-                                    nzOkText="بله" nzCancelText="خیر" (click)="$event.stopPropagation()"
-                                    (nzOnConfirm)="deleteProduct_onClick(product.product)">
-                                </span>
-                            </div>
-                            }@else {
                             @if (!productInShopCardFlag) {
 
                             @if (product?.product.amount > 0 || product?.productSize.length !== 0) {
@@ -93,13 +81,14 @@
                                 (click)="deleteFromShopCard()">
                             </span>
                             }
-                            }
+
                             }@else {
                             <button nz-button nzType="default" (click)="navigateToLogin()">
                                 {{ 'getInBeforeBuy' | translate }}
                             </button>
                             }
                         </div>
+                        }
                     </div>
                     } @else {
                     <nz-alert class="d-flex justify-content-center" nzType="error"
@@ -109,7 +98,9 @@
                 </div>
             </nz-tab>
             <nz-tab nzTitle="مشخصات">
-
+                <div class="details-wrapper">
+                    <p [innerHTML]="product.product.description"></p>
+                </div>
             </nz-tab>
             <nz-tab nzTitle="نظرات کاربران">
 

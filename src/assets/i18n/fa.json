@@ -16,7 +16,7 @@
   "emailAsUsername": "ایمیل (نام کاربری شما)",
   "enterName": "نام کامل خود را وارد کنید",
   "phone": "تلفن همراه",
-  "addProduct": "ثبت محصول جدید",
+  "addProduct": "ثبت محصول",
   "usersList": "لیست کاربران",
   "category": "دسته بندی",
   "productTitle": "نام محصول",
@@ -115,5 +115,8 @@
   "loginCount": "تعداد لاگین",
   "orderCount": "تعداد سفارشات",
   "totalBuy": "مجموع خرید",
-  "yourCardIsEmpty": "سبد خرید شما خالی است"
+  "yourCardIsEmpty": "سبد خرید شما خالی است",
+  "imageGallery": "عکس ها",
+  "onlyImageAccepted": "لطفا فایل عکس بارگزاری کنید",
+  "details": "مشخصات"
 }

@@ -17,6 +17,14 @@ body {
     padding-bottom: env(safe-area-inset-bottom);
 }
 
+.required {
+    color: rgba(255, 0, 0, 0.882);
+
+    &::after {
+        content: '  *';
+    }
+}
+
 .red-splitter {
     border-right: solid 6px #ff4081 !important;
     cursor: ew-resize;
@@ -96,6 +104,7 @@ nz-message .anticon {
 
 ::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -132,7 +141,7 @@ button.submit {
 .wrapper-title {
     margin-top: 10px;
     font-size: 18px;
-    background: white;
+    background: var(--wrapper-title-bg);
     padding: 5px 10px;
     border-radius: var(--main-border-radius);
     user-select: none;
@@ -157,7 +166,11 @@ button.submit {
     }
 }
 
-
 .w-20 {
     width: 20%;
+}
+
+input,
+textarea {
+    direction: rtl !important;
 }

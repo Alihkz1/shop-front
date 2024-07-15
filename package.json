@@ -10,7 +10,6 @@
   },
   "private": true,
   "dependencies": {
-    
     "@angular/animations": "^17.3.0",
     "@angular/common": "^17.3.0",
     "@angular/compiler": "^17.3.0",
@@ -20,11 +19,13 @@
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
     "@ngx-translate/http-loader": "^8.0.0",
+    "@tinymce/tinymce-angular": "^8.0.1",
     "bootstrap": "^5.3.3",
     "jalali-moment": "^3.3.11",
     "ng-zorro-antd": "^17.4.1",
     "ngx-image-cropper": "^6.3.4",
     "rxjs": "~7.8.0",
+    "tinymce": "^7.2.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },

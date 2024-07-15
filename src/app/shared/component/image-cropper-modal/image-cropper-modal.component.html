@@ -1,0 +1,13 @@
+<image-cropper class="h-100 w-100" [aspectRatio]="aspectRatio" [imageChangedEvent]="modalData" format="png"
+    (imageCropped)="imageCropped($event)">
+</image-cropper>
+<div class="px-1 my-2">
+    <label nz-checkbox [(ngModel)]="checkBoxOne" (nzCheckedChange)="aspectRatio_onChange($event, 0)">1 / 1</label>
+    <label nz-checkbox [(ngModel)]="checkBoxTwo" (nzCheckedChange)="aspectRatio_onChange($event, 1)">4 / 3</label>
+    <label nz-checkbox [(ngModel)]="checkBoxThree" (nzCheckedChange)="aspectRatio_onChange($event, 2)">16 / 9</label>
+</div>
+<div class="d-flex justify-content-end">
+    <button class="mx-1" nz-button nzType="default" (click)="close(false)">{{ 'back' | translate }}</button>
+    <button class="mx-1" nz-button nzType="primary" [nzLoading]="uploadLoading && !uploadLoading.closed"
+        (click)="close(true)">{{ 'submit' | translate }}</button>
+</div>

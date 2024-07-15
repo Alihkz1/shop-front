@@ -9,7 +9,7 @@
             }
         </div>
         <form [formGroup]="form" class="w-100 d-flex flex-column align-items-end">
-            <div class="fielder d-flex flex-column align-items-end w-100">
+            <div class="fielder align-items-end w-100">
                 <div class="fielder-title">{{ "category" | translate }}</div>
                 <nz-select class="w-100" formControlName="categoryId" dir="rtl">
                     @for (item of categories; track $index) {
@@ -17,21 +17,21 @@
                     }
                 </nz-select>
             </div>
-            <div class="fielder d-flex flex-column align-items-end w-100">
+            <div class="fielder align-items-end w-100">
                 <div class="fielder-title">{{ "productTitle" | translate }}</div>
                 <input nz-input formControlName="title" dir="rtl" />
             </div>
-            <div class="fielder d-flex flex-column align-items-end w-100">
+            <div class="fielder align-items-end w-100">
                 <div class="fielder-title">{{ "price" | translate }} ({{ "currency" | translate }})</div>
                 <input nz-input formControlName="price" dir="rtl" priceFormat />
             </div>
             @if(showAmountField){
-            <div class="fielder d-flex flex-column align-items-end w-100">
+            <div class="fielder align-items-end w-100">
                 <div class="fielder-title">{{ "amount" | translate }}</div>
                 <input nz-input formControlName="amount" dir="rtl" type="number" />
             </div>
             }
-            <div class="fielder d-flex flex-column align-items-end w-100">
+            <div class="fielder align-items-end w-100">
                 <div class="fielder-title">{{ "description" | translate }}</div>
                 <textarea [nzAutosize]="{ minRows: 3, maxRows: 10 }" nz-input formControlName="description" dir="rtl">
                 </textarea>
@@ -71,7 +71,7 @@
         </div>
         }
 
-        <div class="fielder d-flex flex-column align-items-end w-100">
+        <div class="fielder align-items-end w-100">
             <!-- <nz-upload [nzCustomRequest]="uploadRequest" dir="rtl"> -->
             <div class="d-flex justify-content-between w-100">
 

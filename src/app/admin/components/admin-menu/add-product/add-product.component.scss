@@ -1,0 +1,110 @@
+.fielder {
+    direction: ltr;
+}
+
+::ng-deep nz-select-top-control {
+    direction: rtl;
+    padding-top: 4px !important;
+    height: 40px !important;
+    border-radius: var(--main-border-radius) !important;
+}
+
+::ng-deep nz-option-item {
+    direction: rtl;
+}
+
+.gallery {
+    &-uploaded {
+        margin: 0 10px;
+        height: fit-content;
+        max-height: 200px;
+        width: auto;
+        border: 1px solid rgb(143, 143, 143);
+        padding: 4px;
+        background: #fff;
+        cursor: pointer;
+        border-radius: var(--main-border-radius);
+    }
+}
+
+.wrapper {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    flex-grow: 1;
+    width: 100%;
+}
+
+
+.size-field {
+    width: 100px;
+    height: 30px;
+    margin: 0 5px;
+}
+
+.delete {
+    font-size: 14px;
+    color: red;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+
+.no-md {
+    @media (max-width: 767px) {
+        display: none;
+    }
+}
+
+::ng-deep .ant-tabs-nav-wrap {
+    background: #fff;
+}
+
+::ng-deep .ant-tabs>.ant-tabs-nav {
+    margin: 0 !important;
+}
+
+::ng-deep .ant-tabs-tab {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 767px) {
+        width: fit-content;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+::ng-deep .ant-tabs-tab+.ant-tabs-tab {
+    margin: 0;
+}
+
+::ng-deep .ant-tabs-content-holder {
+    padding: 10px 20px !important;
+}
+
+.size-checkbox {
+    font-size: 15px;
+    margin: 0 10px;
+}
+
+.new-size-btn {
+    width: 120px;
+    margin-top: 10px;
+}
+
+.save {
+    position: absolute;
+    left: 15px;
+    top: 8px;
+    z-index: 1;
+}
