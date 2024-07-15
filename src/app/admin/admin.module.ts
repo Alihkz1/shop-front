@@ -28,7 +28,7 @@ import { CurrencyPipe } from '../shared/pipe/currency.pipe';
 import { UsersOrdersComponent } from './components/admin-menu/users-orders/users-orders.component';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { LoadingComponent } from '../shared/component/loading/loading.component';
-import { AddProductComponent } from './components/admin-menu/add-product/add-product.component';
+import { ProductCrudComponent } from './components/admin-menu/product-crud/product-crud.component';
 import { ImageCropperModalComponent } from '../shared/component/image-cropper-modal/image-cropper-modal.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
@@ -52,7 +52,7 @@ const NZ = [
 
 
 @NgModule({
-  declarations: [AdminRoutingComponent, AddProductComponent, AdminMenuComponent, AdminProfileComponent, ProductManagementComponent, AllCommentsComponent, UsersOrdersComponent, UsersListComponent],
+  declarations: [AdminRoutingComponent, ProductCrudComponent, AdminMenuComponent, AdminProfileComponent, ProductManagementComponent, AllCommentsComponent, UsersOrdersComponent, UsersListComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

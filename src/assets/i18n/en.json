@@ -111,5 +111,8 @@
   "orderAmountError": "Some of products are not available now!",
   "admin": "Admin",
   "loginCount": "Login Count",
-  "yourCardIsEmpty": "Your card is empty"
+  "yourCardIsEmpty": "Your card is empty",
+  "imageGallery": "Image Gallery",
+  "onlyImageAccepted": "Only images are accepted!",
+  "details": "Details"
 }

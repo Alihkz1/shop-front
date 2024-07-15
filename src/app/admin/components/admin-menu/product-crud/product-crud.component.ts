@@ -12,11 +12,11 @@ import { Subscription } from 'rxjs';
 import { NzTabChangeEvent } from 'ng-zorro-antd/tabs';
 
 @Component({
-  selector: 'app-add-product',
-  templateUrl: './add-product.component.html',
-  styleUrl: './add-product.component.scss'
+  selector: 'app-product-crud',
+  templateUrl: './product-crud.component.html',
+  styleUrl: './product-crud.component.scss'
 })
-export class AddProductComponent implements OnInit {
+export class ProductCrudComponent implements OnInit {
   @ViewChild('uploader') uploader: ElementRef<HTMLInputElement>;
 
   form = new FormGroup({
