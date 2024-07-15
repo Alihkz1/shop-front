@@ -26,6 +26,16 @@ export class AdminApi {
       .call()
   }
 
+
+  public getProductRetrieve(productId: number) {
+    return Api()
+      .get()
+      .controller('product')
+      .action('retrieve')
+      .pathVariable(String(productId))
+      .call();
+  }
+
   public editComment(model: any) {
     return Api()
       .put()

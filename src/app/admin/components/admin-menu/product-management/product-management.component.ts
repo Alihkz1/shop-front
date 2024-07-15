@@ -9,6 +9,7 @@ import { ProductModalComponent } from '../../../../shared/component/product-moda
 import { Subscription } from 'rxjs';
 import { CategoryDto } from '../../../../shared/model/category-dto.model';
 import { ProductDto } from '../../../../shared/model/product-dto.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-management',
@@ -36,6 +37,7 @@ export class ProductManagementComponent implements OnInit {
   categories: CategoryDto[] = []
 
   constructor(
+    private router: Router,
     private adminApi: AdminApi,
     private message: NzMessageService,
     private modalService: NzModalService,
@@ -108,6 +110,14 @@ export class ProductManagementComponent implements OnInit {
       },
     }).afterClose.subscribe((result: boolean) => {
       this.getCategories()
+    })
+  }
+
+  editProduct_onClick(productId: number) {
+    this.router.navigate(['admin/product-crud'], {
+      queryParams: {
+        productId
+      }
     })
   }
 }

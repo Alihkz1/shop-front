@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Category } from '../../../../shared/model/category.model';
 import { AdminApi } from '../../../shared/admin.api';
 import { ValidImageUploaded } from '../../../../shared/function/image-upload.function';
@@ -10,6 +10,10 @@ import { ImageCropperModalComponent } from '../../../../shared/component/image-c
 import { tinyConfig } from './tiny-mce.config';
 import { Subscription } from 'rxjs';
 import { NzTabChangeEvent } from 'ng-zorro-antd/tabs';
+import { ActivatedRoute } from '@angular/router';
+import { Size } from '../../../../shared/model/size.model';
+import { ProductDto } from '../../../../shared/model/product-dto.model';
+import { NumberToCurrency } from '../../../../shared/function/currency-format.functions';
 
 @Component({
   selector: 'app-product-crud',
@@ -39,6 +43,7 @@ export class ProductCrudComponent implements OnInit {
   sizingCheckbox = new FormControl(false);
   public get hasSizing(): boolean { return this.sizingCheckbox.value }
 
+  dataLoading: Subscription;
   saveLoading: Subscription;
 
   public sizeByIndex(i: number) { return this.form.controls['size'].controls[i].value; }
@@ -61,6 +66,7 @@ export class ProductCrudComponent implements OnInit {
 
   constructor(
     private adminApi: AdminApi,
+    private route: ActivatedRoute,
     private message: NzMessageService,
     private modalService: NzModalService,
     private translate: TranslateService
@@ -72,8 +78,40 @@ export class ProductCrudComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const { productId } = this.route.snapshot.queryParams;
+    if (productId) this.getData()
     this.getCategories();
   }
+
+  private getData() {
+    const { productId } = this.route.snapshot.queryParams;
+    this.dataLoading = this.adminApi.getProductRetrieve(productId).subscribe(({ success, data }: any) => {
+      if (!success) return;
+      const product: ProductDto | any = data.product;
+      product.product.price = NumberToCurrency(product.product.price)
+      this.form.patchValue(product.product)
+      this.uploadedImages = JSON.parse(product.product.imageUrl);
+      if (product.productSize.length) {
+        this.sizingCheckbox.setValue(true)
+        product.productSize.forEach((item: Size) => {
+          this.fillForm(item)
+        })
+      }
+    })
+  }
+
+  public fillForm(newItem: Size): void {
+    const formArrayValue = this.form.controls['size'] as FormArray;
+    formArrayValue.push(
+      new FormBuilder().group({
+        id: newItem.id,
+        size: newItem.size,
+        amount: newItem.amount,
+        productId: newItem.productId,
+      })
+    );
+  }
+
 
   getCategories() {
     this.adminApi.getCategoriesLight().subscribe(({ data }: any) => {
@@ -123,7 +161,10 @@ export class ProductCrudComponent implements OnInit {
       size: JSON.stringify(sizeArr),
       amount: sizeArr.length > 0 ? 0 : this.form.value.amount
     }
-    this.addProduct_onConfirm(model)
+    if (this.form.value['productId'])
+      this.editProduct_onConfirm(model)
+    else
+      this.addProduct_onConfirm(model)
   }
 
   editProduct_onConfirm(model: any) {

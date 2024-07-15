@@ -29,6 +29,9 @@
                         {{ "currency" | translate }}
                     </p>
                     <div>
+                        <span class="product-item-icon blue" nz-icon nzType="eye" nzTheme="outline"
+                            (click)="editProduct_onClick(product.product.productId)">
+                        </span>
                         <span class="product-item-icon blue" nz-icon nzType="edit" nzTheme="outline"
                             (click)="openProductModal(product, null)">
                         </span>
