@@ -61,7 +61,17 @@ export class ProductsComponent implements OnInit {
       { sort: this.sortValue }
     ).subscribe(({ success, data }: any) => {
       if (success) {
-        this._products$.next(data.products);
+        let products: ProductDto[] = data.products;
+        products = products.map((el: ProductDto) => {
+          return {
+            ...el,
+            product: {
+              ...el.product,
+              imageUrl: JSON.parse(el.product.imageUrl)[0]
+            }
+          }
+        })
+        this._products$.next(products);
       }
     })
   }

@@ -54,10 +54,11 @@ export class ProductDetailComponent implements OnInit {
     this.dataLoading = this.menuApi.getProductRetrieve(productId).subscribe(({ success, data }: any) => {
       if (!success) return;
       this.product = data.product;
+      this.product.product.imageUrl = JSON.parse(data.product.product.imageUrl)[0]
       if (data.product.productSize.length > 0) {
         this.product.productSize = data.product.productSize
           .sort((a: Size, b: Size) => +a.size - +b.size)
-          // .filter((e: Size) => e.amount > 0);
+        // .filter((e: Size) => e.amount > 0);
       }
       this.getShopCard()
     })

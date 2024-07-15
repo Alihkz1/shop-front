@@ -9,6 +9,11 @@
     position: relative;
 }
 
+.tabset {
+    overflow: auto;
+    flex-grow: 1;
+}
+
 .form {
     display: flex;
     flex-direction: column;

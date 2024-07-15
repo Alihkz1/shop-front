@@ -3,7 +3,7 @@
         [nzLoading]="saveLoading && !saveLoading.closed">
         {{ "submit" | translate }}
     </button>
-    <nz-tabset class="flex-grow-1 overflow-auto" (nzSelectChange)="tabIndex_onChange($event)">
+    <nz-tabset class="tabset" (nzSelectChange)="tabIndex_onChange($event)">
 
         <nz-tab nzTitle="مشخصات">
             <form [formGroup]="form" class="form">
