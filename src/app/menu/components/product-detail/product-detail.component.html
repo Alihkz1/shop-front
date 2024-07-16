@@ -59,15 +59,17 @@
                             <!-- buttons section -->
 
                             <ng-container *ngIf="!client.isLogin;else clientIsLogin">
-                                <button nz-button nzType="default" (click)="navigateToLogin()">
-                                    {{ 'getInBeforeBuy' | translate }}
-                                </button>
+                                <div class="w-100 d-flex justify-content-center">
+                                    <button nz-button nzType="default" (click)="navigateToLogin()">
+                                        {{ 'getInBeforeBuy' | translate }}
+                                    </button>
+                                </div>
                             </ng-container>
                             <ng-template #clientIsLogin>
                                 <ng-container *ngIf="!client.isAdmin">
                                     <!-- product is in card -->
                                     <ng-container *ngIf="productInShopCardFlag; else productNotInCard">
-                                        <div class="d-flex">
+                                        <div class="w-100 d-flex justify-content-center">
                                             <div class="mx-3 mt-1">
                                                 <b>{{ "quantity" | translate }}:</b>
                                             </div>
@@ -90,11 +92,13 @@
                                         <!-- product is available -->
                                         <ng-container
                                             *ngIf="product?.product.amount > 0 || product?.productSize.length !== 0; else notAvailable">
-                                            <button nz-button nzType="default" (click)="addToCard()"
-                                                [disabled]="product?.productSize.length > 0 && selectedSize === null">
-                                                {{ 'toShopCard' | translate }}
-                                                <span nz-icon nzType="shopping" nzTheme="outline"></span>
-                                            </button>
+                                            <div class="w-100 d-flex justify-content-center">
+                                                <button nz-button nzType="default" (click)="addToCard()"
+                                                    [disabled]="product?.productSize.length > 0 && selectedSize === null">
+                                                    {{ 'toShopCard' | translate }}
+                                                    <span nz-icon nzType="shopping" nzTheme="outline"></span>
+                                                </button>
+                                            </div>
                                         </ng-container>
                                         <!-- product not available -->
                                         <ng-template #notAvailable>
