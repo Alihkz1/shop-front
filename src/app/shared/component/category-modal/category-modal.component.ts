@@ -1,11 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
-import { HttpClient, HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
-import { NzUploadXHRArgs } from 'ng-zorro-antd/upload';
-import { environment } from '../../../../env/environment';
 import { TranslateModule } from "@ngx-translate/core";
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -15,6 +12,8 @@ import { TranslateService } from "@ngx-translate/core";
 import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
 import { Subscription } from 'rxjs';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { HttpClient, HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
+import { environment } from '../../../../env/environment';
 
 @Component({
   selector: 'app-category-modal',
@@ -28,33 +27,19 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 })
 export class CategoryModalComponent implements OnInit {
   modalData = inject(NZ_MODAL_DATA);
-  formControl = new FormControl();
+  formControl = new FormControl(null, [Validators.required]);
   standardSizeControl = new FormControl(true);
 
   @ViewChild('uploader') uploader: ElementRef<HTMLInputElement>;
-  croppedImage: string | null = null;
   imageChangedEvent: any;
   aspectRatio = 1.14;
+  uploadLoading: Subscription
   saveLoading: Subscription
+  croppedImage = '';
 
-  // deprecated
-  uploadedImgUrl = new FormControl('')
-  public uploadRequest = (item: NzUploadXHRArgs) => {
-    const formData = new FormData();
-    formData.append('file', item.file as any);
-    formData.append('upload_preset', 'online_shop_preset');
-    const req = new HttpRequest('POST', environment.UPLOAD_URL, formData)
-    return this.http.request(req).subscribe((event: HttpEvent<any>) => {
-      item.onProgress!(event, item.file!);
-      if (event instanceof HttpResponse) {
-        this.uploadedImgUrl.setValue(event.body.url);
-        item.onSuccess!(event.body, item.file!, event);
-      }
-    },
-      (error: any) => {
-        item.onError!(error, item.file!);
-      }
-    )
+  public get loading(): boolean {
+    return (this.uploadLoading && !this.uploadLoading.closed) ||
+      (this.saveLoading && !this.saveLoading.closed)
   }
 
   constructor(
@@ -78,6 +63,23 @@ export class CategoryModalComponent implements OnInit {
     this.croppedImage = event.base64;
   }
 
+  uploadFile(): void {
+    const formData = new FormData();
+    formData.append('file', this.croppedImage);
+    formData.append('upload_preset', 'online_shop_preset');
+    const req = new HttpRequest('POST', environment.UPLOAD_URL, formData)
+    this.uploadLoading = this.http.request(req).subscribe((event: HttpEvent<any>) => {
+      if (event instanceof HttpResponse) {
+        if (event.ok) {
+          this.croppedImage = event.body.url
+          if (this.modalData)
+            this.editCategory_onConfirm()
+          else this.addCategory_onConfirm()
+        }
+      }
+    })
+  }
+
   triggerFileInput() {
     this.uploader.nativeElement.click();
   }
@@ -88,9 +90,13 @@ export class CategoryModalComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.modalData)
-      this.editCategory_onConfirm()
-    else this.addCategory_onConfirm()
+    if (this.croppedImage)
+      this.uploadFile();
+    else {
+      if (this.modalData)
+        this.editCategory_onConfirm()
+      else this.addCategory_onConfirm()
+    }
   }
 
   editCategory_onConfirm() {

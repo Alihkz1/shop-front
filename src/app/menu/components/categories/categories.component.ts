@@ -36,18 +36,18 @@ export class CategoriesComponent implements OnInit {
 
   getData() {
     this.dataLoading = this.menuApi.getCategories()
-    .subscribe(({ success, data }: any) => {
-      if (success) {
-        this._categories$.next(data.categories);
-      }
-    })
+      .subscribe(({ success, data }: any) => {
+        if (success) {
+          this._categories$.next(data.categories);
+        }
+      })
   }
 
   board_onClick(category: Category) {
     this.router.navigate(['menu/products/', category.categoryId])
   }
 
-  openCategoryModal(category: Category) {
+  openCategoryModal(category?: Category) {
     this.modalService.create({
       nzFooter: null,
       nzCentered: true,

@@ -1,7 +1,15 @@
 <div class="d-flex flex-column h-100">
+
   <div class="page-title">
     {{ "categories" | translate }}
+    <div *ngIf="client.isAdmin" class="page-title-add" (click)="openCategoryModal()">
+      <button class="new-category">
+        <span class="new-category-text px-1">{{ "newCategory" | translate }}</span>
+        <img src="assets/svg/add.svg">
+      </button>
+    </div>
   </div>
+
   <div class="wrapper">
     <div class="row">
       @if (dataLoading && !dataLoading.closed) {
@@ -17,18 +25,23 @@
             <div class="board-data-name">
               {{ cat.categoryName }}
             </div>
-            <!-- <div class="board-data-count">
-              {{ "productsCount" | translate }}: {{ cat.products?.length }}
-            </div> -->
+            <div class="board-data-count">
+              {{ "productsCount" | translate }}: {{ cat.productCount }}
+            </div>
             @if (client.isAdmin) {
             <div class="board-data-icons">
-              <span class="m-2 blue" nz-icon nzType="edit" nzTheme="outline"
+              <button class="mx-1" nz-button nzType="default" nzShape="circle"
                 (click)="openCategoryModal(cat); $event.stopPropagation()">
-              </span>
-              <span class="m-2 red" nz-icon nzType="delete" nzTheme="outline" nzPopconfirmPlacement="right"
-                nz-popconfirm nzPopconfirmTitle="حذف دسته بندی؟" nzOkText="بله" nzCancelText="خیر"
-                (click)="$event.stopPropagation()" (nzOnConfirm)="deleteCategory_onConfirm(cat)">
-              </span>
+                <span class="blue" nz-icon nzType="edit" nzTheme="outline">
+                </span>
+              </button>
+              <button class="mx-1" nz-button nzType="default" nzShape="circle" (click)="$event.stopPropagation()"
+                nzDanger>
+                <span class="red" nz-icon nzType="delete" nzTheme="outline" nzPopconfirmPlacement="right" nz-popconfirm
+                  nzPopconfirmTitle="حذف دسته بندی؟" nzOkText="بله" nzCancelText="خیر"
+                  (nzOnConfirm)="deleteCategory_onConfirm(cat)">
+                </span>
+              </button>
             </div>
             }
           </div>

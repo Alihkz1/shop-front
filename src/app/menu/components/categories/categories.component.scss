@@ -32,7 +32,6 @@
   }
 
   &-data {
-    padding: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,13 +43,13 @@
       display: flex;
       justify-content: center;
       position: absolute;
-      bottom: 5px;
-      left: 5px;
+      bottom: -7px;
+      left: -11px;
       font-size: 18px;
     }
 
     &-count {
-      padding-top: 8px;
+      padding-top: 5px;
       font-size: 12px;
     }
   }
@@ -85,6 +84,34 @@
         font-size: 30px;
         font-weight: 500;
       }
+
+      &-icons {
+        bottom: 5px;
+        left: 0;
+      }
     }
+  }
+
+  .new-category-text {
+    display: none;
+  }
+}
+
+.page-title-add {
+  position: absolute;
+  left: 10px;
+  top: 6px;
+  cursor: pointer;
+
+  img {
+    height: 20px;
+  }
+
+  .new-category {
+    border: unset;
+    font-size: 12px;
+    background: aliceblue;
+    padding: 2px 7px;
+    border-radius: var(--main-border-radius);
   }
 }
