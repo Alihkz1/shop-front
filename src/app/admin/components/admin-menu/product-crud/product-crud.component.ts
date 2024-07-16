@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Category } from '../../../../shared/model/category.model';
 import { AdminApi } from '../../../shared/admin.api';
@@ -66,6 +66,7 @@ export class ProductCrudComponent implements OnInit {
 
   constructor(
     private adminApi: AdminApi,
+    private cdr: ChangeDetectorRef,
     private route: ActivatedRoute,
     private message: NzMessageService,
     private modalService: NzModalService,
@@ -144,6 +145,7 @@ export class ProductCrudComponent implements OnInit {
     }).afterClose.subscribe((result: { success: boolean; uploadedImgUrl: string }) => {
       if (result?.success) {
         this.uploadedImages.push(result.uploadedImgUrl)
+        this.cdr.detectChanges()
       }
     })
   }
@@ -187,6 +189,10 @@ export class ProductCrudComponent implements OnInit {
 
   tabIndex_onChange(event: NzTabChangeEvent) {
     this.tabIndex = event.index;
+  }
+
+  deleteImage_onClick(event: string) {
+    this.uploadedImages = this.uploadedImages.filter((image: string) => image != event);
   }
 }
 

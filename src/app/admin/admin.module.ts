@@ -33,6 +33,7 @@ import { ImageCropperModalComponent } from '../shared/component/image-cropper-mo
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { PriceFormatDirective } from '../menu/shared/directive/price-format.directive';
+import { CarouselComponent } from '../shared/component/carousel/carousel.component';
 
 const NZ = [
   NzButtonModule,
@@ -68,6 +69,7 @@ const NZ = [
     EditorModule,
     FormsModule,
     PriceFormatDirective,
+    CarouselComponent,
     ...NZ,
   ]
 })

@@ -4,7 +4,6 @@
         {{ "submit" | translate }}
     </button>
     <nz-tabset class="tabset" (nzSelectChange)="tabIndex_onChange($event)">
-
         <nz-tab nzTitle="مشخصات">
             <form [formGroup]="form" class="form">
                 <div class="fielder align-items-end w-100">
@@ -39,17 +38,13 @@
         </nz-tab>
 
         <nz-tab nzTitle="عکس ها">
-            <div class="fielder gallery align-items-end w-100">
+            <div class="fielder align-items-end w-100">
                 <input class="d-none" type="file" (change)="image_onSelect($event)" #uploader />
                 <button nz-button nzType="default" class="mb-3" (click)="triggerFileInput()">
                     {{ "uploadImage" | translate }}
                 </button>
-                <div class="row w-100">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 p-1" *ngFor="let image of uploadedImages">
-                        <div class="d-flex justify-content-center align-items-center h-100 w-100">
-                            <img class="gallery-uploaded" [src]="image">
-                        </div>
-                    </div>
+                <div class="w-100 d-flex justify-content-center mt-2">
+                    <app-carousel [images]="uploadedImages" (deleteImage)="deleteImage_onClick($event)"></app-carousel>
                 </div>
             </div>
         </nz-tab>

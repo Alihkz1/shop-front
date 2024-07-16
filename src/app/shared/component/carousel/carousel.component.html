@@ -1,0 +1,17 @@
+<p-carousel [value]="images" [numVisible]="1" [circular]="false" autoplayInterval="3000"
+    [responsiveOptions]="responsiveOptions">
+    <ng-template let-product pTemplate="item">
+        <div class="carousel-wrapper">
+            <img class="my-1" [src]="product">
+            <div class="carousel-wrapper-actions">
+                <button class="" nz-button nzType="default" nzShape="circle" (click)="$event.stopPropagation()"
+                    nzDanger>
+                    <span class="red" nz-icon nzType="delete" nzTheme="outline" zPopconfirmPlacement="right"
+                        nz-popconfirm nzPopconfirmTitle="حذف؟" nzOkText="بله" nzCancelText="خیر"
+                        (nzOnConfirm)="deleteImage.emit(product)">
+                    </span>
+                </button>
+            </div>
+        </div>
+    </ng-template>
+</p-carousel>
