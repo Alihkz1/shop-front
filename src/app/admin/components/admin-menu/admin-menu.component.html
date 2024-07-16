@@ -4,23 +4,48 @@
             <div class="menu">
                 <button class="menu-item" nz-button nzType="default" routerLink="/admin/product-management"
                     routerLinkActive="active">
-                    {{ 'productManagement' | translate }}
+                    <div class="menu-item-text">
+                        {{ 'productManagement' | translate }}
+                    </div>
+                    <div class="menu-item-icon">
+                        <img src="assets/svg/product-management.svg" alt="">
+                    </div>
                 </button>
                 <button class="menu-item" nz-button nzType="default" routerLink="/admin/product-crud"
                     routerLinkActive="active">
-                    {{ 'addProduct' | translate }}
-                </button>
-                <button class="menu-item" nz-button nzType="default" routerLink="/admin/all-comments"
-                    routerLinkActive="active">
-                    {{ 'comments' | translate }}
+                    <div class="menu-item-text">
+                        {{ 'addProduct' | translate }}
+                    </div>
+                    <div class="menu-item-icon">
+                        <img src="assets/svg/product-crud.svg" alt="">
+                    </div>
                 </button>
                 <button class="menu-item" nz-button nzType="default" routerLink="/admin/orders"
                     routerLinkActive="active">
-                    {{ 'usersOrders' | translate }}
+                    <div class="menu-item-text">
+                        {{ 'usersOrders' | translate }}
+                    </div>
+                    <div class="menu-item-icon">
+                        <img src="assets/svg/users-orders.svg" alt="">
+                    </div>
                 </button>
                 <button class="menu-item" nz-button nzType="default" routerLink="/admin/users-list"
                     routerLinkActive="active">
-                    {{ 'userManagement' | translate }}
+                    <div class="menu-item-text">
+                        {{ 'userManagement' | translate }}
+                    </div>
+                    <div class="menu-item-icon">
+                        <img src="assets/svg/users-list.svg" alt="">
+                    </div>
+                </button>
+                <button class="menu-item" nz-button nzType="default" routerLink="/admin/all-comments"
+                    routerLinkActive="active">
+                    <div class="menu-item-text">
+                        {{ 'comments' | translate }}
+                    </div>
+                    <div class="menu-item-icon">
+                        <img src="assets/svg/all-comments.svg" alt="">
+                    </div>
                 </button>
             </div>
         </div>
