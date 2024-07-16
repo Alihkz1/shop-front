@@ -28,7 +28,7 @@ export class ProductCrudComponent implements OnInit {
     categoryId: new FormControl(null, Validators.required),
     title: new FormControl(null, Validators.required),
     price: new FormControl(null, Validators.required),
-    amount: new FormControl(null),
+    amount: new FormControl(0),
     description: new FormControl(null),
     productId: new FormControl(null),
     size: new FormArray([])
@@ -179,6 +179,9 @@ export class ProductCrudComponent implements OnInit {
   editProduct_onConfirm(model: any) {
     this.saveLoading = this.adminApi.editProduct(model).subscribe(({ success }: any) => {
       if (success) {
+        this.tabIndex = 0;
+        this.form.reset()
+        this.uploadedImages = []
         this.message.create('success', this.translate.instant('actionDone'))
       }
     });
@@ -187,6 +190,7 @@ export class ProductCrudComponent implements OnInit {
   addProduct_onConfirm(model: any) {
     this.saveLoading = this.adminApi.addProduct(model).subscribe(({ success }: any) => {
       if (success) {
+        this.tabIndex = 0;
         this.form.reset()
         this.uploadedImages = []
         this.message.create('success', this.translate.instant('actionDone'))
