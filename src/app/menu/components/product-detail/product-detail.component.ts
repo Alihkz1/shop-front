@@ -54,7 +54,7 @@ export class ProductDetailComponent implements OnInit {
     this.dataLoading = this.menuApi.getProductRetrieve(productId).subscribe(({ success, data }: any) => {
       if (!success) return;
       this.product = data.product;
-      this.product.product.imageUrl = JSON.parse(data.product.product.imageUrl)[0]
+      this.product.product.imageUrl = JSON.parse(data.product.product.imageUrl)
       if (data.product.productSize.length > 0) {
         this.product.productSize = data.product.productSize
           .sort((a: Size, b: Size) => +a.size - +b.size)
@@ -220,4 +220,12 @@ export class ProductDetailComponent implements OnInit {
     this.router.navigate(['menu/products', categoryId])
   }
 
+  onCrud() {
+    const { productId } = this.route.snapshot.params
+    this.router.navigate(['admin/product-crud'], {
+      queryParams: {
+        productId
+      }
+    })
+  }
 }

@@ -3,7 +3,7 @@
 
 .wrapper {
     flex-grow: 1;
-    overflow: hidden auto;
+    overflow: hidden;
     padding-bottom: 15px;
 }
 
@@ -101,10 +101,6 @@ nz-button-group {
     background: #fff;
 }
 
-.img {
-    background-color: rgba(241, 241, 241, 0.379);
-}
-
 .delete {
     margin-right: 30px;
     font-size: 20px;
@@ -119,4 +115,24 @@ nz-button-group {
     background: #fff;
     padding: 20px;
     text-align: unset;
+}
+
+.page-title-crud {
+    position: absolute;
+    left: 7px;
+    top: 7px;
+    cursor: pointer;
+    font-size: 12px;
+    background: aliceblue;
+    padding: 2px 7px;
+
+    img {
+        height: 20px;
+    }
+
+    @media (max-width: 767px) {
+        &-text {
+            display: none;
+        }
+    }
 }

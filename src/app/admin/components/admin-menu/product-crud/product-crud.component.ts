@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Size } from '../../../../shared/model/size.model';
 import { ProductDto } from '../../../../shared/model/product-dto.model';
 import { NumberToCurrency } from '../../../../shared/function/currency-format.functions';
+import { CarouselConfig } from '../../../../shared/component/carousel/carousel.component';
 
 @Component({
   selector: 'app-product-crud',
@@ -39,6 +40,12 @@ export class ProductCrudComponent implements OnInit {
 
   tinyConfig = tinyConfig;
   tinyApi = "re8awji0y3nq8ddyftc9xgjjy4f9tjsyjc7303jaz6ok0196";
+
+  carouselStyleConfig: CarouselConfig = {
+    width: '350px',
+    height: '300px',
+    imageWidth: ''
+  }
 
   sizingCheckbox = new FormControl(false);
   public get hasSizing(): boolean { return this.sizingCheckbox.value }

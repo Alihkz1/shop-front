@@ -120,4 +120,8 @@ export class ProductManagementComponent implements OnInit {
       }
     })
   }
+
+  getProductImage(images: string) {
+    return JSON.parse(images)[0]
+  }
 }

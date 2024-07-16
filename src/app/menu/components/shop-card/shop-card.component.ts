@@ -54,6 +54,7 @@ export class ShopCardComponent implements OnInit {
                     ...card.product,
                     product: {
                       ...card.product.product,
+                      imageUrl: JSON.parse(card.product.product.imageUrl)[0],
                       amount: resp.data.products.find((el: AmountCheckDto) => el.productId === card.product.product.productId).amount,
                       price: resp.data.products.find((el: AmountCheckDto) => el.productId === card.product.product.productId).price,
                     }

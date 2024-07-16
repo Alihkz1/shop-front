@@ -28,8 +28,8 @@
                         <span>{{ "price" | translate }}:</span> {{ product.product.price | currencyPipe }}
                         {{ "currency" | translate }}
                     </p>
-                    <div>
-                        <span class="product-item-icon blue" nz-icon nzType="eye" nzTheme="outline"
+                    <div class="mt-1">
+                        <span class="product-item-icon" nz-icon nzType="bar-chart" nzTheme="outline"
                             (click)="editProduct_onClick(product.product.productId)">
                         </span>
                         <span class="product-item-icon blue" nz-icon nzType="edit" nzTheme="outline"
@@ -41,7 +41,7 @@
                         </span>
                     </div>
                 </div>
-                <img class="product-item-image" [src]="product.product.imageUrl">
+                <img class="product-item-image" [src]="getProductImage(product.product.imageUrl)">
             </div>
             }
         </nz-collapse-panel>

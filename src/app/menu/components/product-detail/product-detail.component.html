@@ -5,6 +5,10 @@
             <img class="page-title-back-icon" src="assets/svg/back.svg">
             {{ 'back' | translate }}
         </div>
+        <div class="page-title-crud" (click)="onCrud()">
+            <span class="page-title-crud-text px-1">{{ "productCrud" | translate }}</span>
+            <img src="assets/svg/product-crud.svg">
+        </div>
     </div>
     <div class="wrapper">
         @if (dataLoading && !dataLoading.closed) {
@@ -15,8 +19,8 @@
                 <div class="row">
                     @if (product?.product.productId) {
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                        <div class="ps-4 pt-2 d-flex justify-content-center img">
-                            <img class="fit" [src]="product?.product.imageUrl" [alt]="product?.product.title">
+                        <div class="pt-2 d-flex justify-content-center" dir="ltr">
+                            <app-carousel [images]="product?.product.imageUrl"></app-carousel>
                         </div>
                     </div>
                     <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">

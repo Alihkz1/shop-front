@@ -100,4 +100,7 @@ export class MyOrdersComponent implements OnInit {
     })
   }
 
+  getProductImage(images: string) {
+    return JSON.parse(images)[0]
+  }
 }

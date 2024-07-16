@@ -44,7 +44,8 @@
                     {{ "uploadImage" | translate }}
                 </button>
                 <div class="w-100 d-flex justify-content-center mt-2">
-                    <app-carousel [images]="uploadedImages" (deleteImage)="deleteImage_onClick($event)"></app-carousel>
+                    <app-carousel [showActions]="true" [images]="uploadedImages" [styleConfig]="carouselStyleConfig"
+                        (deleteImage)="deleteImage_onClick($event)"></app-carousel>
                 </div>
             </div>
         </nz-tab>

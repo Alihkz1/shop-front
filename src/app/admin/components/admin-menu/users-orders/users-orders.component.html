@@ -102,7 +102,7 @@
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2 flex-grow-1 product-field">
                             @for (product of order.products; track $index) {
                             <div class="box-product" (click)="navigateToProduct(product.product)">
-                                <img [src]="product.product.imageUrl">
+                                <img [src]="getProductImage(product.product.imageUrl)">
                                 <div class="box-product-title">
                                     {{ product.product.title }}
                                 </div>

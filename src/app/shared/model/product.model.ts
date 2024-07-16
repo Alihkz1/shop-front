@@ -5,7 +5,7 @@ export interface Product {
     long: number;
     title: string;
     description: string;
-    imageUrl: string;
+    imageUrl: string[] | any;
     amount: number;
     size: string;
 }

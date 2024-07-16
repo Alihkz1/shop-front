@@ -119,5 +119,6 @@
   "imageGallery": "عکس ها",
   "onlyImageAccepted": "لطفا فایل عکس بارگزاری کنید",
   "details": "مشخصات",
-  "fillRequiredFields": "فیلد های ضروری را پر نمایید"
+  "fillRequiredFields": "فیلد های ضروری را پر نمایید",
+  "productCrud": "تغییر اساسی محصول"
 }

@@ -115,5 +115,6 @@
   "imageGallery": "Image Gallery",
   "onlyImageAccepted": "Only images are accepted!",
   "details": "Details",
-  "fillRequiredFields": "Please fill required fields"
+  "fillRequiredFields": "Please fill required fields",
+  "productCrud": "Modify Product"
 }

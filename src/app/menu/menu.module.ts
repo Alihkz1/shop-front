@@ -30,6 +30,7 @@ import { SteamComponent } from '../shared/component/steam/steam.component';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { CarouselComponent } from '../shared/component/detail-carousel/carousel.component';
 
 const NZ = [
   NzInputModule,
@@ -71,6 +72,7 @@ const NZ = [
     LoadingComponent,
     SteamComponent,
     NzDropDownModule,
+    CarouselComponent,
     ...NZ,
   ]
 })
