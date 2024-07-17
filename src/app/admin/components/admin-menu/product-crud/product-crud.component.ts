@@ -162,7 +162,7 @@ export class ProductCrudComponent implements OnInit {
       this.message.create('error', this.translate.instant('fillRequiredFields'))
       return
     }
-    const sizeArr = this.form.value.size;
+    const sizeArr = this.form.value.size.map((el: Size) => el != null);
     const model = {
       ...this.form.value,
       price: +this.form.value.price?.replaceAll(',', ''),
@@ -172,8 +172,7 @@ export class ProductCrudComponent implements OnInit {
     }
     if (this.form.value['productId'])
       this.editProduct_onConfirm(model)
-    else
-      this.addProduct_onConfirm(model)
+    else this.addProduct_onConfirm(model)
   }
 
   editProduct_onConfirm(model: any) {
