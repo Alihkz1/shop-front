@@ -10,7 +10,7 @@ import { ImageCropperModalComponent } from '../../../../shared/component/image-c
 import { tinyConfig } from './tiny-mce.config';
 import { Subscription } from 'rxjs';
 import { NzTabChangeEvent } from 'ng-zorro-antd/tabs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Size } from '../../../../shared/model/size.model';
 import { ProductDto } from '../../../../shared/model/product-dto.model';
 import { NumberToCurrency } from '../../../../shared/function/currency-format.functions';
@@ -72,6 +72,7 @@ export class ProductCrudComponent implements OnInit {
   }
 
   constructor(
+    private router: Router,
     private adminApi: AdminApi,
     private cdr: ChangeDetectorRef,
     private route: ActivatedRoute,
@@ -82,7 +83,7 @@ export class ProductCrudComponent implements OnInit {
 
   public addRow_onClick() {
     const items = this.form.controls['size'] as FormArray;
-    items.push(new FormControl({ size: '', amount: '', id: null, productId: null }));
+    items.push(new FormControl({ size: '', amount: 0, id: null, productId: null }));
   }
 
   ngOnInit(): void {
@@ -162,7 +163,9 @@ export class ProductCrudComponent implements OnInit {
       this.message.create('error', this.translate.instant('fillRequiredFields'))
       return
     }
-    const sizeArr = this.form.value.size.map((el: Size) => el != null);
+    const sizeArr = this.form.value.size
+      .filter((el: any) => el != null)
+      .filter((el: any) => el.size != '' && el.amount > 0);
     const model = {
       ...this.form.value,
       price: +this.form.value.price?.replaceAll(',', ''),
@@ -178,23 +181,32 @@ export class ProductCrudComponent implements OnInit {
   editProduct_onConfirm(model: any) {
     this.saveLoading = this.adminApi.editProduct(model).subscribe(({ success }: any) => {
       if (success) {
-        this.tabIndex = 0;
-        this.form.reset()
-        this.uploadedImages = []
-        this.message.create('success', this.translate.instant('actionDone'))
+        this.resetAfterSubmit()
       }
     });
   }
 
   addProduct_onConfirm(model: any) {
-    this.saveLoading = this.adminApi.addProduct(model).subscribe(({ success }: any) => {
+    this.saveLoading = this.adminApi.addProduct(model).subscribe(({ success, message }: any) => {
+      if (message)
+        this.message.create('info', message)
       if (success) {
-        this.tabIndex = 0;
-        this.form.reset()
-        this.uploadedImages = []
-        this.message.create('success', this.translate.instant('actionDone'))
+        this.resetAfterSubmit()
       }
     });
+  }
+
+  private resetAfterSubmit() {
+    const { productId } = this.route.snapshot.queryParams;
+    if (productId) {
+      this.router.navigate([], {
+        queryParams: null
+      })
+    }
+    this.tabIndex = 0;
+    this.form.reset()
+    this.uploadedImages = []
+    this.message.create('success', this.translate.instant('actionDone'))
   }
 
   tabIndex_onChange(event: NzTabChangeEvent) {

@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { HttpClient, HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
 import { environment } from '../../../../env/environment';
+import { AspectRatioTypes } from '../image-cropper-modal/image-cropper-modal.component';
 
 @Component({
   selector: 'app-category-modal',
@@ -32,7 +33,7 @@ export class CategoryModalComponent implements OnInit {
 
   @ViewChild('uploader') uploader: ElementRef<HTMLInputElement>;
   imageChangedEvent: any;
-  aspectRatio = 1.14;
+  aspectRatio = AspectRatioTypes.SQUARE;
   uploadLoading: Subscription
   saveLoading: Subscription
   croppedImage = '';
@@ -53,10 +54,10 @@ export class CategoryModalComponent implements OnInit {
   ngOnInit(): void {
     if (this.modalData)
       this.formControl.setValue(this.modalData.categoryName)
-    this.standardSizeControl.valueChanges.subscribe((flag: boolean) => {
-      if (flag) this.aspectRatio = 1.14
-      else this.aspectRatio = 0.75;
-    })
+    // this.standardSizeControl.valueChanges.subscribe((flag: boolean) => {
+    //   if (flag) this.aspectRatio = 1.14
+    //   else this.aspectRatio = 0.75;
+    // })
   }
 
   imageCropped(event: ImageCroppedEvent) {

@@ -10,7 +10,7 @@ import { environment } from '../../../../env/environment';
 import { Subscription } from 'rxjs';
 import { TranslateModule } from "@ngx-translate/core";
 
-export enum aspectRatioTypes {
+export enum AspectRatioTypes {
   SQUARE = 1 / 1,
   RECTANGLE = 16 / 9,
   LIKE_SQUARE = 4 / 3
@@ -27,10 +27,10 @@ export enum aspectRatioTypes {
 export class ImageCropperModalComponent {
   modalData = inject(NZ_MODAL_DATA);
   croppedImage: string | null = null;
-  aspectRatio = aspectRatioTypes.RECTANGLE;
-  checkBoxOne = false;
+  aspectRatio = AspectRatioTypes.SQUARE;
+  checkBoxOne = true;
   checkBoxTwo = false;
-  checkBoxThree = true;
+  checkBoxThree = false;
   uploadLoading: Subscription;
 
   constructor(
@@ -68,17 +68,17 @@ export class ImageCropperModalComponent {
   aspectRatio_onChange(event: boolean, index: number) {
     if (event === false) return;
     if (index === 0) {
-      this.aspectRatio = aspectRatioTypes.SQUARE
+      this.aspectRatio = AspectRatioTypes.SQUARE
       this.checkBoxTwo = false
       this.checkBoxThree = false
     }
     else if (index === 1) {
-      this.aspectRatio = aspectRatioTypes.LIKE_SQUARE
+      this.aspectRatio = AspectRatioTypes.LIKE_SQUARE
       this.checkBoxOne = false
       this.checkBoxThree = false
     }
     else if (index === 2) {
-      this.aspectRatio = aspectRatioTypes.RECTANGLE
+      this.aspectRatio = AspectRatioTypes.RECTANGLE
       this.checkBoxOne = false
       this.checkBoxTwo = false
     }
