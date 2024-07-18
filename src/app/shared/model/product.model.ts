@@ -8,4 +8,5 @@ export interface Product {
     imageUrl: string[] | any;
     amount: number;
     size: string;
+    primaryImageIndex: number;
 }

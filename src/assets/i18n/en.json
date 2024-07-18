@@ -116,5 +116,6 @@
   "onlyImageAccepted": "Only images are accepted!",
   "details": "Details",
   "fillRequiredFields": "Please fill required fields",
-  "productCrud": "Modify Product"
+  "productCrud": "Modify Product",
+  "primaryImage": "Primary Image"
 }

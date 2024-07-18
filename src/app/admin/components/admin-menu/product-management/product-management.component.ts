@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { CategoryDto } from '../../../../shared/model/category-dto.model';
 import { ProductDto } from '../../../../shared/model/product-dto.model';
 import { Router } from '@angular/router';
+import { Product } from '../../../../shared/model/product.model';
 
 @Component({
   selector: 'app-product-management',
@@ -121,7 +122,7 @@ export class ProductManagementComponent implements OnInit {
     })
   }
 
-  getProductImage(images: string) {
-    return JSON.parse(images)[0]
+  getProductImage(product: Product) {
+    return JSON.parse(product.imageUrl)[product.primaryImageIndex]
   }
 }

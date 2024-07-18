@@ -59,7 +59,7 @@ export class TrackOrderComponent {
     this.router.navigate(['menu/products', product.categoryId, product.productId])
   }
 
-  getProductImage(images: string) {
-    return JSON.parse(images)[0]
+  getProductImage(product: Product) {
+    return JSON.parse(product.imageUrl)[product.primaryImageIndex]
   }
 }

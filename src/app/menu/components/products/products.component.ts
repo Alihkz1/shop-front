@@ -61,16 +61,7 @@ export class ProductsComponent implements OnInit {
       { sort: this.sortValue }
     ).subscribe(({ success, data }: any) => {
       if (success) {
-        let products: ProductDto[] = data.products;
-        products = products.map((el: ProductDto) => {
-          return {
-            ...el,
-            product: {
-              ...el.product,
-              imageUrl: JSON.parse(el.product.imageUrl)[0]
-            }
-          }
-        })
+        const products: ProductDto[] = data.products;
         this._products$.next(products);
       }
     })
@@ -118,4 +109,7 @@ export class ProductsComponent implements OnInit {
     this.router.navigate(['menu/categories'])
   }
 
+  getProductImage(product: Product) {
+    return JSON.parse(product.imageUrl)[product.primaryImageIndex]
+  }
 }

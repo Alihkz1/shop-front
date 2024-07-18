@@ -120,5 +120,6 @@
   "onlyImageAccepted": "لطفا فایل عکس بارگزاری کنید",
   "details": "مشخصات",
   "fillRequiredFields": "فیلد های ضروری را پر نمایید",
-  "productCrud": "تغییر اساسی محصول"
+  "productCrud": "تغییر اساسی محصول",
+  "primaryImage": "عکس اصلی"
 }

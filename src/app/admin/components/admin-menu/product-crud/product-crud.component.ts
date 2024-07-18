@@ -37,6 +37,7 @@ export class ProductCrudComponent implements OnInit {
   tabIndex = 0;
   categories: Category[] = []
   uploadedImages: string[] = []
+  primaryImageIndex: number = 0;
 
   tinyConfig = tinyConfig;
   tinyApi = "re8awji0y3nq8ddyftc9xgjjy4f9tjsyjc7303jaz6ok0196";
@@ -97,6 +98,7 @@ export class ProductCrudComponent implements OnInit {
     this.dataLoading = this.adminApi.getProductRetrieve(productId).subscribe(({ success, data }: any) => {
       if (!success) return;
       const product: ProductDto | any = data.product;
+      this.primaryImageIndex = product.product.primaryImageIndex;
       product.product.price = NumberToCurrency(product.product.price)
       this.form.patchValue(product.product)
       this.uploadedImages = JSON.parse(product.product.imageUrl);
@@ -171,7 +173,8 @@ export class ProductCrudComponent implements OnInit {
       price: +this.form.value.price?.replaceAll(',', ''),
       imageUrl: JSON.stringify(this.uploadedImages),
       size: JSON.stringify(sizeArr),
-      amount: sizeArr.length > 0 ? 0 : this.form.value.amount
+      amount: sizeArr.length > 0 ? 0 : this.form.value.amount,
+      primaryImageIndex: this.primaryImageIndex
     }
     if (this.form.value['productId'])
       this.editProduct_onConfirm(model)
@@ -204,6 +207,7 @@ export class ProductCrudComponent implements OnInit {
       })
     }
     this.tabIndex = 0;
+    this.primaryImageIndex = 0;
     this.form.reset()
     this.uploadedImages = []
     this.message.create('success', this.translate.instant('actionDone'))
@@ -215,6 +219,10 @@ export class ProductCrudComponent implements OnInit {
 
   deleteImage_onClick(event: string) {
     this.uploadedImages = this.uploadedImages.filter((image: string) => image != event);
+  }
+
+  primaryIndex_onChange(index: number) {
+    this.primaryImageIndex = index;
   }
 }
 
