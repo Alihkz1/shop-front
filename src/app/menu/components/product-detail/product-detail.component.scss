@@ -2,8 +2,9 @@
 @import '../../../shared/style/nz-tab.style.scss';
 
 .wrapper {
+    position: relative;
     flex-grow: 1;
-    overflow: hidden auto;
+    overflow: hidden;
     padding-bottom: 15px;
 }
 
@@ -18,6 +19,15 @@
         max-width: 160px;
         max-height: 160px;
     }
+}
+
+.carousel {
+    display: flex;
+    justify-content: center;
+    padding-top: 0.5rem;
+    border: 1px solid #dfdfdf;
+    border-radius: var(--main-border-radius);
+    box-shadow: var(--main-shadow);
 }
 
 .detail {

@@ -1,8 +1,13 @@
 .page-title {
-    margin-top: 10px;
+    margin: 5px 0;
     font-size: 18px;
     background: var(--page-title-bg);
     padding: 5px 10px;
+
+    @media (max-width: 767px) {
+        padding: 5px 20px;
+    }
+
     border-radius: var(--main-border-radius);
     user-select: none;
     display: flex;

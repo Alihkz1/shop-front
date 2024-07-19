@@ -1,5 +1,7 @@
 .wrapper {
     overflow: hidden auto;
+    flex-grow: 1;
+    position: relative;
 }
 
 ::ng-deep .ant-alert {

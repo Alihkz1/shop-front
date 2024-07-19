@@ -25,10 +25,10 @@
         </button>
     </div>
     <div class="cards">
+        @if (dataLoading && !dataLoading.closed) {
+        <loading class="mt-5"></loading>
+        }@else {
         <div class="row">
-            @if (dataLoading && !dataLoading.closed) {
-            <loading class="mt-5"></loading>
-            }@else {
             @for (order of orders; track $index) {
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 <div class="box mt-2 p-1">
@@ -127,7 +127,7 @@
                 <nz-alert nzType="error" nzMessage="آیتمی وجود ندارد"></nz-alert>
             </div>
             }
-            }
         </div>
+        }
     </div>
 </div>

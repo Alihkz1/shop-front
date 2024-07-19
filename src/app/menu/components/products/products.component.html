@@ -30,10 +30,10 @@
 
     </div>
     <div class="wrapper">
+        @if (dataLoading && !dataLoading.closed) {
+        <loading class="mt-5"></loading>
+        }@else {
         <div class="row">
-            @if (dataLoading && !dataLoading.closed) {
-            <loading class="mt-5"></loading>
-            }@else {
             @for (product of products; track product; let i = $index) {
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 custom-padding">
                 <div class="board" (click)="board_onClick(product.product)">
@@ -85,7 +85,7 @@
                 </div>
             </div>
             }
-            }
         </div>
+        }
     </div>
 </div>
