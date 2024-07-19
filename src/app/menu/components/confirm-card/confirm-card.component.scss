@@ -19,9 +19,23 @@
     }
 }
 
-form {
+.form {
+    flex-grow: 1;
+    padding: 0 0.5rem;
     overflow: hidden auto;
     padding-bottom: 10px;
+    position: relative;
+
+    &-image {
+        position: absolute;
+        opacity: 0.2;
+        height: 400px;
+    }
+
+    input,
+    textarea {
+        background: #ffffff91 !important;
+    }
 }
 
 .phone-example {
@@ -33,4 +47,14 @@ form {
     ::ng-deep .ant-alert-content {
         font-size: 11px;
     }
+}
+
+.pay-image {
+    height: 20px;
+    padding: 0 10px;
+}
+
+.location-image {
+    height: 25px;
+    padding: 0 5px;
 }

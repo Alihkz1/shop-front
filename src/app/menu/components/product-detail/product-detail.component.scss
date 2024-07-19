@@ -21,6 +21,17 @@
     }
 }
 
+::ng-deep .ant-tabs-content-holder {
+    max-height: calc(100vh - 290px);
+    overflow: hidden auto;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.row {
+    box-shadow: var(--main-shadow);
+}
+
 .carousel {
     display: flex;
     justify-content: center;

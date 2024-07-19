@@ -96,6 +96,7 @@ export class ProductDetailComponent implements OnInit {
     }
     this.menuApi.modifyShopCard(model).subscribe(({ success, data }: any) => {
       if (success) {
+        this.message.create('success', this.translate.instant('addedToCard'))
         this.getShopCard()
         this.client.shopCardLength += 1;
         this.productInShopCardFlag = true;

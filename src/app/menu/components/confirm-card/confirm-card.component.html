@@ -1,12 +1,16 @@
 <div class="wrapper">
     <div class="page-title">
-        {{ 'senderDetails' | translate }}
+        <div>
+            {{ 'senderDetails' | translate }}
+            <img class="location-image" src="assets/svg/location.svg">
+        </div>
         <div class="page-title-back" (click)="back()">
             <img class="page-title-back-icon" src="assets/svg/back.svg">
             {{ 'back' | translate }}
         </div>
     </div>
-    <form [formGroup]="form" class="flex-grow-1 px-1">
+    <form [formGroup]="form" class="form">
+        <!-- <img class="form-image" src="assets/svg/post-man.svg"> -->
         <div class="row mt-3">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                 <div class="fielder">
@@ -63,6 +67,7 @@
         <button [disabled]="!privacyAccepted" [nzLoading]="saveLoading && !saveLoading.closed" nz-button
             nzType="primary" (click)="pay_onClick()">
             {{ "pay" | translate }} {{ totalPrice | currencyPipe }} {{ 'currency' | translate }}
+            <img class="pay-image" src="assets/svg/pay.svg">
         </button>
     </div>
 </div>

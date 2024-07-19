@@ -8,16 +8,24 @@
 }
 
 .box {
+    position: relative;
     height: fit-content;
     border: 1px solid rgb(234, 234, 234);
+    box-shadow: var(--main-shadow);
     border-radius: 5px;
     background: #fff;
-    margin: 5px;
-    padding: 0 20px;
+    padding: 0 13px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-radius: 5px;
+
+    &-error {
+        height: 170px;
+        position: absolute;
+        left: 40px;
+        opacity: 0.2;
+    }
 
     &-image {
         max-height: 200px;
@@ -92,29 +100,34 @@
 
 }
 
-.left {
+.right {
     height: calc(100vh - 150px) !important;
     overflow: auto;
 
     @media (max-width: 767px) {
+        padding-left: 3px;
         height: calc(100vh - 350px) !important;
     }
 }
 
-loading {
-    position: absolute;
-    top: 300px;
-    width: 100%;
-}
-
 .info {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     padding: 20px 0;
     height: 150px;
-    background: rgb(195 206 255 / 41%);
+
+    &-image {
+        position: absolute;
+        left: 0;
+        right: 10px;
+        top: 0;
+        bottom: 0;
+        height: 130px;
+        opacity: 0.2;
+    }
 }
 
 .total-price {
@@ -127,10 +140,20 @@ loading {
     border-bottom: 1px solid rgb(205, 205, 205);
     padding-bottom: 5px;
     margin-bottom: 5px;
+
+    &-image {
+        height: 20px;
+        padding: 0 5px;
+    }
 }
 
 .sender-button {
     width: fit-content;
+
+    &-image {
+        height: 20px;
+        padding: 0 5px;
+    }
 }
 
 nz-button-group {
@@ -138,7 +161,7 @@ nz-button-group {
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 40px;
+        border-radius: 30px;
         background: #fff;
 
         span {
@@ -148,7 +171,7 @@ nz-button-group {
 }
 
 .red-card {
-    background: rgba(255, 198, 198, 0.542);
+    border: 1px solid rgba(255, 0, 0, 0.411);
 }
 
 .delete {
