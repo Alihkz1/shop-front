@@ -8,6 +8,7 @@
     display: flex;
     justify-content: center;
     position: relative;
+    box-shadow: var(--main-shadow);
 
     &-back {
         font-size: 12px;
