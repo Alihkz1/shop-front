@@ -3,84 +3,93 @@
         {{ 'shopCard' | translate }}
     </div>
     <div class="wrapper">
-        @if (dataLoading) {
-        <div class="w-100 d-flex justify-content-center">
-            <loading></loading>
-        </div>
-        } @else {
-        @if (cards.length > 0) {
-        <div class="row position-relative">
-            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 right">
-                @for (card of cards; track $index) {
-                <div class="box mt-1" [class.red-card]="hasAmountError(card)">
-                    <img *ngIf="hasAmountError(card)" src="assets/svg/sold-out.svg" class="box-error">
-                    <img class="box-image" [src]="card.product.product.imageUrl">
-                    <div class="box-detail flex-grow-1">
-                        <div>
-                            <div class="box-detail-title">
-                                <a (click)="navigateToProduct(card.product.product)">{{ card.product.product.title
-                                    }}</a>
-                            </div>
-                            <div class="box-detail-price"> {{ "price" | translate }}:
-                                <span class="mx-1"> {{ card.product.product.price | currencyPipe }} </span>
-                                {{ "currency" | translate }}
-                            </div>
-                            @if (card.shopCard.size) {
-                            <div class="box-detail-size"> {{ "size" | translate }}:
-                                <span class="mx-1"> {{ card.shopCard.size }} </span>
-                            </div>
-                            }
-                            <div class="box-detail-quantity"> {{ "quantity" | translate }}:
-                                <span class="mx-1"> {{ card.shopCard.amount }} </span>
+        <ng-container *ngIf="!dataLoading; else loading">
+            <ng-container *ngIf="cards.length > 0; else empty">
+                <div class="row position-relative mt-1">
+
+                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 right">
+                        @for (card of cards; track $index) {
+                        <div class="box" [class.red-card]="hasAmountError(card)">
+                            <img *ngIf="hasAmountError(card)" src="assets/svg/sold-out.svg" class="box-error">
+                            <img class="box-image" [src]="card.product.product.imageUrl">
+                            <div class="box-detail flex-grow-1">
+                                <div>
+                                    <div class="box-detail-title">
+                                        <a (click)="navigateToProduct(card.product.product)">{{
+                                            card.product.product.title
+                                            }}</a>
+                                    </div>
+                                    <div class="box-detail-price"> {{ "price" | translate }}:
+                                        <span class="mx-1"> {{ card.product.product.price | currencyPipe }} </span>
+                                        {{ "currency" | translate }}
+                                    </div>
+                                    @if (card.shopCard.size) {
+                                    <div class="box-detail-size"> {{ "size" | translate }}:
+                                        <span class="mx-1"> {{ card.shopCard.size }} </span>
+                                    </div>
+                                    }
+                                    <div class="box-detail-quantity"> {{ "quantity" | translate }}:
+                                        <span class="mx-1"> {{ card.shopCard.amount }} </span>
+                                    </div>
+                                </div>
+
+                                @if (hasAmountError(card)) {
+                                <nz-alert class="py-2" nzType="error" [nzMessage]="amountError"></nz-alert>
+                                <ng-template #amountError>
+                                    {{ "notAvailableAmount" | translate }}
+                                </ng-template>
+                                }
+                                <div class="w-100 d-flex justify-content-end">
+                                    <span class="delete" nz-icon nzType="delete" nzTheme="outline" nz-button
+                                        (click)="deleteFromShopCard(card.shopCard.shopCardId)">
+                                    </span>
+                                </div>
                             </div>
                         </div>
-
-                        @if (hasAmountError(card)) {
-                        <nz-alert class="py-2" nzType="error" [nzMessage]="amountError"></nz-alert>
-                        <ng-template #amountError>
-                            {{ "notAvailableAmount" | translate }}
-                        </ng-template>
                         }
-                        <div class="w-100 d-flex justify-content-end">
-                            <span class="delete" nz-icon nzType="delete" nzTheme="outline" nz-button
-                                (click)="deleteFromShopCard(card.shopCard.shopCardId)">
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                }
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 px-0">
-                <div class="box info mx-3 my-1">
-                    <img class="info-image" src="assets/svg/total-price.svg">
-                    <div class="finalize">
-                        <img class="finalize-image" src="assets/svg/finalize-shop-card.svg">
-                        {{ "makeOrderFinal" | translate }}
                     </div>
 
-                    <div class="total-price">
-                        <div class="d-flex justify-content-center">
-                            <b>{{ "totalPrice" | translate }}:</b>
-                            @if (totalPrice > 0) {
-                            {{ totalPrice | currencyPipe }} {{ "currency" | translate}}
-                            }
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="box info">
+                            <img class="info-image" src="assets/svg/total-price.svg">
+                            <div class="finalize">
+                                <img class="finalize-image" src="assets/svg/finalize-shop-card.svg">
+                                {{ "makeOrderFinal" | translate }}
+                            </div>
+
+                            <div class="total-price">
+                                <div class="d-flex justify-content-center">
+                                    <b>{{ "totalPrice" | translate }}:</b>
+                                    <ng-container *ngIf="totalPrice > 0">
+                                        {{ totalPrice | currencyPipe }} {{ "currency" | translate}}
+                                    </ng-container>
+                                </div>
+                                <button [disabled]="disableConfirmCard()" class="mt-4 sender-button" nz-button
+                                    nzType="default" (click)="onConfirmCard()">
+                                    {{ "senderDetails" | translate }}
+                                    <img class="sender-button-image" src="assets/svg/check.svg">
+                                </button>
+                            </div>
+
                         </div>
-                        <button [disabled]="disableConfirmCard()" class="mt-4 sender-button" nz-button nzType="default"
-                            (click)="onConfirmCard()">
-                            {{ "senderDetails" | translate }}
-                            <img class="sender-button-image" src="assets/svg/check.svg">
-                        </button>
                     </div>
 
                 </div>
+            </ng-container>
+        </ng-container>
+
+        <ng-template #loading>
+            <div class="w-100 d-flex justify-content-center">
+                <loading></loading>
             </div>
-        </div>
-        } @else {
-        <div class="empty-shop">
-            <img class="empty-shop-image" src="assets/svg/empty-shop.svg">
-            <div class="empty-shop-text">{{ "yourCardIsEmpty" |translate}}</div>
-        </div>
-        }
-        }
+        </ng-template>
+
+        <ng-template #empty>
+            <div class="empty-shop">
+                <img class="empty-shop-image" src="assets/svg/empty-shop.svg">
+                <div class="empty-shop-text">{{ "yourCardIsEmpty" |translate}}</div>
+            </div>
+        </ng-template>
+
     </div>
 </div>

@@ -1,4 +1,6 @@
 .login {
+    border: 1px solid #dedede;
+    border-radius: var(--main-border-radius);
     height: 400px;
     width: 100%;
     padding: 10px 0;
@@ -15,6 +17,7 @@
 
     &-submit {
         padding-right: 30px;
+
         button {
             width: fit-content;
         }

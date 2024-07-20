@@ -12,13 +12,15 @@
     height: fit-content;
     border: 1px solid rgb(234, 234, 234);
     box-shadow: var(--main-shadow);
+    border: 1px solid #7c7c7c59;
     border-radius: 5px;
     background: #fff;
     padding: 0 13px;
     display: flex;
+    margin-bottom: 5px;
     justify-content: space-between;
     align-items: center;
-    border-radius: 5px;
+    border-radius: 25px;
 
     &-error {
         height: 170px;
@@ -30,6 +32,8 @@
     &-image {
         max-height: 200px;
         width: 150px;
+        border-radius: 6px;
+        padding-left: 13px;
     }
 
     &-detail {
@@ -39,7 +43,6 @@
         justify-content: space-between;
         border-right: 1px solid rgb(235, 235, 235);
         padding: 10px 25px 10px 0;
-        /* todo: styles for ltr */
 
         &-title {
             color: var(--link);
@@ -69,10 +72,6 @@
 }
 
 @media (max-width:767px) {
-    .info {
-        height: 140px !important;
-    }
-
     .box {
         &-detail {
             border-top: unset;
@@ -87,6 +86,10 @@
         }
     }
 
+    .info {
+        height: 140px !important;
+    }
+
     .wrapper {
         padding: 0;
     }
@@ -96,8 +99,6 @@
             margin-top: 2px;
         }
     }
-
-
 }
 
 .right {
