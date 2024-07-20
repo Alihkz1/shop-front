@@ -71,42 +71,11 @@
     }
 }
 
-@media (max-width:767px) {
-    .box {
-        &-detail {
-            border-top: unset;
-
-            &-title {
-                font-size: 12px;
-            }
-
-            &-price {
-                font-size: 11px;
-            }
-        }
-    }
-
-    .info {
-        height: 140px !important;
-    }
-
-    .wrapper {
-        padding: 0;
-    }
-
-    ::ng-deep .ant-scroll-number {
-        span {
-            margin-top: 2px;
-        }
-    }
-}
-
 .right {
     height: calc(100vh - 150px) !important;
     overflow: auto;
 
     @media (max-width: 767px) {
-        padding-left: 3px;
         height: calc(100vh - 350px) !important;
     }
 }
@@ -129,31 +98,31 @@
         height: 130px;
         opacity: 0.2;
     }
-}
 
-.total-price {
-    display: flex;
-    flex-direction: column;
-    font-size: 12px;
-}
+    &-finalize {
+        border-bottom: 1px solid rgb(205, 205, 205);
+        padding-bottom: 5px;
+        margin-bottom: 5px;
 
-.finalize {
-    border-bottom: 1px solid rgb(205, 205, 205);
-    padding-bottom: 5px;
-    margin-bottom: 5px;
-
-    &-image {
-        height: 20px;
-        padding: 0 5px;
+        &-image {
+            height: 20px;
+            padding: 0 5px;
+        }
     }
-}
 
-.sender-button {
-    width: fit-content;
+    &-total-price {
+        display: flex;
+        flex-direction: column;
+        font-size: 12px;
+    }
 
-    &-image {
-        height: 20px;
-        padding: 0 5px;
+    &-sender-button {
+        width: fit-content;
+
+        &-image {
+            height: 20px;
+            padding: 0 5px;
+        }
     }
 }
 
@@ -199,5 +168,35 @@ nz-button-group {
     &-text {
         font-size: 18px;
         margin-top: 15px;
+    }
+}
+
+@media (max-width:767px) {
+    .box {
+        &-detail {
+            border-top: unset;
+
+            &-title {
+                font-size: 12px;
+            }
+
+            &-price {
+                font-size: 11px;
+            }
+        }
+    }
+
+    .info {
+        height: 139px !important;
+    }
+
+    .wrapper {
+        padding: 0;
+    }
+
+    ::ng-deep .ant-scroll-number {
+        span {
+            margin-top: 2px;
+        }
     }
 }

@@ -5,6 +5,8 @@ import { AuthApi } from '../../shared/auth.api';
 import { finalize } from 'rxjs';
 import { TranslateService } from "@ngx-translate/core";
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { ClientService } from '../../../shared/service/client.service';
+import { USER_BUTTONS } from '../../../shared/config/header-buttons.config';
 
 
 @Component({
@@ -30,6 +32,7 @@ export class SignupComponent {
   constructor(
     private router: Router,
     private authApi: AuthApi,
+    private client: ClientService,
     private message: NzMessageService,
     private translate: TranslateService,
   ) { }
@@ -56,12 +59,15 @@ export class SignupComponent {
     }
     this.authApi.signup(model)
       .pipe(finalize(() => { this.signupLoading = false; }))
-      .subscribe(({ success }: any) => {
+      .subscribe(({ success, data }: any) => {
         if (success) {
-          this.router.navigate(['/auth/login']);
+          this.client.setUser = data;
+          this.client.isAdmin = false;
+          this.client.setHeaderButtons = USER_BUTTONS;
+          this.router.navigate(['/menu/categories']);
           this.message.create(
             'success',
-            this.translate.instant('signUpSuccess')
+            this.translate.instant('loginSuccess')
           );
         }
       })

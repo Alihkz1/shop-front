@@ -52,22 +52,24 @@
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
                         <div class="box info">
                             <img class="info-image" src="assets/svg/total-price.svg">
-                            <div class="finalize">
-                                <img class="finalize-image" src="assets/svg/finalize-shop-card.svg">
+                            <div class="info-finalize">
+                                <img class="info-finalize-image" src="assets/svg/finalize-shop-card.svg">
                                 {{ "makeOrderFinal" | translate }}
                             </div>
 
-                            <div class="total-price">
+                            <div class="info-total-price">
                                 <div class="d-flex justify-content-center">
                                     <b>{{ "totalPrice" | translate }}:</b>
                                     <ng-container *ngIf="totalPrice > 0">
-                                        {{ totalPrice | currencyPipe }} {{ "currency" | translate}}
+                                        <span class="mx-2">
+                                            {{ totalPrice | currencyPipe }} {{ "currency" | translate}}
+                                        </span>
                                     </ng-container>
                                 </div>
-                                <button [disabled]="disableConfirmCard()" class="mt-4 sender-button" nz-button
+                                <button [disabled]="disableConfirmCard()" class="mt-4 info-sender-button" nz-button
                                     nzType="default" (click)="onConfirmCard()">
                                     {{ "senderDetails" | translate }}
-                                    <img class="sender-button-image" src="assets/svg/check.svg">
+                                    <img class="info-sender-button-image" src="assets/svg/check.svg">
                                 </button>
                             </div>
 
