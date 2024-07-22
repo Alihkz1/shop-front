@@ -3,8 +3,9 @@
         {{ 'trackOrder' | translate }}
     </div>
     <div class="wrapper">
-        <nz-alert class="mt-3" nzType="info" [nzMessage]="login">
-        </nz-alert>
+        <div class="w-100 d-flex justify-content-center mt-3">
+            <nz-alert nzType="info" [nzMessage]="login"></nz-alert>
+        </div>
         <ng-template #login>
             {{ 'loginToSeeOrders' | translate }} <button class="button" (click)="navigateLogin()">
                 {{ "getIn" | translate }}

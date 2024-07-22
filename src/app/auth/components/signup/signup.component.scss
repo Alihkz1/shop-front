@@ -8,11 +8,11 @@
     flex-direction: column;
 
     &-title {
-        padding: 10px 30px 2px 30px;
+        padding: 10px 30px 8px 30px;
     }
 
     &-form {
-        padding: 10px 30px;
+        padding: 0 30px;
         max-width: 466px;
     }
 
@@ -47,4 +47,9 @@ button.option {
         margin-bottom: 2px !important;
         color: #6b6b6b;
     }
+}
+
+.signup-image {
+    height: 20px;
+    margin: 0 10px;
 }

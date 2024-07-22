@@ -24,7 +24,10 @@
         <div class="login-submit">
             <button nz-button nzType="primary" [disabled]="form.invalid" [nzLoading]="loginLoading"
                 (click)="login_onClick()">
-                <span *ngIf="!loginLoading"> {{ "getIn" | translate }} </span>
+                <div class="d-flex justify-content-between" *ngIf="!loginLoading">
+                    <span> {{ "getIn" | translate }} </span>
+                    <img class="login-image" src="assets/svg/login.svg">
+                </div>
             </button>
         </div>
     </div>

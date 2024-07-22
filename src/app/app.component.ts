@@ -16,9 +16,9 @@ import { ViewportService } from './shared/service/view-port.service';
 })
 export class AppComponent {
   constructor(
-    direction: DirectionService,
     client: ClientService,
-    private viewPortService: ViewportService
+    direction: DirectionService,
+    viewPortService: ViewportService
   ) {
     direction.setDirection(DIRECTION.RTL);
     if (client.getUser != null && client.getUser != undefined) {

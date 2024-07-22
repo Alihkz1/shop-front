@@ -27,7 +27,10 @@
         </form>
         <div class="signup-submit">
             <button nz-button nzType="primary" [nzLoading]="signupLoading" (click)="signup_onClick()">
-                <span *ngIf="!signupLoading"> {{ "register" | translate }} </span>
+                <div class="d-flex justify-content-between" *ngIf="!signupLoading">
+                    <span> {{ "register" | translate }} </span>
+                    <img class="signup-image" src="assets/svg/signup.svg">
+                </div>
             </button>
         </div>
     </div>
