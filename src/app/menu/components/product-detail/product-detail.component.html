@@ -11,11 +11,17 @@
         </div>
     </div>
     <div class="wrapper">
+        <div class="like">
+            <span *ngIf="product?.product.likes > 0">
+                {{ product?.product.likes }}
+            </span>
+            <img [src]="likeSvgPath" (click)="likeChange_onClick()">
+        </div>
         @if (dataLoading && !dataLoading.closed) {
         <loading class="mt-5"></loading>
         }@else {
         <nz-tabset class="my-1">
-            <nz-tab nzTitle="اطلاعات">
+            <nz-tab nzTitle="اطلاعات"> 
                 <div class="row">
                     <ng-container *ngIf="product?.product.productId; else productDeleted">
 

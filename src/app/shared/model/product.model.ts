@@ -7,6 +7,7 @@ export interface Product {
     description: string;
     imageUrl: string[] | any;
     amount: number;
+    likes: number;
     size: string;
     primaryImageIndex: number;
 }

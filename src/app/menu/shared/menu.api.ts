@@ -166,4 +166,22 @@ export class MenuApi {
       .param(model)
       .call()
   }
+
+  public likeProduct(productId: number) {
+    return Api()
+      .put()
+      .controller('product')
+      .action('like')
+      .pathVariable(String(productId))
+      .call()
+  }
+
+  public removeProductLike(productId: number) {
+    return Api()
+    .put()
+      .controller('product')
+      .action('remove-like')
+      .pathVariable(String(productId))
+      .call()
+  }
 }

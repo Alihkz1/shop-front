@@ -14,6 +14,11 @@ import { FormControl } from '@angular/forms';
 import { Size } from '../../../shared/model/size.model';
 import { ProductDto } from '../../../shared/model/product-dto.model';
 
+export enum Like_IMG_Path {
+  not_like = 'assets/svg/not-like.svg',
+  like = 'assets/svg/like.svg'
+}
+
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
@@ -25,6 +30,7 @@ export class ProductDetailComponent implements OnInit {
   wantToBuyAmount: number = 0
   productInShopCard: ShopCard;
   dataLoading: Subscription;
+  likeSvgPath = Like_IMG_Path.not_like;
 
   sizeFormControl = new FormControl();
   public get selectedSize() { return this.sizeFormControl.value }
@@ -228,5 +234,23 @@ export class ProductDetailComponent implements OnInit {
         productId
       }
     })
+  }
+
+  public likeChange_onClick() {
+    const { productId } = this.route.snapshot.params
+    if (this.likeSvgPath === Like_IMG_Path.not_like)
+      this.menuApi.likeProduct(productId).subscribe(({ success }: any) => {
+        if (success) {
+          this.product.product.likes += 1;
+          this.likeSvgPath = Like_IMG_Path.like;
+        }
+      })
+    else
+      this.menuApi.removeProductLike(productId).subscribe(({ success }: any) => {
+        if (success) {
+          this.product.product.likes -= 1;
+          this.likeSvgPath = Like_IMG_Path.not_like;
+        }
+      })
   }
 }

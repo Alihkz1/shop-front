@@ -44,6 +44,7 @@
 
 .detail {
     padding: 15px;
+    position: relative;
 
     @media (max-width: 767px) {
         display: flex;
@@ -97,7 +98,6 @@
                 margin-top: -10px !important;
             }
         }
-
     }
 }
 
@@ -124,6 +124,25 @@ nz-button-group {
     padding: 10px 0;
     border-bottom: 1px solid #d6d6d6;
     background: #fff;
+    position: relative;
+}
+
+.like {
+    z-index: 100;
+    position: absolute;
+    bottom: 4px;
+    left: 11px;
+    cursor: pointer;
+    top: 16px;
+
+    img {
+        height: 25px;
+    }
+
+    span {
+        margin: 0 8px;
+        font-size: 15px;
+    }
 }
 
 .delete {
