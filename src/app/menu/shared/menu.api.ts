@@ -178,10 +178,45 @@ export class MenuApi {
 
   public removeProductLike(productId: number) {
     return Api()
-    .put()
+      .put()
       .controller('product')
       .action('remove-like')
       .pathVariable(String(productId))
+      .call()
+  }
+
+  public saveProduct(model: any) {
+    return Api()
+      .post()
+      .controller('saved')
+      .action('add')
+      .body(model)
+      .call()
+  }
+
+  public deleteSave(model: any) {
+    return Api()
+      .delete()
+      .controller('saved')
+      .action('delete')
+      .body(model)
+      .call()
+  }
+
+  public getSaveds(userId: number) {
+    return Api()
+      .get()
+      .controller('saved')
+      .pathVariable(String(userId))
+      .call()
+  }
+
+  public productIsSaved(model: any) {
+    return Api()
+      .get()
+      .controller('saved')
+      .action('is-saved')
+      .param(model)
       .call()
   }
 }

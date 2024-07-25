@@ -31,6 +31,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { CarouselComponent } from '../shared/component/detail-carousel/carousel.component';
+import { SavedProductsComponent } from './components/saved-products/saved-products.component';
 
 const NZ = [
   NzInputModule,
@@ -59,6 +60,7 @@ const NZ = [
     MyOrdersComponent,
     TrackOrderComponent,
     LandingPageComponent,
+    SavedProductsComponent,
   ],
   imports: [
     CommonModule,

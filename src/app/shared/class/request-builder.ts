@@ -103,7 +103,7 @@ export class RequestBuilder {
                     )
             case 'delete':
                 return this.clientService?.http
-                    .delete(url, this.requestOptions)
+                    .delete(url, { ...this.requestOptions, body: this.request.body })
                     .pipe(
                         catchError((error) => this.errorHandler(error)),
                         tap(({ success }) => { if (!success) this.toastUnsuccess() })

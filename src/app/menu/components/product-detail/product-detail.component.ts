@@ -14,9 +14,14 @@ import { FormControl } from '@angular/forms';
 import { Size } from '../../../shared/model/size.model';
 import { ProductDto } from '../../../shared/model/product-dto.model';
 
-export enum Like_IMG_Path {
+export enum Like_SVG_Path {
   not_like = 'assets/svg/not-like.svg',
   like = 'assets/svg/like.svg'
+}
+
+export enum Save_SVG_Path {
+  unsaved = 'assets/svg/unsaved.svg',
+  saved = 'assets/svg/saved.svg'
 }
 
 @Component({
@@ -30,7 +35,8 @@ export class ProductDetailComponent implements OnInit {
   wantToBuyAmount: number = 0
   productInShopCard: ShopCard;
   dataLoading: Subscription;
-  likeSvgPath = Like_IMG_Path.not_like;
+  likeSvgPath = Like_SVG_Path.not_like;
+  saveSvgPath = Save_SVG_Path.unsaved;
 
   sizeFormControl = new FormControl();
   public get selectedSize() { return this.sizeFormControl.value }
@@ -51,8 +57,23 @@ export class ProductDetailComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.checkIsSaved()
     this.getData()
     this.changeSizeListener()
+  }
+
+  private checkIsSaved() {
+    if (!this.client.isLogin) return
+    const { productId } = this.route.snapshot.params;
+    const model = {
+      productId,
+      userId: this.client.getUser.user.userId
+    }
+    this.menuApi.productIsSaved(model).subscribe(({ data }: any) => {
+      if (data) {
+        this.saveSvgPath = Save_SVG_Path.saved;
+      }
+    })
   }
 
   private getData() {
@@ -238,18 +259,38 @@ export class ProductDetailComponent implements OnInit {
 
   public likeChange_onClick() {
     const { productId } = this.route.snapshot.params
-    if (this.likeSvgPath === Like_IMG_Path.not_like)
+    if (this.likeSvgPath === Like_SVG_Path.not_like)
       this.menuApi.likeProduct(productId).subscribe(({ success }: any) => {
         if (success) {
           this.product.product.likes += 1;
-          this.likeSvgPath = Like_IMG_Path.like;
+          this.likeSvgPath = Like_SVG_Path.like;
         }
       })
     else
       this.menuApi.removeProductLike(productId).subscribe(({ success }: any) => {
         if (success) {
           this.product.product.likes -= 1;
-          this.likeSvgPath = Like_IMG_Path.not_like;
+          this.likeSvgPath = Like_SVG_Path.not_like;
+        }
+      })
+  }
+
+  public saveChange_onClick() {
+    const { productId } = this.route.snapshot.params
+    const model = {
+      productId,
+      userId: this.client.getUser.user.userId
+    }
+    if (this.saveSvgPath === Save_SVG_Path.unsaved)
+      this.menuApi.saveProduct(model).subscribe(({ success }: any) => {
+        if (success) {
+          this.saveSvgPath = Save_SVG_Path.saved;
+        }
+      })
+    else
+      this.menuApi.deleteSave(model).subscribe(({ success }: any) => {
+        if (success) {
+          this.saveSvgPath = Save_SVG_Path.unsaved;
         }
       })
   }

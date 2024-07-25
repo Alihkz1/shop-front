@@ -11,6 +11,9 @@
         </div>
     </div>
     <div class="wrapper">
+        <div *ngIf="client.isLogin && !client.isAdmin" class="saved">
+            <img [src]="saveSvgPath" (click)="saveChange_onClick()">
+        </div>
         <div class="like">
             <span *ngIf="product?.product.likes > 0">
                 {{ product?.product.likes }}
@@ -21,7 +24,7 @@
         <loading class="mt-5"></loading>
         }@else {
         <nz-tabset class="my-1">
-            <nz-tab nzTitle="اطلاعات"> 
+            <nz-tab nzTitle="اطلاعات">
                 <div class="row">
                     <ng-container *ngIf="product?.product.productId; else productDeleted">
 

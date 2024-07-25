@@ -127,11 +127,23 @@ nz-button-group {
     position: relative;
 }
 
+.saved {
+    z-index: 100;
+    position: absolute;
+    left: 18px;
+    top: 17px;
+    cursor: pointer;
+    img {
+        opacity: 0.75;
+        height: 20px;
+    }
+}
+
 .like {
     z-index: 100;
     position: absolute;
     bottom: 4px;
-    left: 11px;
+    left: 55px;
     cursor: pointer;
     top: 16px;
 

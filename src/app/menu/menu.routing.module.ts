@@ -11,6 +11,7 @@ import { ConfirmCardComponent } from "./components/confirm-card/confirm-card.com
 import { MyOrdersComponent } from "./components/my-orders/my-orders.component";
 import { TrackOrderComponent } from "./components/track-order/track-order.component";
 import { LandingPageComponent } from "./components/landing-page/landing-page.component";
+import { SavedProductsComponent } from "./components/saved-products/saved-products.component";
 
 export const routes: Routes = [
     {
@@ -56,6 +57,10 @@ export const routes: Routes = [
             {
                 path: 'track',
                 component: TrackOrderComponent
+            },
+            {
+                path: 'saved',
+                component: SavedProductsComponent
             }
         ]
     },

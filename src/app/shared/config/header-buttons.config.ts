@@ -22,6 +22,10 @@ export const USER_BUTTONS: IHeaderButton[] = [
         title: "products",
         route: "menu/categories"
     },
+    {
+        title: "savedProducts",
+        route: "menu/saved"
+    },
 ]
 
 export interface IHeaderButton {

@@ -121,5 +121,6 @@
   "details": "مشخصات",
   "fillRequiredFields": "فیلد های ضروری را پر نمایید",
   "productCrud": "تغییر اساسی محصول",
-  "primaryImage": "عکس اصلی"
+  "primaryImage": "عکس اصلی",
+  "savedProducts":"ذخیره شده ها"
 }
