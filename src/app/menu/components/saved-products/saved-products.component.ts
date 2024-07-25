@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuApi } from '../../shared/menu.api';
 import { ClientService } from '../../../shared/service/client.service';
+import { BehaviorSubject } from 'rxjs';
+import { Product } from '../../../shared/model/product.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-saved-products',
@@ -8,10 +11,13 @@ import { ClientService } from '../../../shared/service/client.service';
   styleUrl: './saved-products.component.scss'
 })
 export class SavedProductsComponent implements OnInit {
+  private _savedItems$ = new BehaviorSubject([]);
+  public get savedItems() { return this._savedItems$.getValue() }
 
   constructor(
     private client: ClientService,
-    private menuApi: MenuApi
+    private menuApi: MenuApi,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -20,7 +26,16 @@ export class SavedProductsComponent implements OnInit {
 
   private getData() {
     const { userId } = this.client.getUser.user;
-    this.menuApi.getSaveds(userId).subscribe()
+    this.menuApi.getUserSavedItems(userId).subscribe(({ data }: any) => {
+      if (data) this._savedItems$.next(data.products)
+    })
   }
 
+  public getProductImage(product: Product) {
+    return JSON.parse(product.imageUrl)[product.primaryImageIndex]
+  }
+
+  public product_onClick(product: Product) {
+    this.router.navigate(['menu/products', product.categoryId, product.productId])
+  }
 }

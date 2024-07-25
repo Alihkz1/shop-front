@@ -203,7 +203,7 @@ export class MenuApi {
       .call()
   }
 
-  public getSaveds(userId: number) {
+  public getUserSavedItems(userId: number) {
     return Api()
       .get()
       .controller('saved')
