@@ -123,5 +123,6 @@
   "productCrud": "تغییر اساسی محصول",
   "primaryImage": "عکس اصلی",
   "savedProducts": "ذخیره شده ها",
-  "productSaved": "به لیست ذخیره شده ها اضافه شد"
+  "productSaved": "به لیست ذخیره شده ها اضافه شد",
+  "emptySavedItems": "شما محصول ذخیره شده ندارید"
 }

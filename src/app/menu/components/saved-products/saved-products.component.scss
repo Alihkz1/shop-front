@@ -52,6 +52,23 @@
     }
 }
 
+.no-saved-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-top: 20%;
+
+    img {
+        height: 150px;
+    }
+
+    span {
+        margin-top: 10px;
+    }
+}
+
 @media (max-width: 767px) {
     .board {
         margin-bottom: 10px;

@@ -119,5 +119,6 @@
   "productCrud": "Modify Product",
   "primaryImage": "Primary Image",
   "savedProducts": "Saved Products",
-  "productSaved": "Product Saved"
+  "productSaved": "Product Saved",
+  "emptySavedItems": "No Saved Items!"
 }

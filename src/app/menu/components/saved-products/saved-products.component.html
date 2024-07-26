@@ -7,18 +7,28 @@
         <loading class="mt-5"></loading>
         }@else {
         <div class="row">
-            <ng-container *ngFor="let product of savedItems">
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" (click)="product_onClick(product.product)">
-                    <div class="board">
-                        <div class="board-image">
-                            <img [src]="getProductImage(product.product)">
-                        </div>
-                        <div class="board-data">
-                            <span class="board-data-title"> {{ product.product.title }} </span>
+            <ng-container *ngIf="savedItems.length; else noSavedItems">
+                <ng-container *ngFor="let product of savedItems">
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" (click)="product_onClick(product.product)">
+                        <div class="board">
+                            <div class="board-image">
+                                <img [src]="getProductImage(product.product)">
+                            </div>
+                            <div class="board-data">
+                                <span class="board-data-title"> {{ product.product.title }} </span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </ng-container>
             </ng-container>
+            <ng-template #noSavedItems>
+                <div class="no-saved-items">
+                    <img src="assets/svg/no-saved-items.svg">
+                    <span>
+                        {{ 'emptySavedItems' | translate }}
+                    </span>
+                </div>
+            </ng-template>
         </div>
         }
     </div>
