@@ -1,78 +1,90 @@
 <div class="wrapper w-100 d-flex justify-content-center pt-4 pb-2">
     <div class="header" dir="ltr">
-        @if (client.isLogin) {
-        <div>
-
-            <div class="d-flex align-items-center">
-                <img class="power ms-2 me-1" src="assets/svg/power.svg" alt="" (click)="logout_onClick()">
-                <div class="splitter"></div>
-
-                @for (button of client.headerButtons; track $index) {
-                <div class="dynamic-wrapper">
-                    <button class="button dynamic" (click)="navigate(button.route)"
-                        [class.active]="isActiveRoute(button.route)">
-                        {{ button.title | translate }}
-                    </button>
-                    <div class="splitter" [class.hide-splitter]="viewPort.getViewportWidth < 767"></div>
-                </div>
-                }
-
+        <ng-container *ngIf="client.isLogin; else notLogin">
+            <div>
                 <div class="d-flex align-items-center">
-                    <span class="burger mx-3" nz-icon nzType="menu" nzTheme="outline" nz-dropdown
-                        [nzDropdownMenu]="menu" nzPlacement="bottomCenter" (click)="burger_onClick()">
-                    </span>
-                    <div class="splitter" [class.hide-splitter]="viewPort.getViewportWidth > 767"></div>
-                </div>
+                    <img class="power ms-2 me-1" src="assets/svg/power.svg" alt="" (click)="logout_onClick()">
+                    <div class="splitter"></div>
 
-                <nz-dropdown-menu #menu="nzDropdownMenu">
-                    @if (showBurgerMenu) {
-                    <ul nz-menu>
-                        @for (button of client.headerButtons; track $index) {
-                        <li class="menu-item" (click)="navigate(button.route); showBurgerMenu = false">
-                            {{ button.title | translate }}
-                        </li>
-                        }
-                    </ul>
+                    @for (button of client.headerButtons; track $index) {
+                    <div class="dynamic-wrapper">
+                        <ng-container *ngIf="button.svg; else noSvg">
+                            <div class="dynamic d-flex align-items-center" [class.active]="isActiveRoute(button.route)"
+                                (click)="navigate(button.route)">
+                                <img [src]="button.svg">
+                            </div>
+                        </ng-container>
+                        <ng-template #noSvg>
+                            <button class="button dynamic" (click)="navigate(button.route)"
+                                [class.active]="isActiveRoute(button.route)">
+                                {{ button.title | translate }}
+                            </button>
+                        </ng-template>
+                        <div class="splitter" [class.hide-splitter]="viewPort.getViewportWidth < 767"></div>
+                    </div>
                     }
-                </nz-dropdown-menu>
 
-                @if (client.getUser.user.role === 'USER') {
-                <button class="button" [class.active]="isActiveRoute('menu/card')" (click)="navigateToShopCard()">
-                    <nz-badge class="cursor-pointer mx-2" [nzCount]="client.shopCardLength">
-                        <img class="shop-card" src="assets/svg/shop-card.svg" alt="">
-                    </nz-badge>
+                    <div class="d-flex align-items-center">
+                        <span class="burger mx-3" nz-icon nzType="menu" nzTheme="outline" nz-dropdown
+                            [nzDropdownMenu]="menu" nzPlacement="bottomCenter" (click)="burger_onClick()">
+                        </span>
+                        <div class="splitter" [class.hide-splitter]="viewPort.getViewportWidth > 767"></div>
+                    </div>
+
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        @if (showBurgerMenu) {
+                        <ul nz-menu>
+                            @for (button of client.headerButtons; track $index) {
+                            <li class="menu-item" (click)="navigate(button.route); showBurgerMenu = false">
+                                <ng-container *ngIf="!button.svg">
+                                    {{ button.title | translate }}
+                                </ng-container>
+                                <ng-container *ngIf="button.svg">
+                                    <img [src]="button.svg" (click)="navigate(button.route)">
+                                </ng-container>
+                            </li>
+                            }
+                        </ul>
+                        }
+                    </nz-dropdown-menu>
+
+                    @if (client.getUser.user.role === 'USER') {
+                    <button class="button" [class.active]="isActiveRoute('menu/card')" (click)="navigateToShopCard()">
+                        <nz-badge class="cursor-pointer mx-2" [nzCount]="client.shopCardLength">
+                            <img class="shop-card" src="assets/svg/shop-card.svg" alt="">
+                        </nz-badge>
+                    </button>
+                    }
+                </div>
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="client-name pe-2">
+                    {{ client.getUser.user.name }}
+                    <!-- @if (client.getUser.user.role === 'ADMIN') {
+                        <span class="is-admin">({{ 'admin' | translate }})</span>
+                        } -->
+                </div>
+                <img class="profile" src="assets/svg/profile.svg" alt="" (click)="profile_onClick()">
+            </div>
+        </ng-container>
+
+        <ng-template #notLogin>
+            <div class="d-flex align-items-center">
+                <button class="button" (click)="contactUs_onClick()" [class.active]="isActiveRoute('about-us')">{{
+                    "contactUs" | translate }}</button>
+                <div class="splitter"></div>
+                <button class="button mx-1" (click)="navigate('menu/track')" [class.active]="trackIsActiveRoute()">
+                    {{ "trackOrder" | translate }}
                 </button>
-                }
-
+                <div class="splitter"></div>
+                <button class="button" (click)="navigate('menu/categories')" [class.active]="categoryIsActiveRoute()">
+                    {{ "products" | translate }}
+                </button>
             </div>
+            <button class="button login" (click)="navigate('auth/login')" [class.active]="authIsActiveRoute()">
+                {{ "loginButton" | translate }}
+            </button>
+        </ng-template>
 
-        </div>
-        <div class="d-flex align-items-center">
-            <div class="client-name pe-2">
-                {{ client.getUser.user.name }}
-                <!-- @if (client.getUser.user.role === 'ADMIN') {
-                <span class="is-admin">({{ 'admin' | translate }})</span>
-                } -->
-            </div>
-            <img class="profile" src="assets/svg/profile.svg" alt="" (click)="profile_onClick()">
-        </div>
-        }
-        @else {
-        <div class="d-flex align-items-center">
-            <button class="button" (click)="contactUs_onClick()" [class.active]="isActiveRoute('about-us')">{{
-                "contactUs" | translate }}</button>
-            <div class="splitter"></div>
-            <button class="button mx-1" (click)="navigate('menu/track')" [class.active]="trackIsActiveRoute()">
-                {{ "trackOrder" | translate }}
-            </button>
-            <div class="splitter"></div>
-            <button class="button" (click)="navigate('menu/categories')" [class.active]="categoryIsActiveRoute()">
-                {{ "products" | translate }}
-            </button>
-        </div>
-        <button class="button login" (click)="navigate('auth/login')" [class.active]="authIsActiveRoute()">
-            {{ "loginButton" | translate }}
-        </button>
-        }
     </div>
 </div>

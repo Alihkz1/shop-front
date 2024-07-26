@@ -85,28 +85,28 @@ export class RequestBuilder {
                     .post(url, this.request.body, this.requestOptions)
                     .pipe(
                         catchError((error) => this.errorHandler(error)),
-                        tap(({ success }) => { if (!success) this.toastUnsuccess() })
+                        tap(({ success, message }) => { if (!success) this.toastUnsuccess(message) })
                     )
             case 'get':
                 return this.clientService?.http
                     .get(this.request.params ? url + '?' + this.request.params : url, this.requestOptions)
                     .pipe(
                         catchError((error) => this.errorHandler(error)),
-                        tap(({ success }) => { if (!success) this.toastUnsuccess() })
+                        tap(({ success, message }) => { if (!success) this.toastUnsuccess(message) })
                     )
             case 'put':
                 return this.clientService?.http
                     .put(url, this.request.body, this.requestOptions)
                     .pipe(
                         catchError((error) => this.errorHandler(error)),
-                        tap(({ success }) => { if (!success) this.toastUnsuccess() })
+                        tap(({ success, message }) => { if (!success) this.toastUnsuccess(message) })
                     )
             case 'delete':
                 return this.clientService?.http
                     .delete(url, { ...this.requestOptions, body: this.request.body })
                     .pipe(
                         catchError((error) => this.errorHandler(error)),
-                        tap(({ success }) => { if (!success) this.toastUnsuccess() })
+                        tap(({ success, message }) => { if (!success) this.toastUnsuccess(message) })
                     )
         }
     }
@@ -124,8 +124,8 @@ export class RequestBuilder {
         return of(error.error);
     }
 
-    private toastUnsuccess(): void {
-        this.clientService?.message.create('error', 'خطای سرور')
+    private toastUnsuccess(message: string): void {
+        this.clientService?.message.create('error', message ?? 'خطای سرور')
     }
 
 }

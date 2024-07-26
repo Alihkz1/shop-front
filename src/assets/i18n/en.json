@@ -118,5 +118,6 @@
   "fillRequiredFields": "Please fill required fields",
   "productCrud": "Modify Product",
   "primaryImage": "Primary Image",
-  "savedProducts": "Saved Products"
+  "savedProducts": "Saved Products",
+  "productSaved": "Product Saved"
 }

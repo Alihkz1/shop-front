@@ -127,33 +127,36 @@ nz-button-group {
     position: relative;
 }
 
-.saved {
-    z-index: 100;
+.actions {
     position: absolute;
-    left: 18px;
-    top: 17px;
-    cursor: pointer;
-    img {
-        opacity: 0.75;
-        height: 20px;
-    }
-}
+    left: 10px;
+    top: 15px;
+    display: flex;
+    direction: ltr;
 
-.like {
-    z-index: 100;
-    position: absolute;
-    bottom: 4px;
-    left: 55px;
-    cursor: pointer;
-    top: 16px;
+    .saved {
+        z-index: 100;
+        cursor: pointer;
 
-    img {
-        height: 25px;
+        img {
+            opacity: 0.75;
+            height: 20px;
+        }
     }
 
-    span {
-        margin: 0 8px;
-        font-size: 15px;
+    .like {
+        margin-left: 10px;
+        z-index: 100;
+        cursor: pointer;
+
+        img {
+            height: 25px;
+        }
+
+        span {
+            margin: 0 6px;
+            font-size: 15px;
+        }
     }
 }
 

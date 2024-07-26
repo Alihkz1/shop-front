@@ -12,11 +12,12 @@ import {
   NzDropdownMenuComponent,
 } from 'ng-zorro-antd/dropdown';
 import { ViewportService } from '../../service/view-port.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [TranslateModule, NzBadgeModule, NzIconModule, NzDropDownModule],
+  imports: [TranslateModule, CommonModule, NzBadgeModule, NzIconModule, NzDropDownModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })

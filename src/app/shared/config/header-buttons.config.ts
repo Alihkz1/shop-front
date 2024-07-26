@@ -23,12 +23,13 @@ export const USER_BUTTONS: IHeaderButton[] = [
         route: "menu/categories"
     },
     {
-        title: "savedProducts",
+        svg: "assets/svg/unsaved.svg",
         route: "menu/saved"
     },
 ]
 
 export interface IHeaderButton {
-    title: string;
+    title?: string;
+    svg?: string;
     route: string
 }

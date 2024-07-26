@@ -285,6 +285,9 @@ export class ProductDetailComponent implements OnInit {
       this.menuApi.saveProduct(model).subscribe(({ success }: any) => {
         if (success) {
           this.saveSvgPath = Save_SVG_Path.saved;
+          this.message.create('success',
+            this.translate.instant('productSaved')
+          )
         }
       })
     else

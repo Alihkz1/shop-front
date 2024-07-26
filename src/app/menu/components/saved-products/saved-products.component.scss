@@ -1,11 +1,7 @@
 .wrapper {
-    height: calc(100vh - 100px) !important;
+    position: relative;
+    flex-grow: 1;
     overflow: hidden auto;
-    padding-bottom: 10px;
-
-    @media (max-width: 767px) {
-        height: calc(100vh - 350px) !important;
-    }
 }
 
 .board {
@@ -58,6 +54,8 @@
 
 @media (max-width: 767px) {
     .board {
+        margin-bottom: 10px;
+
         &-data {
             font-size: 14px;
         }

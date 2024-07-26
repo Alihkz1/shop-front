@@ -3,9 +3,12 @@
         {{ 'savedProducts' | translate }}
     </div>
     <div class="wrapper">
+        @if (dataLoading && !dataLoading.closed) {
+        <loading class="mt-5"></loading>
+        }@else {
         <div class="row">
             <ng-container *ngFor="let product of savedItems">
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12" (click)="product_onClick(product.product)">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" (click)="product_onClick(product.product)">
                     <div class="board">
                         <div class="board-image">
                             <img [src]="getProductImage(product.product)">
@@ -17,5 +20,6 @@
                 </div>
             </ng-container>
         </div>
+        }
     </div>
 </div>

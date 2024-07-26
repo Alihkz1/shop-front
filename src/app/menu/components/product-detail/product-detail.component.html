@@ -11,14 +11,16 @@
         </div>
     </div>
     <div class="wrapper">
-        <div *ngIf="client.isLogin && !client.isAdmin" class="saved">
-            <img [src]="saveSvgPath" (click)="saveChange_onClick()">
-        </div>
-        <div class="like">
-            <span *ngIf="product?.product.likes > 0">
-                {{ product?.product.likes }}
-            </span>
-            <img [src]="likeSvgPath" (click)="likeChange_onClick()">
+        <div class="actions">
+            <div *ngIf="client.isLogin && !client.isAdmin" class="saved">
+                <img [src]="saveSvgPath" (click)="saveChange_onClick()">
+            </div>
+            <div class="like">
+                <img [src]="likeSvgPath" (click)="likeChange_onClick()">
+                <span *ngIf="product?.product.likes > 0">
+                    {{ product?.product.likes }}
+                </span>
+            </div>
         </div>
         @if (dataLoading && !dataLoading.closed) {
         <loading class="mt-5"></loading>

@@ -122,5 +122,6 @@
   "fillRequiredFields": "فیلد های ضروری را پر نمایید",
   "productCrud": "تغییر اساسی محصول",
   "primaryImage": "عکس اصلی",
-  "savedProducts":"ذخیره شده ها"
+  "savedProducts": "ذخیره شده ها",
+  "productSaved": "به لیست ذخیره شده ها اضافه شد"
 }
