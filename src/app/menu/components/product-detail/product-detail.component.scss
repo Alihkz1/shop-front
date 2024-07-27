@@ -28,16 +28,13 @@
     margin-top: 10px;
 }
 
-.row {
-    box-shadow: var(--main-shadow);
-}
-
 .carousel {
+    direction: ltr;
     display: flex;
     justify-content: center;
     padding-top: 0.5rem;
     margin: 0 10px;
-    border: 1px solid #dfdfdf;
+    border: 1px solid #eeeeee;
     border-radius: var(--main-border-radius);
     box-shadow: var(--main-shadow);
 }
@@ -121,8 +118,7 @@ nz-button-group {
 }
 
 .row {
-    padding: 10px 0;
-    border-bottom: 1px solid #d6d6d6;
+    padding: 10px 0 20px 0;
     background: #fff;
     position: relative;
 }

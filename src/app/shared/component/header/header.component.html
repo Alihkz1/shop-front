@@ -1,9 +1,10 @@
-<div class="wrapper w-100 d-flex justify-content-center pt-4 pb-2">
+<div class="wrapper">
     <div class="header" dir="ltr">
+        <img class="header-logo" src="assets/svg/shop.svg" (click)="navigate('menu/landing')">
         <ng-container *ngIf="client.isLogin; else notLogin">
             <div>
                 <div class="d-flex align-items-center">
-                    <img class="power ms-2 me-1" src="assets/svg/power.svg" alt="" (click)="logout_onClick()">
+                    <img class="power ms-2 me-1" src="assets/svg/power.svg" (click)="logout_onClick()">
                     <div class="splitter"></div>
 
                     @for (button of client.headerButtons; track $index) {
@@ -83,6 +84,7 @@
             </div>
             <button class="button login" (click)="navigate('auth/login')" [class.active]="authIsActiveRoute()">
                 {{ "loginButton" | translate }}
+                <img class="login-logo" src="assets/svg/login-header.svg">
             </button>
         </ng-template>
 
