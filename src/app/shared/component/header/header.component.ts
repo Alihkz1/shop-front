@@ -35,7 +35,7 @@ export class HeaderComponent {
 
   logout_onClick() {
     this.client.logout();
-    this.router.navigate(['menu/categories']);
+    this.router.navigate(['menu/landing']);
     this.message.create('success', this.translate.instant('logoutSuccess'));
   }
 

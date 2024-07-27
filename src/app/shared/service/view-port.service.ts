@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
-import { BehaviorSubject, fromEvent, Observable } from 'rxjs';
-import { debounceTime, map, startWith } from 'rxjs/operators';
+import { BehaviorSubject, fromEvent } from 'rxjs';
+import { debounceTime, map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'

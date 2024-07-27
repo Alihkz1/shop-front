@@ -124,5 +124,12 @@
   "primaryImage": "عکس اصلی",
   "savedProducts": "ذخیره شده ها",
   "productSaved": "به لیست ذخیره شده ها اضافه شد",
-  "emptySavedItems": "شما محصول ذخیره شده ندارید"
+  "emptySavedItems": "شما محصول ذخیره شده ندارید",
+  "followUs": "ما را در شبکه های اجتماعی دنبال کنید",
+  "seeInstagram": "مشاهده صفحه اینستاگرام ما",
+  "seeTelegram": "مشاهده کانال تلگرام ما",
+  "aboutShop": "درباره فروشگاه",
+  "seeAllProducts": "برای مشاهده تمامی محصولات اینجا کلیک کنید",
+  "newestItems": "جدیدترین محصولات",
+  "mostBuyItems": "پرفروش ترین محصولات"
 }

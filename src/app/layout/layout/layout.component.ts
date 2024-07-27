@@ -11,7 +11,7 @@ import { ClientService } from '../../shared/service/client.service';
 export class LayoutComponent implements OnInit {
   constructor(private router: Router, private menuApi: MenuApi, private client: ClientService) {
     if (this.router.url === '/')
-      this.router.navigate(['menu/categories'])
+      this.router.navigate(['menu/landing'])
   }
 
   ngOnInit(): void {

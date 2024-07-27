@@ -1,19 +1,85 @@
-<div class="row">
-    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-        <div class="box">
-            <!-- <c-carousel [interval]="5000" transition="slide">
-                <c-carousel-inner>
-                    <c-carousel-item *ngFor="let slide of mostBuy">
-                        <img [src]="slide.src" alt="{{slide.title}}" class="d-block w-100" loading="lazy" />
-                    </c-carousel-item>
-                </c-carousel-inner>
-            </c-carousel> -->
+<div class="d-flex flex-column h-100">
+    <div class="wrapper">
+        <div class="row pt-2">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
+                <div class="see-all">
+                    <button class="see-all-button" (click)="onSeeAll()">
+                        <img src="assets/svg/shop.svg">
+                        {{ "seeAllProducts" | translate }}
+                    </button>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="tops">
+                    <div class="tops-title">
+                        {{ "newestItems" | translate }}
+                    </div>
+                    <div class="tops-items">
+                        <ng-container *ngFor="let product of newest">
+                            <div class="tops-items-item" (click)="goToProduct(product.categoryId, product.productId)">
+                                <div class="tops-items-item-title">
+                                    {{ product.title }}
+                                </div>
+                                <img [src]="getProductImage(product)">
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="tops">
+                    <div class="tops-title">
+                        {{ "mostBuyItems" | translate }}
+                    </div>
+                    <div class="tops-items">
+                        <ng-container *ngFor="let product of mostBuy">
+                            <div class="tops-items-item" (click)="goToProduct(product.categoryId, product.productId)">
+                                <div class="tops-items-item-title">
+                                    {{ product.title }}
+                                </div>
+                                <img [src]="getProductImage(product)">
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <ng-container *ngFor="let item of features">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                    <div class="item">
+                        <div class="d-flex flex-column">
+                            <div class="item-title">{{ item.title }}</div>
+                            <div class="item-desc">{{ item.description }}</div>
+                        </div>
+                        <img class="item-image" [src]="item.svg">
+                    </div>
+                </div>
+            </ng-container>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="social">
+                    <div class="social-title">
+                        {{ 'followUs' | translate }}
+                    </div>
+                    <div class="social-info">
+                        <div class="social-info-item" (click)="onInstagram()">
+                            <img src="assets/svg/instagram.svg">
+                            {{ "seeInstagram" | translate }}
+                        </div>
+                        <div class="social-info-item" (click)="onTelegram()">
+                            <img src=" assets/svg/telegram.svg">
+                            {{ "seeTelegram" | translate }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="detail">
+                    <div class="detail-title">
+                        {{ 'aboutShop' | translate }}
+                    </div>
+                    <div class="detail-info">
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-        <div class="box"></div>
-    </div>
-    <div class="col-12 mt-3">
-        
     </div>
 </div>
