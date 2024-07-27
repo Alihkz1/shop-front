@@ -1,6 +1,6 @@
 import { Injector } from "@angular/core";
 import { ClientService } from "../service/client.service";
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpStatusCode } from "@angular/common/http";
 import { environment } from "../../../env/environment";
 import { Observable, catchError, of, tap } from "rxjs";
 import { ParamsHandler } from "./params-handler";
@@ -84,53 +84,48 @@ export class RequestBuilder {
                 return this.clientService?.http
                     .post(url, this.request.body, this.requestOptions)
                     .pipe(
-                        catchError((error) => this.errorHandler(error)),
-                        tap(({ success, message }) => { if (!success) this.toastUnsuccess(message) })
+                        catchError((error) => this.errorHandler(error))
                     )
             case 'get':
                 return this.clientService?.http
                     .get(this.request.params ? url + '?' + this.request.params : url, this.requestOptions)
                     .pipe(
-                        catchError((error) => this.errorHandler(error)),
-                        tap(({ success, message }) => { if (!success) this.toastUnsuccess(message) })
+                        catchError((error) => this.errorHandler(error))
                     )
             case 'put':
                 return this.clientService?.http
                     .put(url, this.request.body, this.requestOptions)
                     .pipe(
-                        catchError((error) => this.errorHandler(error)),
-                        tap(({ success, message }) => { if (!success) this.toastUnsuccess(message) })
+                        catchError((error) => this.errorHandler(error))
                     )
             case 'delete':
                 return this.clientService?.http
                     .delete(url, { ...this.requestOptions, body: this.request.body })
                     .pipe(
-                        catchError((error) => this.errorHandler(error)),
-                        tap(({ success, message }) => { if (!success) this.toastUnsuccess(message) })
+                        catchError((error) => this.errorHandler(error))
                     )
         }
     }
 
     private errorHandler(error: HttpErrorResponse): Observable<any> {
         const { status } = error;
-        if (status === 403) {
+        if (
+            status === HttpStatusCode.Forbidden ||
+            status === HttpStatusCode.InternalServerError) {
+            this.clientService?.message.create('error', "خطای سرور! لطفا دوباره تلاش کنید")
+        } else if (status === HttpStatusCode.Unauthorized) {
             this.clientService?.router.navigate(['auth/login'])
             this.clientService?.message.create('error', "لطفا وارد حساب کاربری خود شوید")
             this.clientService?.logout()
-        }
-        if (status === 400) {
+        } else if (status === HttpStatusCode.BadRequest) {
             this.clientService?.message.create('error', error.error.message)
         }
         return of(error.error);
     }
-
-    private toastUnsuccess(message: string): void {
-        this.clientService?.message.create('error', message ?? 'خطای سرور')
-    }
-
 }
 
 export type requestType = 'get' | 'post' | 'put' | 'delete';
+
 export interface IRequest {
     method: requestType;
     body?: any;

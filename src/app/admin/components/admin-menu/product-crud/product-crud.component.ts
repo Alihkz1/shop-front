@@ -190,9 +190,7 @@ export class ProductCrudComponent implements OnInit {
   }
 
   addProduct_onConfirm(model: any) {
-    this.saveLoading = this.adminApi.addProduct(model).subscribe(({ success, message }: any) => {
-      if (message)
-        this.message.create('info', message)
+    this.saveLoading = this.adminApi.addProduct(model).subscribe(({ success }: any) => {
       if (success) {
         this.resetAfterSubmit()
       }

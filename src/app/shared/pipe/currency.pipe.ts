@@ -14,3 +14,4 @@ export class CurrencyPipe implements PipeTransform {
     return value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 }
+
