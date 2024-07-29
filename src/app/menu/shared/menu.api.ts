@@ -219,4 +219,13 @@ export class MenuApi {
       .param(model)
       .call()
   }
+
+  public searchProductByName(model: any) {
+    return Api()
+      .get()
+      .controller('product')
+      .action('search')
+      .param(model)
+      .call()
+  }
 }

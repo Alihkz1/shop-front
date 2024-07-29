@@ -13,24 +13,34 @@ import {
 } from 'ng-zorro-antd/dropdown';
 import { ViewportService } from '../../service/view-port.service';
 import { CommonModule } from '@angular/common';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+
+const nz = [
+  NzInputModule,
+  NzBadgeModule,
+  NzIconModule,
+  NzDropDownModule,
+]
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [TranslateModule, CommonModule, NzBadgeModule, NzIconModule, NzDropDownModule],
+  imports: [TranslateModule, ReactiveFormsModule, CommonModule, nz],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
   @ViewChild('menu', { static: false }) menu: NzDropdownMenuComponent;
   showBurgerMenu = true;
+  searchControl = new FormControl()
 
   constructor(
     private router: Router,
     public client: ClientService,
     public viewPort: ViewportService,
     private message: NzMessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) { }
 
   logout_onClick() {
@@ -80,5 +90,13 @@ export class HeaderComponent {
   authIsActiveRoute(): boolean {
     const { url } = this.router;
     return url.includes('auth');
+  }
+
+  search_onClick() {
+    this.router.navigate(['menu/search'], {
+      queryParams: {
+        q: this.searchControl.value
+      }
+    })
   }
 }

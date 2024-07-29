@@ -12,6 +12,7 @@ import { MyOrdersComponent } from "./components/my-orders/my-orders.component";
 import { TrackOrderComponent } from "./components/track-order/track-order.component";
 import { LandingPageComponent } from "./components/landing-page/landing-page.component";
 import { SavedProductsComponent } from "./components/saved-products/saved-products.component";
+import { ProductSearchComponent } from "./components/product-search/product-search.component";
 
 export const routes: Routes = [
     {
@@ -61,6 +62,10 @@ export const routes: Routes = [
             {
                 path: 'saved',
                 component: SavedProductsComponent
+            },
+            {
+                path: 'search',
+                component: ProductSearchComponent
             }
         ]
     },

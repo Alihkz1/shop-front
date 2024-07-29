@@ -62,6 +62,9 @@
 }
 
 .login {
+    display: flex;
+    align-items: center;
+    text-wrap: nowrap;
 
     &-logo {
         cursor: pointer;
@@ -165,6 +168,19 @@
     display: none;
 }
 
-.is-admin {
-    font-size: 11px;
+.search-wrapper {
+    margin: 0 10px;
+    position: relative;
+
+    &-control {
+        width: 400px;
+    }
+
+    &-icon {
+        cursor: pointer;
+        position: absolute;
+        left: 10px;
+        top: 0;
+        bottom: 0;
+    }
 }

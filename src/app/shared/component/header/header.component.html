@@ -1,6 +1,9 @@
 <div class="wrapper">
     <div class="header" dir="ltr">
         <img class="header-logo" src="assets/svg/shop.svg" (click)="navigate('menu/landing')">
+
+        <!-- is login -->
+
         <ng-container *ngIf="client.isLogin; else notLogin">
             <div>
                 <div class="d-flex align-items-center">
@@ -59,17 +62,25 @@
                 </div>
             </div>
             <div class="d-flex align-items-center">
+                <ng-container>
+                    <div class="search-wrapper">
+                        <input nz-input class="search-wrapper-control" placeholder="جستجو در فروشگاه"
+                            [formControl]="searchControl" type="text" (keydown.enter)="search_onClick()" />
+                        <span nz-icon class="search-wrapper-icon" nzType="search" nzTheme="outline"
+                            (click)="search_onClick()"></span>
+                    </div>
+                </ng-container>
                 <div class="client-name pe-2">
                     {{ client.getUser.user.name }}
-                    <!-- @if (client.getUser.user.role === 'ADMIN') {
-                        <span class="is-admin">({{ 'admin' | translate }})</span>
-                        } -->
                 </div>
                 <img class="profile" src="assets/svg/profile.svg" alt="" (click)="profile_onClick()">
             </div>
         </ng-container>
 
+        <!-- not-login -->
+
         <ng-template #notLogin>
+
             <div class="d-flex align-items-center">
                 <button class="button" (click)="contactUs_onClick()" [class.active]="isActiveRoute('about-us')">{{
                     "contactUs" | translate }}</button>
@@ -82,10 +93,20 @@
                     {{ "products" | translate }}
                 </button>
             </div>
-            <button class="button login" (click)="navigate('auth/login')" [class.active]="authIsActiveRoute()">
-                {{ "loginButton" | translate }}
-                <img class="login-logo" src="assets/svg/login-header.svg">
-            </button>
+
+            <div class="d-flex align-items-center">
+                <div class="search-wrapper">
+                    <input nz-input class="search-wrapper-control" placeholder="جستجو در فروشگاه"
+                        [formControl]="searchControl" type="text" (keydown.enter)="search_onClick()" />
+                    <span nz-icon class="search-wrapper-icon" nzType="search" nzTheme="outline"
+                        (click)="search_onClick()"></span>
+                </div>
+                <button class="button login" (click)="navigate('auth/login')" [class.active]="authIsActiveRoute()">
+                    {{ "loginButton" | translate }}
+                    <img class="login-logo" src="assets/svg/login-header.svg">
+                </button>
+            </div>
+
         </ng-template>
 
     </div>
