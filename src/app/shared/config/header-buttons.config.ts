@@ -10,12 +10,8 @@ export const ADMIN_BUTTONS: IHeaderButton[] = [
 ]
 
 export const USER_BUTTONS: IHeaderButton[] = [
-    // {
-    //     title: "contactUs",
-    //     route: "menu/about-us"
-    // },
     {
-        title: "orders",
+        title: "myOrders",
         route: "menu/orders"
     },
     {
@@ -23,8 +19,24 @@ export const USER_BUTTONS: IHeaderButton[] = [
         route: "menu/categories"
     },
     {
+        title: 'saved',
         svg: "assets/svg/unsaved.svg",
         route: "menu/saved"
+    },
+]
+
+export const NOT_LOGIN_BUTTONS: IHeaderButton[] = [
+    {
+        title: "contactUs",
+        route: "menu/about-us"
+    },
+    {
+        title: "trackOrder",
+        route: "menu/track"
+    },
+    {
+        title: "products",
+        route: "menu/categories"
     },
 ]
 

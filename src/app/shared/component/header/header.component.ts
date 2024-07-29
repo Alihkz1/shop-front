@@ -8,8 +8,8 @@ import { ROLE } from '../../enum/role.enum';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import {
-  NzDropDownModule,
   NzDropdownMenuComponent,
+  NzDropDownModule,
 } from 'ng-zorro-antd/dropdown';
 import { ViewportService } from '../../service/view-port.service';
 import { CommonModule } from '@angular/common';
@@ -21,7 +21,7 @@ const nz = [
   NzInputModule,
   NzBadgeModule,
   NzIconModule,
-  NzDropDownModule,
+  NzDropDownModule
 ]
 
 @Component({
@@ -55,6 +55,10 @@ export class HeaderComponent implements OnInit {
     this.message.create('success', this.translate.instant('logoutSuccess'));
   }
 
+  burger_onClick() {
+    this.showBurgerMenu = true;
+  }
+
   profile_onClick() {
     if (this.client.getUser.user.role === ROLE.ADMIN)
       this.router.navigate(['admin/profile']);
@@ -71,10 +75,6 @@ export class HeaderComponent implements OnInit {
 
   navigateToShopCard() {
     this.router.navigate([`menu/card/${this.client.getUser.user.userId}`]);
-  }
-
-  burger_onClick() {
-    this.showBurgerMenu = true;
   }
 
   isActiveRoute(route: string): boolean {
@@ -104,5 +104,22 @@ export class HeaderComponent implements OnInit {
         q: this.searchControl.value
       }
     })
+  }
+
+  bottomSvgPath(buttonTitle: string): string {
+    switch (buttonTitle) {
+      case "myOrders":
+        return 'assets/svg/users-orders.svg';
+      case "products":
+        return 'assets/svg/product-management.svg';
+      case "saved":
+        return 'assets/svg/bottom-saved.svg';
+      case "contactUs":
+        return 'assets/svg/all-comments.svg';
+      case "trackOrder":
+        return 'assets/svg/fast-post.svg';
+      default:
+        return ''
+    }
   }
 }

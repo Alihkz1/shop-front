@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../model/user.model';
 import { BehaviorSubject } from 'rxjs';
-import { IHeaderButton } from '../config/header-buttons.config';
+import { IHeaderButton, NOT_LOGIN_BUTTONS } from '../config/header-buttons.config';
 import { HttpClient } from '@angular/common/http';
 import { ROLE } from '../enum/role.enum';
 import { Router } from '@angular/router';
@@ -38,6 +38,7 @@ export class ClientService {
     this.shopCardLength = 0;
     this.isAdmin = false;
     this.isLogin = false;
+    this.setHeaderButtons = NOT_LOGIN_BUTTONS;
     localStorage.removeItem('shopUser');
   }
 

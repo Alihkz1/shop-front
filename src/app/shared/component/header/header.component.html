@@ -1,40 +1,23 @@
 <div class="wrapper">
-    <div class="header" dir="ltr">
+    <div class="header">
         <img class="header-logo" src="assets/svg/shop.svg" (click)="navigate('menu/landing')">
 
-        <!-- is login -->
+        <div>
+            <div class="d-flex align-items-center">
 
-        <ng-container *ngIf="client.isLogin; else notLogin">
-            <div>
-                <div class="d-flex align-items-center">
+                <!-- logout button -->
+                <ng-container *ngIf="client.isLogin">
                     <img class="power ms-2 me-1" src="assets/svg/power.svg" (click)="logout_onClick()">
                     <div class="splitter"></div>
+                </ng-container>
 
-                    @for (button of client.headerButtons; track $index) {
-                    <div class="dynamic-wrapper">
-                        <ng-container *ngIf="button.svg; else noSvg">
-                            <div class="dynamic d-flex align-items-center" [class.active]="isActiveRoute(button.route)"
-                                (click)="navigate(button.route)">
-                                <img [src]="button.svg">
-                            </div>
-                        </ng-container>
-                        <ng-template #noSvg>
-                            <button class="button dynamic" (click)="navigate(button.route)"
-                                [class.active]="isActiveRoute(button.route)">
-                                {{ button.title | translate }}
-                            </button>
-                        </ng-template>
-                        <div class="splitter" [class.hide-splitter]="viewPort.getViewportWidth < 767"></div>
-                    </div>
-                    }
-
+                <!-- admin burger -->
+                <ng-container *ngIf="client.isLogin && client.isAdmin">
                     <div class="d-flex align-items-center">
                         <span class="burger mx-3" nz-icon nzType="menu" nzTheme="outline" nz-dropdown
                             [nzDropdownMenu]="menu" nzPlacement="bottomCenter" (click)="burger_onClick()">
                         </span>
-                        <div class="splitter" [class.hide-splitter]="viewPort.getViewportWidth > 767"></div>
                     </div>
-
                     <nz-dropdown-menu #menu="nzDropdownMenu">
                         @if (showBurgerMenu) {
                         <ul nz-menu>
@@ -51,63 +34,82 @@
                         </ul>
                         }
                     </nz-dropdown-menu>
+                </ng-container>
 
-                    @if (client.getUser.user.role === 'USER') {
+                <!-- dynamic buttons -->
+                @for (button of client.headerButtons; track $index) {
+                <div class="dynamic-wrapper">
+                    <ng-container *ngIf="button.svg; else noSvg">
+                        <div class="dynamic d-flex align-items-center" [class.active]="isActiveRoute(button.route)"
+                            (click)="navigate(button.route)">
+                            <img [src]="button.svg">
+                        </div>
+                    </ng-container>
+                    <ng-template #noSvg>
+                        <button class="button dynamic" (click)="navigate(button.route)"
+                            [class.active]="isActiveRoute(button.route)">
+                            {{ button.title | translate }}
+                        </button>
+                    </ng-template>
+                    <div class="splitter" [class.hide]="viewPort.getViewportWidth < 767"></div>
+                </div>
+                }
+
+                <!-- shop card -->
+                <ng-container *ngIf="client.isLogin && !client.isAdmin">
                     <button class="button" [class.active]="isActiveRoute('menu/card')" (click)="navigateToShopCard()">
                         <nz-badge class="cursor-pointer mx-2" [nzCount]="client.shopCardLength">
                             <img class="shop-card" src="assets/svg/shop-card.svg" alt="">
                         </nz-badge>
                     </button>
-                    }
-                </div>
-            </div>
-            <div class="d-flex align-items-center">
-                <ng-container>
-                    <div class="search-wrapper">
-                        <input nz-input class="search-wrapper-control" placeholder="جستجو در فروشگاه"
-                            [formControl]="searchControl" type="text" (keydown.enter)="search_onClick()" />
-                        <span nz-icon class="search-wrapper-icon" nzType="search" nzTheme="outline"
-                            (click)="search_onClick()"></span>
-                    </div>
                 </ng-container>
-                <div class="client-name pe-2">
-                    {{ client.getUser.user.name }}
-                </div>
-                <img class="profile" src="assets/svg/profile.svg" alt="" (click)="profile_onClick()">
             </div>
-        </ng-container>
+        </div>
 
-        <!-- not-login -->
-
-        <ng-template #notLogin>
-
-            <div class="d-flex align-items-center">
-                <button class="button" (click)="contactUs_onClick()" [class.active]="isActiveRoute('about-us')">{{
-                    "contactUs" | translate }}</button>
-                <div class="splitter"></div>
-                <button class="button mx-1" (click)="navigate('menu/track')" [class.active]="trackIsActiveRoute()">
-                    {{ "trackOrder" | translate }}
-                </button>
-                <div class="splitter"></div>
-                <button class="button" (click)="navigate('menu/categories')" [class.active]="categoryIsActiveRoute()">
-                    {{ "products" | translate }}
-                </button>
+        <!-- search field and profile and login -->
+        <div class="d-flex align-items-center">
+            <div class="search-wrapper">
+                <input nz-input class="search-wrapper-control" placeholder="جستجو در فروشگاه"
+                    [formControl]="searchControl" type="text" (keydown.enter)="search_onClick()" />
+                <span nz-icon class="search-wrapper-icon" nzType="search" nzTheme="outline"
+                    (click)="search_onClick()"></span>
             </div>
-
-            <div class="d-flex align-items-center">
-                <div class="search-wrapper">
-                    <input nz-input class="search-wrapper-control" placeholder="جستجو در فروشگاه"
-                        [formControl]="searchControl" type="text" (keydown.enter)="search_onClick()" />
-                    <span nz-icon class="search-wrapper-icon" nzType="search" nzTheme="outline"
-                        (click)="search_onClick()"></span>
+            <ng-container *ngIf="client.isLogin">
+                <div class="d-flex align-items-center">
+                    <div class="client-name pe-2">
+                        {{ client.getUser.user.name }}
+                    </div>
+                    <img class="profile" src="assets/svg/profile.svg" alt="" (click)="profile_onClick()">
                 </div>
+            </ng-container>
+            <ng-container *ngIf="!client.isLogin">
                 <button class="button login" (click)="navigate('auth/login')" [class.active]="authIsActiveRoute()">
                     {{ "loginButton" | translate }}
                     <img class="login-logo" src="assets/svg/login-header.svg">
                 </button>
-            </div>
-
-        </ng-template>
+            </ng-container>
+        </div>
 
     </div>
+
+    <div class="bottom" [class.hide]="client.isLogin && client.isAdmin">
+        @for (button of client.headerButtons; track $index) {
+        <div class="bottom-field">
+            <div class="bottom-button" (click)="navigate(button.route)"
+                [class.bottom-active]="isActiveRoute(button.route)">
+                <img [src]="bottomSvgPath(button.title)">
+                {{ button.title | translate }}
+            </div>
+        </div>
+        }
+        <ng-container *ngIf="client.isLogin">
+            <div class="bottom-field">
+                <div class="bottom-button" (click)="profile_onClick()" [class.bottom-active]="isActiveRoute('profile')">
+                    <img src="assets/svg/profile.svg">
+                    {{ client.getUser.user.name }}
+                </div>
+            </div>
+        </ng-container>
+    </div>
+
 </div>

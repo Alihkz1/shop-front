@@ -127,5 +127,7 @@
   "aboutShop": "About this Store",
   "seeAllProducts": "See All Products",
   "searchResults": "Search Results",
-  "emptySearchedItems": "No Items Found!"
+  "emptySearchedItems": "No Items Found!",
+  "saved": "Saved",
+  "myOrders": "My Orders"
 }

@@ -133,5 +133,7 @@
   "newestItems": "جدیدترین محصولات",
   "mostBuyItems": "پرفروش ترین محصولات",
   "searchResults": "نتایج جستجو",
-  "emptySearchedItems": "نتیجه ای پیدا نشد"
+  "emptySearchedItems": "نتیجه ای پیدا نشد",
+  "saved": "ذخیره ها",
+  "myOrders": "سفارشات من"
 }
