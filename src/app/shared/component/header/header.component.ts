@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ClientService } from '../../service/client.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
@@ -15,6 +15,7 @@ import { ViewportService } from '../../service/view-port.service';
 import { CommonModule } from '@angular/common';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MenuService } from '../../../menu/shared/service/menu.service';
 
 const nz = [
   NzInputModule,
@@ -30,7 +31,7 @@ const nz = [
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   @ViewChild('menu', { static: false }) menu: NzDropdownMenuComponent;
   showBurgerMenu = true;
   searchControl = new FormControl()
@@ -40,8 +41,13 @@ export class HeaderComponent {
     public client: ClientService,
     public viewPort: ViewportService,
     private message: NzMessageService,
+    private menuService: MenuService,
     private translate: TranslateService,
   ) { }
+
+  ngOnInit(): void {
+    this.menuService.headerSearchAsObs.subscribe((v: string) => this.searchControl.setValue(v));
+  }
 
   logout_onClick() {
     this.client.logout();

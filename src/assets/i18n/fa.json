@@ -131,5 +131,7 @@
   "aboutShop": "درباره فروشگاه",
   "seeAllProducts": "برای مشاهده تمامی محصولات اینجا کلیک کنید",
   "newestItems": "جدیدترین محصولات",
-  "mostBuyItems": "پرفروش ترین محصولات"
+  "mostBuyItems": "پرفروش ترین محصولات",
+  "searchResults": "نتایج جستجو",
+  "emptySearchedItems": "نتیجه ای پیدا نشد"
 }

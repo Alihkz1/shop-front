@@ -1,1 +1,35 @@
-<p>product-search works!</p>
+<div class="d-flex flex-column h-100">
+    <div class="page-title">
+        {{ 'searchResults' | translate }}
+    </div>
+    <div class="wrapper">
+        @if (dataLoading && !dataLoading.closed) {
+        <loading class="mt-5"></loading>
+        }@else {
+        <div class="row">
+            <ng-container *ngIf="items.length; else noSavedItems">
+                <ng-container *ngFor="let product of items">
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" (click)="product_onClick(product)">
+                        <div class="board">
+                            <div class="board-image">
+                                <img [src]="getProductImage(product)">
+                            </div>
+                            <div class="board-data">
+                                <span class="board-data-title"> {{ product.title }} </span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+            <ng-template #noSavedItems>
+                <div class="no-saved-items">
+                    <img src="assets/svg/no-saved-items.svg">
+                    <span>
+                        {{ 'emptySearchedItems' | translate }}
+                    </span>
+                </div>
+            </ng-template>
+        </div>
+        }
+    </div>
+</div>
