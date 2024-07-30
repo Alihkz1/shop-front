@@ -9,7 +9,8 @@
         <div class="row">
             <ng-container *ngIf="savedItems.length; else noSavedItems">
                 <ng-container *ngFor="let product of savedItems">
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" (click)="product_onClick(product.product)">
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center"
+                        (click)="product_onClick(product.product)">
                         <div class="board">
                             <div class="board-image">
                                 <img [src]="getProductImage(product.product)">

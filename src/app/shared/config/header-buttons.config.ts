@@ -1,5 +1,9 @@
 export const ADMIN_BUTTONS: IHeaderButton[] = [
     {
+        title: "mainPage",
+        route: "menu/landing"
+    },
+    {
         title: "dashboard",
         route: "admin/product-management"
     },
@@ -10,6 +14,10 @@ export const ADMIN_BUTTONS: IHeaderButton[] = [
 ]
 
 export const USER_BUTTONS: IHeaderButton[] = [
+    {
+        title: "mainPage",
+        route: "menu/landing"
+    },
     {
         title: "myOrders",
         route: "menu/orders"
@@ -26,6 +34,10 @@ export const USER_BUTTONS: IHeaderButton[] = [
 ]
 
 export const NOT_LOGIN_BUTTONS: IHeaderButton[] = [
+    {
+        title: "mainPage",
+        route: "menu/landing"
+    },
     {
         title: "contactUs",
         route: "menu/about-us"

@@ -8,6 +8,8 @@
 .custom-padding {
   @media (max-width: 767px) {
     margin-top: 12px;
+    display: flex;
+    justify-content: center;
   }
 
   @media (min-width: 767px) {
@@ -16,6 +18,10 @@
 }
 
 .board {
+  @media (max-width: 767px) {
+    width: 80%;
+  }
+
   padding: 14px;
   box-shadow: var(--main-shadow);
 

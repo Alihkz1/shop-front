@@ -9,6 +9,10 @@
     box-shadow: var(--main-shadow);
     justify-content: space-between;
 
+    @media (max-width: 767px) {
+        width: 80%;
+    }
+
     &-image {
         height: 180px;
         background-color: rgba(251, 251, 251, 0.379);

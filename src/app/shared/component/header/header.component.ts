@@ -118,6 +118,8 @@ export class HeaderComponent implements OnInit {
         return 'assets/svg/all-comments.svg';
       case "trackOrder":
         return 'assets/svg/fast-post.svg';
+      case "mainPage":
+        return 'assets/svg/shop.svg';
       default:
         return ''
     }

@@ -67,14 +67,18 @@
     align-items: center;
     text-wrap: nowrap;
 
+    @media (max-width: 767px) {
+        font-weight: bold;
+
+        &-logo {
+            display: none;
+        }
+    }
+
     &-logo {
         cursor: pointer;
         height: 20px;
         margin: 0 3px;
-
-        @media (max-width: 767px) {
-            display: none;
-        }
     }
 }
 
@@ -203,8 +207,11 @@
     &-active {
         border: 1px solid #66aaff;
         background: aliceblue;
+        font-weight: bold;
     }
 
+    border-top: 1px solid rgb(231, 231, 231);
+    box-shadow: 0px -11px 11px 0px #ebebeb;
     direction: ltr;
     display: flex;
     position: fixed;
@@ -220,7 +227,6 @@
     }
 
     &-field {
-        border-radius: var(--main-border-radius);
         border-left: 1px solid rgb(231, 231, 231);
         flex-grow: 1;
     }

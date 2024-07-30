@@ -1,5 +1,5 @@
 <div class="d-flex flex-column justify-content-center w-100 h-100 pb-5">
-    <div class="pb-4">
+    <div class="pb-4 px-2">
         <p> {{"yourMessage" | translate}} </p>
         <textarea [formControl]="message" nz-input [nzAutosize]="{ minRows: 7, maxRows: 15 }"></textarea>
         <button class="submit" nz-button nzType="primary" [nzLoading]="submitLoading && !submitLoading.closed"
