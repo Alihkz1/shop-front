@@ -3,7 +3,6 @@ import { RouterModule, Routes } from "@angular/router";
 import { MenuComponent } from "./components/menu/menu.component";
 import { CategoriesComponent } from "./components/categories/categories.component";
 import { ProductsComponent } from "./components/products/products.component";
-import { ProductDetailComponent } from "./components/product-detail/product-detail.component";
 import { AboutUsComponent } from "./components/about-us/about-us.component";
 import { MenuProfileComponent } from "./components/menu-profile/menu-profile.component";
 import { ShopCardComponent } from "./components/shop-card/shop-card.component";
@@ -13,6 +12,7 @@ import { TrackOrderComponent } from "./components/track-order/track-order.compon
 import { LandingPageComponent } from "./components/landing-page/landing-page.component";
 import { SavedProductsComponent } from "./components/saved-products/saved-products.component";
 import { ProductSearchComponent } from "./components/product-search/product-search.component";
+import { ProductDetail2Component } from "./components/product-detail-2/product-detail-2.component";
 
 export const routes: Routes = [
     {
@@ -41,7 +41,7 @@ export const routes: Routes = [
             },
             {
                 path: 'products/:categoryId/:productId',
-                component: ProductDetailComponent,
+                component: ProductDetail2Component,
             },
             {
                 path: 'confirm-card',

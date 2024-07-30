@@ -136,5 +136,12 @@
   "emptySearchedItems": "نتیجه ای پیدا نشد",
   "saved": "ذخیره ها",
   "myOrders": "سفارشات من",
-  "mainPage": "صفحه اصلی"
+  "mainPage": "صفحه اصلی",
+  "addToCard": "افزودن به سبد خرید",
+  "originalGuaranty": "ضمانت اصالت کالا",
+  "healthDelivery": "ضمانت سلامت کالا",
+  "properties": "ویژگی ها",
+  "pleaseSelectSize": "لطفا سایز را انتخاب کنید",
+  "sizeNotAvailable": "لطفا سایزبندی دیگری انتخاب کنید",
+  "inCategoryOf": "دسته بندی"
 }

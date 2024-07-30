@@ -1,6 +1,6 @@
 ::ng-deep .p-carousel-container {
     width: 300px !important;
-    background: #fff;
+    background: transparent;
     border-radius: var(--main-border-radius);
 }
 
@@ -13,7 +13,7 @@
 
     &-image {
         margin: 0.25rem 0;
-        max-height: 85%;
+        max-height: 90%;
         max-width: 236px !important;
     }
 

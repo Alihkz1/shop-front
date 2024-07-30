@@ -130,5 +130,12 @@
   "emptySearchedItems": "No Items Found!",
   "saved": "Saved",
   "myOrders": "My Orders",
-  "mainPage": "Main Page"
+  "mainPage": "Main Page",
+  "addToCard": "Add to Card",
+  "originalGuaranty": "Original Guaranty",
+  "healthDelivery": "Health Delivery",
+  "properties": "Properties",
+  "pleaseSelectSize": "Please Select Size",
+  "sizeNotAvailable": "Please select another size!",
+  "inCategoryOf": "Category"
 }

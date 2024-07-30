@@ -13,16 +13,8 @@ import { ShopCard } from '../../../shared/model/shop-card.model';
 import { FormControl } from '@angular/forms';
 import { Size } from '../../../shared/model/size.model';
 import { ProductDto } from '../../../shared/model/product-dto.model';
-
-export enum Like_SVG_Path {
-  not_like = 'assets/svg/not-like.svg',
-  like = 'assets/svg/like.svg'
-}
-
-export enum Save_SVG_Path {
-  unsaved = 'assets/svg/unsaved.svg',
-  saved = 'assets/svg/saved.svg'
-}
+import { LIKE_SVG_PATH } from '../../../shared/enum/like-svg.enum';
+import { SAVE_SVG_PATH } from '../../../shared/enum/save-svg.enum';
 
 @Component({
   selector: 'app-product-detail',
@@ -35,8 +27,8 @@ export class ProductDetailComponent implements OnInit {
   wantToBuyAmount: number = 0
   productInShopCard: ShopCard;
   dataLoading: Subscription;
-  likeSvgPath = Like_SVG_Path.not_like;
-  saveSvgPath = Save_SVG_Path.unsaved;
+  likeSvgPath = LIKE_SVG_PATH.not_like;
+  saveSvgPath = SAVE_SVG_PATH.unsaved;
 
   sizeFormControl = new FormControl();
   public get selectedSize() { return this.sizeFormControl.value }
@@ -71,7 +63,7 @@ export class ProductDetailComponent implements OnInit {
     }
     this.menuApi.productIsSaved(model).subscribe(({ data }: any) => {
       if (data) {
-        this.saveSvgPath = Save_SVG_Path.saved;
+        this.saveSvgPath = SAVE_SVG_PATH.saved;
       }
     })
   }
@@ -259,18 +251,18 @@ export class ProductDetailComponent implements OnInit {
 
   public likeChange_onClick() {
     const { productId } = this.route.snapshot.params
-    if (this.likeSvgPath === Like_SVG_Path.not_like)
+    if (this.likeSvgPath === LIKE_SVG_PATH.not_like)
       this.menuApi.likeProduct(productId).subscribe(({ success }: any) => {
         if (success) {
           this.product.product.likes += 1;
-          this.likeSvgPath = Like_SVG_Path.like;
+          this.likeSvgPath = LIKE_SVG_PATH.like;
         }
       })
     else
       this.menuApi.removeProductLike(productId).subscribe(({ success }: any) => {
         if (success) {
           this.product.product.likes -= 1;
-          this.likeSvgPath = Like_SVG_Path.not_like;
+          this.likeSvgPath = LIKE_SVG_PATH.not_like;
         }
       })
   }
@@ -281,10 +273,10 @@ export class ProductDetailComponent implements OnInit {
       productId,
       userId: this.client.getUser.user.userId
     }
-    if (this.saveSvgPath === Save_SVG_Path.unsaved)
+    if (this.saveSvgPath === SAVE_SVG_PATH.unsaved)
       this.menuApi.saveProduct(model).subscribe(({ success }: any) => {
         if (success) {
-          this.saveSvgPath = Save_SVG_Path.saved;
+          this.saveSvgPath = SAVE_SVG_PATH.saved;
           this.message.create('success',
             this.translate.instant('productSaved')
           )
@@ -293,7 +285,7 @@ export class ProductDetailComponent implements OnInit {
     else
       this.menuApi.deleteSave(model).subscribe(({ success }: any) => {
         if (success) {
-          this.saveSvgPath = Save_SVG_Path.unsaved;
+          this.saveSvgPath = SAVE_SVG_PATH.unsaved;
         }
       })
   }
