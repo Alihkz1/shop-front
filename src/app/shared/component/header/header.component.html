@@ -1,13 +1,13 @@
 <div class="wrapper">
-    <div class="header">
-        <img class="header-logo" src="assets/svg/shop.svg" (click)="navigate('menu/landing')">
+    <div class="wrapper-header">
+        <img class="wrapper-header-logo" src="assets/svg/shop.svg" (click)="navigate('menu/landing')">
 
         <div>
             <div class="d-flex align-items-center">
 
                 <!-- logout button -->
                 <ng-container *ngIf="client.isLogin">
-                    <img class="power ms-2 me-1" src="assets/svg/power.svg" (click)="logout_onClick()">
+                    <img class="power mx-2" src="assets/svg/power.svg" (click)="logout_onClick()">
                     <div class="splitter"></div>
                 </ng-container>
 
@@ -67,14 +67,14 @@
         </div>
 
         <!-- search field and profile and login -->
-        <div class="right">
+        <div class="wrapper-header-right">
             <div class="search-wrapper">
                 <input nz-input class="search-wrapper-control" placeholder="جستجو در فروشگاه"
                     [formControl]="searchControl" type="text" (keydown.enter)="search_onClick()" />
                 <span nz-icon class="search-wrapper-icon" nzType="search" nzTheme="outline"
                     (click)="search_onClick()"></span>
             </div>
-            <ng-container *ngIf="client.isLogin">
+            <ng-container *ngIf="client.isLogin; else showLoginButton">
                 <div class="d-flex align-items-center">
                     <div class="client-name pe-2">
                         {{ client.getUser.user.name }}
@@ -82,16 +82,17 @@
                     <img class="profile" src="assets/svg/profile.svg" alt="" (click)="profile_onClick()">
                 </div>
             </ng-container>
-            <ng-container *ngIf="!client.isLogin">
+            <ng-template #showLoginButton>
                 <button class="button login" (click)="navigate('auth/login')" [class.active]="authIsActiveRoute()">
                     {{ "loginButton" | translate }}
                     <img class="login-logo" src="assets/svg/login-header.svg">
                 </button>
-            </ng-container>
+            </ng-template>
         </div>
 
     </div>
 
+    <!-- bottom menu for mobile device -->
     <div class="bottom" [class.hide]="client.isLogin && client.isAdmin">
         @for (button of client.headerButtons; track $index) {
         <div class="bottom-field">
