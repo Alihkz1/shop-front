@@ -143,5 +143,8 @@
   "properties": "ویژگی ها",
   "pleaseSelectSize": "لطفا سایز را انتخاب کنید",
   "sizeNotAvailable": "لطفا سایزبندی دیگری انتخاب کنید",
-  "inCategoryOf": "دسته بندی"
+  "inCategoryOf": "دسته بندی",
+  "newAbout": "ویژگی جدید",
+  "title": "عنوان",
+  "value": "مقدار"
 }

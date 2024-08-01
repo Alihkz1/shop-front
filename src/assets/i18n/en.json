@@ -137,5 +137,8 @@
   "properties": "Properties",
   "pleaseSelectSize": "Please Select Size",
   "sizeNotAvailable": "Please select another size!",
-  "inCategoryOf": "Category"
+  "inCategoryOf": "Category",
+  "newAbout": "New Property",
+  "title": "Title",
+  "value": "Value"
 }

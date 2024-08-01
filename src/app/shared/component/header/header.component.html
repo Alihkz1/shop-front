@@ -59,7 +59,7 @@
                 <ng-container *ngIf="client.isLogin && !client.isAdmin">
                     <button class="button" [class.active]="isActiveRoute('menu/card')" (click)="navigateToShopCard()">
                         <nz-badge class="cursor-pointer mx-2" [nzCount]="client.shopCardLength">
-                            <img class="shop-card" src="assets/svg/shop-card.svg" alt="">
+                            <img class="shop-card" src="assets/svg/shop-card.svg">
                         </nz-badge>
                     </button>
                 </ng-container>
@@ -79,7 +79,7 @@
                     <div class="client-name pe-2">
                         {{ client.getUser.user.name }}
                     </div>
-                    <img class="profile" src="assets/svg/profile.svg" alt="" (click)="profile_onClick()">
+                    <img class="profile" src="assets/svg/profile.svg" (click)="profile_onClick()">
                 </div>
             </ng-container>
             <ng-template #showLoginButton>

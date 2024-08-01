@@ -79,6 +79,15 @@ export class AdminApi {
       .call()
   }
 
+  public deleteAbout(aboutId: number) {
+    return Api()
+      .delete()
+      .controller('about')
+      .action('delete')
+      .pathVariable(String(aboutId))
+      .call()
+  }
+
   public editCategory(model: any) {
     return Api()
       .put()

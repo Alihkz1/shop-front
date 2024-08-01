@@ -191,6 +191,11 @@ export class ProductDetail2Component implements OnInit {
     })
   }
 
+  goToCard() {
+    const { userId } = this.client.getUser.user;
+    this.router.navigate(['menu/card', userId])
+  }
+
   back() {
     const { categoryId } = this.route.snapshot.params
     this.router.navigate(['menu/products', categoryId])
@@ -203,5 +208,51 @@ export class ProductDetail2Component implements OnInit {
         productId
       }
     })
+  }
+
+  register_onClick() {
+    localStorage.setItem('routeAfterLogin', this.router.url)
+    this.router.navigate(['auth/login'])
+  }
+
+  public saveChange_onClick() {
+    const { productId } = this.route.snapshot.params
+    const model = {
+      productId,
+      userId: this.client.getUser.user.userId
+    }
+    if (this.saveSvgPath === SAVE_SVG_PATH.unsaved)
+      this.menuApi.saveProduct(model).subscribe(({ success }: any) => {
+        if (success) {
+          this.saveSvgPath = SAVE_SVG_PATH.saved;
+          this.message.create('success',
+            this.translate.instant('productSaved')
+          )
+        }
+      })
+    else
+      this.menuApi.deleteSave(model).subscribe(({ success }: any) => {
+        if (success) {
+          this.saveSvgPath = SAVE_SVG_PATH.unsaved;
+        }
+      })
+  }
+
+  public likeChange_onClick() {
+    const { productId } = this.route.snapshot.params
+    if (this.likeSvgPath === LIKE_SVG_PATH.not_like)
+      this.menuApi.likeProduct(productId).subscribe(({ success }: any) => {
+        if (success) {
+          this.product.product.likes += 1;
+          this.likeSvgPath = LIKE_SVG_PATH.like;
+        }
+      })
+    else
+      this.menuApi.removeProductLike(productId).subscribe(({ success }: any) => {
+        if (success) {
+          this.product.product.likes -= 1;
+          this.likeSvgPath = LIKE_SVG_PATH.not_like;
+        }
+      })
   }
 }

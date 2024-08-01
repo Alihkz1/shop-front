@@ -15,6 +15,7 @@ import { Size } from '../../../../shared/model/size.model';
 import { ProductDto } from '../../../../shared/model/product-dto.model';
 import { NumberToCurrency } from '../../../../shared/function/currency-format.functions';
 import { CarouselConfig } from '../../../../shared/component/carousel/carousel.component';
+import { About } from '../../../../shared/model/about.model';
 
 @Component({
   selector: 'app-product-crud',
@@ -31,7 +32,8 @@ export class ProductCrudComponent implements OnInit {
     amount: new FormControl(0),
     description: new FormControl(null),
     productId: new FormControl(null),
-    size: new FormArray([])
+    size: new FormArray([]),
+    about: new FormArray([]),
   });
 
   tabIndex = 0;
@@ -55,8 +57,11 @@ export class ProductCrudComponent implements OnInit {
   saveLoading: Subscription;
 
   public sizeByIndex(i: number) { return this.form.controls['size'].controls[i].value; }
+  public aboutByIndex(i: number) { return this.form.controls['about'].controls[i].value; }
   public get getSizes() { return this.form.controls['size'] as FormArray; }
+  public get getAbout() { return this.form.controls['about'] as FormArray; }
   public getFormArrayItemValue(): any[] { return this.getSizes.value; }
+  public getAboutFormArrayItemValue(): any[] { return this.getAbout.value; }
 
   public deleteRow_onClick(i: number) {
     if (this.sizeByIndex(i).id)
@@ -108,6 +113,11 @@ export class ProductCrudComponent implements OnInit {
           this.fillForm(item)
         })
       }
+      if (product.productAbout.length) {
+        product.productAbout.forEach((item: About) => {
+          this.fillAboutForm(item)
+        })
+      }
     })
   }
 
@@ -123,6 +133,17 @@ export class ProductCrudComponent implements OnInit {
     );
   }
 
+  public fillAboutForm(newItem: About): void {
+    const formArrayValue = this.form.controls['about'] as FormArray;
+    formArrayValue.push(
+      new FormBuilder().group({
+        id: newItem.id,
+        key: newItem.key,
+        value: newItem.value,
+        productId: newItem.productId,
+      })
+    );
+  }
 
   getCategories() {
     this.adminApi.getCategoriesLight().subscribe(({ data }: any) => {
@@ -168,11 +189,15 @@ export class ProductCrudComponent implements OnInit {
     const sizeArr = this.form.value.size
       .filter((el: any) => el != null)
       .filter((el: any) => el.size != '' && el.amount > 0);
+    const aboutArr = this.form.value.about
+      .filter((el: any) => el != null)
+      .filter((el: any) => el.key != '' && el.value != '');
     const model = {
       ...this.form.value,
       price: +this.form.value.price?.replaceAll(',', ''),
       imageUrl: JSON.stringify(this.uploadedImages),
       size: JSON.stringify(sizeArr),
+      about: JSON.stringify(aboutArr),
       amount: sizeArr.length > 0 ? 0 : this.form.value.amount,
       primaryImageIndex: this.primaryImageIndex
     }
@@ -222,5 +247,25 @@ export class ProductCrudComponent implements OnInit {
   primaryIndex_onChange(index: number) {
     this.primaryImageIndex = index;
   }
+
+  public addPropertyRow_onClick() {
+    const items = this.form.controls['about'] as FormArray;
+    items.push(new FormControl({ key: '', value: '', id: null, productId: null }));
+  }
+
+  public deleteAboutRow_onClick(i: number) {
+    if (this.aboutByIndex(i).id)
+      this.adminApi.deleteAbout(this.aboutByIndex(i).id).subscribe(({ success }: any) => {
+        if (success) {
+          const items = this.form.controls['about'] as FormArray;
+          items.removeAt(i);
+        }
+      })
+    else {
+      const items = this.form.controls['about'] as FormArray;
+      items.removeAt(i);
+    }
+  }
+
 }
 

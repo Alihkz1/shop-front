@@ -88,5 +88,36 @@
                 }
             </div>
         </nz-tab>
+
+        <nz-tab nzTitle="ویژگی ها">
+            <div class="fielder d-flex flex-column w-100 align-items-end">
+                <button nz-button nzType="default" class="new-size-btn" (click)="addPropertyRow_onClick()">
+                    {{ "newAbout" | translate }}
+                </button>
+            </div>
+            <div class="my-1">
+                @for (row of getAboutFormArrayItemValue(); track $index) {
+                <ng-container *ngIf="row">
+                    <div class="size-wrapper">
+                        <span class="delete" nz-icon nzType="delete" nzTheme="outline"
+                            (click)="deleteAboutRow_onClick($index)">
+                        </span>
+                        <div class="size-wrapper-half">
+                            <span class="size-wrapper-title">
+                                {{ "value" | translate }}:
+                            </span>
+                            <input class="size-wrapper-field" nz-input placeholder="مقدار" [(ngModel)]="row.value" />
+                        </div>
+                        <div class="size-wrapper-half">
+                            <span class="size-wrapper-title">
+                                {{ "title" | translate }}:
+                            </span>
+                            <input class="size-wrapper-field" nz-input placeholder="عنوان" [(ngModel)]="row.key" />
+                        </div>
+                    </div>
+                </ng-container>
+                }
+            </div>
+        </nz-tab>
     </nz-tabset>
 </div>
