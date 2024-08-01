@@ -120,6 +120,8 @@ export class HeaderComponent implements OnInit {
         return 'assets/svg/fast-post.svg';
       case "mainPage":
         return 'assets/svg/shop.svg';
+      case "dashboard":
+        return 'assets/svg/dashboard.svg';
       default:
         return ''
     }
