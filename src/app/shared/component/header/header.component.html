@@ -70,9 +70,12 @@
         <div class="wrapper-header-right">
             <div class="search-wrapper">
                 <input nz-input class="search-wrapper-control" placeholder="جستجو در فروشگاه"
-                    [formControl]="searchControl" type="text" (keydown.enter)="search_onClick()" />
-                <span nz-icon class="search-wrapper-icon" nzType="search" nzTheme="outline"
-                    (click)="search_onClick()"></span>
+                    [formControl]="searchControl" type="text" (keydown.enter)="search_onClick()"
+                    [nzAutocomplete]="auto" />
+                <nz-autocomplete [nzDataSource]="menuService.headerSearchHistoryValue" nzBackfill #auto>
+                </nz-autocomplete>
+                <span nz-icon class="search-wrapper-icon" nzType="search" nzTheme="outline" (click)="search_onClick()">
+                </span>
             </div>
             <ng-container *ngIf="client.isLogin; else showLoginButton">
                 <div class="d-flex align-items-center">

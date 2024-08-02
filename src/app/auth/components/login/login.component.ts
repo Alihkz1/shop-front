@@ -9,6 +9,7 @@ import { ROLE } from '../../../shared/enum/role.enum';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ADMIN_BUTTONS, USER_BUTTONS } from '../../../shared/config/header-buttons.config';
 import { MenuApi } from '../../../menu/shared/menu.api';
+import { MenuService } from '../../../menu/shared/service/menu.service';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +30,7 @@ export class LoginComponent {
     private menuApi: MenuApi,
     private authApi: AuthApi,
     private client: ClientService,
+    private menuService: MenuService,
     private message: NzMessageService,
     private translate: TranslateService,
   ) { }
@@ -67,6 +69,7 @@ export class LoginComponent {
               localStorage.removeItem('routeAfterLogin')
             }
           }
+          this.getSearchHistory(data.user.userId)
           this.message.create(
             'success',
             this.translate.instant('loginSuccess')
@@ -80,6 +83,12 @@ export class LoginComponent {
       if (success && data) {
         this.client.shopCardLength = data;
       }
+    })
+  }
+
+  private getSearchHistory(userId: number) {
+    this.menuApi.getSearchHistory(userId).subscribe(({ data }: any) => {
+      this.menuService.setHeaderSearchHistory = data.history.map((item: any) => item.search);
     })
   }
 }

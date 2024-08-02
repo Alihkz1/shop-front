@@ -228,4 +228,21 @@ export class MenuApi {
       .param(model)
       .call()
   }
+
+  public getSearchHistory(userId: number) {
+    return Api()
+      .get()
+      .controller('user-product-search')
+      .pathVariable(userId.toString())
+      .call()
+  }
+
+  public deleteSearchHistoryById(searchId: number) {
+    return Api()
+      .delete()
+      .controller('user-product-search')
+      .action('delete')
+      .pathVariable(searchId.toString())
+      .call()
+  }
 }

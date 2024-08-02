@@ -16,12 +16,14 @@ import { CommonModule } from '@angular/common';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MenuService } from '../../../menu/shared/service/menu.service';
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 
 const nz = [
   NzInputModule,
   NzBadgeModule,
   NzIconModule,
-  NzDropDownModule
+  NzDropDownModule,
+  NzAutocompleteModule
 ]
 
 @Component({
@@ -41,7 +43,7 @@ export class HeaderComponent implements OnInit {
     public client: ClientService,
     public viewPort: ViewportService,
     private message: NzMessageService,
-    private menuService: MenuService,
+    public menuService: MenuService,
     private translate: TranslateService,
   ) { }
 
@@ -53,6 +55,7 @@ export class HeaderComponent implements OnInit {
     this.client.logout();
     this.router.navigate(['menu/landing']);
     this.message.create('success', this.translate.instant('logoutSuccess'));
+    this.menuService.setHeaderSearchHistory = [];
   }
 
   burger_onClick() {
@@ -98,7 +101,8 @@ export class HeaderComponent implements OnInit {
     return url.includes('auth');
   }
 
-  search_onClick() {
+  search_onClick(e?: any) {
+    console.log(e);
     this.router.navigate(['menu/search'], {
       queryParams: {
         q: this.searchControl.value

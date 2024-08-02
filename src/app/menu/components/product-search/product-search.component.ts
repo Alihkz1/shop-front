@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MenuService } from '../../shared/service/menu.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Product } from '../../../shared/model/product.model';
+import { ClientService } from '../../../shared/service/client.service';
 
 @Component({
   selector: 'app-product-search',
@@ -20,6 +21,7 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private menuApi: MenuApi,
+    private client: ClientService,
     private route: ActivatedRoute,
     private menuService: MenuService,
   ) { }
@@ -38,7 +40,11 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
   getData() {
     const { q } = this.route.snapshot.queryParams;
     if (q) this.menuService.setHeaderSearch = q;
-    this.dataLoading = this.menuApi.searchProductByName({ q }).subscribe(({ data }: any) => {
+    const model = {
+      q,
+      u: this.client.isLogin ? this.client.getUser.user.userId : null
+    }
+    this.dataLoading = this.menuApi.searchProductByName(model).subscribe(({ data }: any) => {
       if (data) this._items$.next(data.products)
     })
   }
