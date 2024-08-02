@@ -72,19 +72,16 @@
     overflow: hidden;
 
     .row {
-        display: flex;
-        justify-content: center;
         overflow-y: auto;
+        overflow-x: hidden;
         height: fit-content;
         direction: ltr;
-        padding: 60px 0;
+        padding: 60px 5px;
         border: var(--main-border);
         border-radius: var(--main-border-radius);
         background: #fff;
 
         @include respond(md) {
-            flex-direction: column;
-            justify-content: flex-start;
             padding: 10px 0;
         }
     }
@@ -242,7 +239,7 @@
     padding: 10px 20px;
 
     @include respond(md) {
-        margin: 3px 43px;
+        margin-left: 3px;
     }
 
     &-title {
@@ -351,6 +348,11 @@
     justify-content: center;
     height: fit-content;
     width: fit-content;
+    width: 100%;
+
+    @include respond(md) {
+        padding-top: 10px;
+    }
 
     &-carousel {
         border: var(--main-border);

@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 px-0 d-flex">
+                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12">
                     <div class="detail">
                         <div class="detail-title">
                             <span class="detail-title-category"> {{ 'inCategoryOf' | translate }}
@@ -115,8 +115,9 @@
                         </ng-container>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 px-0 d-flex justify-content-center">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                     <div class="images">
+                        <app-gallery [images]="product?.product.imageUrl"></app-gallery>
                     </div>
                 </div>
             </div>

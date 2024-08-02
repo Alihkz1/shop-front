@@ -33,6 +33,7 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { SavedProductsComponent } from './components/saved-products/saved-products.component';
 import { ProductSearchComponent } from './components/product-search/product-search.component';
 import { ProductDetail2Component } from './components/product-detail-2/product-detail-2.component';
+import { GalleryComponent } from '../shared/component/gallery/gallery.component';
 
 const NZ = [
   NzInputModule,
@@ -77,6 +78,7 @@ const NZ = [
     LoadingComponent,
     SteamComponent,
     NzDropDownModule,
+    GalleryComponent,
     ...NZ,
   ]
 })
