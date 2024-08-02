@@ -30,7 +30,6 @@ import { SteamComponent } from '../shared/component/steam/steam.component';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
-import { CarouselComponent } from '../shared/component/detail-carousel/carousel.component';
 import { SavedProductsComponent } from './components/saved-products/saved-products.component';
 import { ProductSearchComponent } from './components/product-search/product-search.component';
 import { ProductDetail2Component } from './components/product-detail-2/product-detail-2.component';
@@ -78,7 +77,6 @@ const NZ = [
     LoadingComponent,
     SteamComponent,
     NzDropDownModule,
-    CarouselComponent,
     ...NZ,
   ]
 })

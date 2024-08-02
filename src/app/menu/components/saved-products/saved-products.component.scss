@@ -8,6 +8,7 @@
     padding: 14px;
     box-shadow: var(--main-shadow);
     justify-content: space-between;
+    margin-bottom: 10px;
 
     @media (max-width: 767px) {
         width: 80%;
@@ -79,8 +80,6 @@
 
 @media (max-width: 767px) {
     .board {
-        margin-bottom: 10px;
-
         &-data {
             font-size: 14px;
         }

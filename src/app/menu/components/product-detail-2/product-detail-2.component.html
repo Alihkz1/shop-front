@@ -23,8 +23,8 @@
     </div>
     <div class="wrapper">
         <ng-container *ngIf="product">
-            <div class="row">
-                <div class="col-xl-3 col-lg-3 col-md-3 mobile-footer">
+            <div class="row" [class.admin-row]="client.isLogin && client.isAdmin">
+                <div class="col-xl-3 col-lg-3 col-md-3 mobile-footer" [class.hide]="client.isLogin && client.isAdmin">
                     <div class="confirm">
                         <ng-container *ngIf="productInShopCardFlag; else notInCardButton">
                             <img class="confirm-button-card" src="assets/svg/shop-card.svg" (click)="goToCard()">
@@ -71,18 +71,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 px-0">
-                    <div class="images">
-                        <!-- <app-carousel class="images-carousel" [images]="product.product.imageUrl"></app-carousel> -->
-                    </div>
-                </div>
                 <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 px-0 d-flex">
                     <div class="detail">
                         <div class="detail-title">
-                            {{ product.product.title }}
                             <span class="detail-title-category"> {{ 'inCategoryOf' | translate }}
                                 {{ product.product.categoryName }}
                             </span>
+                            {{ product.product.title }}
                         </div>
                         <ng-container *ngIf="product.productSize.length">
                             <div class="detail-size">
@@ -104,13 +99,12 @@
                         <ng-container *ngIf="product.productAbout.length">
                             <div class="detail-properties">
                                 <div class="detail-properties-title">
-                                    {{ 'properties' | translate }} :
+                                    {{ 'properties' | translate }}
                                 </div>
                                 <ng-container *ngFor="let row of product.productAbout">
                                     <div class="detail-properties-row">
                                         <div class="detail-properties-row-key">
-                                            <div>.</div>
-                                            {{row.key}}:
+                                            - {{row.key}} :
                                         </div>
                                         <div class="detail-properties-row-value">
                                             {{row.value}}
@@ -119,6 +113,10 @@
                                 </ng-container>
                             </div>
                         </ng-container>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 px-0 d-flex justify-content-center">
+                    <div class="images">
                     </div>
                 </div>
             </div>

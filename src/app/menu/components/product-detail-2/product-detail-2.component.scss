@@ -1,5 +1,14 @@
 @import '../../../shared/style/mixins.scss';
 
+.hide {
+    display: none !important;
+}
+
+.admin-row {
+    display: flex;
+    justify-content: center;
+}
+
 .page-title {
     &-crud {
         position: absolute;
@@ -63,10 +72,19 @@
     overflow: hidden;
 
     .row {
+        display: flex;
+        justify-content: center;
+        overflow-y: auto;
         height: fit-content;
         direction: ltr;
+        padding: 60px 0;
+        border: var(--main-border);
+        border-radius: var(--main-border-radius);
+        background: #fff;
 
         @include respond(md) {
+            flex-direction: column;
+            justify-content: flex-start;
             padding: 10px 0;
         }
     }
@@ -87,9 +105,6 @@
     }
 
     .confirm {
-        border: var(--main-border);
-        border-radius: var(--main-border-radius);
-        background: #fff;
         width: 100%;
         direction: rtl;
         height: 100%;
@@ -98,6 +113,7 @@
         flex-direction: column;
         align-items: center;
         position: relative;
+        border: var(--main-border);
 
         &-button {
             position: relative;
@@ -155,7 +171,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: var(--main-border-radius);
             width: 100%;
             background: #caa2ff8c;
 
@@ -218,11 +234,10 @@
 .detail {
     height: 100%;
     width: 100%;
-    display: flex;
-    flex-direction: column;
     border: var(--main-border);
     border-radius: var(--main-border-radius);
-    background: #fff;
+    display: flex;
+    flex-direction: column;
     direction: rtl;
     padding: 10px 20px;
 
@@ -230,14 +245,12 @@
         margin: 3px 43px;
     }
 
-    @include respond(desktop) {
-        // margin-left: -12px;
-    }
-
     &-title {
+        display: flex;
+        flex-direction: column;
         padding-bottom: 20px;
         border-bottom: var(--main-border);
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
 
         @include respond(md) {
@@ -248,7 +261,7 @@
         &-category {
             font-weight: normal;
             font-size: 12px;
-            margin: 0 10px;
+            margin-bottom: 10px;
             color: #c6c6c6;
 
             @include respond(md) {
@@ -307,7 +320,6 @@
         padding: 5px 0;
         display: flex;
         flex-direction: column;
-        border-bottom: var(--main-border);
 
         &-title {
             margin-bottom: 10px;
@@ -319,20 +331,16 @@
             align-items: center;
 
             &-key {
-                font-size: 15px;
+                font-size: 16px;
                 display: flex;
                 align-items: center;
-
-                div {
-                    font-weight: bold;
-                    font-size: 23px;
-                    margin: 0 0 9px 5px;
-                }
+                color: grey;
             }
 
             &-value {
                 margin: 0 10px;
-                font-size: 12px;
+                font-size: 13px;
+                font-weight: bold;
             }
         }
     }
@@ -342,6 +350,7 @@
     display: flex;
     justify-content: center;
     height: fit-content;
+    width: fit-content;
 
     &-carousel {
         border: var(--main-border);
