@@ -1,0 +1,33 @@
+.current-image {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+
+    &-image {
+        border-radius: var(--main-border-radius);
+        height: 250px;
+    }
+}
+
+.bottom-image {
+    direction: rtl;
+    display: flex;
+    justify-content: center;
+
+    &-box {
+        cursor: pointer;
+        border: 1px solid #dbdbdb;
+        border-radius: var(--main-border-radius);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        height: 90px;
+        margin: 0;
+
+        &-image {
+            border-radius: var(--main-border-radius);
+            height: 60px;
+        }
+    }
+}

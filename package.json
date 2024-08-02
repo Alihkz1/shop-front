@@ -24,6 +24,7 @@
     "jalali-moment": "^3.3.11",
     "ng-zorro-antd": "^17.4.1",
     "ngx-image-cropper": "^6.3.4",
+    "ngx-red-zoom": "^0.14.0",
     "primeng": "^17.18.4",
     "rxjs": "~7.8.0",
     "tinymce": "^7.2.1",

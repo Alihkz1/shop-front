@@ -1,0 +1,16 @@
+<div class="h-100 d-flex flex-column">
+    <div class="current-image">
+        <img class="current-image-image" [src]="images[currentImageIndex]">
+        <!-- [redZoom]="images[currentImageIndex]" -->
+        <!-- redZoomClass="red-zoom--style--magnifier" -->
+    </div>
+    <div class="bottom-image">
+        <div class="row d-flex justify-content-center">
+            <ng-container *ngFor="let image of images; let i = index">
+                <div class="col-4 bottom-image-box">
+                    <img class="bottom-image-box-image" [src]="image" (click)="image_onClick(i)">
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
