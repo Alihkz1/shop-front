@@ -100,7 +100,7 @@ export class HeaderComponent {
     return url.includes('auth');
   }
 
-  search_onClick() {
+  public search_onClick() {
     this.router.navigate(['menu/search'], {
       queryParams: {
         q: this.searchControl.value
@@ -108,7 +108,7 @@ export class HeaderComponent {
     })
   }
 
-  bottomSvgPath(buttonTitle: string): string {
+  public bottomSvgPath(buttonTitle: string): string {
     switch (buttonTitle) {
       case "myOrders":
         return 'assets/svg/users-orders.svg';
@@ -129,15 +129,13 @@ export class HeaderComponent {
     }
   }
 
-  public deleteHistoryItem_onClick(option: any) {
-    this.menuApi.deleteSearchHistoryById(option.id)
-      .subscribe(() => this.getSearchHistory())
-  }
-
-  private getSearchHistory() {
-    if (this.client.isLogin)
-      this.menuApi.getSearchHistory(this.client.getUser.user.userId).subscribe(({ data }: any) => {
-        this.menuService.setHeaderSearchHistory = data.history;
+  public deleteHistoryItem_onClick(searchId: number) {
+    this.menuApi.deleteSearchHistoryById(searchId)
+      .subscribe(() => {
+        if (this.client.isLogin)
+          this.menuApi.getSearchHistory(this.client.getUser.user.userId).subscribe(({ data }: any) => {
+            this.menuService.setHeaderSearchHistory = data.history;
+          })
       })
   }
 }

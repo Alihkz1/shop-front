@@ -12,11 +12,10 @@ import { RedZoomModule } from 'ngx-red-zoom';
 export class GalleryComponent {
   /* left and right arrows */
   /* if last image left goes to first item */
-
   @Input() images: string[];
   currentImageIndex = 0;
 
-  image_onClick(index: number) {
+  public image_onClick(index: number) {
     this.currentImageIndex = index;
   }
 }
