@@ -36,7 +36,7 @@ export class LayoutComponent implements OnInit {
   private getSearchHistory() {
     if (this.client.isLogin)
       this.menuApi.getSearchHistory(this.client.getUser.user.userId).subscribe(({ data }: any) => {
-        this.menuService.setHeaderSearchHistory = data.history.map((item: any) => item.search);
+        this.menuService.setHeaderSearchHistory = data.history;
       })
   }
 }

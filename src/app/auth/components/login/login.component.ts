@@ -88,7 +88,7 @@ export class LoginComponent {
 
   private getSearchHistory(userId: number) {
     this.menuApi.getSearchHistory(userId).subscribe(({ data }: any) => {
-      this.menuService.setHeaderSearchHistory = data.history.map((item: any) => item.search);
+      this.menuService.setHeaderSearchHistory = data.history;
     })
   }
 }

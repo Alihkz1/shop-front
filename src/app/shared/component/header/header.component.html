@@ -70,9 +70,19 @@
         <div class="wrapper-header-right">
             <div class="search-wrapper">
                 <input nz-input class="search-wrapper-control" placeholder="جستجو در فروشگاه"
-                    [formControl]="searchControl" type="text" (keydown.enter)="search_onClick()"
-                    [nzAutocomplete]="auto" />
-                <nz-autocomplete [nzDataSource]="menuService.headerSearchHistoryValue" nzBackfill #auto>
+                    [formControl]="searchControl" type="text" (keydown.enter)="search_onClick()" [nzAutocomplete]="auto"
+                    (ngModelChange)="search_onClick()" />
+                <nz-autocomplete #auto>
+                    <ng-container *ngFor="let option of menuService.headerSearchHistoryValue">
+                        <nz-auto-option [nzLabel]="option.search" [nzValue]="option.search">
+                            <div class="w-100 d-flex justify-content-between">
+                                <div>{{ option.search }}</div>
+                                <span nz-icon class="red" nzType="delete" nzTheme="outline"
+                                    (click)="deleteHistoryItem_onClick(option)" nzDanger>
+                                </span>
+                            </div>
+                        </nz-auto-option>
+                    </ng-container>
                 </nz-autocomplete>
                 <span nz-icon class="search-wrapper-icon" nzType="search" nzTheme="outline" (click)="search_onClick()">
                 </span>

@@ -17,6 +17,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MenuService } from '../../../menu/shared/service/menu.service';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
+import { MenuApi } from '../../../menu/shared/menu.api';
 
 const nz = [
   NzInputModule,
@@ -44,6 +45,7 @@ export class HeaderComponent implements OnInit {
     public viewPort: ViewportService,
     private message: NzMessageService,
     public menuService: MenuService,
+    public menuApi: MenuApi,
     private translate: TranslateService,
   ) { }
 
@@ -101,8 +103,7 @@ export class HeaderComponent implements OnInit {
     return url.includes('auth');
   }
 
-  search_onClick(e?: any) {
-    console.log(e);
+  search_onClick() {
     this.router.navigate(['menu/search'], {
       queryParams: {
         q: this.searchControl.value
@@ -129,5 +130,17 @@ export class HeaderComponent implements OnInit {
       default:
         return ''
     }
+  }
+
+  public deleteHistoryItem_onClick(option: any) {
+    this.menuApi.deleteSearchHistoryById(option.id)
+      .subscribe(() => this.getSearchHistory())
+  }
+
+  private getSearchHistory() {
+    if (this.client.isLogin)
+      this.menuApi.getSearchHistory(this.client.getUser.user.userId).subscribe(({ data }: any) => {
+        this.menuService.setHeaderSearchHistory = data.history;
+      })
   }
 }

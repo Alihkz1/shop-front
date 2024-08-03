@@ -45,8 +45,18 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
       u: this.client.isLogin ? this.client.getUser.user.userId : null
     }
     this.dataLoading = this.menuApi.searchProductByName(model).subscribe(({ data }: any) => {
-      if (data) this._items$.next(data.products)
+      if (data) {
+        this._items$.next(data.products)
+        this.getSearchHistory()
+      }
     })
+  }
+
+  private getSearchHistory() {
+    if (this.client.isLogin)
+      this.menuApi.getSearchHistory(this.client.getUser.user.userId).subscribe(({ data }: any) => {
+        this.menuService.setHeaderSearchHistory = data.history;
+      })
   }
 
   public getProductImage(product: Product) {
