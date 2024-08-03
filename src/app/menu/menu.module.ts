@@ -5,7 +5,6 @@ import { HeaderComponent } from '../shared/component/header/header.component';
 import { MenuRoutingModule } from './menu.routing.module';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { CategoriesComponent } from './components/categories/categories.component';
-import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { ProductsComponent } from './components/products/products.component';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -32,7 +31,7 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { SavedProductsComponent } from './components/saved-products/saved-products.component';
 import { ProductSearchComponent } from './components/product-search/product-search.component';
-import { ProductDetail2Component } from './components/product-detail-2/product-detail-2.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { GalleryComponent } from '../shared/component/gallery/gallery.component';
 
 const NZ = [
@@ -64,7 +63,6 @@ const NZ = [
     LandingPageComponent,
     SavedProductsComponent,
     ProductSearchComponent,
-    ProductDetail2Component,
   ],
   imports: [
     CommonModule,

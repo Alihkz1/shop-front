@@ -1,5 +1,16 @@
 <div class="d-flex flex-column h-100">
     <div class="page-title">
+        <div *ngIf="client.isLogin && !client.isAdmin" class="page-title-actions">
+            <div *ngIf="client.isLogin && !client.isAdmin" class="saved">
+                <img [src]="saveSvgPath" (click)="saveChange_onClick()">
+            </div>
+            <div class="like">
+                <img [src]="likeSvgPath" (click)="likeChange_onClick()">
+                <span *ngIf="product?.product.likes > 0">
+                    {{ product?.product.likes }}
+                </span>
+            </div>
+        </div>
         {{ 'productDetails' | translate }}
         <div class="page-title-back" (click)="back()">
             <img class="page-title-back-icon" src="assets/svg/back.svg">
@@ -11,139 +22,115 @@
         </div>
     </div>
     <div class="wrapper">
-        <div class="actions">
-            <div *ngIf="client.isLogin && !client.isAdmin" class="saved">
-                <img [src]="saveSvgPath" (click)="saveChange_onClick()">
-            </div>
-            <div class="like">
-                <img [src]="likeSvgPath" (click)="likeChange_onClick()">
-                <span *ngIf="product?.product.likes > 0">
-                    {{ product?.product.likes }}
-                </span>
-            </div>
-        </div>
-        @if (dataLoading && !dataLoading.closed) {
-        <loading class="mt-5"></loading>
-        }@else {
-        <nz-tabset class="my-1">
-            <nz-tab nzTitle="اطلاعات">
-                <div class="row">
-                    <ng-container *ngIf="product?.product.productId; else productDeleted">
-
-                        <!-- product section -->
-
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                            <div class="carousel">
-                                <!-- <app-carousel [images]="product?.product.imageUrl"></app-carousel> -->
-                            </div>
-                        </div>
-                        <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
-                            <div class="detail mt-4">
-                                <div class="detail-title">
-                                    {{ product?.product.title }}
-                                </div>
-
-                                <div class="detail-price mb-2 mt-4">
-                                    <span class="detail-price-title"> <b>{{ 'price' | translate }}:</b> </span>
-                                    <span class="mx-2"> {{ product?.product.price | currencyPipe }} {{ 'currency' |
-                                        translate }}
-                                    </span>
-                                </div>
-
-                                @if (product?.product.amount > 0 && product?.productSize.length === 0) {
-                                <div class="detail-amount my-2">
-                                    <span class="detail-amount-title"> <b>{{ 'amount' | translate }}:</b> </span>
-                                    <span class="mx-2"> {{ product?.product.amount }} </span>
-                                </div>
-                                }
-
-                                <div *ngIf="product?.productSize.length > 0" class="detail-size mt-2 mb-4">
-                                    <span class="detail-size-title"> <b>{{ 'selectSize' | translate }}:</b> </span>
-                                    <nz-select [formControl]="sizeFormControl" nzAllowClear>
-                                        @for (item of product.productSize; track $index) {
-                                        <nz-option [nzValue]="item.size" [nzLabel]="item.size"></nz-option>
-                                        }
-                                    </nz-select>
-                                </div>
-                            </div>
-
-                            <!-- buttons section -->
-
-                            <ng-container *ngIf="!client.isLogin;else clientIsLogin">
-                                <div class="w-100 d-flex justify-content-center">
-                                    <button nz-button nzType="default" (click)="navigateToLogin()">
-                                        {{ 'getInBeforeBuy' | translate }}
-                                    </button>
-                                </div>
-                            </ng-container>
-                            <ng-template #clientIsLogin>
-                                <ng-container *ngIf="!client.isAdmin">
-                                    <!-- product is in card -->
-                                    <ng-container *ngIf="productInShopCardFlag; else productNotInCard">
-                                        <div class="w-100 d-flex justify-content-center">
-                                            <div class="mx-3 mt-1">
-                                                <b>{{ "quantity" | translate }}:</b>
-                                            </div>
-                                            <nz-button-group>
-                                                <button nz-button (click)="minCount()"><span nz-icon
-                                                        nzType="minus"></span></button>
-                                                <div class="mx-3 mt-1">
-                                                    {{ wantToBuyAmount }}
-                                                </div>
-                                                <button nz-button (click)="addCount()"><span nz-icon
-                                                        nzType="plus"></span></button>
-                                            </nz-button-group>
-                                            <span class="red cursor-pointer delete" nz-icon nzType="delete"
-                                                nzTheme="outline" (click)="deleteFromShopCard()">
-                                            </span>
-                                        </div>
+        <ng-container *ngIf="product">
+            <div class="row" [class.admin-row]="client.isLogin && client.isAdmin">
+                <div class="col-xl-3 col-lg-3 col-md-3 mobile-footer" [class.hide]="client.isLogin && client.isAdmin">
+                    <div class="confirm">
+                        <ng-container *ngIf="productIsAvailable(); else notAvailable">
+                            <ng-container *ngIf="productInShopCardFlag; else notInCardButton">
+                                <img class="confirm-button-card" src="assets/svg/shop-card.svg" (click)="goToCard()">
+                                <div class="confirm-button">
+                                    <div class="confirm-button-plus" (click)="plus_onClick()">+</div>
+                                    <div class="confirm-button-count">
+                                        {{ wantToBuyAmount }}
+                                    </div>
+                                    <ng-container *ngIf="wantToBuyAmount === 1; else showMinus">
+                                        <span nz-icon class="red" nzType="delete" nzTheme="outline"
+                                            (click)="delete_onClick()" nzDanger></span>
                                     </ng-container>
-                                    <!-- product not in card -->
-                                    <ng-template #productNotInCard>
-                                        <!-- product is available -->
-                                        <ng-container
-                                            *ngIf="product?.product.amount > 0 || product?.productSize.length !== 0; else notAvailable">
-                                            <div class="w-100 d-flex justify-content-center">
-                                                <button nz-button nzType="default" (click)="addToCard()"
-                                                    [disabled]="product?.productSize.length > 0 && selectedSize === null">
-                                                    {{ 'toShopCard' | translate }}
-                                                    <span nz-icon nzType="shopping" nzTheme="outline"></span>
-                                                </button>
-                                            </div>
-                                        </ng-container>
-                                        <!-- product not available -->
-                                        <ng-template #notAvailable>
-                                            <div class="red d-flex justify-content-center">
-                                                {{ "notAvailable" | translate }}
-                                            </div>
-                                        </ng-template>
-                                    </ng-template>
+                                </div>
+                                <ng-template #showMinus>
+                                    <div class="confirm-button-minus" (click)="minus_onClick()">-</div>
+                                </ng-template>
+                            </ng-container>
+                            <ng-template #notInCardButton>
+                                <ng-container *ngIf="client.isLogin">
+                                    <div class="d-flex w-100">
+                                        <button class="confirm-button" (click)="addToCard_onClick()">
+                                            {{ 'addToCard' | translate }}
+                                        </button>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="!client.isLogin">
+                                    <button class="confirm-button" (click)="register_onClick()">
+                                        {{ 'loginButton' | translate }}
+                                    </button>
                                 </ng-container>
                             </ng-template>
-
-
-
-
-
+                        </ng-container>
+                        <ng-template #notAvailable>
+                            <div class="confirm-button red">
+                                {{ 'notAvailable' | translate }}
+                            </div>
+                        </ng-template>
+                        <div class="confirm-price">
+                            <span class="confirm-price-name">{{ 'price' | translate }}:</span>
+                            <span>
+                                <span class="confirm-price-price">{{ product.product.price | currencyPipe }}</span>
+                                <span class="confirm-price-currency">{{ 'currency' | translate }} </span>
+                            </span>
                         </div>
-                    </ng-container>
-                    <ng-template #productDeleted>
-                        <nz-alert class="d-flex justify-content-center" nzType="error"
-                            [nzMessage]="'productHasBeenDeleted' | translate">
-                        </nz-alert>
-                    </ng-template>
+                        <div class="confirm-original">
+                            <img src="assets/svg/original-buy.svg">
+                            <span>{{ 'originalGuaranty' | translate }}</span>
+                        </div>
+                        <div class="confirm-health">
+                            <img src="assets/svg/health-delivary.svg">
+                            <span>{{ 'healthDelivery' | translate }}</span>
+                        </div>
+                    </div>
                 </div>
-            </nz-tab>
-
-            <nz-tab nzTitle="مشخصات">
-                <div class="details-wrapper">
-                    <p [innerHTML]="product.product.description"></p>
+                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12">
+                    <div class="detail">
+                        <div class="detail-title">
+                            <span class="detail-title-category"> {{ 'inCategoryOf' | translate }}
+                                {{ product.product.categoryName }}
+                            </span>
+                            {{ product.product.title }}
+                        </div>
+                        <ng-container *ngIf="product.productSize.length">
+                            <div class="detail-size">
+                                <div class="detail-size-title">
+                                    {{ 'selectSize' | translate }} :
+                                </div>
+                                <div class="detail-size-sizes">
+                                    <ng-container *ngFor="let size of product.productSize">
+                                        <button class="detail-size-sizes-button"
+                                            [class.detail-size-sizes-button-disabled]="size.amount < 1"
+                                            [disabled]="size.amount < 1"
+                                            [class.detail-size-sizes-button-active]="selectedSize === size"
+                                            (click)="selectSize_onClick(size)">
+                                            {{ size.size }}
+                                        </button>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="product.productAbout.length">
+                            <div class="detail-properties">
+                                <div class="detail-properties-title">
+                                    {{ 'properties' | translate }}
+                                </div>
+                                <ng-container *ngFor="let row of product.productAbout">
+                                    <div class="detail-properties-row">
+                                        <div class="detail-properties-row-key">
+                                            - {{row.key}} :
+                                        </div>
+                                        <div class="detail-properties-row-value">
+                                            {{row.value}}
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
                 </div>
-            </nz-tab>
-            <nz-tab nzTitle="نظرات کاربران">
-
-            </nz-tab>
-        </nz-tabset>
-        }
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="images">
+                        <app-gallery [images]="product?.product.imageUrl"></app-gallery>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
     </div>
 </div>

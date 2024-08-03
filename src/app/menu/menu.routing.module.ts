@@ -12,7 +12,7 @@ import { TrackOrderComponent } from "./components/track-order/track-order.compon
 import { LandingPageComponent } from "./components/landing-page/landing-page.component";
 import { SavedProductsComponent } from "./components/saved-products/saved-products.component";
 import { ProductSearchComponent } from "./components/product-search/product-search.component";
-import { ProductDetail2Component } from "./components/product-detail-2/product-detail-2.component";
+import { ProductDetailComponent } from "./components/product-detail/product-detail.component";
 
 export const routes: Routes = [
     {
@@ -41,7 +41,7 @@ export const routes: Routes = [
             },
             {
                 path: 'products/:categoryId/:productId',
-                component: ProductDetail2Component,
+                component: ProductDetailComponent,
             },
             {
                 path: 'confirm-card',

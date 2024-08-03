@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ClientService } from '../../service/client.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
@@ -34,7 +34,7 @@ const nz = [
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   @ViewChild('menu', { static: false }) menu: NzDropdownMenuComponent;
   showBurgerMenu = true;
   searchControl = new FormControl()
@@ -49,9 +49,6 @@ export class HeaderComponent implements OnInit {
     private translate: TranslateService,
   ) { }
 
-  ngOnInit(): void {
-    this.menuService.headerSearchAsObs.subscribe((v: string) => this.searchControl.setValue(v));
-  }
 
   logout_onClick() {
     this.client.logout();

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuApi } from '../../shared/menu.api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuService } from '../../shared/service/menu.service';
@@ -11,7 +11,7 @@ import { ClientService } from '../../../shared/service/client.service';
   templateUrl: './product-search.component.html',
   styleUrl: './product-search.component.scss'
 })
-export class ProductSearchComponent implements OnInit, OnDestroy {
+export class ProductSearchComponent implements OnInit {
   dataLoading: Subscription;
 
   private _items$ = new BehaviorSubject([]);
@@ -29,17 +29,11 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.queryParams.subscribe(({ q }: any) => {
       if (q)
-        this.getData()
+        this.getData(q)
     });
   }
 
-  ngOnDestroy(): void {
-    this.menuService.setHeaderSearch = null;
-  }
-
-  getData() {
-    const { q } = this.route.snapshot.queryParams;
-    if (q) this.menuService.setHeaderSearch = q;
+  getData(q: string) {
     const model = {
       q,
       u: this.client.isLogin ? this.client.getUser.user.userId : null
