@@ -45,6 +45,14 @@ export class ProductDetail2Component implements OnInit {
     this.getData()
   }
 
+  public productIsAvailable(): boolean {
+    if (this.product.productSize.length > 0) {
+      return this.product.productSize.findIndex(el => el.amount > 0) > -1;
+    } else {
+      return this.product.product.amount > 0;
+    }
+  }
+
   private checkIsSaved() {
     if (!this.client.isLogin) return
     const { productId } = this.route.snapshot.params;
@@ -93,7 +101,7 @@ export class ProductDetail2Component implements OnInit {
   }
 
   public addToCard_onClick() {
-    if (!this.selectedSize) {
+    if (this.product.productSize.length > 0 && !this.selectedSize) {
       this.message.create('error', this.translate.instant('pleaseSelectSize'));
       return
     }
@@ -101,11 +109,10 @@ export class ProductDetail2Component implements OnInit {
       shopCardId: this.productInShopCard?.shopCardId,
       productId: this.product.product.productId,
       userId: this.client.getUser.user.userId,
-      size: this.selectedSize.size,
+      size: this.product.productSize.length > 0 ? this.selectedSize.size : null,
       amount: 1,
       paid: 0,
     }
-
     this.menuApi.modifyShopCard(model).subscribe(({ success, data }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('addedToCard'))
@@ -123,7 +130,10 @@ export class ProductDetail2Component implements OnInit {
       this.message.create('error', this.translate.instant('sizeNotAvailable'));
       return
     }
+    if (size.amount < this.wantToBuyAmount)
+      this.wantToBuyAmount = size.amount
     this.selectedSize = size;
+    this.modifyShopCard()
   }
 
   public delete_onClick() {
@@ -132,7 +142,7 @@ export class ProductDetail2Component implements OnInit {
         this.client.shopCardLength -= 1;
         this.productInShopCard = null;
         this.productInShopCardFlag = false;
-        this.wantToBuyAmount = 0;
+        this.wantToBuyAmount = 1;
         this.selectedSize = null;
       }
     })
@@ -179,7 +189,7 @@ export class ProductDetail2Component implements OnInit {
       productId: this.product.product.productId,
       userId: this.client.getUser.user.userId,
       size: this.selectedSize.size,
-      amount: this.wantToBuyAmount,
+      amount: this.wantToBuyAmount > 0 ? this.wantToBuyAmount : 1,
       paid: 0,
     }
     this.menuApi.modifyShopCard(model).subscribe(({ success, data }: any) => {

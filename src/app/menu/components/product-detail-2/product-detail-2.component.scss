@@ -125,6 +125,7 @@
             border-radius: var(--main-border-radius);
 
             &-minus {
+                user-select: none;
                 font-size: 35px;
             }
 
@@ -133,17 +134,31 @@
             }
 
             &-plus {
+                user-select: none;
                 font-size: 18px;
             }
 
             &-card {
-                height: 25px;
+                height: 40px;
                 position: absolute;
                 right: 120px;
                 top: 18px;
 
                 @include respond(desktop) {
+                    cursor: pointer;
                     display: none;
+                    right: unset;
+                    top: unset;
+                    bottom: 9px;
+                    width: 32px;
+                    padding: 3px;
+                    border: 1px solid rgb(210, 210, 210);
+                    background: transparent;
+                    border-radius: var(--main-border-radius);
+                }
+
+                @include respond(md) {
+                    height: 25px;
                 }
             }
 

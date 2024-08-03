@@ -26,33 +26,42 @@
             <div class="row" [class.admin-row]="client.isLogin && client.isAdmin">
                 <div class="col-xl-3 col-lg-3 col-md-3 mobile-footer" [class.hide]="client.isLogin && client.isAdmin">
                     <div class="confirm">
-                        <ng-container *ngIf="productInShopCardFlag; else notInCardButton">
-                            <img class="confirm-button-card" src="assets/svg/shop-card.svg" (click)="goToCard()">
-                            <div class="confirm-button">
-                                <div class="confirm-button-plus" (click)="plus_onClick()">+</div>
-                                <div class="confirm-button-count">
-                                    {{ wantToBuyAmount }}
+                        <ng-container *ngIf="productIsAvailable(); else notAvailable">
+                            <ng-container *ngIf="productInShopCardFlag; else notInCardButton">
+                                <img class="confirm-button-card" src="assets/svg/shop-card.svg" (click)="goToCard()">
+                                <div class="confirm-button">
+                                    <div class="confirm-button-plus" (click)="plus_onClick()">+</div>
+                                    <div class="confirm-button-count">
+                                        {{ wantToBuyAmount }}
+                                    </div>
+                                    <ng-container *ngIf="wantToBuyAmount === 1; else showMinus">
+                                        <span nz-icon class="red" nzType="delete" nzTheme="outline"
+                                            (click)="delete_onClick()" nzDanger></span>
+                                    </ng-container>
                                 </div>
-                                <ng-container *ngIf="wantToBuyAmount === 1; else showMinus">
-                                    <span nz-icon class="red" nzType="delete" nzTheme="outline"
-                                        (click)="delete_onClick()" nzDanger></span>
-                                </ng-container>
                                 <ng-template #showMinus>
                                     <div class="confirm-button-minus" (click)="minus_onClick()">-</div>
                                 </ng-template>
-                            </div>
+                            </ng-container>
+                            <ng-template #notInCardButton>
+                                <ng-container *ngIf="client.isLogin">
+                                    <div class="d-flex w-100">
+                                        <button class="confirm-button" (click)="addToCard_onClick()">
+                                            {{ 'addToCard' | translate }}
+                                        </button>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="!client.isLogin">
+                                    <button class="confirm-button" (click)="register_onClick()">
+                                        {{ 'loginButton' | translate }}
+                                    </button>
+                                </ng-container>
+                            </ng-template>
                         </ng-container>
-                        <ng-template #notInCardButton>
-                            <ng-container *ngIf="client.isLogin">
-                                <button class="confirm-button" (click)="addToCard_onClick()">
-                                    {{ 'addToCard' | translate }}
-                                </button>
-                            </ng-container>
-                            <ng-container *ngIf="!client.isLogin">
-                                <button class="confirm-button" (click)="register_onClick()">
-                                    {{ 'loginButton' | translate }}
-                                </button>
-                            </ng-container>
+                        <ng-template #notAvailable>
+                            <div class="confirm-button red">
+                                {{ 'notAvailable' | translate }}
+                            </div>
                         </ng-template>
                         <div class="confirm-price">
                             <span class="confirm-price-name">{{ 'price' | translate }}:</span>
@@ -88,6 +97,7 @@
                                     <ng-container *ngFor="let size of product.productSize">
                                         <button class="detail-size-sizes-button"
                                             [class.detail-size-sizes-button-disabled]="size.amount < 1"
+                                            [disabled]="size.amount < 1"
                                             [class.detail-size-sizes-button-active]="selectedSize === size"
                                             (click)="selectSize_onClick(size)">
                                             {{ size.size }}

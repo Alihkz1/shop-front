@@ -10,6 +10,9 @@ import { RedZoomModule } from 'ngx-red-zoom';
   styleUrl: './gallery.component.scss'
 })
 export class GalleryComponent {
+  /* left and right arrows */
+  /* if last image left goes to first item */
+
   @Input() images: string[];
   currentImageIndex = 0;
 
