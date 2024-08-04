@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuApi } from '../../shared/menu.api';
-import { ClientService } from '../../../shared/service/client.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Product } from '../../../shared/model/product.model';
 import { Router } from '@angular/router';
@@ -17,7 +16,6 @@ export class SavedProductsComponent implements OnInit {
   public get savedItems() { return this._savedItems$.getValue() }
 
   constructor(
-    private client: ClientService,
     private menuApi: MenuApi,
     private router: Router,
   ) { }
@@ -27,8 +25,7 @@ export class SavedProductsComponent implements OnInit {
   }
 
   private getData() {
-    const { userId } = this.client.getUser.user;
-    this.dataLoading = this.menuApi.getUserSavedItems(userId).subscribe(({ data }: any) => {
+    this.dataLoading = this.menuApi.getUserSavedItems().subscribe(({ data }: any) => {
       if (data) this._savedItems$.next(data.products)
     })
   }

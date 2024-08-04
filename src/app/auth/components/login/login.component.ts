@@ -79,7 +79,7 @@ export class LoginComponent {
   }
 
   private getShopCardLength() {
-    this.menuApi.getUserShopCardLength(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
+    this.menuApi.getUserShopCardLength().subscribe(({ success, data }: any) => {
       if (success && data) {
         this.client.shopCardLength = data;
       }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuApi } from '../../shared/menu.api';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { BehaviorSubject, finalize } from 'rxjs';
 import { ClientService } from '../../../shared/service/client.service';
 import { Product } from '../../../shared/model/product.model';
@@ -25,7 +25,6 @@ export class ShopCardComponent implements OnInit {
   constructor(
     private router: Router,
     private menuApi: MenuApi,
-    private route: ActivatedRoute,
     private client: ClientService,
   ) { }
 
@@ -36,9 +35,7 @@ export class ShopCardComponent implements OnInit {
   getData() {
     if (this.loadingCounter === 0) this.dataLoading = true;
     this.loadingCounter++;
-
-    const { userId } = this.route.snapshot.params;
-    this.menuApi.getUserShopCard(userId).subscribe(({ data, success }: any) => {
+    this.menuApi.getUserShopCard().subscribe(({ data, success }: any) => {
       if (success && data?.cards) {
         let cards: ShopCardDto[] = data.cards;
         const productIds: number[] = cards.map((el: ShopCardDto) => el.product.product.productId);

@@ -69,7 +69,7 @@ export class ProductDetailComponent implements OnInit {
 
   private getShopCard() {
     if (!this.client.isLogin || this.client.isAdmin) return;
-    this.menuApi.getUserShopCardLightList(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
+    this.menuApi.getUserShopCardLightList().subscribe(({ success, data }: any) => {
       if (success && data) {
         this._userShopCard$.next(data.cards)
         this.checkProductInShopCard(data.cards)
@@ -202,8 +202,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   goToCard() {
-    const { userId } = this.client.getUser.user;
-    this.router.navigate(['menu/card', userId])
+    this.router.navigate(['menu/card'])
   }
 
   back() {

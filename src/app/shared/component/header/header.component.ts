@@ -41,11 +41,11 @@ export class HeaderComponent {
 
   constructor(
     private router: Router,
+    public menuApi: MenuApi,
     public client: ClientService,
+    public menuService: MenuService,
     public viewPort: ViewportService,
     private message: NzMessageService,
-    public menuService: MenuService,
-    public menuApi: MenuApi,
     private translate: TranslateService,
   ) { }
 
@@ -76,7 +76,7 @@ export class HeaderComponent {
   }
 
   navigateToShopCard() {
-    this.router.navigate([`menu/card/${this.client.getUser.user.userId}`]);
+    this.router.navigate(['menu/card']);
   }
 
   isActiveRoute(route: string): boolean {

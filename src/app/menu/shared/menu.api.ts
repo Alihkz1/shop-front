@@ -6,7 +6,7 @@ import { Api } from '../../shared/class/request-builder';
 })
 export class MenuApi {
 
-  addComment(model: { userId: number, message: string | null }) {
+  addComment(model: { message: string }) {
     return Api()
       .post()
       .controller('comment')
@@ -83,30 +83,27 @@ export class MenuApi {
       .call();
   }
 
-  public getUserShopCardLightList(userId: number) {
+  public getUserShopCardLightList() {
     return Api()
       .get()
       .controller('card')
       .action('light')
-      .pathVariable(String(userId))
       .call()
   }
 
-  public getUserShopCard(userId: number) {
+  public getUserShopCard() {
     return Api()
       .get()
       .controller('card')
       .action('user')
-      .pathVariable(String(userId))
       .call()
   }
 
-  public getUserShopCardLength(userId: number) {
+  public getUserShopCardLength() {
     return Api()
       .get()
       .controller('card')
       .action('length')
-      .pathVariable(String(userId))
       .call()
   }
 
@@ -200,11 +197,10 @@ export class MenuApi {
       .call()
   }
 
-  public getUserSavedItems(userId: number) {
+  public getUserSavedItems() {
     return Api()
       .get()
       .controller('saved')
-      .pathVariable(String(userId))
       .call()
   }
 

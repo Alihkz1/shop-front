@@ -49,7 +49,7 @@ export class ConfirmCardComponent implements OnInit {
 
   private getShopCard() {
     if (!this.client.isLogin || this.client.isAdmin) return;
-    this.menuApi.getUserShopCard(this.client.getUser.user.userId).subscribe(({ success, data }: any) => {
+    this.menuApi.getUserShopCard().subscribe(({ success, data }: any) => {
       if (success && data) {
         const cards: ShopCardDto[] = data.cards;
         this._cards$.next(data.cards);
@@ -90,8 +90,7 @@ export class ConfirmCardComponent implements OnInit {
             this.goToPay()
           else {
             this.message.create('error', this.translate.instant('orderAmountError'))
-            const { userId } = this.client.getUser.user;
-            this.router.navigate(['menu/card', userId])
+            this.router.navigate(['menu/card'])
           }
         }
       })

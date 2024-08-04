@@ -32,7 +32,7 @@ export const routes: Routes = [
                 component: MenuProfileComponent
             },
             {
-                path: 'card/:userId',
+                path: 'card',
                 component: ShopCardComponent
             },
             {
