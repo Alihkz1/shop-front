@@ -35,8 +35,7 @@ export class ProductSearchComponent implements OnInit {
 
   getData(q: string) {
     const model = {
-      q,
-      u: this.client.isLogin ? this.client.getUser.user.userId : null
+      q
     }
     this.dataLoading = this.menuApi.searchProductByName(model).subscribe(({ data }: any) => {
       if (data) {
@@ -48,7 +47,7 @@ export class ProductSearchComponent implements OnInit {
 
   private getSearchHistory() {
     if (this.client.isLogin)
-      this.menuApi.getSearchHistory(this.client.getUser.user.userId).subscribe(({ data }: any) => {
+      this.menuApi.getSearchHistory().subscribe(({ data }: any) => {
         this.menuService.setHeaderSearchHistory = data.history;
       })
   }

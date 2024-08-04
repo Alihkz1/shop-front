@@ -69,7 +69,7 @@ export class LoginComponent {
               localStorage.removeItem('routeAfterLogin')
             }
           }
-          this.getSearchHistory(data.user.userId)
+          this.getSearchHistory()
           this.message.create(
             'success',
             this.translate.instant('loginSuccess')
@@ -86,8 +86,8 @@ export class LoginComponent {
     })
   }
 
-  private getSearchHistory(userId: number) {
-    this.menuApi.getSearchHistory(userId).subscribe(({ data }: any) => {
+  private getSearchHistory() {
+    this.menuApi.getSearchHistory().subscribe(({ data }: any) => {
       this.menuService.setHeaderSearchHistory = data.history;
     })
   }

@@ -36,8 +36,7 @@ export class MenuProfileComponent implements OnInit {
   }
 
   getData() {
-    const { userId } = this.client.getUser.user;
-    this.menuApi.getUser(userId).subscribe(({ data }: any) => {
+    this.menuApi.getUser().subscribe(({ data }: any) => {
       this.form.patchValue(data.user);
     })
   }

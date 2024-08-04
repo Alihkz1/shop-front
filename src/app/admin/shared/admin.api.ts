@@ -150,12 +150,11 @@ export class AdminApi {
       .call()
   }
 
-  public getUser(userId: number) {
+  public getUser() {
     return Api()
       .get()
       .controller('user')
       .action('retrieve')
-      .pathVariable(String(userId))
       .call()
   }
 

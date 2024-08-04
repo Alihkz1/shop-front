@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuApi } from '../../shared/menu.api';
-import { ClientService } from '../../../shared/service/client.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Product } from '../../../shared/model/product.model';
 import { Router } from '@angular/router';
@@ -33,7 +32,6 @@ export class MyOrdersComponent implements OnInit {
     private router: Router,
     private menuApi: MenuApi,
     private adminApi: AdminApi,
-    private client: ClientService,
     private message: NzMessageService,
     private translate: TranslateService,
   ) { }
@@ -43,8 +41,7 @@ export class MyOrdersComponent implements OnInit {
   }
 
   getOrders() {
-    const { userId } = this.client.getUser.user
-    this.dataLoading = this.menuApi.getOrders({ userId }).subscribe(({ success, data }: any) => {
+    this.dataLoading = this.menuApi.getOrders({}).subscribe(({ success, data }: any) => {
       if (!success) return;
 
       const mapped = data.userAllOrders.map((el: OrderDto) => {

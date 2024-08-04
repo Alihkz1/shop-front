@@ -36,8 +36,7 @@ export class AdminProfileComponent implements OnInit {
   }
 
   getData() {
-    const { userId } = this.client.getUser.user;
-    this.adminApi.getUser(userId).subscribe(({ data }: any) => {
+    this.adminApi.getUser().subscribe(({ data }: any) => {
       this.form.patchValue(data.user);
     })
   }

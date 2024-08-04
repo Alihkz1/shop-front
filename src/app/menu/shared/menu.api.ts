@@ -57,12 +57,11 @@ export class MenuApi {
       .call();
   }
 
-  public getUser(userId: number) {
+  public getUser() {
     return Api()
       .get()
       .controller('user')
       .action('retrieve')
-      .pathVariable(String(userId))
       .call();
   }
 
@@ -138,7 +137,7 @@ export class MenuApi {
       .call()
   }
 
-  public getOrders(model: { userId: number; status?: number }) {
+  public getOrders(model: { status?: number }) {
     return Api()
       .get()
       .controller('order')
@@ -227,11 +226,10 @@ export class MenuApi {
       .call()
   }
 
-  public getSearchHistory(userId: number) {
+  public getSearchHistory() {
     return Api()
       .get()
       .controller('user-product-search')
-      .pathVariable(userId.toString())
       .call()
   }
 
