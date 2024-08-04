@@ -56,15 +56,14 @@ export class ProductsComponent implements OnInit {
 
   getData() {
     const { categoryId } = this.route.snapshot.params;
-    this.dataLoading = this.menuApi.getProducts(
-      categoryId,
-      { sort: this.sortValue }
-    ).subscribe(({ success, data }: any) => {
-      if (success) {
-        const products: ProductDto[] = data.products;
-        this._products$.next(products);
-      }
-    })
+    this.dataLoading = this.menuApi
+      .getProducts({ sort: this.sortValue, categoryId })
+      .subscribe(({ success, data }: any) => {
+        if (success) {
+          const products: ProductDto[] = data.products;
+          this._products$.next(products);
+        }
+      })
   }
 
   sort_onChange(index: SORT_PRODUCT) {

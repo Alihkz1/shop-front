@@ -23,12 +23,11 @@ export class MenuApi {
       .call();
   }
 
-  public getProducts(categoryId: number, params: any = {}) {
+  public getProducts(params: any = {}) {
     return Api()
       .get()
       .controller('product')
       .action('list')
-      .pathVariable(String(categoryId))
       .param(params)
       .call();
   }
@@ -144,8 +143,7 @@ export class MenuApi {
       .get()
       .controller('order')
       .action('list')
-      .pathVariable(String(model.userId))
-      .param({ status: model.status })
+      .param(model)
       .call()
   }
 
