@@ -47,7 +47,7 @@ export class UsersOrdersComponent implements OnInit {
     this.dataLoading = this.adminApi.getAllOrders({}).subscribe(({ success, data }: any) => {
       if (!success) return;
 
-      const mapped = data.allOrders.map((el: any) => {
+      const mapped = data.orders.map((el: any) => {
         return {
           ...el,
           totalPrice: this.getTotalPrice(el.products),

@@ -44,7 +44,7 @@ export class MyOrdersComponent implements OnInit {
     this.dataLoading = this.menuApi.getOrders({}).subscribe(({ success, data }: any) => {
       if (!success) return;
 
-      const mapped = data.userAllOrders.map((el: OrderDto) => {
+      const mapped = data.orders.map((el: OrderDto) => {
         return {
           ...el,
           showNotReceived: this.showNotReceived(el.order.date),
