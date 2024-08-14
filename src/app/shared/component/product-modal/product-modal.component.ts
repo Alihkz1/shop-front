@@ -7,7 +7,6 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { AdminApi } from '../../../admin/shared/admin.api';
 import { Category } from '../../model/category.model';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { Subscription } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -25,7 +24,7 @@ import { Size } from '../../model/size.model';
   imports: [
     ReactiveFormsModule, CommonModule, FormsModule, NzCheckboxModule, ImageCropperModule,
     PriceFormatDirective, TranslateModule, NzSelectModule,
-    NzInputModule, NzButtonModule, NzUploadModule, NzIconModule
+    NzInputModule, NzButtonModule, NzIconModule
   ],
   templateUrl: './product-modal.component.html',
   styleUrl: './product-modal.component.scss'

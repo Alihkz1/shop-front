@@ -9,5 +9,6 @@
 <div class="d-flex justify-content-end">
     <button class="mx-1" nz-button nzType="default" (click)="close(false)">{{ 'back' | translate }}</button>
     <button class="mx-1" nz-button nzType="primary" [nzLoading]="uploadLoading && !uploadLoading.closed"
-        (click)="close(true)">{{ 'submit' | translate }}</button>
+        (click)="close(true)">{{ 'submit' | translate }}
+    </button>
 </div>

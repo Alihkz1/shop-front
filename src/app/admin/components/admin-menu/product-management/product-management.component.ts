@@ -33,7 +33,6 @@ export class ProductManagementComponent implements OnInit {
     productId: new FormControl(null, Validators.required),
   });
 
-  uploadedImgUrl = new FormControl('')
   dataLoading: Subscription;
   categories: CategoryDto[] = []
 

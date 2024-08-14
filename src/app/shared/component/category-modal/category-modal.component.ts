@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core'
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
-import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { TranslateModule } from "@ngx-translate/core";
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -21,7 +20,7 @@ import { AspectRatioTypes } from '../image-cropper-modal/image-cropper-modal.com
   standalone: true,
   imports: [
     ReactiveFormsModule, ImageCropperModule, NzInputModule, ReactiveFormsModule,
-    NzUploadModule, TranslateModule, NzButtonModule, NzIconModule, NzCheckboxModule
+    TranslateModule, NzButtonModule, NzIconModule, NzCheckboxModule
   ],
   templateUrl: './category-modal.component.html',
   styleUrl: './category-modal.component.scss'
@@ -65,6 +64,7 @@ export class CategoryModalComponent implements OnInit {
   }
 
   uploadFile(): void {
+    /* todo: upload to s3 */
     const formData = new FormData();
     formData.append('file', this.croppedImage);
     formData.append('upload_preset', 'online_shop_preset');

@@ -11,7 +11,6 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductManagementComponent } from './components/admin-menu/product-management/product-management.component';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzModalModule } from 'ng-zorro-antd/modal';
@@ -39,7 +38,6 @@ const NZ = [
   NzButtonModule,
   NzSelectModule,
   NzInputModule,
-  NzUploadModule,
   NzIconModule,
   NzPopconfirmModule,
   NzModalModule,
