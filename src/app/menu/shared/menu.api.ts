@@ -6,6 +6,14 @@ import { Api } from '../../shared/class/request-builder';
 })
 export class MenuApi {
 
+  uploadFile(file: FormData) {
+    return Api()
+      .post()
+      .controller('upload')
+      .body(file)
+      .call();
+  }
+
   addComment(model: { message: string }) {
     return Api()
       .post()

@@ -18,6 +18,7 @@ export class RequestBuilder {
     private request: IRequest = {
         method: "get",
         action: '',
+        endpoint: environment.API_BASE,
         pathVariable: '',
         body: null,
         params: null,
@@ -71,8 +72,13 @@ export class RequestBuilder {
         return this
     }
 
+    public endpoint(endpoint: string): this {
+        this.request.endpoint = endpoint;
+        return this
+    }
+
     public call(): any {
-        let url = environment.API_BASE + this.request.version + '/' + this.request.controller;
+        let url = this.request.endpoint + this.request.version + '/' + this.request.controller;
 
         if (this.request.action.length)
             url += '/' + this.request.action;
@@ -130,6 +136,7 @@ export interface IRequest {
     method: requestType;
     body?: any;
     params?: any;
+    endpoint?: string;
     controller: string;
     action: string;
     pathVariable: string;

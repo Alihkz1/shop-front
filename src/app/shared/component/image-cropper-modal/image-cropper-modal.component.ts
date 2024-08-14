@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
-import { environment } from '../../../../env/environment';
 import { Subscription } from 'rxjs';
 import { TranslateModule } from "@ngx-translate/core";
+import { MenuApi } from '../../../menu/shared/menu.api';
+import { v4 as uuidv4 } from 'uuid';
 
 export enum AspectRatioTypes {
   SQUARE = 1 / 1,
@@ -26,7 +26,7 @@ export enum AspectRatioTypes {
 })
 export class ImageCropperModalComponent {
   modalData = inject(NZ_MODAL_DATA);
-  croppedImage: string | null = null;
+  croppedImage: ImageCroppedEvent | null = null;
   aspectRatio = AspectRatioTypes.SQUARE;
   checkBoxOne = true;
   checkBoxTwo = false;
@@ -35,34 +35,44 @@ export class ImageCropperModalComponent {
 
   constructor(
     private modalRef: NzModalRef,
-    private http: HttpClient
+    private menuApi: MenuApi
   ) { }
 
   imageCropped(event: ImageCroppedEvent) {
-    this.croppedImage = event.base64;
+    this.croppedImage = event;
   }
 
   close(success: boolean) {
     if (!success) {
       this.modalRef.close({ success })
-    } else this.uploadFile(this.croppedImage)
+    } else this.uploadFile()
   }
 
-  uploadFile(file: string): void {
+  base64ToFile(base64: string): File {
+    const [header, data] = base64.split(',');
+    const mime = header.match(/:(.*?);/)[1];
+    const binary = atob(data);
+    const array = [];
+    for (let i = 0; i < binary.length; i++) {
+      array.push(binary.charCodeAt(i));
+    }
+    return new File([new Uint8Array(array)], this.modalData.file.name, { type: mime });
+  }
+
+
+  uploadFile(): void {
+    const file = this.base64ToFile(this.croppedImage.base64);
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'online_shop_preset');
-    const req = new HttpRequest('POST', environment.UPLOAD_URL, formData)
-    this.uploadLoading = this.http.request(req).subscribe((event: HttpEvent<any>) => {
-      if (event instanceof HttpResponse) {
-        if (event.ok) {
+    this.menuApi.uploadFile(formData)
+      .subscribe(({ success, data }: any) => {
+        if (success) {
           this.modalRef.close({
             success: true,
-            uploadedImgUrl: event.body.url
+            uploadedImgUrl: data
           })
         }
-      }
-    })
+      })
   }
 
   aspectRatio_onChange(event: boolean, index: number) {
@@ -82,6 +92,5 @@ export class ImageCropperModalComponent {
       this.checkBoxOne = false
       this.checkBoxTwo = false
     }
-
   }
 }

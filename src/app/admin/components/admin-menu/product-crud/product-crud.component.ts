@@ -158,11 +158,11 @@ export class ProductCrudComponent implements OnInit {
   image_onSelect(event: any) {
     const file: File = event.target.files[0];
     if (file && ValidImageUploaded(file)) {
-      this.openImageCropperModal(event);
+      this.openImageCropperModal(event, file);
     } else this.message.create('error', this.translate.instant('onlyImageAccepted'))
   }
 
-  openImageCropperModal(nzData: Event) {
+  openImageCropperModal(event: Event, file: File) {
     this.modalService.create({
       nzFooter: null,
       nzCentered: true,
@@ -172,7 +172,7 @@ export class ProductCrudComponent implements OnInit {
         borderRadius: "6px",
       },
       nzContent: ImageCropperModalComponent,
-      nzData,
+      nzData: { event, file },
     }).afterClose.subscribe((result: { success: boolean; uploadedImgUrl: string }) => {
       if (result?.success) {
         this.uploadedImages.push(result.uploadedImgUrl)
