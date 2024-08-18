@@ -42,7 +42,7 @@ export class ProductCrudComponent implements OnInit {
   primaryImageIndex: number = 0;
 
   tinyConfig = tinyConfig;
-  tinyApi = "re8awji0y3nq8ddyftc9xgjjy4f9tjsyjc7303jaz6ok0196";
+  tinyApi = "odyo8qga6y1ngqxgw8nognasxojsxnoy54l3gp7iznyi269e";
 
   carouselStyleConfig: CarouselConfig = {
     width: '350px',
