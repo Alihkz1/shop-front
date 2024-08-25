@@ -1,6 +1,6 @@
 <div class="d-flex flex-column h-100">
     <div class="page-title">
-        <div *ngIf="client.isLogin && !client.isAdmin" class="page-title-actions">
+        <div class="page-title-actions">
             <div *ngIf="client.isLogin && !client.isAdmin" class="saved">
                 <img [src]="saveSvgPath" (click)="saveChange_onClick()">
             </div>
@@ -44,18 +44,18 @@
                                 </ng-template>
                             </ng-container>
                             <ng-template #notInCardButton>
-                                <ng-container *ngIf="client.isLogin">
-                                    <div class="d-flex w-100">
-                                        <button class="confirm-button" (click)="addToCard_onClick()">
-                                            {{ 'addToCard' | translate }}
-                                        </button>
-                                    </div>
-                                </ng-container>
-                                <ng-container *ngIf="!client.isLogin">
+                                <!-- <ng-container *ngIf="client.isLogin"> -->
+                                <div class="d-flex w-100">
+                                    <button class="confirm-button" (click)="addToCard_onClick()">
+                                        {{ 'addToCard' | translate }}
+                                    </button>
+                                </div>
+                                <!-- </ng-container> -->
+                                <!-- <ng-container *ngIf="!client.isLogin">
                                     <button class="confirm-button" (click)="register_onClick()">
                                         {{ 'loginButton' | translate }}
                                     </button>
-                                </ng-container>
+                                </ng-container> -->
                             </ng-template>
                         </ng-container>
                         <ng-template #notAvailable>

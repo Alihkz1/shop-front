@@ -33,6 +33,7 @@ export class ShopCardComponent implements OnInit {
   }
 
   getData() {
+    if (!this.client.isLogin) return
     if (this.loadingCounter === 0) this.dataLoading = true;
     this.loadingCounter++;
     this.menuApi.getUserShopCard().subscribe(({ data, success }: any) => {

@@ -18,15 +18,13 @@ import { TranslateService } from "@ngx-translate/core";
   styleUrl: './product-detail.component.scss'
 })
 export class ProductDetailComponent implements OnInit {
-  /* change size */
-  /* better cols margin */
   likeSvgPath = LIKE_SVG_PATH.not_like;
   saveSvgPath = SAVE_SVG_PATH.unsaved;
   dataLoading: Subscription;
   product: ProductDto;
   selectedSize: Size;
   productInShopCardFlag = false
-  wantToBuyAmount: number = 0
+  wantToBuyAmount: number = 1
   productInShopCard: ShopCard; private _userShopCard$ = new BehaviorSubject<ShopCard[]>([]);
   public get userShopCard(): ShopCard[] { return this._userShopCard$.getValue() }
 
@@ -46,11 +44,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   public productIsAvailable(): boolean {
-    if (this.product.productSize.length > 0) {
-      return this.product.productSize.findIndex(el => el.amount > 0) > -1;
-    } else {
-      return this.product.product.amount > 0;
-    }
+    return this.product.productSize.length > 0 ?
+      this.product.productSize.findIndex(el => el.amount > 0) > -1 :
+      this.product.product.amount > 0;
   }
 
   private checkIsSaved() {
@@ -68,7 +64,11 @@ export class ProductDetailComponent implements OnInit {
   }
 
   private getShopCard() {
-    if (!this.client.isLogin || this.client.isAdmin) return;
+    if (this.client.isAdmin) return;
+    if (!this.client.isLogin) {
+      this.checkProductInShopCard()
+      return
+    }
     this.menuApi.getUserShopCardLightList().subscribe(({ success, data }: any) => {
       if (success && data) {
         this._userShopCard$.next(data.cards)
@@ -77,8 +77,11 @@ export class ProductDetailComponent implements OnInit {
     })
   }
 
-  private checkProductInShopCard(products: ShopCard[]) {
-    this.productInShopCard = products.find(p => p.productId === this.product.product.productId)
+  private checkProductInShopCard(products: ShopCard[] = []) {
+    if (!this.client.isLogin) {
+      let localShopCard: ShopCard[] = JSON.parse(localStorage.getItem('shopCard')) || [];
+      this.productInShopCard = localShopCard.find((el) => el.productId === this.product.product.productId)
+    } else this.productInShopCard = products.find(p => p.productId === this.product.product.productId)
     if (this.productInShopCard) {
       this.productInShopCardFlag = true
       this.wantToBuyAmount = this.productInShopCard.amount
@@ -105,14 +108,19 @@ export class ProductDetailComponent implements OnInit {
       this.message.create('error', this.translate.instant('pleaseSelectSize'));
       return
     }
-    const model = {
+    const model: ShopCard = {
       shopCardId: this.productInShopCard?.shopCardId,
       productId: this.product.product.productId,
-      userId: this.client.getUser.user.userId,
+      userId: this.client.getUser?.user.userId,
       size: this.product.productSize.length > 0 ? this.selectedSize.size : null,
       amount: 1,
       paid: 0,
     }
+    if (!this.client.isLogin) this.modifyLocalStorage(model)
+    else this.modifyCard(model)
+  }
+
+  private modifyCard(model: ShopCard) {
     this.menuApi.modifyShopCard(model).subscribe(({ success, data }: any) => {
       if (success) {
         this.message.create('success', this.translate.instant('addedToCard'))
@@ -123,6 +131,25 @@ export class ProductDetailComponent implements OnInit {
         this.wantToBuyAmount = data.card.amount
       }
     })
+  }
+
+  private modifyLocalStorage(model: ShopCard) {
+    let localShopCard: ShopCard[] = JSON.parse(localStorage.getItem('shopCard')) || [];
+    let productInLocalStorage = localShopCard.find((el) => el.productId === model.productId);
+    if (productInLocalStorage) {
+      localShopCard = localShopCard.map((el) => {
+        if (el.productId === model.productId) {
+          return model
+        } else return el
+      })
+    } else {
+      localShopCard.push(model);
+    }
+    localStorage.setItem('shopCard', JSON.stringify(localShopCard))
+    this.client.shopCardLength += 1;
+    this.productInShopCardFlag = true;
+    this.productInShopCard = productInLocalStorage
+    this.message.create('success', this.translate.instant('addedToCard'))
   }
 
   public selectSize_onClick(size: Size) {
@@ -137,26 +164,86 @@ export class ProductDetailComponent implements OnInit {
   }
 
   public delete_onClick() {
-    this.menuApi.deleteShopCard(this.productInShopCard.shopCardId).subscribe(({ success }: any) => {
-      if (success) {
-        this.client.shopCardLength -= 1;
-        this.productInShopCard = null;
-        this.productInShopCardFlag = false;
-        this.wantToBuyAmount = 1;
-        this.selectedSize = null;
-      }
-    })
+    if (this.client.isLogin)
+      this.menuApi.deleteShopCard(this.productInShopCard.shopCardId).subscribe(({ success }: any) => {
+        if (success) {
+          this.client.shopCardLength -= 1;
+          this.productInShopCard = null;
+          this.productInShopCardFlag = false;
+          this.wantToBuyAmount = 1;
+          this.selectedSize = null;
+        }
+      })
+    else {
+      let localShopCard: ShopCard[] = JSON.parse(localStorage.getItem('shopCard')) || [];
+      localShopCard = localShopCard.filter((el) => el.productId != this.product.product.productId)
+      localStorage.setItem('shopCard', JSON.stringify(localShopCard))
+      this.client.shopCardLength -= 1;
+      this.productInShopCard = null;
+      this.productInShopCardFlag = false;
+      this.wantToBuyAmount = 1;
+      this.selectedSize = null;
+    }
   }
 
   minus_onClick() {
     if (this.wantToBuyAmount === 1 || this.wantToBuyAmount === 0) return
-    this.wantToBuyAmount -= 1;
-    this.modifyShopCard()
+    if (!this.client.isLogin) this.minus_notLogin_onClick()
+    else {
+      this.wantToBuyAmount -= 1;
+      this.modifyShopCard()
+    }
+  }
+
+  minus_notLogin_onClick() {
+    let localShopCard: ShopCard[] = JSON.parse(localStorage.getItem('shopCard')) || [];
+    localShopCard = localShopCard.map((el) => {
+      if (el.productId === this.product.product.productId) {
+        this.wantToBuyAmount = el.amount - 1;
+        return {
+          ...el,
+          amount: el.amount - 1
+        }
+      } else return el
+    })
+    localStorage.setItem('shopCard', JSON.stringify(localShopCard))
   }
 
   plus_onClick() {
-    const card = this.userShopCard.find(c => c.productId === this.product.product.productId);
-    if (!card) return;
+    if (!this.client.isLogin) this.plus_notLogin_onClick()
+    else {
+      const card = this.userShopCard.find(c => c.productId === this.product.product.productId);
+      if (!card) return;
+      if (this.product.productSize.length > 0) {
+        const maxAmountOfSelectedSize = +this.product.productSize
+          .find((e: Size) => e.size === this.selectedSize.size).amount;
+        if (this.wantToBuyAmount >= maxAmountOfSelectedSize) {
+          this.message.create('error', this.translate.instant('noAmountForThisSize', {
+            size: this.selectedSize.size,
+            count: maxAmountOfSelectedSize
+          }));
+          return
+        } else {
+          this.wantToBuyAmount += 1
+          this.modifyShopCard()
+        }
+      }
+      else {
+        if (this.wantToBuyAmount >= this.product.product.amount) {
+          this.message.create('error', this.translate.instant('noAmount', {
+            count: this.product.product.amount
+          }));
+          return
+        }
+        this.wantToBuyAmount += 1
+        this.modifyShopCard()
+      }
+    }
+  }
+
+  plus_notLogin_onClick() {
+    let localShopCard: ShopCard[] = JSON.parse(localStorage.getItem('shopCard')) || [];
+    let productInLocalStorage = localShopCard.find((el) => el.productId === this.product.product.productId);
     if (this.product.productSize.length > 0) {
       const maxAmountOfSelectedSize = +this.product.productSize
         .find((e: Size) => e.size === this.selectedSize.size).amount;
@@ -166,39 +253,56 @@ export class ProductDetailComponent implements OnInit {
           count: maxAmountOfSelectedSize
         }));
         return
-      } else {
-        this.wantToBuyAmount += 1
-        this.modifyShopCard()
       }
-    }
-    else {
-      if (this.wantToBuyAmount >= this.product.product.amount) {
+    } else {
+      if (productInLocalStorage.amount >= this.product.product.amount) {
         this.message.create('error', this.translate.instant('noAmount', {
           count: this.product.product.amount
         }));
         return
       }
-      this.wantToBuyAmount += 1
-      this.modifyShopCard()
     }
+    localShopCard = localShopCard.map((el) => {
+      if (el.productId === this.product.product.productId) {
+        this.wantToBuyAmount = el.amount + 1;
+        return {
+          ...el,
+          amount: el.amount + 1
+        }
+      } else return el
+    })
+    localStorage.setItem('shopCard', JSON.stringify(localShopCard))
   }
 
   modifyShopCard() {
     const model = {
       shopCardId: this.productInShopCard?.shopCardId,
       productId: this.product.product.productId,
-      userId: this.client.getUser.user.userId,
+      userId: this.client.getUser?.user.userId,
       size: this.selectedSize.size,
       amount: this.wantToBuyAmount > 0 ? this.wantToBuyAmount : 1,
       paid: 0,
     }
-    this.menuApi.modifyShopCard(model).subscribe(({ success, data }: any) => {
-      if (success) {
-        this.productInShopCardFlag = true;
-        this.productInShopCard = data.card
-        this.wantToBuyAmount = data.card.amount
-      }
-    })
+    if (!this.client.isLogin) {
+      let localShopCard: ShopCard[] = JSON.parse(localStorage.getItem('shopCard')) || [];
+      localShopCard = localShopCard.map((el) => {
+        if (el.productId === this.product.product.productId) {
+          return {
+            ...el,
+            size: this.selectedSize.size
+          }
+        } else return el
+      })
+      localStorage.setItem('shopCard', JSON.stringify(localShopCard))
+    } else {
+      this.menuApi.modifyShopCard(model).subscribe(({ success, data }: any) => {
+        if (success) {
+          this.productInShopCardFlag = true;
+          this.productInShopCard = data.card
+          this.wantToBuyAmount = data.card.amount
+        }
+      })
+    }
   }
 
   goToCard() {
