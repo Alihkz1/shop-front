@@ -27,7 +27,7 @@
             left: 30px;
             height: 40px;
 
-            @include respond(md) {
+            @include respond(xlg) {
                 display: none;
             }
         }
@@ -61,6 +61,12 @@
     height: 20px;
     width: 20px;
     cursor: pointer;
+}
+
+.profile {
+    @include respond(tablet) {
+        margin: 0 10px;
+    }
 }
 
 .button {
@@ -100,6 +106,10 @@
 .client-name {
     font-size: 14px;
     color: #787878;
+
+    @include respond(tablet) {
+        display: none;
+    }
 }
 
 .shop-card {
@@ -211,6 +221,10 @@
 
         @include respond(desktop) {
             min-width: 400px;
+        }
+
+        @include respond(tablet) {
+            min-width: 300px;
         }
     }
 
