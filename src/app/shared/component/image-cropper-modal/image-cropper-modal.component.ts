@@ -8,7 +8,6 @@ import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
 import { Subscription } from 'rxjs';
 import { TranslateModule } from "@ngx-translate/core";
 import { MenuApi } from '../../../menu/shared/menu.api';
-import { v4 as uuidv4 } from 'uuid';
 
 export enum AspectRatioTypes {
   SQUARE = 1 / 1,

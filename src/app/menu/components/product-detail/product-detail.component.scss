@@ -83,6 +83,7 @@
 
         @include respond(md) {
             padding: 10px 0;
+            margin-top: 55px;
         }
     }
 }
@@ -94,7 +95,7 @@
 
     @include respond(md) {
         position: fixed;
-        bottom: 62px;
+        top: 90px;
         height: 60px;
         width: 100vw;
         margin-left: 9px;
