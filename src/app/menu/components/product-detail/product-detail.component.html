@@ -106,6 +106,21 @@
                                 </div>
                             </div>
                         </ng-container>
+                        <ng-container *ngIf="product.productColor.length">
+                            <div class="detail-size">
+                                <div class="detail-size-title">
+                                    {{ 'selectColor' | translate }} :
+                                </div>
+                                <div class="detail-size-sizes">
+                                    <ng-container *ngFor="let color of product.productColor">
+                                        <span class="palette" [class.palette-selected]="selectedColor === color"
+                                            [ngStyle]="{ 'background': color.color }"
+                                            (click)="selectColor_onClick(color)">
+                                        </span>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
                         <ng-container *ngIf="product.productAbout.length">
                             <div class="detail-properties">
                                 <div class="detail-properties-title">

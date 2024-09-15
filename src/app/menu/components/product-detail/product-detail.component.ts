@@ -10,6 +10,7 @@ import { Size } from '../../../shared/model/size.model';
 import { ShopCard } from '../../../shared/model/shop-card.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from "@ngx-translate/core";
+import { Color } from '../../../shared/model/color.model';
 
 
 @Component({
@@ -25,9 +26,12 @@ export class ProductDetailComponent implements OnInit {
   dataLoading: Subscription;
   product: ProductDto;
   selectedSize: Size;
+  selectedColor: Color;
   productInShopCardFlag = false
   wantToBuyAmount: number = 0
-  productInShopCard: ShopCard; private _userShopCard$ = new BehaviorSubject<ShopCard[]>([]);
+  productInShopCard: ShopCard;
+
+  private _userShopCard$ = new BehaviorSubject<ShopCard[]>([]);
   public get userShopCard(): ShopCard[] { return this._userShopCard$.getValue() }
 
 
@@ -83,6 +87,7 @@ export class ProductDetailComponent implements OnInit {
       this.productInShopCardFlag = true
       this.wantToBuyAmount = this.productInShopCard.amount
       this.selectedSize = this.product.productSize.find((e: Size) => e.size === this.productInShopCard.size);
+      this.selectedColor = this.product.productColor.find((e: Color) => e.color === this.productInShopCard.color)
     }
   }
 
@@ -136,6 +141,13 @@ export class ProductDetailComponent implements OnInit {
     this.modifyShopCard()
   }
 
+  public selectColor_onClick(color: Color) {
+    this.selectedColor = color;
+    this.modifyShopCard()
+
+  }
+
+
   public delete_onClick() {
     this.menuApi.deleteShopCard(this.productInShopCard.shopCardId).subscribe(({ success }: any) => {
       if (success) {
@@ -188,7 +200,8 @@ export class ProductDetailComponent implements OnInit {
       shopCardId: this.productInShopCard?.shopCardId,
       productId: this.product.product.productId,
       userId: this.client.getUser.user.userId,
-      size: this.selectedSize.size,
+      size: this.selectedSize?.size,
+      color: this.selectedColor?.color,
       amount: this.wantToBuyAmount > 0 ? this.wantToBuyAmount : 1,
       paid: 0,
     }

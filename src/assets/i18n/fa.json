@@ -148,5 +148,7 @@
   "inCategoryOf": "در دسته بندی",
   "newAbout": "ویژگی جدید",
   "title": "عنوان",
-  "value": "مقدار"
+  "value": "مقدار",
+  "color": "رنگ",
+  "selectColor": "انتخاب رنگ"
 }

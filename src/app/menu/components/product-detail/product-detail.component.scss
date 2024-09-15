@@ -378,3 +378,18 @@
         border-radius: var(--main-border-radius);
     }
 }
+
+.palette {
+    margin: 0 5px;
+    border: none;
+    height: 30px;
+    width: 30px;
+    border-radius: 22px;
+    border: 1px solid #d1d1d1;
+    cursor: pointer;
+
+    &-selected {
+        border: 1px solid #368bff;
+        box-shadow: var(--main-shadow);
+    }
+}

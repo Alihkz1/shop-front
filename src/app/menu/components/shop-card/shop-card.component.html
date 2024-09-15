@@ -15,9 +15,9 @@
                             <div class="box-detail flex-grow-1">
                                 <div>
                                     <div class="box-detail-title">
-                                        <a (click)="navigateToProduct(card.product.product)">{{
-                                            card.product.product.title
-                                            }}</a>
+                                        <a (click)="navigateToProduct(card.product.product)">
+                                            {{ card.product.product.title }}
+                                        </a>
                                     </div>
                                     <div class="box-detail-price"> {{ "price" | translate }}:
                                         <span class="mx-1"> {{ card.product.product.price | currencyPipe }} </span>
@@ -26,6 +26,16 @@
                                     @if (card.shopCard.size) {
                                     <div class="box-detail-size"> {{ "size" | translate }}:
                                         <span class="mx-1"> {{ card.shopCard.size }} </span>
+                                    </div>
+                                    }
+                                    @if (card.shopCard.color) {
+                                    <div class="d-flex align-items-center">
+                                        <div class="box-detail-size d-flex align-itens-center"> {{ "color" | translate
+                                            }}:
+                                        </div>
+                                        <div class="box-detail-palette"
+                                            [ngStyle]="{ 'background': card.shopCard.color }">
+                                        </div>
                                     </div>
                                     }
                                     <div class="box-detail-quantity"> {{ "quantity" | translate }}:

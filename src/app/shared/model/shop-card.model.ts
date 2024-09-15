@@ -4,5 +4,6 @@ export interface ShopCard {
     amount: number;
     productId: number;
     size: string;
+    color: string;
     userId: number;
 }
