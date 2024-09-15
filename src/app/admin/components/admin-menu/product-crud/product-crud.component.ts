@@ -16,6 +16,7 @@ import { ProductDto } from '../../../../shared/model/product-dto.model';
 import { NumberToCurrency } from '../../../../shared/function/currency-format.functions';
 import { CarouselConfig } from '../../../../shared/component/carousel/carousel.component';
 import { About } from '../../../../shared/model/about.model';
+import { Color } from '../../../../shared/model/color.model';
 
 @Component({
   selector: 'app-product-crud',
@@ -33,6 +34,7 @@ export class ProductCrudComponent implements OnInit {
     description: new FormControl(null),
     productId: new FormControl(null),
     size: new FormArray([]),
+    color: new FormArray([]),
     about: new FormArray([]),
   });
 
@@ -53,17 +55,24 @@ export class ProductCrudComponent implements OnInit {
   sizingCheckbox = new FormControl(false);
   public get hasSizing(): boolean { return this.sizingCheckbox.value }
 
+
+  colorCheckbox = new FormControl(false);
+  public get hasColor(): boolean { return this.colorCheckbox.value }
+
   dataLoading: Subscription;
   saveLoading: Subscription;
 
   public sizeByIndex(i: number) { return this.form.controls['size'].controls[i].value; }
   public aboutByIndex(i: number) { return this.form.controls['about'].controls[i].value; }
+  public colorByIndex(i: number) { return this.form.controls['color'].controls[i].value; }
   public get getSizes() { return this.form.controls['size'] as FormArray; }
   public get getAbout() { return this.form.controls['about'] as FormArray; }
+  public get getColor() { return this.form.controls['color'] as FormArray; }
   public getFormArrayItemValue(): any[] { return this.getSizes.value; }
   public getAboutFormArrayItemValue(): any[] { return this.getAbout.value; }
+  public getColorFormArrayItemValue(): any[] { return this.getColor.value; }
 
-  public deleteRow_onClick(i: number) {
+  public deleteSizeRow_onClick(i: number) {
     if (this.sizeByIndex(i).id)
       this.adminApi.deleteSize(this.sizeByIndex(i).id).subscribe(({ success }: any) => {
         if (success) {
@@ -73,6 +82,20 @@ export class ProductCrudComponent implements OnInit {
       })
     else {
       const items = this.form.controls['size'] as FormArray;
+      items.removeAt(i);
+    }
+  }
+
+  public deleteColorRow_onClick(i: number) {
+    if (this.colorByIndex(i).id)
+      this.adminApi.deleteColor(this.colorByIndex(i).id).subscribe(({ success }: any) => {
+        if (success) {
+          const items = this.form.controls['color'] as FormArray;
+          items.removeAt(i);
+        }
+      })
+    else {
+      const items = this.form.controls['color'] as FormArray;
       items.removeAt(i);
     }
   }
@@ -87,9 +110,14 @@ export class ProductCrudComponent implements OnInit {
     private translate: TranslateService
   ) { }
 
-  public addRow_onClick() {
+  public addSizeRow_onClick() {
     const items = this.form.controls['size'] as FormArray;
     items.push(new FormControl({ size: '', amount: 0, id: null, productId: null }));
+  }
+
+  public addColorRow_onClick() {
+    const items = this.form.controls['color'] as FormArray;
+    items.push(new FormControl({ color: '', id: null, productId: null }));
   }
 
   ngOnInit(): void {
@@ -118,6 +146,12 @@ export class ProductCrudComponent implements OnInit {
           this.fillAboutForm(item)
         })
       }
+      if (product.productColor.length) {
+        this.colorCheckbox.setValue(true)
+        product.productColor.forEach((item: Color) => {
+          this.fillColorForm(item)
+        })
+      }
     })
   }
 
@@ -140,6 +174,18 @@ export class ProductCrudComponent implements OnInit {
         id: newItem.id,
         key: newItem.key,
         value: newItem.value,
+        productId: newItem.productId,
+      })
+    );
+  }
+
+
+  public fillColorForm(newItem: Color): void {
+    const formArrayValue = this.form.controls['color'] as FormArray;
+    formArrayValue.push(
+      new FormBuilder().group({
+        id: newItem.id,
+        color: newItem.color,
         productId: newItem.productId,
       })
     );
@@ -192,12 +238,15 @@ export class ProductCrudComponent implements OnInit {
     const aboutArr = this.form.value.about
       .filter((el: any) => el != null)
       .filter((el: any) => el.key != '' && el.value != '');
+    const colorArr = this.form.value.color
+      .filter((el: any) => el.color)
     const model = {
       ...this.form.value,
       price: +this.form.value.price?.replaceAll(',', ''),
       imageUrl: JSON.stringify(this.uploadedImages),
       size: JSON.stringify(sizeArr),
       about: JSON.stringify(aboutArr),
+      color: JSON.stringify(colorArr),
       amount: sizeArr.length > 0 ? 0 : this.form.value.amount,
       primaryImageIndex: this.primaryImageIndex
     }

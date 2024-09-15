@@ -83,3 +83,19 @@
     }
 
 }
+
+.color-wrapper {
+    direction: ltr;
+    display: flex;
+    justify-content: center;
+
+    &-delete {
+        font-size: 22px;
+        margin-right: 20px;
+        color: red;
+        cursor: pointer;
+        padding: 5px;
+        border: 1px solid #ededed;
+        border-radius: 19px;
+    }
+}

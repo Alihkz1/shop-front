@@ -32,6 +32,8 @@
   "productAdded": "Product Added",
   "error": "Error!",
   "actionDone": "Done!",
+  "newColor": "New Color",
+  "hasColor": "Has Color",
   "categories": "Categories",
   "comments": "User's Comments",
   "newCategory": "New Category",

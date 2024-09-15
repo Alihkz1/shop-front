@@ -33,6 +33,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { PriceFormatDirective } from '../menu/shared/directive/price-format.directive';
 import { CarouselComponent } from '../shared/component/carousel/carousel.component';
+import { NzColorPickerModule } from 'ng-zorro-antd/color-picker';
 
 const NZ = [
   NzButtonModule,
@@ -46,7 +47,8 @@ const NZ = [
   NzToolTipModule,
   NzTableModule,
   NzAlertModule,
-  NzTabsModule
+  NzTabsModule,
+  NzColorPickerModule,
 ]
 
 

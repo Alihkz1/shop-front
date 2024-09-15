@@ -79,6 +79,15 @@ export class AdminApi {
       .call()
   }
 
+  public deleteColor(colorId: number) {
+    return Api()
+      .delete()
+      .controller('color')
+      .action('delete')
+      .pathVariable(String(colorId))
+      .call()
+  }
+
   public deleteAbout(aboutId: number) {
     return Api()
       .delete()

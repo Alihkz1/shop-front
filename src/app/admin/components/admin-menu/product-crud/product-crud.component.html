@@ -58,7 +58,8 @@
                     <label nz-checkbox [formControl]="sizingCheckbox">
                     </label>
                 </div>
-                <button *ngIf="hasSizing" nz-button nzType="default" class="new-size-btn" (click)="addRow_onClick()">
+                <button *ngIf="hasSizing" nz-button nzType="default" class="new-size-btn"
+                    (click)="addSizeRow_onClick()">
                     {{ "newSize" | translate }}
                 </button>
             </div>
@@ -67,7 +68,7 @@
                 <ng-container *ngIf="row?.amount != null">
                     <div class="size-wrapper">
                         <span class="delete" nz-icon nzType="delete" nzTheme="outline"
-                            (click)="deleteRow_onClick($index)">
+                            (click)="deleteSizeRow_onClick($index)">
                         </span>
                         <div class="size-wrapper-half">
                             <span class="size-wrapper-title">
@@ -85,6 +86,30 @@
                         </div>
                     </div>
                 </ng-container>
+                }
+            </div>
+        </nz-tab>
+
+        <nz-tab nzTitle="رنگ بندی">
+            <div class="fielder d-flex flex-column w-100 align-items-end">
+                <div>
+                    <span class="size-checkbox">{{ "hasColor" | translate }}</span>
+                    <label nz-checkbox [formControl]="colorCheckbox">
+                    </label>
+                </div>
+                <button *ngIf="hasColor" nz-button nzType="default" class="new-size-btn"
+                    (click)="addColorRow_onClick()">
+                    {{ "newColor" | translate }}
+                </button>
+            </div>
+            <div *ngIf="hasColor" class="my-1">
+                @for (row of getColorFormArrayItemValue(); track $index) {
+                <div class="color-wrapper">
+                    <span class="color-wrapper-delete" nz-icon nzType="delete" nzTheme="outline"
+                        (click)="deleteColorRow_onClick($index)">
+                    </span>
+                    <nz-color-picker [(ngModel)]="row.color"></nz-color-picker>
+                </div>
                 }
             </div>
         </nz-tab>
