@@ -1,6 +1,5 @@
 <div class="wrapper">
-    <button nz-button nzType="primary" class="save" (click)="onSubmit()"
-        [nzLoading]="saveLoading && !saveLoading.closed">
+    <button nz-button nzType="primary" class="save" (click)="onSubmit()" [nzLoading]="saveLoading">
         {{ "submit" | translate }}
     </button>
     <nz-tabset class="tabset" (nzSelectChange)="tabIndex_onChange($event)" [nzSelectedIndex]="tabIndex">
@@ -46,7 +45,8 @@
                 <div class="w-100 d-flex justify-content-center mt-2">
                     <app-carousel [primaryImageIndex]="primaryImageIndex" [showActions]="true" [images]="uploadedImages"
                         [styleConfig]="carouselStyleConfig" (deleteImage)="deleteImage_onClick($event)"
-                        (primaryChange)="primaryIndex_onChange($event)"></app-carousel>
+                        (primaryChange)="primaryIndex_onChange($event)">
+                    </app-carousel>
                 </div>
             </div>
         </nz-tab>

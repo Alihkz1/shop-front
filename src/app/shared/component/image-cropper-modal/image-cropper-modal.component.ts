@@ -63,7 +63,7 @@ export class ImageCropperModalComponent {
     const file = this.base64ToFile(this.croppedImage.base64);
     const formData = new FormData();
     formData.append('file', file);
-    this.menuApi.uploadFile(formData)
+    this.uploadLoading = this.menuApi.uploadFile(formData)
       .subscribe(({ success, data }: any) => {
         if (success) {
           this.modalRef.close({

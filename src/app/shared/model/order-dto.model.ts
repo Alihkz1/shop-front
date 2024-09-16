@@ -13,4 +13,5 @@ export interface OrderProduct {
     product: Product;
     size: string;
     amount: number;
+    color: string;
 }

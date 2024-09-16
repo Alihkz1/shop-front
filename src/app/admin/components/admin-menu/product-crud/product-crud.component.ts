@@ -8,7 +8,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ImageCropperModalComponent } from '../../../../shared/component/image-cropper-modal/image-cropper-modal.component';
 import { tinyConfig } from './tiny-mce.config';
-import { Subscription } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
 import { NzTabChangeEvent } from 'ng-zorro-antd/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Size } from '../../../../shared/model/size.model';
@@ -60,7 +60,7 @@ export class ProductCrudComponent implements OnInit {
   public get hasColor(): boolean { return this.colorCheckbox.value }
 
   dataLoading: Subscription;
-  saveLoading: Subscription;
+  saveLoading = false;
 
   public sizeByIndex(i: number) { return this.form.controls['size'].controls[i].value; }
   public aboutByIndex(i: number) { return this.form.controls['about'].controls[i].value; }
@@ -256,19 +256,25 @@ export class ProductCrudComponent implements OnInit {
   }
 
   editProduct_onConfirm(model: any) {
-    this.saveLoading = this.adminApi.editProduct(model).subscribe(({ success }: any) => {
-      if (success) {
-        this.resetAfterSubmit()
-      }
-    });
+    this.saveLoading = true;
+    this.adminApi.editProduct(model)
+      .pipe(finalize(() => this.saveLoading = false))
+      .subscribe(({ success }: any) => {
+        if (success) {
+          this.resetAfterSubmit()
+        }
+      });
   }
 
   addProduct_onConfirm(model: any) {
-    this.saveLoading = this.adminApi.addProduct(model).subscribe(({ success }: any) => {
-      if (success) {
-        this.resetAfterSubmit()
-      }
-    });
+    this.saveLoading = true;
+    this.adminApi.addProduct(model)
+      .pipe(finalize(() => this.saveLoading = false))
+      .subscribe(({ success }: any) => {
+        if (success) {
+          this.resetAfterSubmit()
+        }
+      });
   }
 
   private resetAfterSubmit() {

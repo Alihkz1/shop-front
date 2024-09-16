@@ -107,11 +107,11 @@
                             </div>
                         </ng-container>
                         <ng-container *ngIf="product.productColor.length">
-                            <div class="detail-size">
-                                <div class="detail-size-title">
+                            <div class="detail-color">
+                                <div class="detail-color-title">
                                     {{ 'selectColor' | translate }} :
                                 </div>
-                                <div class="detail-size-sizes">
+                                <div class="detail-color-colors">
                                     <ng-container *ngFor="let color of product.productColor">
                                         <span class="palette" [class.palette-selected]="selectedColor === color"
                                             [ngStyle]="{ 'background': color.color }"

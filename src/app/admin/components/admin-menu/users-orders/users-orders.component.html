@@ -118,6 +118,12 @@
                                     <b>{{ 'size' | translate }} :</b> {{ product.size }}
                                 </div>
                                 }
+                                @if (product.color) {
+                                <div class="box-product-color">
+                                    <b>{{ 'color' | translate }} :</b>
+                                    <div class="palette" [ngStyle]="{ 'background' : product.color }"></div>
+                                </div>
+                                }
                             </div>
                             }
                         </div>

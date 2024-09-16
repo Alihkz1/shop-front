@@ -99,3 +99,7 @@
         border-radius: 19px;
     }
 }
+
+::ng-deep .anticon svg {
+    margin-left: 5px;
+}

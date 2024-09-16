@@ -67,6 +67,11 @@
             font-size: 10px;
             font-weight: bold;
         }
+
+        &-color {
+            display: flex;
+            align-items: center;
+        }
     }
 }
 
@@ -121,4 +126,14 @@
 .no-order-image {
     margin-top: 200px;
     height: 120px;
+}
+
+.palette {
+    margin: 0 5px;
+    border: none;
+    height: 18px;
+    width: 18px;
+    border-radius: 22px;
+    border: 1px solid #d1d1d1;
+    cursor: pointer;
 }

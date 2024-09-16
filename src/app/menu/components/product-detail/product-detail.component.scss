@@ -328,6 +328,19 @@
         }
     }
 
+    &-color {
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+        border-bottom: var(--main-border);
+
+        &-colors {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
     &-properties {
         flex-grow: 1;
         padding: 5px 0;

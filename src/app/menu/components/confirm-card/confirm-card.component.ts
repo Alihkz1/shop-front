@@ -44,7 +44,17 @@ export class ConfirmCardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.fillForm()
     this.getShopCard()
+  }
+
+  private fillForm() {
+    const user = this.client.getUser.user
+    this.form.patchValue({
+      receiverName: user.name,
+      receiverPhone: user.phone,
+      receiverEmail: user.email,
+    })
   }
 
   private getShopCard() {
